@@ -1,0 +1,41 @@
+{
+  "env": {
+    "browser": true,
+    "es2020": true,
+    "commonjs": true,
+    "es6": true,
+    "webextensions": true
+  },
+  //   "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 11,
+    "sourceType": "module"
+  },
+  "plugins": ["promise", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "airbnb-base",
+    "plugin:promise/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    // "plugin:react-hooks/recommended",
+    // always put prettier at last
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "no-unused-vars": "off",
+    "no-console": "off",
+    "prettier/prettier": [
+      "off",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "promise/catch-or-return": ["error", { "allowFinally": true }],
+    "no-use-before-define": "off",
+    "no-debugger": "off",
+    "camelcase": "warn",
+    "no-plusplus": [{ "allowForLoopAfterthoughts": true }]
+  }
+}
