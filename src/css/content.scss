@@ -1,0 +1,105 @@
+.notion-frame {
+  position: relative;
+  .notion-scroller.vertical.horizontal {
+    width: 80%;
+  }
+}
+// utility classes
+.nb-underline {
+  background-image: linear-gradient(
+    to right,
+    rgba(55, 53, 47, 0.16) 0%,
+    rgba(55, 53, 47, 0.16) 100%
+  );
+  background-repeat: repeat-x;
+  background-position: 0px 100%;
+  background-size: 100% 1px;
+}
+
+.nb-h1 {
+  margin-left: 0px;
+}
+
+.nb-h2 {
+  margin-left: 24px;
+}
+
+.nb-h3 {
+  margin-left: 48px;
+}
+
+// disable floating help button
+.notion-cursor-listener {
+  .notion-help-button {
+    display: none !important;
+  }
+}
+// outline styling
+.nb-outline {
+  width: 20%;
+  position: absolute;
+  right: 0px;
+  top: 45px;
+  .table_of_contents {
+    width: 100%;
+    max-width: 1071px;
+    margin-top: 2px;
+    margin-bottom: 4px;
+    padding: 0 15px;
+    .title {
+      p {
+        font-size: 15px;
+        line-height: 1.5;
+        padding: 0 0 5px 0;
+        word-break: break-word;
+        white-space: pre-wrap;
+        margin: 0 0 6px 0;
+        text-align: center;
+        color: rgba(55, 53, 47, 0.6);
+        fill: rgba(55, 53, 47, 0.6);
+        font-weight: 500;
+        text-transform: uppercase;
+        @extend .nb-underline;
+      }
+    }
+    .block-wrapper {
+      position: relative;
+      height: calc(100vh - 80px);
+      overflow: auto;
+      .block {
+        color: rgba(55, 53, 47, 0.6);
+        fill: rgba(55, 53, 47, 0.6);
+        a {
+          display: block;
+          color: inherit;
+          text-decoration: none;
+
+          .btn {
+            &:hover,
+            &:focus,
+            &:active {
+              background: rgba(55, 53, 47, 0.08);
+            }
+            user-select: none;
+            transition: background 20ms ease-in 0s;
+            cursor: pointer;
+            width: 100%;
+            .align {
+              padding: 6px 2px;
+              font-size: 14px;
+              line-height: 1.3;
+              display: flex;
+              align-items: center;
+              // margin-left: 0px; add heading class here
+              .text {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
