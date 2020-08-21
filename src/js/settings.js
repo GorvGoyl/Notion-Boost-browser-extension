@@ -1,6 +1,7 @@
+// these will be called
 const defaultSettings = {
-  setOutline: true,
-  setHelpBtn: true,
+  displayOutline: true,
+  hideHelpBtn: false,
 };
 
 export default defaultSettings;

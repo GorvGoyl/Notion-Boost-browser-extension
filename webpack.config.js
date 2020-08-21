@@ -4,6 +4,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ExtensionReloader = require("webpack-extension-reloader");
 const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 module.exports = (env, argv) => {
   console.log("mode: ", argv.mode);
 
@@ -49,7 +50,33 @@ module.exports = (env, argv) => {
     }),
   ];
 
-  // DEV PLUGINS
+  const rules = [
+    // {
+    //   test: /\.html$/i,
+    //   // loader: "html-loader",
+    //   use: ["file-loader", "extract-loader", "html-loader"],
+    // },
+    {
+      test: /\.(css|scss)$/,
+      // in the `src` directory
+      use: [
+        {
+          loader: "style-loader",
+        },
+        {
+          loader: "css-loader",
+        },
+        {
+          loader: "sass-loader",
+          options: {
+            sourceMap: true,
+          },
+        },
+      ],
+    },
+  ];
+
+  // DEV ENV
   // hot reload for extension and browser page
   if (isDev) {
     pluginsArr.push(
@@ -67,14 +94,26 @@ module.exports = (env, argv) => {
     );
   }
 
-  // PROD PLUGINS
-  var optimization = {};
+  // PROD ENV
+  let optimization = {};
   if (!isDev) {
     pluginsArr.push(
       // clean build folder before new build
       new CleanWebpackPlugin()
     );
-    // remove logs for production
+    // lint before prod build
+    rules.push({
+      enforce: "pre",
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: "eslint-loader",
+      options: {
+        cache: true,
+        failOnError: true,
+        // eslint options (if necessary)
+      },
+    });
+    // remove logs for production and other optimization
     optimization = {
       minimize: true,
       minimizer: [
@@ -102,44 +141,9 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, "build"),
       filename: "[name].bundle.js",
     },
-    optimization: optimization,
+    optimization,
     module: {
-      rules: [
-        // {
-        //   test: /\.html$/i,
-        //   // loader: "html-loader",
-        //   use: ["file-loader", "extract-loader", "html-loader"],
-        // },
-        {
-          test: /\.(css|scss)$/,
-          // in the `src` directory
-          use: [
-            {
-              loader: "style-loader",
-            },
-            {
-              loader: "css-loader",
-            },
-            {
-              loader: "sass-loader",
-              options: {
-                sourceMap: true,
-              },
-            },
-          ],
-        },
-        // {
-        //   enforce: "pre",
-        //   test: /\.js$/,
-        //   exclude: /node_modules/,
-        //   loader: "eslint-loader",
-        //   options: {
-        //     cache: true,
-        //     failOnError: true,
-        //     // eslint options (if necessary)
-        //   },
-        // },
-      ],
+      rules,
     },
   };
 };

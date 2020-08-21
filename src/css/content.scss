@@ -1,7 +1,7 @@
 .notion-frame {
   position: relative;
   .notion-scroller.vertical.horizontal {
-    width: 80%;
+    // width: 80%;
   }
 }
 // utility classes
@@ -21,19 +21,19 @@
 }
 
 .nb-h2 {
-  margin-left: 24px;
+  margin-left: 18px;
 }
 
 .nb-h3 {
-  margin-left: 48px;
+  margin-left: 36px;
 }
 
 // disable floating help button
-.notion-cursor-listener {
-  .notion-help-button {
-    display: none !important;
-  }
-}
+// .notion-cursor-listener {
+//   .notion-help-button {
+//     display: none !important;
+//   }
+// }
 // outline styling
 .nb-outline {
   width: 20%;

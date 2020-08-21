@@ -9,6 +9,9 @@
   //   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 11,
+    "ecmaFeatures": {
+      "impliedStrict": true
+    },
     "sourceType": "module"
   },
   "plugins": ["promise", "prettier"],
@@ -36,6 +39,8 @@
     "no-use-before-define": "off",
     "no-debugger": "off",
     "camelcase": "warn",
-    "no-plusplus": [{ "allowForLoopAfterthoughts": true }]
+    "no-plusplus": "off",
+    "no-restricted-syntax": "off",
+    "no-param-reassign": "off"
   }
 }

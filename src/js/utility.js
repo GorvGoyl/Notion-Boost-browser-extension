@@ -1,4 +1,4 @@
-import defaultSet from "../js/settings";
+import defaultSet from "./settings";
 
 // create html node from string like $('div')
 export function toElement(
@@ -12,8 +12,11 @@ export function toElement(
   return c[l] > 1 ? c : c[0] || "";
 }
 
-export function getDivByCls(cls) {
-  return document.querySelector(cls);
+export function removeChildren(el) {
+  while (el.firstChild) el.removeChild(el.firstChild);
+}
+export function getElement(selector) {
+  return document.querySelector(selector);
 }
 // ugly method to check for empty
 export function isEmpty(obj) {
@@ -24,7 +27,7 @@ export function isEmpty(obj) {
   if (!obj) return true;
 
   // empty object = empty
-  if (Object.keys(obj).length == 0) return true;
+  if (Object.keys(obj).length === 0) return true;
   return false;
 }
 
@@ -32,10 +35,11 @@ export function isEmpty(obj) {
 export function getLatestSettings() {
   const promise = new Promise((resolve, reject) => {
     try {
-      var latestSet = { ...defaultSet };
-      chrome.storage.sync.get(["nb_settings"], function (savedSet) {
+      const latestSet = { ...defaultSet };
+      chrome.storage.sync.get(["nb_settings"], (result) => {
+        const savedSet = result.nb_settings;
         if (!isEmpty(savedSet)) {
-          for (var k of Object.keys(defaultSet)) {
+          for (const k of Object.keys(defaultSet)) {
             if (!isEmpty(savedSet[k])) {
               latestSet[k] = savedSet[k];
             }

@@ -1,11 +1,5 @@
 import "../css/popup.scss";
-import defaultSet from "../js/settings";
-import {
-  isEmpty,
-  toElement,
-  getDivByCls,
-  getLatestSettings,
-} from "../js/utility";
+import { isEmpty, toElement, getElement, getLatestSettings } from "./utility";
 
 console.log("this is from popup: ");
 console.log("sending msg to content: ");
@@ -15,57 +9,50 @@ console.log("sending msg to content: ");
 //   });
 // });
 
-var latSet = {};
 function init() {
-  getLatestSettings().then((set) => {
-    latSet = set;
-    if (set.outline) {
-      document.getElementById("myCheck").checked = true;
-    } else {
-      document.getElementById("myCheck").checked = false;
-    }
-  });
-  document.querySelector(".myCheck").addEventListener("click", myFunction);
+  getLatestSettings()
+    .then((set) => {
+      console.log("LatestSettings: ", set);
+
+      const outlineEl = getElement(".outline");
+      const helpBtnEl = getElement(".help-btn");
+      outlineEl.checked = set[outlineEl.getAttribute("data-func")];
+      helpBtnEl.checked = set[helpBtnEl.getAttribute("data-func")];
+
+      outlineEl.addEventListener("click", updateSettings);
+      helpBtnEl.addEventListener("click", updateSettings);
+      return null;
+    })
+    .catch((e) => console.log(e));
 }
 init();
 
-function myFunction() {
+function updateSettings(el) {
   console.log("cb clicked: ");
 
-  let value;
-  // Get the checkbox
-  var checkBox = document.getElementById("myCheck");
-  // Get the output text
+  const func = el.target.getAttribute("data-func");
+  console.log("updateSettings -> func", func);
 
-  // If the checkbox is checked, display the output text
-  if (checkBox.checked == true) {
-    value = true;
+  const isShow = el.target.checked;
+  console.log("updateSettings -> isShow", isShow);
 
-    //   console.log('enabling outline: ');
-  } else {
-    value = false;
-  }
+  getLatestSettings()
+    .then((set) => {
+      console.log("updateSettings -> set", set);
+      set[func] = isShow;
+      set.call_func = {
+        name: func,
+        arg: isShow,
+      };
 
-  getLatestSettings().then((set) => {
-    set.setOutline = value;
-    set.call_func = {
-      name: "setOutline",
-      arg: latSet.setOutline,
-    };
-
-    chrome.storage.sync.set({ nb_update: set }, function () {
-      // Notify that we saved.
-      // message("Settings saved");
-    });
-  });
-
-  //   latSet.call_func = {
-  //     name: "setOutline",
-  //     arg: latSet.setOutline,
-  //   };
+      chrome.storage.sync.set({ nb_settings: set }, () => {
+        // Notify that we saved.
+        // message("Settings saved");
+      });
+      return null;
+    })
+    .catch((e) => console.log(e));
 }
-
-// let tt = new Date().getTime();
 
 // let obj = {
 //   outline: {
