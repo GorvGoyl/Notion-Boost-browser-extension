@@ -1,0 +1,17 @@
+{
+  "permissions": ["activeTab", "storage"],
+
+  "page_action": {
+    "default_icon": {
+      "19": "images/icon16.png",
+      "38": "images/icon32.png"
+    },
+    "show_matches": ["*://*.notion.so/*"]
+  },
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "notionboost@example.com"
+    }
+  }
+}

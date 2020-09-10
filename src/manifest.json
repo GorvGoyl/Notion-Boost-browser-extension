@@ -9,9 +9,7 @@
     "128": "images/icon128.png"
   },
   "author": "jerrygoyal",
-  "permissions": ["activeTab", "declarativeContent", "storage"],
-  "background": { "scripts": ["background.bundle.js"], "persistent": false },
-  "offline_enabled": true,
+
   "content_scripts": [
     {
       "matches": ["*://*.notion.so/*"],
@@ -19,16 +17,10 @@
     }
   ],
   "page_action": {
-    "default_icon": {
-      "16": "images/icon16.png",
-      "24": "images/icon24.png",
-      "32": "images/icon32.png"
-    },
     "default_title": "Notion Boost",
     "default_popup": "popup.html"
   },
   "short_name": "Notion Boost",
   "web_accessible_resources": ["content.bundle.js"],
-  "manifest_version": 2,
-  "content_security_policy": "script-src 'self'  'unsafe-eval'; object-src 'self'"
+  "manifest_version": 2
 }

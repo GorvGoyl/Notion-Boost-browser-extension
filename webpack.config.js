@@ -4,11 +4,36 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ExtensionReloader = require("webpack-extension-reloader");
 const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MergeJsonWebpackPlugin = require("merge-jsons-webpack-plugin");
 
 module.exports = (env, argv) => {
   console.log("mode: ", argv.mode);
 
   const isDev = argv.mode === "development";
+  const isChrome = argv.browser === "chrome";
+  const isFirefox = argv.browser === "firefox";
+
+  const entry = {
+    content: path.join(__dirname, "src", "js", "content.js"),
+    popup: path.join(__dirname, "src", "js", "popup.js"),
+  };
+  const output = {
+    filename: "[name].bundle.js",
+  };
+  const manifest = ["src/manifest.json"];
+  let buildDist = "build";
+  // CHROME SPECIFIC BUILD
+  if (isChrome) {
+    buildDist = "build_chrome";
+    manifest.push("src/manifest.chrome.json");
+    entry.background = path.join(__dirname, "src", "js", "background.js");
+  }
+
+  // FIREFOX SPECIFIC BUILD
+  if (isFirefox) {
+    buildDist = "build_firefox";
+    manifest.push("src/manifest.firefox.json");
+  }
 
   // COMMON PLUGINS
   const pluginsArr = [
@@ -20,32 +45,36 @@ module.exports = (env, argv) => {
       template: "src/popup.html",
     }),
 
+    new MergeJsonWebpackPlugin({
+      files: manifest,
+      output: {
+        fileName: "manifest.json",
+      },
+    }),
+
     // copy files from A to B location
     new CopyWebpackPlugin({
       patterns: [
-        {
-          from: "src/manifest.json",
-          to: path.join(__dirname, "build"),
-          force: true,
-          transform(content, p) {
-            // after setting env it'll generate manifest file using the package.json informations
-            return Buffer.from(
-              JSON.stringify({
-                description: process.env.npm_package_description,
-                version: process.env.npm_package_version,
-                ...JSON.parse(content.toString()),
-              })
-            );
-          },
-        },
+        // {
+        //   from: "src/manifest.json",
+        //   to: path.join(__dirname, "build"),
+        //   force: true,
+        //   transform(content, p) {
+        //     // after setting env it'll generate manifest file using the package.json informations
+        //     return Buffer.from(
+        //       JSON.stringify({
+        //         description: process.env.npm_package_description,
+        //         version: process.env.npm_package_version,
+        //         ...JSON.parse(content.toString()),
+        //       })
+        //     );
+        //   },
+        // },
         {
           from: "src/images",
-          to: path.join(__dirname, "build/images"),
+          force: true,
+          to: path.join(__dirname, `${buildDist}/images`),
         },
-        // {
-        //   from: "src/lib",
-        //   to: path.join(__dirname, "build/lib"),
-        // },
       ],
     }),
   ];
@@ -129,16 +158,12 @@ module.exports = (env, argv) => {
   }
 
   return {
-    entry: {
-      content: path.join(__dirname, "src", "js", "content.js"),
-      background: path.join(__dirname, "src", "js", "background.js"),
-      popup: path.join(__dirname, "src", "js", "popup.js"),
-    },
+    entry,
     devtool: isDev ? "inline-source-map" : "", // other option: "eval-cheap-module-source-map";
 
     plugins: pluginsArr,
     output: {
-      path: path.resolve(__dirname, "build"),
+      path: path.resolve(__dirname, buildDist),
       filename: "[name].bundle.js",
     },
     optimization,

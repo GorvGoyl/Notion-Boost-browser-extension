@@ -1,0 +1,12 @@
+{
+  "offline_enabled": true,
+  "page_action": {
+    "default_icon": {
+      "16": "images/icon16.png",
+      "24": "images/icon24.png",
+      "32": "images/icon32.png"
+    }
+  },
+  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "background": { "scripts": ["background.bundle.js"], "persistent": false }
+}
