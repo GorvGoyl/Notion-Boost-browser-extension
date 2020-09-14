@@ -111,6 +111,7 @@ function addOutline() {
     console.log("don't show outline for full page tables");
     return;
   }
+
   const notionScrollerEl = getElement(notionScrollerCls);
   // make space for outline div
   notionScrollerEl.style.width = "80%";
@@ -119,7 +120,7 @@ function addOutline() {
   let outlineEl = getElement(outlineFrameCls);
 
   if (!outlineEl || outlineEl.length === 0) {
-    // do not add any space between closing and ending of ` otherwise $ will create multiple elements
+    // do not add any space between closing and ending of `
     outlineEl = toElement(`<div class="nb-outline">
       <div class="table_of_contents">
         <div class="title">
@@ -137,6 +138,7 @@ function addOutline() {
   outlineEl.style.display = "block";
 
   const blockWrapperEl = outlineEl.querySelector(".block-wrapper");
+
   // empty any previous headings
   removeChildren(blockWrapperEl);
 
@@ -165,26 +167,30 @@ function addOutline() {
 
   const blocks = pageContent.children;
   let block = "";
+
+  let isHeadingFound = false;
+
   // find headings and add it to outline
   for (let i = 0; i < blocks.length; i++) {
-    let hCls = "";
+    let headingCls = "";
     const b = blocks[i];
     if (b.classList.contains("notion-header-block")) {
-      hCls = "nb-h1";
+      headingCls = "nb-h1";
     } else if (b.classList.contains("notion-sub_header-block")) {
-      hCls = "nb-h2";
+      headingCls = "nb-h2";
     } else if (b.classList.contains("notion-sub_sub_header-block")) {
-      hCls = "nb-h3";
+      headingCls = "nb-h3";
     } else {
-      hCls = "";
+      headingCls = "";
     }
 
-    if (hCls) {
+    if (headingCls) {
+      isHeadingFound = true;
       block = toElement(tocBlockHTML);
 
       // add text
       const text = b.textContent;
-      block.querySelector(".align").classList.add(hCls);
+      block.querySelector(".align").classList.add(headingCls);
       block.querySelector(".text").textContent = text;
 
       // add href
@@ -199,6 +205,12 @@ function addOutline() {
 
       blockWrapperEl.appendChild(block);
     }
+  }
+
+  // don't show outline if there is no heading
+  if (!isHeadingFound) {
+    console.log("no heading found so removing outline frame");
+    hideOutline();
   }
 }
 
