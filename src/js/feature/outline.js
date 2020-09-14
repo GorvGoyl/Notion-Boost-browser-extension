@@ -1,4 +1,10 @@
-import { isEmpty, getElement, toElement, removeChildren } from "../utility";
+import {
+  isEmpty,
+  getElement,
+  toElement,
+  removeChildren,
+  onElementLoaded,
+} from "../utility";
 
 let pageChangeObserver = {};
 let docEditObserver = {};
@@ -194,44 +200,6 @@ function addOutline() {
 }
 
 // UTILITY FUNCTIONS
-
-// return promise when div is loaded
-// pass div and parent div class
-function onElementLoaded(divClass, ParentDivClass) {
-  console.log(`waiting for element: ${divClass}`);
-  const promise = new Promise((resolve, reject) => {
-    try {
-      if (getElement(divClass)) {
-        console.log(`element already present: ${divClass}`);
-        resolve(true);
-      }
-      const parentElement = ParentDivClass
-        ? getElement(ParentDivClass)
-        : document;
-
-      const observer = new MutationObserver((mutationList, obsrvr) => {
-        const divToCheck = getElement(divClass);
-        // console.log("checking for div...");
-
-        if (divToCheck) {
-          console.log(`element loaded: ${divClass}`);
-          obsrvr.disconnect(); // stop observing
-          resolve(true);
-        }
-      });
-
-      // start observing for dynamic div
-      observer.observe(parentElement, {
-        childList: true,
-        subtree: true,
-      });
-    } catch (e) {
-      console.log(e);
-      reject(Error("some issue... promise rejected"));
-    }
-  });
-  return promise;
-}
 
 function docEditListener() {
   console.log("listening for doc edit changes...");

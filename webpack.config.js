@@ -111,7 +111,7 @@ module.exports = (env, argv) => {
     pluginsArr.push(
       new ExtensionReloader({
         reloadPage: true, // Force the reload of the page also
-        manifest: path.resolve(__dirname, "src", "manifest.json"),
+        manifest: path.resolve(__dirname, buildDist, "manifest.json"),
 
         // entries: {
         //   contentScript: "./src/js/content",

@@ -41,6 +41,7 @@ function init() {
     }
   });
 }
+
 init();
 
 chrome.storage.onChanged.addListener((changes, namespace) => {

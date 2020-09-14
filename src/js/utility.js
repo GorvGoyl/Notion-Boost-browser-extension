@@ -1,5 +1,45 @@
 import defaultSet from "./settings";
 
+// return promise when div is loaded
+// pass div and (optional) parent div class
+// if parent class is not passed then `document` is used
+export function onElementLoaded(divClass, ParentDivClass) {
+  console.log(`waiting for element: ${divClass}`);
+  const promise = new Promise((resolve, reject) => {
+    try {
+      if (getElement(divClass)) {
+        console.log(`element already present: ${divClass}`);
+        resolve(true);
+        return;
+      }
+      const parentElement = ParentDivClass
+        ? getElement(ParentDivClass)
+        : document;
+
+      const observer = new MutationObserver((mutationList, obsrvr) => {
+        const divToCheck = getElement(divClass);
+        // console.log("checking for div...");
+
+        if (divToCheck) {
+          console.log(`element loaded: ${divClass}`);
+          obsrvr.disconnect(); // stop observing
+          resolve(true);
+        }
+      });
+
+      // start observing for dynamic div
+      observer.observe(parentElement, {
+        childList: true,
+        subtree: true,
+      });
+    } catch (e) {
+      console.log(e);
+      reject(Error("some issue... promise rejected"));
+    }
+  });
+  return promise;
+}
+
 // create html node from string like $('div')
 export function toElement(
   s = "",
