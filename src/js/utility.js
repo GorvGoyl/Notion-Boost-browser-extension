@@ -1,4 +1,4 @@
-import defaultSet from "./settings";
+import { defaultSettings } from "./settings";
 
 // return promise when div is loaded
 // pass div and (optional) parent div class
@@ -75,11 +75,11 @@ export function isEmpty(obj) {
 export function getLatestSettings() {
   const promise = new Promise((resolve, reject) => {
     try {
-      const latestSet = { ...defaultSet };
+      const latestSet = { ...defaultSettings };
       chrome.storage.sync.get(["nb_settings"], (result) => {
         const savedSet = result.nb_settings;
         if (!isEmpty(savedSet)) {
-          for (const k of Object.keys(defaultSet)) {
+          for (const k of Object.keys(defaultSettings)) {
             if (!isEmpty(savedSet[k])) {
               latestSet[k] = savedSet[k];
             }

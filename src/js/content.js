@@ -1,8 +1,8 @@
 import "../css/content.scss";
-import defaultSet from "./settings";
-import { isEmpty, toElement, getElement, getLatestSettings } from "./utility";
-import displayOutline from "./feature/outline";
-import hideHelpBtn from "./feature/pageElements";
+import { defaultSettings } from "./settings";
+import { isEmpty, getLatestSettings } from "./utility";
+import { displayOutline } from "./feature/outline";
+import { hideHelpBtn } from "./feature/pageElements";
 
 let Handler = {};
 
@@ -10,7 +10,7 @@ Handler = { displayOutline, hideHelpBtn };
 
 function init() {
   let syncSet = {};
-  const updatedSet = { ...defaultSet };
+  const updatedSet = { ...defaultSettings };
 
   getLatestSettings()
     .then((set) => {
@@ -33,8 +33,8 @@ function init() {
 
     // merge synced settings with default settings and then apply updated settings
     if (!isEmpty(syncSet)) {
-      for (const k of Object.keys(defaultSet)) {
-        if (!isEmpty(syncSet[k]) && syncSet[k] !== defaultSet[k]) {
+      for (const k of Object.keys(defaultSettings)) {
+        if (!isEmpty(syncSet[k]) && syncSet[k] !== defaultSettings[k]) {
           updatedSet[k] = syncSet[k];
         }
       }

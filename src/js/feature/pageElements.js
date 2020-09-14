@@ -2,7 +2,7 @@ import { getElement, onElementLoaded } from "../utility";
 
 const notionHelpBtnCls = ".notion-help-button";
 
-export default function hideHelpBtn(isHide) {
+export function hideHelpBtn(isHide) {
   try {
     console.log(`feature: hideHelpBtn: ${isHide}`);
 

@@ -35,6 +35,7 @@
         "endOfLine": "auto"
       }
     ],
+    "import/prefer-default-export": "off",
     "promise/catch-or-return": ["error", { "allowFinally": true }],
     "no-use-before-define": "off",
     "no-debugger": "off",

@@ -1,7 +1,5 @@
 // these will be called
-const defaultSettings = {
+export const defaultSettings = {
   displayOutline: true,
   hideHelpBtn: false,
 };
-
-export default defaultSettings;

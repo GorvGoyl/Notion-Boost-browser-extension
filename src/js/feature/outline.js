@@ -13,15 +13,14 @@ let docEditObserver = {};
 
 // stays on page change
 const notionFrameCls = ".notion-frame";
-
 const outlineFrameCls = ".nb-outline";
 
 // these gets removed on doc change
 const notionScrollerCls = ".notion-scroller.vertical.horizontal";
-
 const notionPageContentCls = ".notion-page-content";
 
-export default function displayOutline(isShow) {
+// starting point
+export function displayOutline(isShow) {
   console.log(`feature: displayOutline: ${isShow}`);
 
   if (isShow) {
@@ -43,10 +42,6 @@ export default function displayOutline(isShow) {
   } else {
     removeOutline();
   }
-}
-
-function addOutlineFrame() {
-  getElement(notionScrollerCls).style.width = "80%";
 }
 
 function removeDocEditListener() {
@@ -77,6 +72,7 @@ function removeOutline() {
 function hideOutline() {
   const outline = getElement(outlineFrameCls);
 
+  if (!outline) return;
   outline.style.display = "none";
 
   getElement(notionScrollerCls).style.width = "100%";
@@ -90,6 +86,7 @@ function hideOutline() {
     });
   }
 }
+
 function clearOutline() {
   hideOutline();
 
@@ -99,6 +96,7 @@ function clearOutline() {
     outline.remove();
   }
 }
+
 function addOutline() {
   console.log("adding/updating OUTLINE");
 
@@ -108,6 +106,11 @@ function addOutline() {
     return;
   }
 
+  const fullPageTable = getElement(".notion-peek-renderer");
+  if (fullPageTable && fullPageTable.querySelector(notionPageContentCls)) {
+    console.log("don't show outline for full page tables");
+    return;
+  }
   const notionScrollerEl = getElement(notionScrollerCls);
   // make space for outline div
   notionScrollerEl.style.width = "80%";
@@ -201,6 +204,7 @@ function addOutline() {
 
 // UTILITY FUNCTIONS
 
+// add/update outline if any heading change occurs
 function docEditListener() {
   console.log("listening for doc edit changes...");
 
@@ -306,31 +310,20 @@ function docEditListener() {
   });
 }
 
-function isHeading(placeholder) {
-  // check if the change was related to headings
-  if (
-    placeholder === "Heading 1" ||
-    placeholder === "Heading 2" ||
-    placeholder === "Heading 3"
-  ) {
-    return true;
-  }
-  return false;
-}
 // add listener for page change or window reload
-// triggers whenever new doc is opened in notion without full reload
+// it detaches old listeners and adds new doceditlistener and outline
 function pageChangeListener() {
   console.log("listening for page change events...");
 
   // initialise it one time
   if (!isObserverType(pageChangeObserver)) {
     pageChangeObserver = new MutationObserver((mutationList, obsrvr) => {
-      console.log("new page opened without full reload");
+      console.log("new page opened");
       removeDocEditListener();
       hideOutline();
       // check if scroller class is loaded
       if (getElement(notionScrollerCls)) {
-        // wait for page-content class to be loaded
+        // now wait for page-content class to be loaded
         onElementLoaded(notionPageContentCls, notionScrollerCls)
           .then((isPresent) => {
             if (isPresent) {
@@ -353,4 +346,16 @@ function pageChangeListener() {
 
 function isObserverType(obj) {
   return obj.constructor.name === "MutationObserver";
+}
+
+function isHeading(placeholder) {
+  // check if the change was related to headings
+  if (
+    placeholder === "Heading 1" ||
+    placeholder === "Heading 2" ||
+    placeholder === "Heading 3"
+  ) {
+    return true;
+  }
+  return false;
 }
