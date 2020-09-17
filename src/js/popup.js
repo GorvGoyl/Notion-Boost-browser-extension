@@ -16,9 +16,10 @@ function init() {
 
       const outlineEl = getElement(".outline");
       const helpBtnEl = getElement(".help-btn");
-      outlineEl.checked = set[outlineEl.getAttribute("data-func")];
-      helpBtnEl.checked = set[helpBtnEl.getAttribute("data-func")];
-
+      let cls = set[outlineEl.getAttribute("data-func")] ? "enable" : "disable";
+      outlineEl.classList.add(cls);
+      cls = set[helpBtnEl.getAttribute("data-func")] ? "enable" : "disable";
+      helpBtnEl.classList.add(cls);
       outlineEl.addEventListener("click", updateSettings);
       helpBtnEl.addEventListener("click", updateSettings);
       return null;
@@ -29,11 +30,21 @@ init();
 
 function updateSettings(el) {
   console.log("cb clicked: ");
-
-  const func = el.target.getAttribute("data-func");
+  const func = el.currentTarget.getAttribute("data-func");
   console.log("updateSettings -> func", func);
 
-  const isShow = el.target.checked;
+  let isShow = false;
+  const { classList } = el.currentTarget;
+  if (classList.contains("enable")) {
+    isShow = false;
+    classList.remove("enable");
+    classList.add("disable");
+  } else if (classList.contains("disable")) {
+    isShow = true;
+    classList.remove("disable");
+    classList.add("enable");
+  }
+
   console.log("updateSettings -> isShow", isShow);
 
   getLatestSettings()

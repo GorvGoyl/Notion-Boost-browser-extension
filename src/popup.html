@@ -8,18 +8,62 @@
   </head>
 
   <body>
-    <div class="div-wrapper">
-      <div>
-        <h1>Features</h1>
-      </div>
-      <div class="desc">
-        <div>
-          Enable Outline:
-          <input type="checkbox" class="outline" data-func="displayOutline" />
+    <div class="wrapper">
+      <div class="popup title">Notion Boost</div>
+      <div class="settings table">
+        <div class="row outline" data-func="displayOutline">
+          <div style="flex: 1 1 0%">
+            <div class="name">Show Outline</div>
+            <div class="desc">
+              Show outline (table of contents) on the right side of opened
+              document.
+            </div>
+          </div>
+          <div
+            class="button toggle"
+            role="button"
+            aria-disabled="false"
+            tabindex="0"
+          >
+            <div class="knob">
+              <div class="pos"></div>
+            </div>
+          </div>
         </div>
-        <div>
-          Hide help button:
-          <input type="checkbox" class="help-btn" data-func="hideHelpBtn" />
+        <div class="divider">
+          <div class="border"></div>
+        </div>
+        <div class="row help-btn" data-func="hideHelpBtn">
+          <div style="flex: 1 1 0%">
+            <div class="name">Hide Help button</div>
+            <div class="desc">
+              Hide floating help button on the bottom-right corner of document.
+            </div>
+          </div>
+          <div
+            class="button toggle"
+            role="button"
+            aria-disabled="false"
+            tabindex="0"
+          >
+            <div class="knob">
+              <div class="pos"></div>
+            </div>
+          </div>
+        </div>
+        <div class="divider">
+          <div class="border"></div>
+        </div>
+        <div style="margin-top: 4px" class="footer">
+          <a
+            class="footer"
+            href="https://www.notion.so/bef80feafec64c789e631c85a16f2d5b#c4d40cecfa654dadb67992b981a12aed"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><div class="button" role="button" tabindex="0">
+              Learn about mobile and desktop notifications
+            </div></a
+          >
         </div>
       </div>
     </div>

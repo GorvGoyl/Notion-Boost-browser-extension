@@ -1,42 +1,137 @@
-body{
-    background-color: #0087FA;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border: solid 2px white;
-    border-radius: 10px;
-    width: 350px;
-    height: 200px;
-    cursor: context-menu;
+@import "button.scss";
+
+*,
+*:focus {
+  outline: 0;
 }
-h1 {
-  
-    margin-top: 5px;
-    color: #fff;
-    text-align: center;
-  
-  }
-  .desc{
-    margin: 0 20px 0 20px;
-  }
-  h2,h3,p {
-    color: #fff;
-    word-break: break-word;
-  }
-  p{
-    margin-top: 5px;
-  }
-  h3{
-    margin-bottom: 0px;
-    display: list-item;
-    list-style-type: disc;
-    list-style-position: inside;
+* {
+  box-sizing: border-box;
 }
 
+body {
+  fill: currentcolor;
+  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+    "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  -webkit-font-smoothing: auto;
+}
 
-  .div-wrapper{
-   
+.wrapper {
+  flex-grow: 1;
+  transform: translateZ(0px);
+  padding: 9px 15px;
+  overflow: auto;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  .popup.title {
+    color: rgb(55, 53, 47);
+    border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    font-size: 18px;
+    font-weight: 500;
+    width: auto;
   }
-  
- 
-  /* CHECKBOX START*/
-  
-  /* CHECKBOX END*/
+}
+
+.button.toggle {
+  user-select: none;
+  transition: background 20ms ease-in 0s;
+  cursor: pointer;
+  border-radius: 44px;
+
+  .knob {
+    display: flex;
+    flex-shrink: 0;
+    height: 14px;
+    width: 26px;
+    border-radius: 44px;
+    padding: 2px;
+    box-sizing: content-box;
+    @include button() {
+      background: themed("background");
+    }
+    transition: background 200ms ease 0s, box-shadow 200ms ease 0s;
+  }
+  .pos {
+    width: 14px;
+    height: 14px;
+    border-radius: 44px;
+    background: white;
+    transition: transform 50ms ease-out 0s, background 50ms ease-out 0s;
+    @include button() {
+      transform: themed("transform");
+    }
+  }
+}
+
+.table.settings {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: auto;
+  padding-left: 0px;
+  padding-right: 0px;
+
+  .row {
+    user-select: none;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    cursor: pointer;
+
+    .name {
+      font-size: 14px;
+    }
+    .desc {
+      font-size: 12px;
+      line-height: 16px;
+      color: rgba(55, 53, 47, 0.6);
+      width: 80%;
+      margin-top: 4px;
+    }
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    width: 100%;
+    height: 24px;
+    flex: 0 0 auto;
+    .border {
+      width: 100%;
+      height: 1px;
+      visibility: visible;
+      border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+    }
+  }
+
+  .footer {
+    display: flex;
+    text-decoration: none;
+    user-select: none;
+    cursor: pointer;
+    color: inherit;
+    margin-left: -6px;
+    .button {
+      user-select: none;
+      transition: background 20ms ease-in 0s;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      white-space: nowrap;
+      height: 24px;
+      border-radius: 3px;
+      font-size: 14px;
+      line-height: 1.2;
+      min-width: 0px;
+      padding-left: 6px;
+      padding-right: 6px;
+      color: rgba(55, 53, 47, 0.4);
+    }
+  }
+}
