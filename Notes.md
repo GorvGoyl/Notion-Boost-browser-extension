@@ -27,3 +27,15 @@
         - notion-scroller vertical horizontal
           - `notion-page-content`
             - blocks
+
+# Dark Theme
+
+- notion-body dark
+  - notion-app
+    - notion-app-inner notion-dark-theme
+
+# Light Theme
+
+- notion-body
+  - notion-app
+    - notion-app-inner notion-light-theme

@@ -1,0 +1,50 @@
+$themes: (
+  light: (
+    color: rgba(55, 53, 47, 0.6),
+    fill: rgba(55, 53, 47, 0.6),
+    background: rgba(55, 53, 47, 0.08),
+    background-image:
+      linear-gradient(
+        to right,
+        rgba(55, 53, 47, 0.16) 0%,
+        rgba(55, 53, 47, 0.16) 100%
+      ),
+  ),
+  dark: (
+    color: rgba(255, 255, 255, 0.6),
+    fill: rgba(255, 255, 255, 0.6),
+    background: rgb(71, 76, 80),
+    background-image:
+      linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.14) 0%,
+        rgba(255, 255, 255, 0.14) 100%
+      ),
+  ),
+);
+
+/*
+ * Implementation of themes
+ */
+@mixin themify() {
+  @each $theme, $map in $themes {
+    .notion-#{$theme}-theme & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), "#{$key}");
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
