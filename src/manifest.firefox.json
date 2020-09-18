@@ -3,12 +3,15 @@
 
   "page_action": {
     "default_icon": {
-      "19": "images/icon16.png",
-      "38": "images/icon32.png"
+      "19": "images/icon19.png",
+      "38": "images/icon38.png"
     },
     "show_matches": ["*://*.notion.so/*"]
   },
-
+  "icons": {
+    "48": "images/icon48.png",
+    "96": "images/icon96.png"
+  },
   "browser_specific_settings": {
     "gecko": {
       "id": "notionboost@example.com"

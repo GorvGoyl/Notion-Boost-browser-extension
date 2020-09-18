@@ -2,12 +2,7 @@
   "name": "Notion Boost",
   "version": "0.1.0",
   "description": "Show outline for notion https://notion.so. More cool features on the way!",
-  "icons": {
-    "16": "images/icon16.png",
-    "32": "images/icon32.png",
-    "48": "images/icon48.png",
-    "128": "images/icon128.png"
-  },
+
   "author": "jerrygoyal",
 
   "content_scripts": [

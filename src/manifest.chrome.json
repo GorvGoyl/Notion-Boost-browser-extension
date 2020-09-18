@@ -7,6 +7,11 @@
       "32": "images/icon32.png"
     }
   },
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
   "permissions": ["activeTab", "declarativeContent", "storage"],
   "background": { "scripts": ["background.bundle.js"], "persistent": false }
 }
