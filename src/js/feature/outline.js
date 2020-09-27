@@ -75,7 +75,6 @@ function hideOutline() {
   if (!outline) return;
   outline.style.display = "none";
 
-  getElement(notionScrollerCls).style.width = "100%";
   const pageContent = getElement(notionPageContentCls);
   //  removal of := fix weird bug where inline table (if any) goes to the left if page width is 100%
   if (pageContent) {
@@ -113,8 +112,6 @@ function addOutline() {
   }
 
   const notionScrollerEl = getElement(notionScrollerCls);
-  // make space for outline div
-  notionScrollerEl.style.width = "80%";
 
   // check if it outline exist already
   let outlineEl = getElement(outlineFrameCls);
@@ -155,15 +152,6 @@ function addOutline() {
        </div>
      </a>
    </div>`;
-
-  //  fix weird bug where inline table (if any) goes to the left if page width is 100%
-  pageContent.childNodes.forEach((block) => {
-    if (block.classList.contains("notion-collection_view-block")) {
-      if (pageContent.style.width === "100%") block.style.paddingLeft = "128px";
-      // 96px
-      else block.style.paddingLeft = "0";
-    }
-  });
 
   const blocks = pageContent.children;
   let block = "";

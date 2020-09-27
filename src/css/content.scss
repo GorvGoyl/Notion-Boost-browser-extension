@@ -1,5 +1,7 @@
 @import "theme.scss";
 
+$docWidth: 83vw;
+
 .notion-frame {
   position: relative;
 }
@@ -17,9 +19,30 @@
   margin-left: 36px;
 }
 
+// [style^="font-weight:600"] {
+//   /* font-family: Arial, Helvetica, sans-serif; */
+//   font-weight: 700 !important;
+// }
+
+// div[style*="width: 100%"].notion-page-content {
+//   font-weight: 700 !important;
+// }
+
+// set inline tables width when outline is enabled.
+.nb-outline
+  + .notion-scroller.vertical.horizontal
+  .notion-page-content
+  > .notion-collection_view-block {
+  width: $docWidth - 2vw !important;
+}
+
+.nb-outline + .notion-scroller.vertical.horizontal {
+  width: $docWidth !important;
+}
+
 // outline styling
 .nb-outline {
-  width: 20%;
+  width: 100vw - $docWidth;
   position: absolute;
   right: 0px;
   top: 45px;
