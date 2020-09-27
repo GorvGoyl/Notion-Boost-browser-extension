@@ -73,16 +73,16 @@ function hideOutline() {
   const outline = getElement(outlineFrameCls);
 
   if (!outline) return;
-  outline.style.display = "none";
+  outline.classList.remove("show");
 
   const pageContent = getElement(notionPageContentCls);
   //  removal of := fix weird bug where inline table (if any) goes to the left if page width is 100%
   if (pageContent) {
-    pageContent.childNodes.forEach((block) => {
-      if (block.classList.contains("notion-collection_view-block")) {
-        block.style.paddingLeft = "0";
-      }
-    });
+    // pageContent.childNodes.forEach((block) => {
+    //   if (block.classList.contains("notion-collection_view-block")) {
+    //     block.style.paddingLeft = "0";
+    //   }
+    // });
   }
 }
 
@@ -131,8 +131,6 @@ function addOutline() {
     // add toc container
     getElement(notionFrameCls).insertBefore(outlineEl, notionScrollerEl);
   }
-
-  outlineEl.style.display = "block";
 
   const blockWrapperEl = outlineEl.querySelector(".block-wrapper");
 
@@ -195,10 +193,12 @@ function addOutline() {
     }
   }
 
-  // don't show outline if there is no heading
+  // hide outline if there is no heading
   if (!isHeadingFound) {
     console.log("no heading found so removing outline frame");
     hideOutline();
+  } else {
+    outlineEl.classList.add("show");
   }
 }
 
@@ -321,6 +321,7 @@ function pageChangeListener() {
       console.log("new page opened");
       removeDocEditListener();
       hideOutline();
+      // clearOutline();
       // check if scroller class is loaded
       if (getElement(notionScrollerCls)) {
         // now wait for page-content class to be loaded

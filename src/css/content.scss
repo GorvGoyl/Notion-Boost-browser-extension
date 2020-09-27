@@ -29,19 +29,24 @@ $docWidth: 83vw;
 // }
 
 // set inline tables width when outline is enabled.
-.nb-outline
+.nb-outline.show
   + .notion-scroller.vertical.horizontal
   .notion-page-content
   > .notion-collection_view-block {
   width: $docWidth - 2vw !important;
 }
 
-.nb-outline + .notion-scroller.vertical.horizontal {
+.nb-outline.show + .notion-scroller.vertical.horizontal {
   width: $docWidth !important;
 }
 
 // outline styling
+
 .nb-outline {
+  &.show {
+    display: block !important;
+  }
+  display: none;
   width: 100vw - $docWidth;
   position: absolute;
   right: 0px;
