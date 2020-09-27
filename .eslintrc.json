@@ -6,7 +6,7 @@
     "es6": true,
     "webextensions": true
   },
-  //   "parser": "babel-eslint",
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 11,
     "ecmaFeatures": {
@@ -16,6 +16,7 @@
   },
   "plugins": ["promise", "prettier"],
   "extends": [
+    "preact",
     "eslint:recommended",
     "airbnb-base",
     "plugin:promise/recommended",
@@ -23,18 +24,17 @@
     "plugin:import/warnings",
     // "plugin:react-hooks/recommended",
     // always put prettier at last
-    "plugin:prettier/recommended",
     "prettier"
   ],
   "rules": {
     "no-unused-vars": "off",
     "no-console": "off",
-    "prettier/prettier": [
-      "off",
-      {
-        "endOfLine": "auto"
-      }
-    ],
+    // "prettier/prettier": [
+    //   "off",
+    //   {
+    //     "endOfLine": "auto"
+    //   }
+    // ],
     "import/prefer-default-export": "off",
     "promise/catch-or-return": ["error", { "allowFinally": true }],
     "no-use-before-define": "off",

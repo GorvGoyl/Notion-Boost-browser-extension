@@ -15,7 +15,7 @@ module.exports = (env, argv) => {
 
   const entry = {
     content: path.join(__dirname, "src", "js", "content.js"),
-    popup: path.join(__dirname, "src", "js", "popup.js"),
+    popup: path.join(__dirname, "src", "popup.jsx"),
   };
   const output = {
     filename: "[name].bundle.js",
@@ -103,6 +103,22 @@ module.exports = (env, argv) => {
         },
       ],
     },
+    {
+      test: /\.jsx?$/,
+      exclude: /(node_modules)/,
+      use: {
+        loader: "babel-loader",
+        options: {
+          presets: ["@babel/preset-env"],
+          plugins: [
+            [
+              "@babel/plugin-transform-react-jsx",
+              { pragma: "h", pragmaFrag: "Fragment" },
+            ],
+          ],
+        },
+      },
+    },
   ];
 
   // DEV ENV
@@ -139,6 +155,9 @@ module.exports = (env, argv) => {
       options: {
         cache: true,
         failOnError: true,
+        emitError: true,
+        emitWarning: true,
+        failOnWarning: true,
         // eslint options (if necessary)
       },
     });
@@ -169,6 +188,9 @@ module.exports = (env, argv) => {
     optimization,
     module: {
       rules,
+    },
+    resolve: {
+      extensions: [".js", ".jsx"],
     },
   };
 };
