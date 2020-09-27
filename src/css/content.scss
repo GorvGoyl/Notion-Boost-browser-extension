@@ -19,10 +19,12 @@ $docWidth: 83vw;
   margin-left: 36px;
 }
 
-// [style^="font-weight:600"] {
-//   /* font-family: Arial, Helvetica, sans-serif; */
-//   font-weight: 700 !important;
-// }
+.notion-body.dark.bolder {
+  [style^="font-weight:600"] {
+    /* font-family: Arial, Helvetica, sans-serif; */
+    font-weight: 700 !important;
+  }
+}
 
 // div[style*="width: 100%"].notion-page-content {
 //   font-weight: 700 !important;

@@ -58,6 +58,9 @@ export function removeChildren(el) {
 export function getElement(selector) {
   return document.querySelector(selector);
 }
+export function getElements(selector) {
+  return document.querySelectorAll(selector);
+}
 // ugly method to check for empty
 export function isEmpty(obj) {
   // boolean like false = non-empty

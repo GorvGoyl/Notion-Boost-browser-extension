@@ -2,11 +2,11 @@ import "../css/content.scss";
 import { defaultSettings } from "./settings";
 import { isEmpty, getLatestSettings } from "./utility";
 import { displayOutline } from "./feature/outline";
-import { hideHelpBtn } from "./feature/pageElements";
+import { hideHelpBtn, bolderTextInDark } from "./feature/pageElements";
 
 let Handler = {};
 
-Handler = { displayOutline, hideHelpBtn };
+Handler = { displayOutline, hideHelpBtn, bolderTextInDark };
 
 function init() {
   let syncSet = {};

@@ -177,6 +177,9 @@ module.exports = (env, argv) => {
   }
 
   return {
+    // devServer: {
+    //   writeToDisk: true,
+    // },
     entry,
     devtool: isDev ? "inline-source-map" : "", // other option: "eval-cheap-module-source-map";
 

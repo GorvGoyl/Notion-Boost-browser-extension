@@ -1,21 +1,39 @@
-import { h, render } from "preact";
+import { h, render, Fragment } from "preact";
 import { useEffect } from "preact/hooks";
 import "./css/popup.scss";
-import { getElement, getLatestSettings } from "./js/utility";
+import { getElement, getElements, getLatestSettings } from "./js/utility";
 
+const settings = [
+  {
+    func: "displayOutline",
+    name: "Show Outline",
+    desc:
+      "Show outline (table of contents) on the right side of opened document.",
+  },
+  {
+    func: "hideHelpBtn",
+    name: "Hide Help button",
+    desc: "Hide floating help button on the bottom-right corner of document.",
+  },
+  {
+    func: "bolderTextInDark",
+    name: "Bolder text in dark mode",
+    desc:
+      "Bold text isn't properly recognizable in dark mode, this fixes that.",
+  },
+];
 function init() {
+  // set buttons state
   getLatestSettings()
     .then((set) => {
       console.log("LatestSettings: ", set);
 
-      const outlineEl = getElement(".outline");
-      const helpBtnEl = getElement(".help-btn");
-      let cls = set[outlineEl.getAttribute("data-func")] ? "enable" : "disable";
-      outlineEl.classList.add(cls);
-      cls = set[helpBtnEl.getAttribute("data-func")] ? "enable" : "disable";
-      helpBtnEl.classList.add(cls);
-      outlineEl.addEventListener("click", updateSettings);
-      helpBtnEl.addEventListener("click", updateSettings);
+      const rows = getElements(".row");
+      rows.forEach((e) => {
+        const cls = set[e.getAttribute("data-func")] ? "enable" : "disable";
+        e.classList.add(cls);
+      });
+
       return null;
     })
     .catch((e) => console.log(e));
@@ -26,27 +44,27 @@ function updateSettings(el) {
   const func = el.currentTarget.getAttribute("data-func");
   console.log("updateSettings -> func", func);
 
-  let isShow = false;
+  let isEnabled = false;
   const { classList } = el.currentTarget;
   if (classList.contains("enable")) {
-    isShow = false;
+    isEnabled = false;
     classList.remove("enable");
     classList.add("disable");
   } else if (classList.contains("disable")) {
-    isShow = true;
+    isEnabled = true;
     classList.remove("disable");
     classList.add("enable");
   }
 
-  console.log("updateSettings -> isShow", isShow);
+  console.log("updateSettings -> isEnabled", isEnabled);
 
   getLatestSettings()
     .then((set) => {
       console.log("updateSettings -> set", set);
-      set[func] = isShow;
+      set[func] = isEnabled;
       set.call_func = {
         name: func,
-        arg: isShow,
+        arg: isEnabled,
       };
 
       chrome.storage.sync.set({ nb_settings: set }, () => {
@@ -67,57 +85,39 @@ function App() {
     <div className="wrapper">
       <div className="popup title">Notion Boost</div>
       <div className="settings table">
-        <div className="row outline" data-func="displayOutline">
-          <div style={{ flex: "1 1 0%" }}>
-            <div className="name">Show Outline</div>
-            <div className="desc">
-              Show outline (table of contents) on the right side of opened
-              document.
+        {settings.map((obj, index) => (
+          <Fragment>
+            <div className="row" data-func={obj.func} onClick={updateSettings}>
+              <div style={{ flex: "1 1 0%" }}>
+                {obj}
+                <div className="name">{obj.name}</div>
+                <div className="desc">{obj.desc}</div>
+              </div>
+              <div
+                className="button toggle"
+                role="button"
+                aria-disabled="false"
+                tabIndex={0}
+              >
+                <div className="knob">
+                  <div className="pos" />
+                </div>
+              </div>
             </div>
-          </div>
-          <div
-            className="button toggle"
-            role="button"
-            aria-disabled="false"
-            tabIndex={0}
-          >
-            <div className="knob">
-              <div className="pos" />
+            <div className="divider">
+              <div className="border" />
             </div>
-          </div>
-        </div>
-        <div className="divider">
-          <div className="border" />
-        </div>
-        <div className="row help-btn" data-func="hideHelpBtn">
-          <div style={{ flex: "1 1 0%" }}>
-            <div className="name">Hide Help button</div>
-            <div className="desc">
-              Hide floating help button on the bottom-right corner of document.
-            </div>
-          </div>
-          <div
-            className="button toggle"
-            role="button"
-            aria-disabled="false"
-            tabIndex={0}
-          >
-            <div className="knob">
-              <div className="pos" />
-            </div>
-          </div>
-        </div>
-        <div className="divider">
-          <div className="border" />
-        </div>
+          </Fragment>
+        ))}
+
         <div style={{ marginTop: 4 }} className="footer">
           <a
             className="footer"
-            href="https://www.notion.so/bef80feafec64c789e631c85a16f2d5b#c4d40cecfa654dadb67992b981a12aed"
+            href="https://www.notion.so"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <div className="button" role="button" tabIndex={0}>
+            <div className="button" style="" role="button" tabIndex={0}>
               Learn about mobile and desktop notifications
             </div>
           </a>
