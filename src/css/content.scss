@@ -1,6 +1,6 @@
 @import "theme.scss";
 
-$docWidth: 83vw;
+$docWidth: 83%;
 
 .notion-frame {
   position: relative;
@@ -35,7 +35,9 @@ $docWidth: 83vw;
   + .notion-scroller.vertical.horizontal
   .notion-page-content
   > .notion-collection_view-block {
-  width: $docWidth - 2vw !important;
+  width: calc(
+    100% + calc(2 * calc(96px + env(safe-area-inset-left)))
+  ) !important;
 }
 
 .nb-outline.show + .notion-scroller.vertical.horizontal {
@@ -49,7 +51,7 @@ $docWidth: 83vw;
     display: block !important;
   }
   display: none;
-  width: 100vw - $docWidth;
+  width: 100% - $docWidth;
   position: absolute;
   right: 0px;
   top: 45px;

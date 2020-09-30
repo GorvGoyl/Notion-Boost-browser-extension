@@ -51,20 +51,20 @@
 
 ### Not Full width inline
 
-- notion-page-content (width: 900px;)
-  - notion-selectable notion-collection_view-block (based on browser width width: 1263px;) (full page horz scrollbar)
-    - div (padding-left: 277.5px;padding-right: 277.5px;)
+- notion-page-content (width: 900px;) -diff
+  - notion-selectable notion-collection_view-block (width: 1263px;) (full page horz scrollbar) -dynamic
+    - div (padding-left: 277.5px;padding-right: 277.5px;) -diff
     - notion-scroller horizontal
-      - notion-table-view (padding-left: 277.5px;padding-right: 277.5px;) / notion-board-view
+      - notion-table-view (padding-left: 277.5px;padding-right: 277.5px;) / notion-board-view -diff
         - notion-selectable notion-collection_view-block
-          - div (min-width: 708px;)
+          - div (min-width: 708px;) -diff
 
 ### Full width inline
 
-- notion-page-content (width: 100%;)
-  - notion-selectable notion-collection_view-block (based on browser width width: 1263px;) (full page horz scrollbar)
-    - div (padding-left: 96px;padding-right: 96px;)
+- notion-page-content (width: 100%;) -diff
+  - notion-selectable notion-collection_view-block (width: 1263px;) (full page horz scrollbar) -dynamic
+    - div (padding-left: 96px;padding-right: 96px;) -diff
     - notion-scroller horizontal
-      - notion-table-view (padding-left: 96px;padding-right: 96px;) / notion-board-view
+      - notion-table-view (padding-left: 96px;padding-right: 96px;) / notion-board-view -diff
         - notion-selectable notion-collection_view-block
-          - div (min-width: calc(100% - 192px);)
+          - div (min-width: calc(100% - 192px);) -diff
