@@ -1,9 +1,10 @@
 {
   "name": "Notion Boost",
-  "version": "0.1.0",
-  "description": "Show outline for notion https://notion.so. More cool features on the way!",
+  "short_name": "Notion Boost",
+  "version": "1.0",
+  "description": "Make Notion more productive by adding features like outline (table of contents), bolder text, and more.",
 
-  "author": "jerrygoyal",
+  "author": "Gourav Goyal",
 
   "content_scripts": [
     {
@@ -15,7 +16,6 @@
     "default_title": "Notion Boost",
     "default_popup": "popup.html"
   },
-  "short_name": "Notion Boost",
   "web_accessible_resources": ["content.bundle.js"],
   "manifest_version": 2
 }

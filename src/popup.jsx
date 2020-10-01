@@ -110,7 +110,7 @@ function App() {
           </Fragment>
         ))}
 
-        <div style={{ marginTop: 4 }} className="footer">
+        {/* <div style={{ marginTop: 4 }} className="footer">
           <a
             className="footer"
             href="https://www.notion.so"
@@ -121,7 +121,7 @@ function App() {
               Learn about mobile and desktop notifications
             </div>
           </a>
-        </div>
+        </div> */}
       </div>
     </div>
   );
