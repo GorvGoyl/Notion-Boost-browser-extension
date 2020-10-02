@@ -1,5 +1,5 @@
 import "../css/popup.scss";
-import { isEmpty, toElement, getElement, getLatestSettings } from "./utility";
+import { getElement, getLatestSettings } from "./utility";
 
 console.log("this is from popup: ");
 console.log("sending msg to content: ");

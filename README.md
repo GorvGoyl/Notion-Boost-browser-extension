@@ -1,6 +1,6 @@
 # Notion-Boost-browser-extension
 
-## Development Guide
+## Contribution Guide
 
 This extension uses webpack for module bundling and various other optimizations, ESLint for linting, Prettier for code formatting, and, VSCode for coding <3.  
 If you're new to browser extensions, here's an official guide from chrome https://developer.chrome.com/extensions/getstarted
@@ -18,10 +18,13 @@ If you're new to browser extensions, here's an official guide from chrome https:
 
 ### Run & Debug (for development)
 
-`npm run start`
+- Run for Chrome
+  `npm run start:ch`
 
-- Do your thing in _/src_ folder
-- Raise PR if you would like to contribute something
+- Run for Firefox
+  `npm run start:ff`
+  Do your thing in _/src_ folder
+  Raise PR if you would like to contribute something
 
 For rather curious devs:
 
@@ -30,6 +33,10 @@ For rather curious devs:
 
 ### Build (for production)
 
-`npm run build`
+- Build for Chrome
+  `npm run build:ch`
+  Output will be in `_/build_chrome` folder
 
-- Output will be in _/build_ folder
+- Build for Firefox
+  `npm run build:ff`
+  Output will be in `_/build_firefox` folder

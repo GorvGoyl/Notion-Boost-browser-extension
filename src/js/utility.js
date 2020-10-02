@@ -41,16 +41,25 @@ export function onElementLoaded(divClass, ParentDivClass) {
 }
 
 // create html node from string like $('div')
-export function toElement(
-  s = "",
-  c,
-  t = document.createElement("template"),
-  l = "length"
-) {
-  t.innerHTML = s.trim();
-  c = [...t.content.childNodes];
-  return c[l] > 1 ? c : c[0] || "";
+export function toElement(s) {
+  let e = document.createElement("div");
+  const r = document.createRange();
+  r.selectNodeContents(e);
+  const f = r.createContextualFragment(s);
+  e.appendChild(f);
+  e = e.firstElementChild;
+  return e;
 }
+// export function toElement(
+//   s = "",
+//   c,
+//   t = document.createElement("template"),
+//   l = "length"
+// ) {
+//   t.innerHTML = s.trim();
+//   c = [...t.content.childNodes];
+//   return c[l] > 1 ? c : c[0] || "";
+// }
 
 export function removeChildren(el) {
   while (el.firstChild) el.removeChild(el.firstChild);

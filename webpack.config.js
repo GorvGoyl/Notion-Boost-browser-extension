@@ -123,7 +123,7 @@ module.exports = (env, argv) => {
 
   // DEV ENV
   // hot reload for extension and browser page
-  if (isDev) {
+  if (isDev && isChrome) {
     pluginsArr.push(
       new ExtensionReloader({
         reloadPage: true, // Force the reload of the page also

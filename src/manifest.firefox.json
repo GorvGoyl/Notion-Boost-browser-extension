@@ -12,9 +12,9 @@
     "48": "images/icon48.png",
     "96": "images/icon96.png"
   },
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "notionboost@example.com"
-    }
-  }
+  "developer": {
+    "name": "Gourav Goyal",
+    "url": "https://gourav.io"
+  },
+  "homepage_url": "https://github.com/GorvGoyl/Notion-Boost-browser-extension"
 }
