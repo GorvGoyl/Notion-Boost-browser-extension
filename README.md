@@ -7,8 +7,8 @@ If you're new to browser extensions, here's an official guide from chrome https:
 
 ### Structure
 
-- `/src/content.js` - page DOM manipulation is done here.
-- `/src/popup.js` - Javascript related to extension popup
+`/src/content.js` - page DOM manipulation is done here.
+`/src/popup.js` - Javascript related to extension popup
 
 > File an issue if you're not able to setup or run
 
@@ -19,12 +19,15 @@ If you're new to browser extensions, here's an official guide from chrome https:
 ### Run & Debug (for development)
 
 - Run for Chrome
-  `npm run start:ch`
+
+`npm run start:ch`
 
 - Run for Firefox
-  `npm run start:ff`
-  Do your thing in `/src` folder
-  Raise PR if you would like to contribute something
+
+`npm run start:ff`
+
+Do your thing in `/src` folder
+Raise PR if you would like to contribute something
 
 For rather curious devs:
 
@@ -34,9 +37,11 @@ For rather curious devs:
 ### Build (for production)
 
 - Build for Chrome
+
   `npm run build:ch`
   Output will be in `/build_chrome` folder
 
 - Build for Firefox
+
   `npm run build:ff`
   Output will be in `/build_firefox` folder
