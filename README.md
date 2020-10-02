@@ -38,10 +38,10 @@ For rather curious devs:
 
 - Build for Chrome
 
-  `npm run build:ch`
-  Output will be in `/build_chrome` folder
+`npm run build:ch`
+Output will be in `/build_chrome` folder
 
 - Build for Firefox
 
-  `npm run build:ff`
-  Output will be in `/build_firefox` folder
+`npm run build:ff`
+Output will be in `/build_firefox` folder
