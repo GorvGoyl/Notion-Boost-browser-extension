@@ -16,5 +16,10 @@
     "name": "Gourav Goyal",
     "url": "https://gourav.io"
   },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{0d49b33c-467a-4897-bea4-c82d6756e5c4}"
+    }
+  },
   "homepage_url": "https://github.com/GorvGoyl/Notion-Boost-browser-extension"
 }
