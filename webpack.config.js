@@ -90,8 +90,12 @@ module.exports = (env, argv) => {
   const rules = [
     {
       test: /\.svg$/,
-      use: "file-loader",
+      loader: "svg-inline-loader",
     },
+    // {
+    //   test: /\.svg$/,
+    //   use: "file-loader",
+    // },
     {
       test: /\.(css|scss)$/,
       // in the `src` directory

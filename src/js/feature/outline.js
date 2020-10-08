@@ -208,97 +208,94 @@ function addOutline() {
 function docEditListener() {
   console.log("listening for doc edit changes...");
 
-  // initialise it one time
-  if (!isObserverType(docEditObserver)) {
-    docEditObserver = new MutationObserver((mutationList, obsrvr) => {
-      console.log("found changes in doc content");
+  docEditObserver = new MutationObserver((mutationList, obsrvr) => {
+    console.log("found changes in doc content");
 
-      let isDocHeadingChanged = false;
+    let isDocHeadingChanged = false;
 
-      let placeholder = "";
-      for (let i = 0; i < mutationList.length; i++) {
-        const m = mutationList[i];
+    let placeholder = "";
+    for (let i = 0; i < mutationList.length; i++) {
+      const m = mutationList[i];
 
-        // case: check for text change in headings
-        if (!isHeading(placeholder) && m.type === "characterData") {
-          console.log(`changed text: ${m.target.textContent}`);
+      // case: check for text change in headings
+      if (!isHeading(placeholder) && m.type === "characterData") {
+        console.log(`changed text: ${m.target.textContent}`);
 
-          if (!isHeading(placeholder) && m.target.parentNode) {
-            placeholder = m.target.parentNode.getAttribute("placeholder");
-          }
-
-          // case: when styling (b/i) is added to heading
-          if (
-            !isHeading(placeholder) &&
-            m.target.parentNode &&
-            m.target.parentNode.parentNode
-          ) {
-            placeholder = m.target.parentNode.parentNode.getAttribute(
-              "placeholder"
-            );
-          }
+        if (!isHeading(placeholder) && m.target.parentNode) {
+          placeholder = m.target.parentNode.getAttribute("placeholder");
         }
-        if (!isHeading(placeholder) && m.type === "childList") {
-          console.log("childList changed");
 
-          // case: hitting backspace in headings
-          placeholder = m.target.getAttribute("placeholder");
+        // case: when styling (b/i) is added to heading
+        if (
+          !isHeading(placeholder) &&
+          m.target.parentNode &&
+          m.target.parentNode.parentNode
+        ) {
+          placeholder = m.target.parentNode.parentNode.getAttribute(
+            "placeholder"
+          );
+        }
+      }
+      if (!isHeading(placeholder) && m.type === "childList") {
+        console.log("childList changed");
 
-          // case: when empty heading is being removed
+        // case: hitting backspace in headings
+        placeholder = m.target.getAttribute("placeholder");
+
+        // case: when empty heading is being removed
+        if (
+          !isHeading(placeholder) &&
+          m.removedNodes.length > 0 &&
+          m.removedNodes[0].firstElementChild
+        ) {
+          placeholder = m.removedNodes[0].firstElementChild.getAttribute(
+            "placeholder"
+          );
+
+          if (placeholder) {
+            console.log("empty block got removed: ");
+          }
+
+          // case: when select and delete multiple headings
           if (
             !isHeading(placeholder) &&
             m.removedNodes.length > 0 &&
-            m.removedNodes[0].firstElementChild
+            m.removedNodes[0].firstElementChild.firstElementChild
           ) {
-            placeholder = m.removedNodes[0].firstElementChild.getAttribute(
+            placeholder = m.removedNodes[0].firstElementChild.firstElementChild.getAttribute(
               "placeholder"
             );
 
-            if (placeholder) {
-              console.log("empty block got removed: ");
-            }
-
-            // case: when select and delete multiple headings
-            if (
-              !isHeading(placeholder) &&
-              m.removedNodes.length > 0 &&
-              m.removedNodes[0].firstElementChild.firstElementChild
-            ) {
-              placeholder = m.removedNodes[0].firstElementChild.firstElementChild.getAttribute(
-                "placeholder"
-              );
-
-              console.log("empty blocks got removed: ");
-            }
-          }
-
-          // case: when empty heading is being added
-          if (
-            !isHeading(placeholder) &&
-            m.addedNodes.length > 0 &&
-            m.addedNodes[0].firstElementChild
-          ) {
-            placeholder = m.addedNodes[0].firstElementChild.getAttribute(
-              "placeholder"
-            );
-            console.log("empty block got added: ");
+            console.log("empty blocks got removed: ");
           }
         }
 
-        // check if the change was related to headings
-        if (isHeading(placeholder)) {
-          console.log("heading changed");
-
-          isDocHeadingChanged = true;
-          break;
+        // case: when empty heading is being added
+        if (
+          !isHeading(placeholder) &&
+          m.addedNodes.length > 0 &&
+          m.addedNodes[0].firstElementChild
+        ) {
+          placeholder = m.addedNodes[0].firstElementChild.getAttribute(
+            "placeholder"
+          );
+          console.log("empty block got added: ");
         }
       }
 
-      if (isDocHeadingChanged) {
-        addOutline();
+      // check if the change was related to headings
+      if (isHeading(placeholder)) {
+        console.log("heading changed");
+
+        isDocHeadingChanged = true;
+        break;
       }
-    });
-  }
+    }
+
+    if (isDocHeadingChanged) {
+      addOutline();
+    }
+  });
 
   // now add listener for doc text change
   const pageContentEl = getElement(notionPageContentCls);
@@ -315,28 +312,25 @@ function docEditListener() {
 function pageChangeListener() {
   console.log("listening for page change events...");
 
-  // initialise it one time
-  if (!isObserverType(pageChangeObserver)) {
-    pageChangeObserver = new MutationObserver((mutationList, obsrvr) => {
-      console.log("new page opened");
-      removeDocEditListener();
-      hideOutline();
-      // clearOutline();
-      // check if scroller class is loaded
-      if (getElement(notionScrollerCls)) {
-        // now wait for page-content class to be loaded
-        onElementLoaded(notionPageContentCls, notionScrollerCls)
-          .then((isPresent) => {
-            if (isPresent) {
-              addOutline();
-              docEditListener();
-            }
-            return null;
-          })
-          .catch((e) => console.log(e));
-      }
-    });
-  }
+  pageChangeObserver = new MutationObserver((mutationList, obsrvr) => {
+    console.log("new page opened");
+    removeDocEditListener();
+    hideOutline();
+    // clearOutline();
+    // check if scroller class is loaded
+    if (getElement(notionScrollerCls)) {
+      // now wait for page-content class to be loaded
+      onElementLoaded(notionPageContentCls, notionScrollerCls)
+        .then((isPresent) => {
+          if (isPresent) {
+            addOutline();
+            docEditListener();
+          }
+          return null;
+        })
+        .catch((e) => console.log(e));
+    }
+  });
 
   const docFrameEl = getElement(notionFrameCls);
 
@@ -346,7 +340,7 @@ function pageChangeListener() {
 }
 
 function isObserverType(obj) {
-  return obj.constructor.name === "MutationObserver";
+  return obj.disconnect !== undefined;
 }
 
 function isHeading(placeholder) {
