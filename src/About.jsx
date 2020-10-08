@@ -67,7 +67,7 @@ export function About() {
         urlTxt="Github"
         url="https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues"
       />
-      <Bullet
+      {/* <Bullet
         txtS="Follow "
         urlTxt={
           <Fragment>
@@ -76,7 +76,7 @@ export function About() {
         }
         url="https://twitter.com/notionboost"
         txtE=" for latest updates"
-      />
+      /> */}
       <Bullet
         txtS="Built by "
         urlTxt={
