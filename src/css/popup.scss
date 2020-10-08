@@ -1,5 +1,6 @@
 @import "button.scss";
 
+$color-gray: #37352f;
 *,
 *:focus {
   outline: 0;
@@ -10,6 +11,10 @@
 
 body {
   margin: 0;
+  margin: 8px;
+  width: 350px;
+  padding: 9px 15px;
+
   fill: currentcolor;
   line-height: 1.5;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
@@ -22,20 +27,132 @@ body {
   box-sizing: border-box;
 }
 
+p {
+  font-size: 13px;
+}
+
+.icon-nb {
+  background-image: url("../images/nb.svg");
+  width: 25px;
+  height: 25px;
+  background-size: contain;
+  margin-right: 8px;
+}
+.twitter {
+  display: inline-block;
+
+  height: 10px;
+  width: 10px;
+  -webkit-mask-image: url("../images/twitter.svg");
+  mask-image: url("../images/twitter.svg");
+  background-color: rgba($color-gray, 0.6);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.back.button {
+  display: inline-block;
+
+  .arrow {
+    -webkit-mask-image: url("../images/left-arrow.svg");
+    mask-image: url("../images/left-arrow.svg");
+    background-color: rgba($color-gray, 0.6);
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    padding-left: 60px;
+  }
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.underline {
+  border-bottom: 1px solid rgba($color-gray, 0.09);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+}
+
+.external-link {
+  color: rgba($color-gray, 0.6);
+  fill: rgba($color-gray, 0.6);
+  cursor: pointer;
+  // underline
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-image: linear-gradient(
+    to right,
+    rgba($color-gray, 0.16) 0%,
+    rgba($color-gray, 0.16) 100%
+  );
+  background-repeat: repeat-x;
+  background-position: 0px 100%;
+  background-size: 100% 1px;
+}
+.title {
+  color: $color-gray;
+
+  font-size: 18px;
+  font-weight: 500;
+  width: auto;
+}
+.sub-title {
+  font-size: 14px;
+}
 .wrapper {
   flex-grow: 1;
-  padding: 9px 15px;
   overflow: auto;
-  margin: 8px;
-  width: 350px;
-  .popup.title {
-    color: rgb(55, 53, 47);
-    border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-    margin-bottom: 16px;
-    padding-bottom: 8px;
-    font-size: 18px;
-    font-weight: 500;
-    width: auto;
+  // margin: 8px;
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    .footer-item {
+      display: inline-flex;
+      text-decoration: none;
+      user-select: none;
+      cursor: pointer;
+      color: inherit;
+      // margin-left: -6px;
+      .btn2 {
+        &:hover {
+          background-color: rgba($color-gray, 0.08);
+        }
+        user-select: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        white-space: nowrap;
+        height: 20px;
+        border-radius: 3px;
+        font-size: 12px;
+        line-height: 1.2;
+        padding-left: 5px;
+        padding-right: 5px;
+        color: rgba($color-gray, 0.6);
+      }
+      .button {
+        &:hover {
+          background-color: rgba($color-gray, 0.08);
+        }
+        user-select: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        flex-shrink: 0;
+        white-space: nowrap;
+        // height: 24px;
+        border-radius: 3px;
+        font-size: 13px;
+        line-height: 1.2;
+        min-width: 0px;
+        padding: 3px 6px;
+        color: rgba($color-gray, 0.4);
+      }
+    }
   }
 }
 
@@ -92,7 +209,7 @@ body {
     .desc {
       font-size: 12px;
       line-height: 16px;
-      color: rgba(55, 53, 47, 0.6);
+      color: rgba($color-gray, 0.6);
       width: 80%;
       margin-top: 4px;
     }
@@ -110,33 +227,7 @@ body {
       width: 100%;
       height: 1px;
       visibility: visible;
-      border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-    }
-  }
-
-  .footer {
-    display: flex;
-    text-decoration: none;
-    user-select: none;
-    cursor: pointer;
-    color: inherit;
-    margin-left: -6px;
-    .button {
-      user-select: none;
-      transition: background 20ms ease-in 0s;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      flex-shrink: 0;
-      white-space: nowrap;
-      height: 24px;
-      border-radius: 3px;
-      font-size: 14px;
-      line-height: 1.2;
-      min-width: 0px;
-      padding-left: 6px;
-      padding-right: 6px;
-      color: rgba(55, 53, 47, 0.4);
+      border-bottom: 1px solid rgba($color-gray, 0.09);
     }
   }
 }

@@ -1,5 +1,7 @@
 import { h, render, Fragment } from "preact";
+import { Router, route } from "preact-router";
 import { useEffect } from "preact/hooks";
+import { About } from "./About";
 import "./css/popup.scss";
 import { getElement, getElements, getLatestSettings } from "./js/utility";
 
@@ -76,54 +78,62 @@ function updateSettings(el) {
     .catch((e) => console.log(e));
 }
 
-function App() {
+function Home() {
   useEffect(() => {
     init();
   }, []);
 
   return (
-    <div className="wrapper">
-      <div className="popup title">Notion Boost</div>
-      <div className="settings table">
-        {settings.map((obj, index) => (
-          <Fragment>
-            <div className="row" data-func={obj.func} onClick={updateSettings}>
-              <div style={{ flex: "1 1 0%" }}>
-                {obj}
-                <div className="name">{obj.name}</div>
-                <div className="desc">{obj.desc}</div>
-              </div>
+    <div>
+      <div className="wrapper">
+        <div className="title underline">Notion Boost</div>
+        <div className="settings table">
+          {settings.map((obj, index) => (
+            <Fragment>
               <div
-                className="button toggle"
-                role="button"
-                aria-disabled="false"
-                tabIndex={0}
+                className="row"
+                data-func={obj.func}
+                onClick={updateSettings}
               >
-                <div className="knob">
-                  <div className="pos" />
+                <div style={{ flex: "1 1 0%" }}>
+                  {obj}
+                  <div className="name">{obj.name}</div>
+                  <div className="desc">{obj.desc}</div>
+                </div>
+                <div
+                  className="button toggle"
+                  role="button"
+                  aria-disabled="false"
+                  tabIndex={0}
+                >
+                  <div className="knob">
+                    <div className="pos" />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="divider">
-              <div className="border" />
-            </div>
-          </Fragment>
-        ))}
-
-        {/* <div style={{ marginTop: 4 }} className="footer">
-          <a
-            className="footer"
-            href="https://www.notion.so"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+              <div className="divider">
+                <div className="border" />
+              </div>
+            </Fragment>
+          ))}
+        </div>
+        <div className="footer">
+          <a className="footer-item" href="/about">
             <div className="button" style="" role="button" tabIndex={0}>
-              Learn about mobile and desktop notifications
+              About
             </div>
           </a>
-        </div> */}
+        </div>
       </div>
     </div>
+  );
+}
+function App() {
+  return (
+    <Router>
+      <Home path="/" default />
+      <About path="/about" />
+    </Router>
   );
 }
 

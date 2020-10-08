@@ -5,6 +5,7 @@ const ExtensionReloader = require("webpack-extension-reloader");
 const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MergeJsonWebpackPlugin = require("merge-jsons-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = (env, argv) => {
   console.log("mode: ", argv.mode);
@@ -22,17 +23,21 @@ module.exports = (env, argv) => {
   };
   const manifest = ["src/manifest.json"];
   let buildDist = "build";
+  let storeURL = "";
   // CHROME SPECIFIC BUILD
   if (isChrome) {
     buildDist = "build_chrome";
     manifest.push("src/manifest.chrome.json");
     entry.background = path.join(__dirname, "src", "js", "background.js");
+    storeURL =
+      "https://chrome.google.com/webstore/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd";
   }
 
   // FIREFOX SPECIFIC BUILD
   if (isFirefox) {
     buildDist = "build_firefox";
     manifest.push("src/manifest.firefox.json");
+    storeURL = "https://addons.mozilla.org/en-US/firefox/addon/notion-boost/";
   }
 
   // COMMON PLUGINS
@@ -52,6 +57,9 @@ module.exports = (env, argv) => {
       },
     }),
 
+    new webpack.DefinePlugin({
+      "process.env.STOREURL": JSON.stringify(storeURL),
+    }),
     // copy files from A to B location
     new CopyWebpackPlugin({
       patterns: [
@@ -80,11 +88,10 @@ module.exports = (env, argv) => {
   ];
 
   const rules = [
-    // {
-    //   test: /\.html$/i,
-    //   // loader: "html-loader",
-    //   use: ["file-loader", "extract-loader", "html-loader"],
-    // },
+    {
+      test: /\.svg$/,
+      use: "file-loader",
+    },
     {
       test: /\.(css|scss)$/,
       // in the `src` directory

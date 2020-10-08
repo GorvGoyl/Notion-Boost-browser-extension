@@ -42,6 +42,9 @@
     "camelcase": "warn",
     "no-plusplus": "off",
     "no-restricted-syntax": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "import/extensions": "off",
+    "react/jsx-no-target-blank": "off",
+    "import/no-unresolved": "off"
   }
 }
