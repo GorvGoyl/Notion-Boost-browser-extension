@@ -1,5 +1,30 @@
 # Notion-Boost-browser-extension
 
+> Browser extension to add features like outline (table of contents), bolder text, and more to Notion.so website.
+
+**Download**
+
+- [Chrome extension](https://chrome.google.com/webstore/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd)
+- [Firefox extension](https://addons.mozilla.org/en-US/firefox/addon/notion-boost/)
+
+**Add extra features to Notion:**
+
+- Show outline (table of contents) for pages that have headings or sub-headings.
+- Hide floating help button on the bottom-right corner of the document.
+- Make bold text bolder when using Notion in dark mode.
+- More features on the way :)
+
+**How to enable/disable a feature:**
+
+1. visit any notion page
+2. click on the extension icon (clickable only when you are on a notion page)
+3. a popup menu will appear, you can toggle features here.
+
+This is a free and open-source browser extension.
+
+- If you found this extension useful then please support it by rating ★★★★★ on chrome/firefox store.
+- Follow [@NotionBoost](https://twitter.com/notionboost) on Twitter
+
 ## Contribution Guide
 
 This extension uses webpack for module bundling and various other optimizations, ESLint for linting, Prettier for code formatting, and, VSCode for coding <3.  

@@ -10,7 +10,7 @@ const settings = [
     func: "displayOutline",
     name: "Show Outline",
     desc:
-      "Show outline (table of contents) on the right side of opened document.",
+      "Show outline (table of contents) for pages that have headings or sub-headings",
   },
   {
     func: "hideHelpBtn",
