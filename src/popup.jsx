@@ -23,6 +23,11 @@ const settings = [
     desc:
       "Bold text isn't properly recognizable in dark mode, this fixes that.",
   },
+  {
+    func: "smallTextFullWidth",
+    name: "Small text & Full width for all pages",
+    desc: "set small text and full width for all pages by default",
+  },
 ];
 function init() {
   // set buttons state

@@ -3,4 +3,5 @@ export const defaultSettings = {
   displayOutline: true,
   hideHelpBtn: false,
   bolderTextInDark: false,
+  smallTextFullWidth: false,
 };

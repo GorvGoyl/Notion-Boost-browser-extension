@@ -2,6 +2,30 @@ import { getElement, onElementLoaded } from "../utility";
 
 const notionHelpBtnCls = ".notion-help-button";
 const notionBodyCls = ".notion-body";
+const notionScrollerCls = ".notion-scroller.vertical.horizontal";
+const notionPageContentCls = ".notion-page-content";
+
+export function smallTextFullWidth(isEnabled) {
+  try {
+    console.log(`feature: smallTextFullWidth: ${isEnabled}`);
+
+    onElementLoaded(notionBodyCls)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionBodyCls);
+          if (isEnabled) {
+            el.classList.add("smallTextFullWidth-nb");
+          } else {
+            el.classList.remove("smallTextFullWidth-nb");
+          }
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 export function bolderTextInDark(isEnabled) {
   try {

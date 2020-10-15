@@ -47,6 +47,32 @@
           - notion-selectable notion-page-block
           -
 
+## Width - half
+
+- notion-scroller vertical horizontal
+  - div
+    - div (width: 900px)
+  - div
+    - div (width: 900px)
+  - notion-page-content (width: 900px)
+  - table
+
+## Width - Full
+
+- notion-scroller vertical horizontal
+  - div
+    - div (width: 100%;)
+  - div
+    - div (width: 100%;)
+  - notion-page-content (width: 100%)
+  - table
+
+## Font
+
+- notion-selectable notion-page-block (32px / 40px)
+- notion-page-content (14px / 16px)
+-
+
 ## Inline Tables
 
 ### Not Full width inline

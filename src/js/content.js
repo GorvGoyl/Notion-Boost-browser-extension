@@ -2,12 +2,12 @@ import "../css/content.scss";
 import { defaultSettings } from "./settings";
 import { isEmpty, getLatestSettings } from "./utility";
 import { displayOutline } from "./feature/outline";
-import { hideHelpBtn, bolderTextInDark } from "./feature/pageElements";
+import * as features from "./feature/pageElements";
 
-let Handler = {};
+let featureList = {};
 
-Handler = { displayOutline, hideHelpBtn, bolderTextInDark };
-
+featureList = features;
+featureList.displayOutline = displayOutline;
 function init() {
   let syncSet = {};
   const updatedSet = { ...defaultSettings };
@@ -21,7 +21,7 @@ function init() {
       for (const func of Object.keys(set)) {
         const isEnabled = set[func];
         if (isEnabled) {
-          Handler[func](isEnabled);
+          featureList[func](isEnabled);
         }
       }
       return null;
@@ -48,7 +48,7 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
   console.log(changes);
   console.log(namespace);
   const func = changes.nb_settings.newValue.call_func;
-  Handler[func.name](func.arg);
+  featureList[func.name](func.arg);
 });
 
 if (document.readyState !== "loading") {

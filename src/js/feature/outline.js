@@ -316,7 +316,6 @@ function pageChangeListener() {
     console.log("new page opened");
     removeDocEditListener();
     hideOutline();
-    // clearOutline();
     // check if scroller class is loaded
     if (getElement(notionScrollerCls)) {
       // now wait for page-content class to be loaded

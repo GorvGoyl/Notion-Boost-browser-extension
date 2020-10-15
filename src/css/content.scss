@@ -1,5 +1,7 @@
 @import "theme.scss";
 
+// # displayOutline
+
 $docWidth: 83%;
 
 .notion-frame {
@@ -21,7 +23,6 @@ $docWidth: 83%;
 
 .notion-body.dark.bolder {
   [style^="font-weight:600"] {
-    /* font-family: Arial, Helvetica, sans-serif; */
     font-weight: 700 !important;
   }
 }
@@ -43,8 +44,6 @@ $docWidth: 83%;
 .nb-outline.show + .notion-scroller.vertical.horizontal {
   width: $docWidth !important;
 }
-
-// outline styling
 
 .nb-outline {
   &.show {
@@ -127,4 +126,76 @@ $docWidth: 83%;
       }
     }
   }
+}
+
+// # smallTextFullWidth
+.smallTextFullWidth-nb {
+  .notion-scroller.vertical.horizontal > :first-child > div {
+    width: 100% !important;
+  }
+
+  .notion-scroller.vertical.horizontal > :nth-child(2) > div {
+    width: 100% !important;
+  }
+
+  .notion-scroller.vertical.horizontal > :nth-child(3) {
+    width: 100% !important;
+  }
+
+  // set for inline tables - title
+  .notion-scroller.vertical.horizontal
+    .notion-page-content
+    > .notion-collection_view-block
+    > div:first-child {
+    padding-left: 96px !important;
+    padding-right: 96px !important;
+  }
+
+  // set for inline tables - header
+
+  .notion-scroller.vertical.horizontal
+    .notion-page-content
+    > .notion-collection_view-block
+    > .notion-scroller.horizontal
+    > div:first-child
+    > div:first-child
+    > div:first-child {
+    min-width: calc(100% - 192px) !important;
+  }
+
+  // set for inline tables - body
+  .notion-scroller.vertical.horizontal
+    .notion-page-content
+    > .notion-collection_view-block
+    > .notion-scroller.horizontal
+    > div:first-child {
+    padding-left: 96px !important;
+    padding-right: 96px !important;
+  }
+
+  // set for inline tables - footer
+
+  .notion-scroller.vertical.horizontal
+    .notion-page-content
+    > .notion-collection_view-block
+    > .notion-scroller.horizontal
+    > div:first-child
+    > div:first-child
+    > div:nth-child(5) {
+    min-width: calc(100% - 192px) !important;
+  }
+
+  // set fonts
+  .notion-scroller.vertical.horizontal
+    > div:first-child
+    .notion-selectable.notion-page-block {
+    font-size: 32px !important;
+  }
+  .notion-scroller.vertical.horizontal .notion-page-content {
+    font-size: 14px !important;
+  }
+}
+
+.full-width-nb {
+  width: 100% !important;
 }
