@@ -12,11 +12,7 @@ const settings = [
     desc:
       "Show outline (table of contents) for pages that have headings or sub-headings",
   },
-  {
-    func: "hideHelpBtn",
-    name: "Hide Help button",
-    desc: "Hide floating help button on the bottom-right corner of document.",
-  },
+
   {
     func: "bolderTextInDark",
     name: "Bolder text in dark mode",
@@ -27,6 +23,16 @@ const settings = [
     func: "smallTextFullWidth",
     name: "Small text & Full width for all pages",
     desc: "set small text and full width for all pages by default",
+  },
+  {
+    func: "hideHelpBtn",
+    name: "Hide Help button on page",
+    desc: "Hide floating help button on the bottom-right corner of page",
+  },
+  {
+    func: "hideComments",
+    name: "Hide comments section on page",
+    desc: "",
   },
 ];
 function init() {

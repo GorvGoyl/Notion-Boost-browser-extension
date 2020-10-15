@@ -5,6 +5,28 @@ const notionBodyCls = ".notion-body";
 const notionScrollerCls = ".notion-scroller.vertical.horizontal";
 const notionPageContentCls = ".notion-page-content";
 
+export function hideComments(isEnabled) {
+  try {
+    console.log(`feature: hideComments: ${isEnabled}`);
+
+    onElementLoaded(notionBodyCls)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionBodyCls);
+          if (isEnabled) {
+            el.classList.add("hideComments-nb");
+          } else {
+            el.classList.remove("hideComments-nb");
+          }
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function smallTextFullWidth(isEnabled) {
   try {
     console.log(`feature: smallTextFullWidth: ${isEnabled}`);

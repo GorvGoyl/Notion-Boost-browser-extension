@@ -63,7 +63,7 @@ export function About() {
       />
 
       <Bullet
-        txtS="Report Issue "
+        txtS="Report issue or suggest feature "
         urlTxt="Github"
         url="https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues"
       />

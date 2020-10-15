@@ -4,3 +4,4 @@ build.pem
 build_chrome
 build_firefox
 **.zip
+test.html

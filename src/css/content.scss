@@ -199,3 +199,16 @@ $docWidth: 83%;
 .full-width-nb {
   width: 100% !important;
 }
+
+// # hideComments
+.hideComments-nb {
+  .notion-scroller.vertical.horizontal {
+    .notion-page-view-discussion {
+      display: none !important;
+
+      & + div {
+        display: none;
+      }
+    }
+  }
+}

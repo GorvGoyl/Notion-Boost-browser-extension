@@ -4,4 +4,5 @@ export const defaultSettings = {
   hideHelpBtn: false,
   bolderTextInDark: false,
   smallTextFullWidth: false,
+  hideComments: false,
 };
