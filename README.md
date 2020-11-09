@@ -43,13 +43,17 @@ If you're new to browser extensions, here's an official guide from chrome https:
 
 ### Run & Debug (for development)
 
-- Run for Chrome
+#### Run for Chrome
 
-`npm run start:ch`
+- `npm run start:ch`
+- visit _chrome://extensions/_
+- load unpacked extension from folder `\build_chrome`
 
-- Run for Firefox
+#### Run for Firefox
 
-`npm run start:ff`
+- `npm run start:ff`
+- visit _about:debugging#/runtime/this-firefox_
+- load temp add-on from folder `\build_firefox`
 
 Do your thing in `/src` folder
 Raise PR if you would like to contribute something
@@ -61,14 +65,14 @@ For rather curious devs:
 
 ### Build (for production)
 
-- Build for Chrome
+#### Build for Chrome
 
-`npm run build:ch`
+- `npm run build:ch`
+- Output will be in `/build_chrome` folder
+- submit https://chrome.google.com/webstore/devconsole
 
-Output will be in `/build_chrome` folder
+#### Build for Firefox
 
-- Build for Firefox
-
-`npm run build:ff`
-
-Output will be in `/build_firefox` folder
+- `npm run build:ff`
+- Output will be in `/build_firefox` folder
+- submit https://addons.mozilla.org/en-US/developers/addon/notion-boost/versions/submit/
