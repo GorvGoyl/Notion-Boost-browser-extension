@@ -1,6 +1,6 @@
 # Notion-Boost-browser-extension
 
-> Browser extension to add features like outline (table of contents), bolder text, and more to Notion.so website.
+> Browser extension to add features like outline (table of contents), small text & full width by default, hide comments & help button, bolder text and more to Notion.so website.
 
 **Download**
 
@@ -10,7 +10,9 @@
 **Add extra features to Notion:**
 
 - Show outline (table of contents) for pages that have headings or sub-headings.
-- Hide floating help button on the bottom-right corner of the document.
+- Set small text and full width for all pages by default.
+- Hide comments section on page.
+- Hide floating help button on page.
 - Make bold text bolder when using Notion in dark mode.
 - More features on the way :)
 
