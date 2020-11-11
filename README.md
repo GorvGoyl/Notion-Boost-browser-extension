@@ -70,12 +70,12 @@ For rather curious devs:
 #### Build for Chrome
 
 - `npm run build:ch`
-- Output will be in `/build_chrome` folder
-- submit https://chrome.google.com/webstore/devconsole
+- Output & zip will be in `/build_chrome` folder
+- submit extension zip to https://chrome.google.com/webstore/devconsole
 
 #### Build for Firefox
 
 - `npm run build:ff`
-- Output will be in `/build_firefox` folder
-- submit https://addons.mozilla.org/en-US/developers/addon/notion-boost/versions/submit/
-- upload source code `curl -L http://github.com/GorvGoyl/Notion-Boost-browser-extension/archive/master.zip --output master.zip`
+- Output, zip, source code zip will be in `/build_firefox` folder
+- submit extension zip https://addons.mozilla.org/en-US/developers/addon/notion-boost/versions/submit/
+- submit source code zip

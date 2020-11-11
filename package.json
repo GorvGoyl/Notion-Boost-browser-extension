@@ -10,7 +10,7 @@
     "build:ch": "webpack --mode=production --browser=chrome",
     "build:ff": "webpack --mode=production --browser=firefox",
     "//mode": "https://webpack.js.org/configuration/mode/",
-    "postbuild:ff": "curl -L  http://github.com/GorvGoyl/Notion-Boost-browser-extension/archive/master.zip --output master.zip",
+    "postbuild:ff": "curl -L  http://github.com/GorvGoyl/Notion-Boost-browser-extension/archive/master.zip --output build_firefox/master.zip",
     "lint": "eslint ./src/ -c .eslintrc.json --ext .js",
     "lint-fix": "eslint ./src/ -c .eslintrc.json --ext .js --fix"
   },
