@@ -6,6 +6,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MergeJsonWebpackPlugin = require("merge-jsons-webpack-plugin");
 const webpack = require("webpack");
+const ZipPlugin = require("zip-webpack-plugin");
 
 module.exports = (env, argv) => {
   console.log("mode: ", argv.mode);
@@ -13,6 +14,7 @@ module.exports = (env, argv) => {
   const isDev = argv.mode === "development";
   const isChrome = argv.browser === "chrome";
   const isFirefox = argv.browser === "firefox";
+  const { browser } = argv;
 
   const entry = {
     content: path.join(__dirname, "src", "js", "content.js"),
@@ -164,7 +166,9 @@ module.exports = (env, argv) => {
   if (!isDev) {
     pluginsArr.push(
       // clean build folder before new build
-      new CleanWebpackPlugin()
+      new CleanWebpackPlugin(),
+      // create zip file for submission
+      new ZipPlugin({ filename: `notion-boost_${browser}.zip` })
     );
     // lint before prod build
     rules.push({

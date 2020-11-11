@@ -151,19 +151,18 @@ $docWidth: 83%;
     padding-right: 96px !important;
   }
 
-  // set for inline tables - header
-
+  // inline table - set header width
   .notion-scroller.vertical.horizontal
     .notion-page-content
     > .notion-collection_view-block
     > .notion-scroller.horizontal
-    > div:first-child
+    > .notion-table-view
     > div:first-child
     > div:first-child {
     min-width: calc(100% - 192px) !important;
   }
 
-  // set for inline tables - body
+  // inline db - set width
   .notion-scroller.vertical.horizontal
     .notion-page-content
     > .notion-collection_view-block
@@ -173,13 +172,12 @@ $docWidth: 83%;
     padding-right: 96px !important;
   }
 
-  // set for inline tables - footer
-
+  // inline table - set footer width
   .notion-scroller.vertical.horizontal
     .notion-page-content
     > .notion-collection_view-block
     > .notion-scroller.horizontal
-    > div:first-child
+    > .notion-table-view
     > div:first-child
     > div:nth-child(5) {
     min-width: calc(100% - 192px) !important;
