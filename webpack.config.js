@@ -206,10 +206,10 @@ module.exports = (env, argv) => {
     //   writeToDisk: true,
     // },
     // to test v5 cmptblty
-    // node: {
-    //   Buffer: false,
-    //   process: false,
-    // },
+    node: {
+      Buffer: false,
+      process: false,
+    },
     entry,
     mode,
     devtool: isDev ? "inline-source-map" : "", // other option: "eval-cheap-module-source-map";
