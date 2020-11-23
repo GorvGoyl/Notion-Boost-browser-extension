@@ -10,12 +10,13 @@ const ZipPlugin = require("zip-webpack-plugin");
 
 module.exports = (env, argv) => {
   const mode = argv.mode || "production";
+  console.log("argv: ", argv);
   console.log("mode: ", mode);
 
   const isDev = mode === "development";
-  const isChrome = argv.browser === "chrome";
-  const isFirefox = argv.browser === "firefox";
-  const { browser } = argv;
+  const isChrome = argv.env.browser === "chrome";
+  const isFirefox = argv.env.browser === "firefox";
+  const { browser } = argv.env;
 
   const entry = {
     content: path.join(__dirname, "src", "js", "content.js"),
@@ -212,7 +213,8 @@ module.exports = (env, argv) => {
     // },
     entry,
     mode,
-    devtool: isDev ? "inline-source-map" : "", // other option: "eval-cheap-module-source-map";
+    // choose correct source map https://webpack.js.org/configuration/devtool/
+    devtool: isDev ? "eval-cheap-module-source-map" : undefined, // to remove errors from chrome extensions page : cheap-module-source-map or inline-source-map;
 
     plugins: pluginsArr,
     output: {
