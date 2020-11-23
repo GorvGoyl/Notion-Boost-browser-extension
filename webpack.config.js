@@ -216,8 +216,8 @@ module.exports = (env, argv) => {
     entry,
     mode,
     // choose correct source map https://webpack.js.org/configuration/devtool/
-    devtool: isDev ? "eval-cheap-module-source-map" : undefined, // to remove errors from chrome extensions page : cheap-module-source-map or inline-source-map;
-
+    devtool: isDev ? "eval-cheap-module-source-map" : false, // to remove errors from chrome extensions page use cheap-module-source-map or inline-source-map;
+    // devtool: false,
     plugins: pluginsArr,
     output: {
       path: path.resolve(__dirname, buildDist),
