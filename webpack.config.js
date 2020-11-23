@@ -14,9 +14,13 @@ module.exports = (env, argv) => {
   console.log("mode: ", mode);
 
   const isDev = mode === "development";
-  const isChrome = argv.env.browser === "chrome";
-  const isFirefox = argv.env.browser === "firefox";
-  const { browser } = argv.env;
+  const { browser } = argv.env || "";
+  let isChrome = true;
+  let isFirefox = false;
+  if (browser) {
+    isChrome = browser === "chrome";
+    isFirefox = browser === "firefox";
+  }
 
   const entry = {
     content: path.join(__dirname, "src", "js", "content.js"),
