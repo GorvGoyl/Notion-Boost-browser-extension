@@ -22,9 +22,7 @@ module.exports = (env, argv) => {
     content: path.join(__dirname, "src", "js", "content.js"),
     popup: path.join(__dirname, "src", "popup.jsx"),
   };
-  const output = {
-    filename: "[name].bundle.js",
-  };
+
   const manifest = ["src/manifest.json"];
   let buildDist = "build";
   let storeURL = "";
