@@ -9,9 +9,10 @@ const webpack = require("webpack");
 const ZipPlugin = require("zip-webpack-plugin");
 
 module.exports = (env, argv) => {
-  console.log("mode: ", argv.mode);
+  const mode = argv.mode || "production";
+  console.log("mode: ", mode);
 
-  const isDev = argv.mode === "development";
+  const isDev = mode === "development";
   const isChrome = argv.browser === "chrome";
   const isFirefox = argv.browser === "firefox";
   const { browser } = argv;
@@ -204,7 +205,13 @@ module.exports = (env, argv) => {
     // devServer: {
     //   writeToDisk: true,
     // },
+    // to test v5 cmptblty
+    // node: {
+    //   Buffer: false,
+    //   process: false,
+    // },
     entry,
+    mode,
     devtool: isDev ? "inline-source-map" : "", // other option: "eval-cheap-module-source-map";
 
     plugins: pluginsArr,
