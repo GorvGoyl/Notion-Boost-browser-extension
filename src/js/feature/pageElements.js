@@ -2,8 +2,6 @@ import { getElement, onElementLoaded } from "../utility";
 
 const notionHelpBtnCls = ".notion-help-button";
 const notionBodyCls = ".notion-body";
-const notionScrollerCls = ".notion-scroller.vertical.horizontal";
-const notionPageContentCls = ".notion-page-content";
 
 export function hideComments(isEnabled) {
   try {
@@ -71,6 +69,7 @@ export function bolderTextInDark(isEnabled) {
     console.log(e);
   }
 }
+
 export function hideHelpBtn(isHidden) {
   try {
     console.log(`feature: hideHelpBtn: ${isHidden}`);

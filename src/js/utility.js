@@ -1,5 +1,70 @@
 import { defaultSettings } from "./settings";
 
+// stays on doc change
+const notionFrameCls = ".notion-frame";
+
+// these gets removed on doc change
+const notionScrollerCls = ".notion-scroller.vertical.horizontal";
+const notionPageContentCls = ".notion-page-content";
+
+// add listener for page change or window reload event
+// accepts array of functions
+// callbacksAfterDocReady: call any function after notion doc is ready, it triggers for all pages
+// callbacksAfterContentReady: call any function after notion doc content is loaded (async), this won't trigger in case of full length db
+// return observer object which can be used to disconnect pageChangeListener
+export function pageChangeListener(
+  callbacksAfterDocReady,
+  callbacksAfterContentReady
+) {
+  try {
+    console.log(
+      `listening to page change events for: ${callbacksAfterDocReady[0].name}`
+    );
+  } catch (e) {
+    console.log(`Error: ${JSON.stringify(e)}`);
+  }
+
+  const pageChangeObserverObj = new MutationObserver((mutationList, obsrvr) => {
+    console.log("new page opened");
+
+    // check if scroller class is loaded
+    if (getElement(notionScrollerCls)) {
+      for (let i = 0; i < callbacksAfterDocReady.length; i++) {
+        callbacksAfterDocReady[i]();
+      }
+      // now wait for page-content class to be loaded
+      onElementLoaded(notionPageContentCls, notionScrollerCls)
+        .then((isPresent) => {
+          if (isPresent) {
+            for (let i = 0; i < callbacksAfterContentReady.length; i++) {
+              callbacksAfterContentReady[i]();
+            }
+          }
+          return null;
+        })
+        .catch((e) => console.log(e));
+    }
+  });
+
+  const docFrameEl = getElement(notionFrameCls);
+
+  pageChangeObserverObj.observe(docFrameEl, {
+    childList: true,
+  });
+  return pageChangeObserverObj;
+}
+
+export function removePageChangeListener(pageChangeObserverObj) {
+  if (isObserverType(pageChangeObserverObj)) {
+    console.log("disconnected pageChangeObserver");
+    pageChangeObserverObj.disconnect();
+  }
+}
+
+function isObserverType(obj) {
+  return obj.disconnect !== undefined;
+}
+
 // return promise when div is loaded
 // pass div and (optional) parent div class
 // if parent class is not passed then `document` is used

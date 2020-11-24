@@ -1,3 +1,7 @@
+$btn-shadow-light: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px,
+  rgba(15, 15, 15, 0.1) 0px 2px 4px;
+$btn-shadow-dark: rgba(15, 15, 15, 0.2) 0px 0px 0px 1px,
+  rgba(15, 15, 15, 0.2) 0px 2px 4px;
 $themes: (
   light: (
     color: rgba(55, 53, 47, 0.6),
@@ -9,6 +13,9 @@ $themes: (
         rgba(55, 53, 47, 0.16) 0%,
         rgba(55, 53, 47, 0.16) 100%
       ),
+    floating-btn-bg: white,
+    floating-btn-hover-bg: rgb(239, 239, 238),
+    floating-btn-shadow: $btn-shadow-light,
   ),
   dark: (
     color: rgba(255, 255, 255, 0.6),
@@ -20,6 +27,9 @@ $themes: (
         rgba(255, 255, 255, 0.14) 0%,
         rgba(255, 255, 255, 0.14) 100%
       ),
+    floating-btn-bg: rgb(80, 85, 88),
+    floating-btn-hover-bg: rgb(98, 102, 104),
+    floating-btn-shadow: $btn-shadow-dark,
   ),
 );
 
@@ -28,6 +38,7 @@ $themes: (
  */
 @mixin themify() {
   @each $theme, $map in $themes {
+    // set element colors based on notion theme
     .notion-#{$theme}-theme & {
       $theme-map: () !global;
       @each $key, $submap in $map {

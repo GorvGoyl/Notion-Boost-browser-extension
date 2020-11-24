@@ -1,17 +1,18 @@
 import {
-  isEmpty,
   getElement,
   toElement,
   removeChildren,
   onElementLoaded,
+  pageChangeListener,
+  removePageChangeListener,
 } from "../utility";
 
-let pageChangeObserver = {};
-let docEditObserver = {};
+let pageChangeObserverObj = {};
+let docEditObserverObj = {};
 
 // keep classes in hierarchy of DOM
 
-// stays on page change
+// stays on doc change
 const notionFrameCls = ".notion-frame";
 const outlineFrameCls = ".nb-outline";
 
@@ -34,7 +35,12 @@ export function displayOutline(isShow) {
           // addOutlineFrame();
           addOutline();
           docEditListener();
-          pageChangeListener();
+          // add listener for page change or window reload
+          // it detaches old listeners and adds new doceditlistener and outline
+          pageChangeObserverObj = pageChangeListener(
+            [removeDocEditListener, hideOutline],
+            [addOutline, docEditListener]
+          );
         }
         return null;
       })
@@ -45,24 +51,18 @@ export function displayOutline(isShow) {
 }
 
 function removeDocEditListener() {
-  if (isObserverType(docEditObserver)) {
+  if (isObserverType(docEditObserverObj)) {
     console.log("disconnected docEditObserver");
-    docEditObserver.disconnect();
+    docEditObserverObj.disconnect();
   }
 }
 
-function removePageChangeListener() {
-  if (isObserverType(pageChangeObserver)) {
-    console.log("disconnected pageChangeObserver");
-    pageChangeObserver.disconnect();
-  }
-}
 function removeOutline() {
   console.log("removing outline feature...");
 
   removeDocEditListener();
 
-  removePageChangeListener();
+  removePageChangeListener(pageChangeObserverObj);
 
   clearOutline();
 
@@ -74,16 +74,6 @@ function hideOutline() {
 
   if (!outline) return;
   outline.classList.remove("show");
-
-  const pageContent = getElement(notionPageContentCls);
-  //  removal of := fix weird bug where inline table (if any) goes to the left if page width is 100%
-  if (pageContent) {
-    // pageContent.childNodes.forEach((block) => {
-    //   if (block.classList.contains("notion-collection_view-block")) {
-    //     block.style.paddingLeft = "0";
-    //   }
-    // });
-  }
 }
 
 function clearOutline() {
@@ -208,7 +198,7 @@ function addOutline() {
 function docEditListener() {
   console.log("listening for doc edit changes...");
 
-  docEditObserver = new MutationObserver((mutationList, obsrvr) => {
+  docEditObserverObj = new MutationObserver((mutationList, obsrvr) => {
     console.log("found changes in doc content");
 
     let isDocHeadingChanged = false;
@@ -300,41 +290,10 @@ function docEditListener() {
   // now add listener for doc text change
   const pageContentEl = getElement(notionPageContentCls);
 
-  docEditObserver.observe(pageContentEl, {
+  docEditObserverObj.observe(pageContentEl, {
     childList: true,
     characterData: true,
     subtree: true,
-  });
-}
-
-// add listener for page change or window reload
-// it detaches old listeners and adds new doceditlistener and outline
-function pageChangeListener() {
-  console.log("listening for page change events...");
-
-  pageChangeObserver = new MutationObserver((mutationList, obsrvr) => {
-    console.log("new page opened");
-    removeDocEditListener();
-    hideOutline();
-    // check if scroller class is loaded
-    if (getElement(notionScrollerCls)) {
-      // now wait for page-content class to be loaded
-      onElementLoaded(notionPageContentCls, notionScrollerCls)
-        .then((isPresent) => {
-          if (isPresent) {
-            addOutline();
-            docEditListener();
-          }
-          return null;
-        })
-        .catch((e) => console.log(e));
-    }
-  });
-
-  const docFrameEl = getElement(notionFrameCls);
-
-  pageChangeObserver.observe(docFrameEl, {
-    childList: true,
   });
 }
 

@@ -2,12 +2,14 @@ import "../css/content.scss";
 import { defaultSettings } from "./settings";
 import { isEmpty, getLatestSettings } from "./utility";
 import { displayOutline } from "./feature/outline";
+import { scrollTopBtn } from "./feature/scrollToTopBtn";
 import * as features from "./feature/pageElements";
 
 let featureList = {};
 
 featureList = features;
 featureList.displayOutline = displayOutline;
+featureList.scrollTopBtn = scrollTopBtn;
 function init() {
   let syncSet = {};
   const updatedSet = { ...defaultSettings };

@@ -1,8 +1,43 @@
-// default settings
+// settings and their default value
 export const defaultSettings = {
   displayOutline: true,
   hideHelpBtn: false,
   bolderTextInDark: false,
   smallTextFullWidth: false,
   hideComments: false,
+  scrollTopBtn: false,
 };
+
+export const settingDetails = [
+  {
+    func: "displayOutline",
+    name: "Show Outline",
+    desc:
+      "Show sticky outline (table of contents) for pages that have headings",
+  },
+  {
+    func: "smallTextFullWidth",
+    name: "Small text & Full width for all pages",
+    desc: "Set small text and full width for all pages by default",
+  },
+  {
+    func: "scrollTopBtn",
+    name: "Scroll to top button",
+    desc: "Add button at botton-right corner for scrolling back to top",
+  },
+  {
+    func: "bolderTextInDark",
+    name: "Bolder text in dark mode",
+    desc: "Fix poorly recognizable bold text in dark mode",
+  },
+  {
+    func: "hideHelpBtn",
+    name: "Hide Help button from pages",
+    desc: "",
+  },
+  {
+    func: "hideComments",
+    name: "Hide comments section from pages",
+    desc: "",
+  },
+];

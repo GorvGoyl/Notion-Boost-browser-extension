@@ -3,38 +3,9 @@ import { Router, route } from "preact-router";
 import { useEffect } from "preact/hooks";
 import { About } from "./About";
 import "./css/popup.scss";
-import { getElement, getElements, getLatestSettings } from "./js/utility";
+import { getElements, getLatestSettings } from "./js/utility";
+import { settingDetails } from "./js/settings";
 
-const settings = [
-  {
-    func: "displayOutline",
-    name: "Show Outline",
-    desc:
-      "Show outline (table of contents) for pages that have headings or sub-headings",
-  },
-
-  {
-    func: "bolderTextInDark",
-    name: "Bolder text in dark mode",
-    desc:
-      "Bold text isn't properly recognizable in dark mode, this fixes that.",
-  },
-  {
-    func: "smallTextFullWidth",
-    name: "Small text & Full width for all pages",
-    desc: "set small text and full width for all pages by default",
-  },
-  {
-    func: "hideHelpBtn",
-    name: "Hide Help button on page",
-    desc: "Hide floating help button on the bottom-right corner of page",
-  },
-  {
-    func: "hideComments",
-    name: "Hide comments section on page",
-    desc: "",
-  },
-];
 function init() {
   // set buttons state
   getLatestSettings()
@@ -89,6 +60,7 @@ function updateSettings(el) {
     .catch((e) => console.log(e));
 }
 
+// Build popup settings
 function Home() {
   useEffect(() => {
     init();
@@ -99,17 +71,17 @@ function Home() {
       <div className="wrapper">
         <div className="title underline">Notion Boost</div>
         <div className="settings table">
-          {settings.map((obj, index) => (
+          {settingDetails.map((obj, index) => (
             <Fragment>
               <div
                 className="row"
                 data-func={obj.func}
                 onClick={updateSettings}
               >
-                <div style={{ flex: "1 1 0%" }}>
+                <div className="text-wrapper">
                   {obj}
                   <div className="name">{obj.name}</div>
-                  <div className="desc">{obj.desc}</div>
+                  {obj.desc && <div className="desc">{obj.desc}</div>}
                 </div>
                 <div
                   className="button toggle"
@@ -122,13 +94,20 @@ function Home() {
                   </div>
                 </div>
               </div>
-              <div className="divider">
-                <div className="border" />
-              </div>
+              {index === settingDetails.length - 1 ? (
+                <div className="divider last" />
+              ) : (
+                <div className="divider">
+                  <div className="border" />
+                </div>
+              )}
+              {/* <div className="divider">
+                {index !== settings.length - 1 && <div className="border" />}
+              </div> */}
             </Fragment>
           ))}
         </div>
-        <div className="footer">
+        <div className="footer topline">
           <a className="footer-item" href="/about">
             <div className="button" style="" role="button" tabIndex={0}>
               About

@@ -9,6 +9,7 @@ $toggle: (
   ),
 );
 
+// states of toggle button in popup
 @mixin button() {
   @each $theme, $map in $toggle {
     .row.#{$theme} & {

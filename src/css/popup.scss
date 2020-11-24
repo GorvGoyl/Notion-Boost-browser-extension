@@ -8,11 +8,35 @@ $color-gray: #37352f;
 * {
   box-sizing: border-box;
 }
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
 
+::-webkit-scrollbar {
+  background: transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #d3d1cb;
+}
+::-webkit-scrollbar-track {
+  background: #edece9;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #aeaca6;
+}
+*::selection {
+  background: rgba(45, 170, 219, 0.3);
+}
 body {
   margin: 0;
   margin: 8px;
-  width: 350px;
+  width: 370px;
   padding: 9px 15px;
 
   fill: currentcolor;
@@ -20,11 +44,6 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
     "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
   -webkit-font-smoothing: auto;
-}
-*,
-:after,
-:before {
-  box-sizing: border-box;
 }
 
 p {
@@ -52,7 +71,6 @@ p {
 
 .back.button {
   display: inline-block;
-
   .arrow {
     -webkit-mask-image: url("../images/left-arrow.svg");
     mask-image: url("../images/left-arrow.svg");
@@ -68,10 +86,18 @@ p {
   margin-bottom: 5px;
 }
 
+$line: 1px solid rgba($color-gray, 0.1);
+
 .underline {
-  border-bottom: 1px solid rgba($color-gray, 0.09);
+  border-bottom: $line;
   margin-bottom: 16px;
   padding-bottom: 8px;
+}
+
+.topline {
+  border-top: $line;
+  margin-top: 16px;
+  padding-top: 16px;
 }
 
 .external-link {
@@ -104,8 +130,6 @@ p {
 }
 .wrapper {
   flex-grow: 1;
-  overflow: auto;
-  // margin: 8px;
 
   .footer {
     display: flex;
@@ -187,14 +211,18 @@ p {
   }
 }
 
-.table.settings {
+.settings.table {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
   height: auto;
   padding-left: 0px;
-  padding-right: 0px;
+  padding-right: 15px;
+  overflow: auto;
+  max-height: 300px;
+  // fix for firefox
+  scrollbar-width: thin;
 
   .row {
     user-select: none;
@@ -203,19 +231,29 @@ p {
     align-items: center;
     cursor: pointer;
 
-    .name {
-      font-size: 14px;
-    }
-    .desc {
-      font-size: 12px;
-      line-height: 16px;
-      color: rgba($color-gray, 0.6);
-      width: 80%;
-      margin-top: 4px;
+    .text-wrapper {
+      flex: 1 1 0%;
+      flex-wrap: wrap;
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      .name {
+        font-size: 14px;
+      }
+      .desc {
+        font-size: 12px;
+        line-height: 16px;
+        color: rgba($color-gray, 0.6);
+        width: 85%;
+        margin-top: 4px;
+      }
     }
   }
 
   .divider {
+    &.last {
+      height: 12px;
+    }
     display: flex;
     align-items: center;
     justify-content: center;

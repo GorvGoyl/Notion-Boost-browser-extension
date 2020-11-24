@@ -210,3 +210,34 @@ $docWidth: 83%;
     }
   }
 }
+
+// # Scroll Top btn
+.scroll-top-btn {
+  &.show {
+    display: flex !important;
+  }
+  &:hover {
+    @include themify() {
+      background: themed("floating-btn-hover-bg");
+    }
+  }
+  @include themify() {
+    background: themed("floating-btn-bg");
+    box-shadow: themed("floating-btn-shadow");
+  }
+  display: none;
+  user-select: none;
+  transition: opacity 700ms ease 0s, color 700ms ease 0s;
+  cursor: pointer;
+  opacity: 1;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  bottom: 88px;
+  right: 33px;
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+  font-size: 20px;
+  z-index: 101;
+}
