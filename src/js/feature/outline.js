@@ -5,6 +5,7 @@ import {
   onElementLoaded,
   pageChangeListener,
   removePageChangeListener,
+  getElements,
 } from "../utility";
 
 let pageChangeObserverObj = {};
@@ -141,50 +142,53 @@ function addOutline() {
      </a>
    </div>`;
 
-  const blocks = pageContent.children;
   let block = "";
 
-  let isHeadingFound = false;
+  let isHeadingsFound = false;
 
-  // find headings and add it to outline
-  for (let i = 0; i < blocks.length; i++) {
+  // select all divs containing headings
+  const headings = getElements(
+    `${notionPageContentCls} [class$="header-block"]`
+  );
+
+  isHeadingsFound = headings.length > 0;
+
+  // add headings to outline view
+  for (let i = 0; i < headings.length; i++) {
     let headingCls = "";
-    const b = blocks[i];
-    if (b.classList.contains("notion-header-block")) {
+    const h = headings[i];
+    if (h.classList.contains("notion-header-block")) {
       headingCls = "nb-h1";
-    } else if (b.classList.contains("notion-sub_header-block")) {
+    } else if (h.classList.contains("notion-sub_header-block")) {
       headingCls = "nb-h2";
-    } else if (b.classList.contains("notion-sub_sub_header-block")) {
+    } else if (h.classList.contains("notion-sub_sub_header-block")) {
       headingCls = "nb-h3";
     } else {
       headingCls = "";
     }
 
-    if (headingCls) {
-      isHeadingFound = true;
-      block = toElement(tocBlockHTML);
+    block = toElement(tocBlockHTML);
 
-      // add text
-      const text = b.textContent;
-      block.querySelector(".align").classList.add(headingCls);
-      block.querySelector(".text").textContent = text;
+    // add text
+    const text = h.textContent;
+    block.querySelector(".align").classList.add(headingCls);
+    block.querySelector(".text").textContent = text;
 
-      // add href
-      const blockId = b.getAttribute("data-block-id").replace(/-/g, "");
-      block.setAttribute("hash", blockId);
-      // evaluate href at runtime cuz notion url is not consistent
-      block.addEventListener("click", (e) => {
-        e.currentTarget.querySelector("a").href = `${
-          window.location.pathname
-        }#${e.currentTarget.getAttribute("hash")}`;
-      });
+    // add href
+    const blockId = h.getAttribute("data-block-id").replace(/-/g, "");
+    block.setAttribute("hash", blockId);
+    // evaluate href at runtime cuz notion url is not consistent
+    block.addEventListener("click", (e) => {
+      e.currentTarget.querySelector("a").href = `${
+        window.location.pathname
+      }#${e.currentTarget.getAttribute("hash")}`;
+    });
 
-      blockWrapperEl.appendChild(block);
-    }
+    blockWrapperEl.appendChild(block);
   }
 
   // hide outline if there is no heading
-  if (!isHeadingFound) {
+  if (!isHeadingsFound) {
     console.log("no heading found so removing outline frame");
     hideOutline();
   } else {
