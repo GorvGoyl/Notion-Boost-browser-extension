@@ -35,6 +35,8 @@
     //     "endOfLine": "auto"
     //   }
     // ],
+
+    "no-unused-expressions": "off",
     "import/prefer-default-export": "off",
     "promise/catch-or-return": ["error", { "allowFinally": true }],
     "no-use-before-define": "off",

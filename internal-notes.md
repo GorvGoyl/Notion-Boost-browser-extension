@@ -3,8 +3,8 @@
 - notion-app-inner notion-light-theme
   - notion-cursor-listener
     - notion-sidebar-container
-      - notion-frame
-        - notion-scroller vertical horizontal
+      - notion-frame _stays on doc change_
+        - notion-scroller vertical horizontal _gets removed on doc change_
           - `notion-page-content`
             - blocks
 

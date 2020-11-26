@@ -2,7 +2,7 @@ import { getElement, onElementLoaded } from "../utility";
 
 const notionHelpBtnCls = ".notion-help-button";
 const notionBodyCls = ".notion-body";
-
+const notionAppId = "#notion-app";
 export function hideComments(isEnabled) {
   try {
     console.log(`feature: hideComments: ${isEnabled}`);
@@ -92,3 +92,107 @@ export function hideHelpBtn(isHidden) {
     console.log(e);
   }
 }
+
+export function hideSlashMenuAfterSpace(isEnabled) {
+  try {
+    console.log(`feature: hideSlashMenuAfterSpace: ${isEnabled}`);
+
+    onElementLoaded(notionAppId)
+      .then((isPresent) => {
+        if (isPresent) {
+          if (isEnabled) {
+            getElement(notionAppId).addEventListener(
+              "keydown",
+              hideSlashMenuAfterSpaceEvent
+            );
+          } else {
+            getElement(notionAppId).removeEventListener(
+              "keydown",
+              hideSlashMenuAfterSpaceEvent
+            );
+          }
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function disableSlashMenu(isEnabled) {
+  try {
+    console.log(`feature: disableSlashMenu: ${isEnabled}`);
+
+    onElementLoaded(notionAppId)
+      .then((isPresent) => {
+        if (isPresent) {
+          if (isEnabled) {
+            // this preceeds 'hideSlashMenuAfterSpaceEvent' so remove that first
+            getElement(notionAppId).removeEventListener(
+              "keydown",
+              hideSlashMenuAfterSpaceEvent
+            );
+
+            // simulate click for both events to prevent menu from appearing
+            getElement(notionAppId).addEventListener(
+              "keydown",
+              disableSlashMenuEvent
+            );
+            getElement(notionAppId).addEventListener(
+              "keyup",
+              disableSlashMenuEvent
+            );
+          } else {
+            getElement(notionAppId).removeEventListener(
+              "keydown",
+              disableSlashMenuEvent
+            );
+            getElement(notionAppId).removeEventListener(
+              "keyup",
+              disableSlashMenuEvent
+            );
+          }
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+// #region ## ----------------- internal methods ----------------- ##
+
+function isSlashMenuVisible() {
+  // this selector covers both scenario of slash menu when it appears in main doc or inside popup doc
+  const slashMenuCls =
+    "#notion-app > div > div.notion-overlay-container.notion-default-overlay-container > div > div > div > div:nth-child(2) > div > div > div > div > div.notion-scroller.vertical";
+  const isVisible = getElement(slashMenuCls) !== null;
+  return isVisible;
+}
+
+function hideSlashMenuAfterSpaceEvent(e) {
+  const spaceKey = " ";
+  if (e.key === spaceKey) {
+    const lastChar = e.target.textContent[e.target.textContent.length - 1];
+    if (lastChar === "/") {
+      if (isSlashMenuVisible()) {
+        // hide slash menu by clicking
+        e.target.click();
+        console.info("slash menu hid");
+      }
+    }
+  }
+}
+
+function disableSlashMenuEvent(e) {
+  const slashKey = "/";
+  if (e.key === slashKey) {
+    // hide menu before it's appearing
+    e.target.click();
+    console.info("slash menu hid");
+  }
+}
+
+// #endregion

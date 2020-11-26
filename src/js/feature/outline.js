@@ -11,6 +11,12 @@ import {
 let pageChangeObserverObj = {};
 let docEditObserverObj = {};
 
+const DEBUG = false;
+// ENABLE/DISABLE Console Logs
+// if (!DEBUG) {
+//   console.log = () => {};
+// }
+
 // keep classes in hierarchy of DOM
 
 // stays on doc change
@@ -88,7 +94,7 @@ function clearOutline() {
 }
 
 function addOutline() {
-  console.log("adding/updating OUTLINE");
+  DEBUG && console.log("adding/updating OUTLINE");
 
   const pageContent = getElement(notionPageContentCls);
   if (!pageContent) {
@@ -203,7 +209,7 @@ function docEditListener() {
   console.log("listening for doc edit changes...");
 
   docEditObserverObj = new MutationObserver((mutationList, obsrvr) => {
-    console.log("found changes in doc content");
+    DEBUG && console.log("found changes in doc content");
 
     let isDocHeadingChanged = false;
 
@@ -213,7 +219,7 @@ function docEditListener() {
 
       // case: check for text change in headings
       if (!isHeading(placeholder) && m.type === "characterData") {
-        console.log(`changed text: ${m.target.textContent}`);
+        DEBUG && console.log(`changed text: ${m.target.textContent}`);
 
         if (!isHeading(placeholder) && m.target.parentNode) {
           placeholder = m.target.parentNode.getAttribute("placeholder");
@@ -231,7 +237,7 @@ function docEditListener() {
         }
       }
       if (!isHeading(placeholder) && m.type === "childList") {
-        console.log("childList changed");
+        // console.log("childList changed");
 
         // case: hitting backspace in headings
         placeholder = m.target.getAttribute("placeholder");
@@ -247,7 +253,7 @@ function docEditListener() {
           );
 
           if (placeholder) {
-            console.log("empty block got removed: ");
+            // console.log("empty block got removed");
           }
 
           // case: when select and delete multiple headings
@@ -260,7 +266,7 @@ function docEditListener() {
               "placeholder"
             );
 
-            console.log("empty blocks got removed: ");
+            // console.log("empty blocks got removed");
           }
         }
 
@@ -273,7 +279,7 @@ function docEditListener() {
           placeholder = m.addedNodes[0].firstElementChild.getAttribute(
             "placeholder"
           );
-          console.log("empty block got added: ");
+          // console.log("empty block got added");
         }
       }
 

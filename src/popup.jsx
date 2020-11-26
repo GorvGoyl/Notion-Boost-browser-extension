@@ -3,7 +3,7 @@ import { Router, route } from "preact-router";
 import { useEffect } from "preact/hooks";
 import { About } from "./About";
 import "./css/popup.scss";
-import { getElements, getLatestSettings } from "./js/utility";
+import { getElement, getElements, getLatestSettings } from "./js/utility";
 import { settingDetails } from "./js/settings";
 
 function init() {
@@ -22,42 +22,86 @@ function init() {
     })
     .catch((e) => console.log(e));
 }
+// enable/disable function
+function setFuncState(funcName, state) {
+  const promise = new Promise((resolve, reject) => {
+    try {
+      console.log(`${funcName} setting to ${state}`);
 
-function updateSettings(el) {
-  console.log("cb clicked: ");
-  const func = el.currentTarget.getAttribute("data-func");
+      const btn = getElement(`[data-func=${funcName}]`);
+      toggleBtnUI(btn);
+
+      getLatestSettings()
+        .then((set) => {
+          console.log("getLatestSettings ->", set);
+          set[funcName] = state;
+          set.call_func = {
+            name: funcName,
+            arg: state,
+          };
+
+          chrome.storage.sync.set({ nb_settings: set }, () => {
+            console.log(`${funcName} set to ${state}`);
+            resolve();
+          });
+          return null;
+        })
+        .catch((e) => console.log(e));
+    } catch (e) {
+      console.log(e);
+      reject(Error("some issue... promise rejected"));
+    }
+  });
+  return promise;
+}
+
+function toggleBtnUI(el) {
+  if (el.classList.contains("enable")) {
+    el.classList.remove("enable");
+    el.classList.add("disable");
+  } else if (el.classList.contains("disable")) {
+    el.classList.remove("disable");
+    el.classList.add("enable");
+  }
+}
+
+function isFuncEnabled(func) {
+  const btnToDisable = getElement(`[data-func=${func}]`);
+
+  if (btnToDisable.classList.contains("enable")) {
+    return true;
+  }
+  return false;
+}
+function updateSettings(ev) {
+  console.log("clicked: ");
+  const func = ev.currentTarget.getAttribute("data-func");
+  const btnEl = getElement(`[data-func=${func}]`);
+  const funcToDisable = btnEl.getAttribute("data-disable_func");
+
   console.log("updateSettings -> func", func);
+  console.log("updateSettings -> disableFunc", funcToDisable);
 
-  let isEnabled = false;
-  const { classList } = el.currentTarget;
+  let toEnable = false;
+  const { classList } = btnEl;
+
   if (classList.contains("enable")) {
-    isEnabled = false;
-    classList.remove("enable");
-    classList.add("disable");
+    toEnable = false;
   } else if (classList.contains("disable")) {
-    isEnabled = true;
-    classList.remove("disable");
-    classList.add("enable");
+    toEnable = true;
   }
 
-  console.log("updateSettings -> isEnabled", isEnabled);
-
-  getLatestSettings()
-    .then((set) => {
-      console.log("updateSettings -> set", set);
-      set[func] = isEnabled;
-      set.call_func = {
-        name: func,
-        arg: isEnabled,
-      };
-
-      chrome.storage.sync.set({ nb_settings: set }, () => {
-        // Notify that we saved.
-        // message("Settings saved");
-      });
-      return null;
-    })
-    .catch((e) => console.log(e));
+  // disable other related func if both are enabled
+  if (funcToDisable && isFuncEnabled(funcToDisable) && toEnable) {
+    setFuncState(funcToDisable, false)
+      .then(() => {
+        setFuncState(func, toEnable);
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } else {
+    setFuncState(func, toEnable);
+  }
 }
 
 // Build popup settings
@@ -76,6 +120,7 @@ function Home() {
               <div
                 className="row"
                 data-func={obj.func}
+                data-disable_func={obj.disable_func}
                 onClick={updateSettings}
               >
                 <div className="text-wrapper">
@@ -101,9 +146,6 @@ function Home() {
                   <div className="border" />
                 </div>
               )}
-              {/* <div className="divider">
-                {index !== settings.length - 1 && <div className="border" />}
-              </div> */}
             </Fragment>
           ))}
         </div>
@@ -118,6 +160,7 @@ function Home() {
     </div>
   );
 }
+
 function App() {
   return (
     <Router>
