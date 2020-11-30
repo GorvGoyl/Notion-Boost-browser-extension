@@ -24,19 +24,19 @@ export const settingDetails = [
   },
   {
     func: "scrollTopBtn",
-    name: "Scroll to top button",
-    desc: "Add button at botton-right corner for scrolling back to top",
+    name: "'Scroll to top' button",
+    desc: "Add button at bottom-right corner for scrolling back to top",
   },
   {
     func: "hideSlashMenuAfterSpace",
-    name: "Hide Slash menu after space",
-    desc: "Hide slash popup menu ('/') by pressing space key",
+    name: "Close slash command menu after space",
+    desc: "Close slash command popup menu '/' by pressing space key",
     disable_func: "disableSlashMenu",
   },
   {
     func: "disableSlashMenu",
-    name: "Don't show Slash menu when pressing '/'",
-    desc: "Don't show Slash popup menu when pressing '/'",
+    name: "Don't show slash command menu when pressing '/'",
+    desc: "Don't show slash command popup menu when pressing '/'",
     disable_func: "hideSlashMenuAfterSpace",
   },
   {

@@ -14,6 +14,7 @@ let docEditObserverObj = {};
 const DEBUG = false;
 // ENABLE/DISABLE Console Logs
 // if (!DEBUG) {
+
 //   console.log = () => {};
 // }
 
