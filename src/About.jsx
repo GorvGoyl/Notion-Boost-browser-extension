@@ -57,17 +57,23 @@ export function About() {
       <div className="sub-title underline">Make Notion more productive</div>
 
       <Bullet
-        txtS="Like this extension? "
+        txtS="Support this extension: "
         urlTxt="Leave a review 🖤"
         url={StoreURL}
       />
 
       <Bullet
-        txtS="Report issue or suggest feature "
+        txtS="Missing any feature? suggest here: "
         urlTxt="Github"
         url="https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues"
       />
-      {/* <Bullet
+      <Bullet
+        txtS="See "
+        urlTxt={<Fragment>what's new</Fragment>}
+        url="https://gourav.io/notion-boost/whats-new"
+        txtE=" in this update"
+      />
+      <Bullet
         txtS="Follow "
         urlTxt={
           <Fragment>
@@ -75,10 +81,10 @@ export function About() {
           </Fragment>
         }
         url="https://twitter.com/notionboost"
-        txtE=" for latest updates"
-      /> */}
+        txtE=" for upcoming features and other Notion tips"
+      />
       <Bullet
-        txtS="Built by "
+        txtS="Made by "
         urlTxt={
           <Fragment>
             @GorvGoyl <span className="twitter" />
@@ -86,6 +92,7 @@ export function About() {
         }
         url="https://twitter.com/gorvgoyl"
       />
+      <Bullet txtS={`Version: ${chrome.runtime.getManifest().version}`} />
     </div>
   );
 }
