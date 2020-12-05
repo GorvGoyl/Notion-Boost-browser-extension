@@ -4,7 +4,11 @@
 
 > Browser extension to add features like sticky outline (table of contents), small text & full width by default,scroll to top button, hide slash command menu, hide help button, bolder text and more to Notion.so website.
 
+<center>
+
 [![Twitter Follow](https://img.shields.io/badge/@GorvGoyl-1da1f2?style=for-the-badge&labelColor=1da1f2&color=1da1f2&logo=twitter&logoColor=white&label=Follow)](https://twitter.com/intent/follow?user_id=325435736)
+
+ </center>
 
 ## ⬇ Download
 
