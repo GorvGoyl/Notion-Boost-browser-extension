@@ -23,6 +23,15 @@
 
 ## ✅ Currently added features
 
+- [Show sticky outline](#-show-sticky-outline)
+- [Set small text & full width for all pages](#-set-small-text--full-width-for-all-pages)
+- ['Scroll to top' button](#-scroll-to-top-button)
+- [Close Slash command menu after space](#-close-slash-command-menu-after-space)
+- [Don't show Slash command menu when pressing '/'](#-dont-show-slash-command-menu-when-pressing-)
+- [Hide floating help button from all pages](#-hide-floating-help-button-from-all-pages)
+- [Bolder text in dark mode](#-bolder-text-in-dark-mode)
+- [Hide comments section from all pages](#-hide-comments-section-from-all-pages)
+
 ### ✔ Show sticky outline
 
 Show sticky outline (table of contents) for pages that have headings or sub-headings. The outline will be shown on the right side of the page. Very useful for navigating a page with lots of content.
@@ -79,15 +88,13 @@ Fix poorly recognizable bold text when using Notion in dark mode
 
 <br />
 
-### ✔ Hide comments section from all pages.
+### ✔ Hide comments section from all pages
 
 comment section is useless when working solo
 
 ![Notion Boost](./src/images/readme/commenthide.gif)
 
-<br />
-
-### ❓ Missing any feature? Suggest [here](https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues/)
+### ❓ Missing any feature? Suggest [here](https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues/new)
 
 ---
 
