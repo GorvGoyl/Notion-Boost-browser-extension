@@ -1,31 +1,66 @@
-# Notion-Boost-browser-extension
+# Notion Boost browser extension
 
-> Browser extension to add features like outline (table of contents), small text & full width by default, hide comments & help button, bolder text and more to Notion.so website.
+> Browser extension to add features like sticky outline (table of contents), small text & full width by default,scroll to top button, hide slash command menu, hide help button, bolder text and more to Notion.so website.
 
-**Download**
+![Twitter Follow](https://img.shields.io/badge/@GorvGoyl-1da1f2?style=for-the-badge&labelColor=1da1f2&color=1da1f2&logo=twitter&logoColor=white&label=Follow&url=https://twitter.com/intent/follow?user_id=325435736&url=https://twitter.com/intent/follow?user_id=325435736)
+
+## Download ⬇
 
 - [Chrome extension](https://chrome.google.com/webstore/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd)
-- [Firefox extension](https://addons.mozilla.org/en-US/firefox/addon/notion-boost/)
+- [Firefox addon](https://addons.mozilla.org/en-US/firefox/addon/notion-boost/)
 
-**Add extra features to Notion:**
-
-- Show outline (table of contents) for pages that have headings or sub-headings.
-- Set small text and full width for all pages by default.
-- Hide comments section on page.
-- Hide floating help button on page.
-- Make bold text bolder when using Notion in dark mode.
-- More features on the way :)
-
-**How to enable/disable a feature:**
+## How to enable/disable a feature
 
 1. visit any notion page
 2. click on the extension icon (clickable only when you are on a notion page)
 3. a popup menu will appear, you can toggle features here.
 
+## Currently added features ✅
+
+### ✔ Show sticky outline
+
+Show sticky outline (table of contents) for pages that have headings or sub-headings. The outline will be shown on the right side of the page. Very useful for navigating a page with lots of content.
+
+### ✔ Set small text & full width for all pages
+
+Option to set small text and full width for all pages by default. This locally adjusts the text and width without clicking on the Notion page toggles. So no page change is saved to the server.
+
+### ✔ 'Scroll to top' button
+
+Added button at the bottom-right corner of page for scrolling back to top. Quite useful for lengthy pages. The button will be visible only when the page has scrolled down a bit.
+
+### ✔ Close Slash command menu after space
+
+Slash command menu which appears when pressing '/' key will be closed back by pressing the space key.
+
+### ✔ Don't show Slash command menu when pressing '/'
+
+Don't show the Slash command menu when pressing '/' key. Slash command menu will still be shown by clicking + ⁝⁝ icon. This setting can't be enabled along with 'Close Slash command menu after space' and vice-versa.
+
+### ✔ Hide floating help button from all pages
+
+This button is located on the bottom-right corner of pages.
+
+### ✔ Bolder text in dark mode
+
+Fix poorly recognizable bold text when using Notion in dark mode
+
+### ✔ Hide comments section from all pages.
+
+comment section is useless when working solo
+
+### ❓ Missing any feature? Suggest [here](https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues/)
+
+---
+
 This is a free and open-source browser extension.
 
-- If you found this extension useful then please support it by rating ★★★★★ on chrome/firefox store.
-- Follow [@NotionBoost](https://twitter.com/notionboost) on Twitter
+- If you found this extension useful then please support it by rating [★★★★★](https://chrome.google.com/webstore/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd) on chrome/firefox store.
+- Follow [@NotionBoost](https://twitter.com/notionboost) on Twitter for upcoming features and other Notion tips.
+
+---
+
+---
 
 ## Contribution Guide
 
