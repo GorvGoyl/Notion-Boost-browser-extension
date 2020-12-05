@@ -29,11 +29,15 @@ Show sticky outline (table of contents) for pages that have headings or sub-head
 
 ![Notion Boost](./src/images/readme/outline.gif)
 
+<br />
+
 ### ✔ Set small text & full width for all pages
 
 Option to set small text and full width for all pages by default. This locally adjusts the text and width without clicking on the Notion page toggles. So no page change is saved to the server.
 
 ![Notion Boost](./src/images/readme/fullwidth.gif)
+
+<br />
 
 ### ✔ 'Scroll to top' button
 
@@ -41,11 +45,15 @@ Added button at the bottom-right corner of page for scrolling back to top. Quite
 
 ![Notion Boost](./src/images/readme/scrollbtn.gif)
 
+<br />
+
 ### ✔ Close Slash command menu after space
 
 Slash command menu which appears when pressing '/' key will be closed back by pressing the space key.
 
 ![Notion Boost](./src/images/readme/hideslash.gif)
+
+<br />
 
 ### ✔ Don't show Slash command menu when pressing '/'
 
@@ -53,11 +61,15 @@ Don't show the Slash command menu when pressing '/' key. Slash command menu will
 
 ![Notion Boost](./src/images/readme/disableslashmenu.gif)
 
+<br />
+
 ### ✔ Hide floating help button from all pages
 
 This button is located on the bottom-right corner of pages.
 
 ![Notion Boost](./src/images/readme/helpbtn.gif)
+
+<br />
 
 ### ✔ Bolder text in dark mode
 
@@ -65,11 +77,15 @@ Fix poorly recognizable bold text when using Notion in dark mode
 
 ![Notion Boost](./src/images/readme/boldertext.gif)
 
+<br />
+
 ### ✔ Hide comments section from all pages.
 
 comment section is useless when working solo
 
 ![Notion Boost](./src/images/readme/commenthide.gif)
+
+<br />
 
 ### ❓ Missing any feature? Suggest [here](https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues/)
 
