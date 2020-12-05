@@ -31,6 +31,7 @@
 - [Hide floating help button from all pages](#-hide-floating-help-button-from-all-pages)
 - [Bolder text in dark mode](#-bolder-text-in-dark-mode)
 - [Hide comments section from all pages](#-hide-comments-section-from-all-pages)
+- Missing any feature? Suggest [here](https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues/new)
 
 ### ✔ Show sticky outline
 
