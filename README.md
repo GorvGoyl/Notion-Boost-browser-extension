@@ -10,6 +10,12 @@
 
  </center>
 
+<p align="center">
+  <a href="[google.com](https://twitter.com/intent/follow?user_id=325435736)">
+  <img src="https://img.shields.io/badge/@GorvGoyl-1da1f2?style=for-the-badge&labelColor=1da1f2&color=1da1f2&logo=twitter&logoColor=white&label=Follow" alt="Follow on Twitter"/>
+  </a>
+</p>
+
 ## ⬇ Download
 
 - [Chrome extension](https://chrome.google.com/webstore/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd)
