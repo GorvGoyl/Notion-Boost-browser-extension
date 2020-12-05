@@ -21,8 +21,6 @@
 2. click on the extension icon (clickable only when you are on a notion page)
 3. a popup menu will appear, you can toggle features here.
 
-![Notion Boost](./src/images/readme/toggle.gif)
-
 ## ✅ Currently added features
 
 ### ✔ Show sticky outline
