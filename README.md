@@ -23,14 +23,14 @@
 
 ## ✅ Currently added features
 
-- [Show sticky outline](#-show-sticky-outline)
-- [Set small text & full width for all pages](#-set-small-text--full-width-for-all-pages)
-- ['Scroll to top' button](#-scroll-to-top-button)
-- [Close Slash command menu after space](#-close-slash-command-menu-after-space)
-- [Don't show Slash command menu when pressing '/'](#-dont-show-slash-command-menu-when-pressing-)
-- [Hide floating help button from all pages](#-hide-floating-help-button-from-all-pages)
-- [Bolder text in dark mode](#-bolder-text-in-dark-mode)
-- [Hide comments section from all pages](#-hide-comments-section-from-all-pages)
+- [x] [Show sticky outline](#-show-sticky-outline)
+- [x] [Set small text & full width for all pages](#-set-small-text--full-width-for-all-pages)
+- [x] ['Scroll to top' button](#-scroll-to-top-button)
+- [x] [Close Slash command menu after space](#-close-slash-command-menu-after-space)
+- [x] [Don't show Slash command menu when pressing '/'](#-dont-show-slash-command-menu-when-pressing-)
+- [x] [Hide floating help button from all pages](#-hide-floating-help-button-from-all-pages)
+- [x] [Bolder text in dark mode](#-bolder-text-in-dark-mode)
+- [x] [Hide comments section from all pages](#-hide-comments-section-from-all-pages)
 
 ### ✔ Show sticky outline
 
