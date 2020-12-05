@@ -1,4 +1,4 @@
-![Alt text](./src/images/readme/header.jpg)
+![Notion Boost](./src/images/readme/header.jpg)
 
 # Notion Boost browser extension
 
@@ -21,39 +21,57 @@
 2. click on the extension icon (clickable only when you are on a notion page)
 3. a popup menu will appear, you can toggle features here.
 
+![Notion Boost](./src/images/readme/toggle.gif)
+
 ## ✅ Currently added features
 
 ### ✔ Show sticky outline
 
 Show sticky outline (table of contents) for pages that have headings or sub-headings. The outline will be shown on the right side of the page. Very useful for navigating a page with lots of content.
 
+![Notion Boost](./src/images/readme/outline.gif)
+
 ### ✔ Set small text & full width for all pages
 
 Option to set small text and full width for all pages by default. This locally adjusts the text and width without clicking on the Notion page toggles. So no page change is saved to the server.
+
+![Notion Boost](./src/images/readme/fullwidth.gif)
 
 ### ✔ 'Scroll to top' button
 
 Added button at the bottom-right corner of page for scrolling back to top. Quite useful for lengthy pages. The button will be visible only when the page has scrolled down a bit.
 
+![Notion Boost](./src/images/readme/scrollbtn.gif)
+
 ### ✔ Close Slash command menu after space
 
 Slash command menu which appears when pressing '/' key will be closed back by pressing the space key.
+
+![Notion Boost](./src/images/readme/hideslash.gif)
 
 ### ✔ Don't show Slash command menu when pressing '/'
 
 Don't show the Slash command menu when pressing '/' key. Slash command menu will still be shown by clicking + ⁝⁝ icon. This setting can't be enabled along with 'Close Slash command menu after space' and vice-versa.
 
+![Notion Boost](./src/images/readme/disableslashmenu.gif)
+
 ### ✔ Hide floating help button from all pages
 
 This button is located on the bottom-right corner of pages.
+
+![Notion Boost](./src/images/readme/helpbtn.gif)
 
 ### ✔ Bolder text in dark mode
 
 Fix poorly recognizable bold text when using Notion in dark mode
 
+![Notion Boost](./src/images/readme/boldertext.gif)
+
 ### ✔ Hide comments section from all pages.
 
 comment section is useless when working solo
+
+![Notion Boost](./src/images/readme/commenthide.gif)
 
 ### ❓ Missing any feature? Suggest [here](https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues/)
 
