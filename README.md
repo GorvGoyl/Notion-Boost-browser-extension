@@ -78,7 +78,8 @@ comment section is useless when working solo
 This is a free and open-source browser extension.
 
 - If you found this extension useful then please support it by rating [★★★★★](https://chrome.google.com/webstore/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd) on chrome/firefox store.
-- Follow [@NotionBoost](https://twitter.com/notionboost) on Twitter for upcoming features and other Notion tips.
+- Follow [@NotionBoost](https://twitter.com/intent/follow?user_id=1312809481240154112) on Twitter for upcoming features and other Notion tips.
+- Follow the maker [@GorvGoyl](https://twitter.com/intent/follow?user_id=325435736) behind this extension.
 
 ---
 
