@@ -15,7 +15,7 @@
 - [Chrome extension](https://chrome.google.com/webstore/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd)
 - [Firefox addon](https://addons.mozilla.org/en-US/firefox/addon/notion-boost/)
 
-## How to enable/disable a feature
+## ⚙ How to enable/disable a feature
 
 1. visit any notion page
 2. click on the extension icon (clickable only when you are on a notion page)
@@ -99,11 +99,19 @@ comment section is useless when working solo
 
 ---
 
-This is a free and open-source browser extension.
+#### ❤ Support continuous development [Buy me a Coffee](https://ko-fi.com/gorvgoyl)
 
-- If you found this extension useful then please support it by rating [★★★★★](https://chrome.google.com/webstore/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd) on chrome/firefox store.
-- Follow [@NotionBoost](https://twitter.com/intent/follow?user_id=1312809481240154112) on Twitter for upcoming features and other Notion tips.
-- Follow the maker [@GorvGoyl](https://twitter.com/intent/follow?user_id=325435736) behind this extension.
+<p align="center">
+  <a href="https://ko-fi.com/gorvgoyl">
+  <img src="./src/images/readme/bmc.png" width="200" alt="Buy me a Coffee"/>
+  </a>
+</p>
+
+#### 👍 Liked this extension? express your love by rating [★★★★★](https://chrome.google.com/webstore/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd) on chrome/firefox store.
+
+#### ✨ Follow [@NotionBoost](https://twitter.com/intent/follow?user_id=1312809481240154112) on Twitter for upcoming features and other Notion tips.
+
+#### 👨‍💻 Follow the maker [@GorvGoyl](https://twitter.com/intent/follow?user_id=325435736) behind this extension.
 
 ---
 
