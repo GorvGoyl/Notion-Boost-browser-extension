@@ -3,6 +3,7 @@ import { getElement, onElementLoaded } from "../utility";
 const notionHelpBtnCls = ".notion-help-button";
 const notionBodyCls = ".notion-body";
 const notionAppId = "#notion-app";
+
 export function hideComments(isEnabled) {
   try {
     console.log(`feature: hideComments: ${isEnabled}`);
@@ -173,16 +174,21 @@ function isSlashMenuVisible() {
 }
 
 function hideSlashMenuAfterSpaceEvent(e) {
-  const spaceKey = " ";
-  if (e.key === spaceKey) {
-    const lastChar = e.target.textContent[e.target.textContent.length - 1];
-    if (lastChar === "/") {
-      if (isSlashMenuVisible()) {
-        // hide slash menu by clicking
-        e.target.click();
-        console.info("slash menu hid");
+  try {
+    const spaceKey = " ";
+    if (e.key === spaceKey) {
+      const cursorPos = window.getSelection().getRangeAt(0).startOffset;
+      const lastChar = e.target.textContent[cursorPos - 1];
+      if (lastChar === "/") {
+        if (isSlashMenuVisible()) {
+          // hide slash menu by clicking
+          e.target.click();
+          console.info("slash menu hid");
+        }
       }
     }
+  } catch (x) {
+    console.log(`Error: ${JSON.stringify(x)}`);
   }
 }
 
