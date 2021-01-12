@@ -8,6 +8,7 @@ export const defaultSettings = {
   scrollTopBtn: false,
   hideSlashMenuAfterSpace: false,
   disableSlashMenu: false,
+  leftAlignImage: false,
 };
 
 export const settingDetails = [
@@ -38,6 +39,11 @@ export const settingDetails = [
     name: "Don't show slash command menu when pressing '/'",
     desc: "Don't show slash command popup menu when pressing '/'",
     disable_func: "hideSlashMenuAfterSpace",
+  },
+  {
+    func: "leftAlignImage",
+    name: "Left align images",
+    desc: "Align images to left instead of center",
   },
   {
     func: "bolderTextInDark",

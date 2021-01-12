@@ -241,3 +241,10 @@ $docWidth: 83%;
   font-size: 20px;
   z-index: 101;
 }
+
+// leftAlignImage
+.leftAlignImage {
+  .notion-selectable.notion-image-block {
+    align-self: flex-start !important;
+  }
+}

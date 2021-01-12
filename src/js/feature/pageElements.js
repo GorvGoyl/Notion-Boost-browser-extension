@@ -163,6 +163,29 @@ export function disableSlashMenu(isEnabled) {
   }
 }
 
+export function leftAlignImage(isEnabled) {
+  try {
+    console.log(`feature: leftAlignImage: ${isEnabled}`);
+
+    onElementLoaded(notionBodyCls)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionBodyCls);
+          if (isEnabled) {
+            el.classList.add("leftAlignImage");
+          } else {
+            el.classList.remove("leftAlignImage");
+          }
+          // console.log(`${notionBodyCls} style is ${el.style.display}`);
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 // #region ## ----------------- internal methods ----------------- ##
 
 function isSlashMenuVisible() {

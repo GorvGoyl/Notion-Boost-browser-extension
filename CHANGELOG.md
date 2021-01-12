@@ -1,6 +1,15 @@
-## What's new in next update
+## What's new in this update ✨
 
-- Reached 1k+ downloads within 2 months in Chrome store 🙌. Thank you all!
+### v1.7
+
+Added new features 🎉
+
+- Left align images:\
+   Align document images to left instead of center
+
+Other info
+
+- Reached 1k+ downloads within 2 months of launch in Chrome store 🙌. Thank you all!
 - Fixed bug: slash menu wasn't hiding after space in some cases.
 
 ---
