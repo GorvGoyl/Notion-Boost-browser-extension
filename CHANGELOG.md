@@ -4,8 +4,10 @@
 
 Added new features 🎉
 
+- Show full text on hover:\
+  Show full text in table cells on mouse hover.
 - Left align images:\
-   Align document images to left instead of center
+   Align document images to left instead of center.
 
 Other info
 

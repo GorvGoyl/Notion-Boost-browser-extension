@@ -16,6 +16,8 @@ $themes: (
     floating-btn-bg: white,
     floating-btn-hover-bg: rgb(239, 239, 238),
     floating-btn-shadow: $btn-shadow-light,
+    table-header: rgb(239, 239, 239),
+    table-cell: white,
   ),
   dark: (
     color: rgba(255, 255, 255, 0.6),
@@ -30,6 +32,8 @@ $themes: (
     floating-btn-bg: rgb(80, 85, 88),
     floating-btn-hover-bg: rgb(98, 102, 104),
     floating-btn-shadow: $btn-shadow-dark,
+    table-header: rgb(71, 76, 80),
+    table-cell: rgb(47, 52, 55),
   ),
 );
 

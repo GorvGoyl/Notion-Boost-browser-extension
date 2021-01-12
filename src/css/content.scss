@@ -248,3 +248,82 @@ $docWidth: 83%;
     align-self: flex-start !important;
   }
 }
+
+//showHoverText
+.showHoverText {
+  .notion-table-view {
+    // Headers of table
+    div.notion-table-view-header-cell > div:hover {
+      //// make text fully visible
+      position: absolute;
+      z-index: 1;
+      //// remove ellipses, add bg color
+      div > div:nth-child(2) {
+        @include themify() {
+          background: themed("table-header");
+        }
+
+        overflow: inherit !important;
+        // border-right: solid 5px #efefef;
+        padding-right: 10px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    // each row
+    .notion-selectable.notion-page-block.notion-collection-item {
+      // for title (ID) cell
+      div[style*="display: flex;"] > div:hover > span {
+        position: absolute;
+        @include themify() {
+          background: themed("table-cell");
+        }
+        z-index: 1;
+        padding-right: 10px;
+      }
+
+      // for text, url
+      div:hover > span {
+        position: absolute !important;
+        @include themify() {
+          background: themed("table-cell");
+        }
+        z-index: 1;
+        padding-right: 10px;
+      }
+
+      // select & mutli-select
+      div[style*="display: block;"]:hover > div[style*="display: flex;"] {
+        position: absolute !important;
+        @include themify() {
+          background: themed("table-cell");
+        }
+      }
+
+      // for date
+      div[style*="display: block;"]:hover > div {
+        position: absolute;
+        @include themify() {
+          background: themed("table-cell");
+        }
+        padding-right: 10px;
+      }
+
+      // // files & media
+      // .notion-selectable.notion-page-block:hover {
+      //   div > div {
+      //     position: absolute !important;
+      //     background-color: white;
+      //     div {
+      //       max-width: fit-content;
+      //       span {
+      //         overflow: inherit !important;
+      //       }
+      //     }
+      //   }
+      // }
+    }
+  }
+}

@@ -19,7 +19,7 @@
 
 1. visit any notion page
 2. click on the extension icon (clickable only when you are on a notion page)
-3. a popup menu will appear, you can toggle features here.
+3. a popup menu will appear, you can toggle features from there.
 
 ## ✅ Currently added features
 

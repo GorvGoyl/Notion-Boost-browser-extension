@@ -9,6 +9,7 @@ export const defaultSettings = {
   hideSlashMenuAfterSpace: false,
   disableSlashMenu: false,
   leftAlignImage: false,
+  showHoverText: false,
 };
 
 export const settingDetails = [
@@ -41,9 +42,14 @@ export const settingDetails = [
     disable_func: "hideSlashMenuAfterSpace",
   },
   {
+    func: "showHoverText",
+    name: "Show full text on hover",
+    desc: "Show full text in table cells on mouse hover",
+  },
+  {
     func: "leftAlignImage",
     name: "Left align images",
-    desc: "Align images to left instead of center",
+    desc: "Align document images to left instead of center",
   },
   {
     func: "bolderTextInDark",

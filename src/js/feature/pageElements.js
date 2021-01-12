@@ -3,15 +3,16 @@ import { getElement, onElementLoaded } from "../utility";
 const notionHelpBtnCls = ".notion-help-button";
 const notionBodyCls = ".notion-body";
 const notionAppId = "#notion-app";
+const notionCursorListener = ".notion-cursor-listener";
 
 export function hideComments(isEnabled) {
   try {
     console.log(`feature: hideComments: ${isEnabled}`);
 
-    onElementLoaded(notionBodyCls)
+    onElementLoaded(notionCursorListener)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionBodyCls);
+          const el = getElement(notionCursorListener);
           if (isEnabled) {
             el.classList.add("hideComments-nb");
           } else {
@@ -30,10 +31,10 @@ export function smallTextFullWidth(isEnabled) {
   try {
     console.log(`feature: smallTextFullWidth: ${isEnabled}`);
 
-    onElementLoaded(notionBodyCls)
+    onElementLoaded(notionCursorListener)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionBodyCls);
+          const el = getElement(notionCursorListener);
           if (isEnabled) {
             el.classList.add("smallTextFullWidth-nb");
           } else {
@@ -167,16 +168,39 @@ export function leftAlignImage(isEnabled) {
   try {
     console.log(`feature: leftAlignImage: ${isEnabled}`);
 
-    onElementLoaded(notionBodyCls)
+    onElementLoaded(notionCursorListener)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionBodyCls);
+          const el = getElement(notionCursorListener);
           if (isEnabled) {
             el.classList.add("leftAlignImage");
           } else {
             el.classList.remove("leftAlignImage");
           }
           // console.log(`${notionBodyCls} style is ${el.style.display}`);
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function showHoverText(isEnabled) {
+  try {
+    console.log(`feature: showHoverText: ${isEnabled}`);
+
+    onElementLoaded(notionCursorListener)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionCursorListener);
+          if (isEnabled) {
+            el.classList.add("showHoverText");
+          } else {
+            el.classList.remove("showHoverText");
+          }
+          // console.log(`${notionCursorListener} style is ${el.style.display}`);
         }
         return null;
       })
