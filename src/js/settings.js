@@ -10,6 +10,7 @@ export const defaultSettings = {
   disableSlashMenu: false,
   leftAlignImage: false,
   showHoverText: false,
+  hideHiddenColumns: false,
 };
 
 export const settingDetails = [
@@ -60,6 +61,11 @@ export const settingDetails = [
     func: "hideHelpBtn",
     name: "Hide Help button from pages",
     desc: "",
+  },
+  {
+    func: "hideHiddenColumns",
+    name: "Hide 'Hidden columns' in board view",
+    desc: "Truly hide 'Hidden columns' in Kanban board view",
   },
   {
     func: "hideComments",

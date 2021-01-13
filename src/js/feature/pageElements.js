@@ -210,6 +210,29 @@ export function showHoverText(isEnabled) {
   }
 }
 
+export function hideHiddenColumns(isHidden) {
+  try {
+    console.log(`feature: hideHiddenColumns: ${isHidden}`);
+
+    onElementLoaded(notionCursorListener)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionCursorListener);
+          if (isHidden) {
+            el.classList.add("hideHiddenColumns");
+          } else {
+            el.classList.remove("hideHiddenColumns");
+          }
+          // console.log(`${notionBodyCls} style is ${el.style.display}`);
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 // #region ## ----------------- internal methods ----------------- ##
 
 function isSlashMenuVisible() {

@@ -6,6 +6,8 @@ Added new features 🎉
 
 - Show full text on hover:\
   Show full text in table cells on mouse hover.
+- Hide 'Hidden columns' in board view:\
+  Truly hide 'Hidden columns' in Kanban board view.
 - Left align images:\
    Align document images to left instead of center.
 
