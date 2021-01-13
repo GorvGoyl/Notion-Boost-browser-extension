@@ -4,7 +4,9 @@ import { useEffect } from "preact/hooks";
 
 const StoreURL = process.env.STOREURL;
 function goBack() {
-  route("/", true);
+  window.location.replace("/popup.html");
+  // shit doesn't work after updating
+  // route("/popup.html");
 }
 
 function Bullet({ txtS, url, urlTxt, txtE }) {
