@@ -1,6 +1,7 @@
 import { h, render, Fragment } from "preact";
 import { Router, route } from "preact-router";
 import { useEffect } from "preact/hooks";
+import { twitterShareTxt } from "./js/utility";
 
 const StoreURL = process.env.STOREURL;
 function goBack() {
@@ -59,22 +60,30 @@ export function About() {
       <div className="sub-title underline">Make Notion more productive</div>
 
       <Bullet
-        txtS="Support this extension: "
-        urlTxt="Leave a review 🖤"
-        url={StoreURL}
+        txtS="Visit "
+        urlTxt="Homepage"
+        url="https://gourav.io/notion-boost"
       />
 
       <Bullet
-        txtS="Missing any feature? suggest here: "
+        txtS="Missing some feature? suggest on "
         urlTxt="Github"
-        url="https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues"
+        url="https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues/new"
       />
+
       <Bullet
+        txtS="Support this extension by "
+        urlTxt="tweeting 🖤"
+        url={twitterShareTxt}
+        txtE=" about it"
+      />
+
+      {/* <Bullet
         txtS="See "
         urlTxt={<Fragment>what's new</Fragment>}
         url="https://gourav.io/notion-boost/whats-new"
         txtE=" in this update"
-      />
+      /> */}
       <Bullet
         txtS="Follow "
         urlTxt={

@@ -133,7 +133,7 @@ $line: 1px solid rgba($color-gray, 0.1);
 
   .footer {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     .footer-item {
       display: inline-flex;
       text-decoration: none;

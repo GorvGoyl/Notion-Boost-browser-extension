@@ -1,5 +1,7 @@
 import { defaultSettings } from "./settings";
 
+export const twitterShareTxt =
+  "https://twitter.com/intent/tweet?url=&text=%40NotionBoost%20by%20%40GorvGoyl%20adds%20tons%20of%20capabilities%20to%20%40NotionHQ%20like%20outline%2C%20scroll%20top%20button%2C%20hide%20slash%20command%20menu%20and%20many%20more!";
 // stays on doc change
 const notionFrameCls = ".notion-frame";
 

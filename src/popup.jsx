@@ -3,7 +3,12 @@ import { Router, route } from "preact-router";
 import { useEffect } from "preact/hooks";
 import { About } from "./About";
 import "./css/popup.scss";
-import { getElement, getElements, getLatestSettings } from "./js/utility";
+import {
+  getElement,
+  getElements,
+  getLatestSettings,
+  twitterShareTxt,
+} from "./js/utility";
 import { settingDetails } from "./js/settings";
 
 function init() {
@@ -150,6 +155,12 @@ function Home() {
           ))}
         </div>
         <div className="footer topline">
+          <a className="footer-item" href={twitterShareTxt} target="_blank">
+            <div className="button" style="" role="button" tabIndex={0}>
+              Share&nbsp;
+              <span className="twitter" />
+            </div>
+          </a>
           <a className="footer-item" href="/about">
             <div className="button" style="" role="button" tabIndex={0}>
               About
