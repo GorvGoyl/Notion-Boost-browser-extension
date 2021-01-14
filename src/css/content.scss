@@ -330,12 +330,13 @@ $docWidth: 83%;
 
 // hideHiddenColumns
 .hideHiddenColumns {
-  .notion-board-view > .notion-selectable.notion-collection_view_page-block {
-    > div:nth-child(1) > div:nth-last-child(2) {
+  .notion-board-view > .notion-selectable {
+    > div:nth-child(1)
+      > div[style*="flex-shrink: 0; display: flex; align-items: center;"]:nth-last-child(2) {
       display: none !important;
     }
 
-    > div:nth-last-child(2) {
+    > div[style*="flex-shrink: 0;"]:nth-last-child(2) {
       display: none !important;
     }
   }
