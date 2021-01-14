@@ -13,7 +13,7 @@ Added new features 🎉
 
 Other info
 
-- Reached 1k+ downloads within 2 months of launch in Chrome store 🙌. Thank you all!
+- Reached 2k+ downloads within 3 months of launch in Chrome store 🙌. Thank you all!
 - Fixed bug: slash menu wasn't hiding after space in some cases.
 
 ---

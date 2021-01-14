@@ -4,98 +4,37 @@
 
 > Browser extension to add features like sticky outline (table of contents), small text & full width by default,scroll to top button, hide slash command menu, hide help button, bolder text and more to Notion.so website.
 
-<p align="center">
-  <a href="https://twitter.com/intent/follow?user_id=325435736">
-  <img src="https://img.shields.io/badge/@GorvGoyl-1da1f2?style=for-the-badge&labelColor=1da1f2&color=1da1f2&logo=twitter&logoColor=white&label=Follow" alt="Follow on Twitter"/>
-  </a>
-</p>
+## 🏠 [Homepage](https://gourav.io/notion-boost)
 
 ## ⬇ Download
 
 - [Chrome extension](https://chrome.google.com/webstore/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd)
 - [Firefox addon](https://addons.mozilla.org/en-US/firefox/addon/notion-boost/)
 
+## ✅ Currently added features
+
+- Show sticky outline
+- Set small text & full width for all pages
+- 'Scroll to top' button
+- Show full text on hover
+- Close Slash command menu after space
+- Don't show Slash command menu when pressing '/'
+- Hide floating help button from all pages
+- Hide 'Hidden columns' in board view
+- Left align images
+- Bolder text in dark mode
+- Hide comments section from all pages
+
+- ❓ Missing some feature? Create [new issue](https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues/new)
+
+### See [detailed info and GIF](https://gourav.io/notion-boost#-currently-added-features) of these features.
+
 ## ⚙ How to enable/disable a feature
 
 1. visit any notion page
 2. click on the extension icon (clickable only when you are on a notion page)
 3. a popup menu will appear, you can toggle features from there.
-
-## ✅ Currently added features
-
-- [Show sticky outline](#-show-sticky-outline)
-- [Set small text & full width for all pages](#-set-small-text--full-width-for-all-pages)
-- ['Scroll to top' button](#-scroll-to-top-button)
-- [Close Slash command menu after space](#-close-slash-command-menu-after-space)
-- [Don't show Slash command menu when pressing '/'](#-dont-show-slash-command-menu-when-pressing-)
-- [Hide floating help button from all pages](#-hide-floating-help-button-from-all-pages)
-- [Bolder text in dark mode](#-bolder-text-in-dark-mode)
-- [Hide comments section from all pages](#-hide-comments-section-from-all-pages)
-- Missing any feature? Suggest [here](https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues/new)
-
-### ✔ Show sticky outline
-
-Show sticky outline (table of contents) for pages that have headings or sub-headings. The outline will be shown on the right side of the page. Very useful for navigating a page with lots of content.
-
-![Notion Boost](./src/images/readme/outline.gif)
-
-<br />
-
-### ✔ Set small text & full width for all pages
-
-Option to set small text and full width for all pages by default. This locally adjusts the text and width without clicking on the Notion page toggles. So no page change is saved to the server.
-
-![Notion Boost](./src/images/readme/fullwidth.gif)
-
-<br />
-
-### ✔ 'Scroll to top' button
-
-Added button at the bottom-right corner of page for scrolling back to top. Quite useful for lengthy pages. The button will be visible only when the page has scrolled down a bit.
-
-![Notion Boost](./src/images/readme/scrollbtn.gif)
-
-<br />
-
-### ✔ Close Slash command menu after space
-
-Slash command menu which appears when pressing '/' key will be closed back by pressing the space key.
-
-![Notion Boost](./src/images/readme/hideslash.gif)
-
-<br />
-
-### ✔ Don't show Slash command menu when pressing '/'
-
-Don't show the Slash command menu when pressing '/' key. Slash command menu will still be shown by clicking + ⁝⁝ icon. This setting can't be enabled along with 'Close Slash command menu after space' and vice-versa.
-
-![Notion Boost](./src/images/readme/disableslashmenu.gif)
-
-<br />
-
-### ✔ Hide floating help button from all pages
-
-This button is located on the bottom-right corner of pages.
-
-![Notion Boost](./src/images/readme/helpbtn.gif)
-
-<br />
-
-### ✔ Bolder text in dark mode
-
-Fix poorly recognizable bold text when using Notion in dark mode
-
-![Notion Boost](./src/images/readme/boldertext.gif)
-
-<br />
-
-### ✔ Hide comments section from all pages
-
-comment section is useless when working solo
-
-![Notion Boost](./src/images/readme/commenthide.gif)
-
-### ❓ Missing any feature? Suggest [here](https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues/new)
+4.
 
 ---
 
