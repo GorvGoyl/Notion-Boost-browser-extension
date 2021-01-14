@@ -29,6 +29,8 @@
 
 ### See [detailed info and GIF](https://gourav.io/notion-boost#-currently-added-features) of these features.
 
+---
+
 ## ⚙ How to enable/disable a feature
 
 1. visit any notion page
