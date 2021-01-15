@@ -9,24 +9,15 @@ const zipdir = require("zip-dir");
 const https = require("https");
 const fs = require("fs");
 
-function getArgs() {
-  return process.argv
-    .slice(2)
-    .map((arg) => arg.split("="))
-    .reduce((args, [value, key]) => {
-      args[value] = key;
-      return args;
-    }, {});
-}
 const args = getArgs();
 
 const { browser } = args;
 const path = `./build_${browser}/`;
-const nbfile = `notion_boost_${browser}.zip`;
+const extfile = `notion_boost_${browser}.zip`;
 
 console.log(`RUNNING POSTBUILD SCRIPT:`);
 console.log(`args: ${JSON.stringify(args)}`);
-zipdir(path, { saveTo: path + nbfile }, (err, buffer) => {
+zipdir(path, { saveTo: path + extfile }, (err, buffer) => {
   // `buffer` is the buffer of the zipped file
   // And the buffer was saved to `~/myzip.zip`
 });
@@ -39,7 +30,7 @@ if (browser === "firefox") {
   );
   // curl -L  http://github.com/GorvGoyl/Notion-Boost-browser-extension/archive/master.zip --output build_firefox/master.zip
 }
-console.log(`packed ${path}${nbfile}`);
+console.log(`packed ${path}${extfile}`);
 
 // Use a filter option to prevent zipping other zip files!
 // Keep in mind you have to allow a directory to descend into!
@@ -50,6 +41,16 @@ console.log(`packed ${path}${nbfile}`);
 // );
 
 /* UTILITY FUNCTIONS */
+
+function getArgs() {
+  return process.argv
+    .slice(2)
+    .map((arg) => arg.split("="))
+    .reduce((args, [value, key]) => {
+      args[value] = key;
+      return args;
+    }, {});
+}
 
 function downloadFile(url, dest) {
   return new Promise((resolve, reject) => {
