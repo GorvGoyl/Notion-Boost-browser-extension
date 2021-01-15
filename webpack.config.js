@@ -170,9 +170,9 @@ module.exports = (env, argv) => {
   if (!isDev) {
     pluginsArr.push(
       // clean build folder before new build
-      new CleanWebpackPlugin(),
+      new CleanWebpackPlugin()
       // create zip file for submission
-      new ZipPlugin({ filename: `notion-boost_${browser}.zip` })
+      // new ZipPlugin({ filename: `notion-boost_${browser}.zip` })
     );
     // lint before prod build
     rules.push({
