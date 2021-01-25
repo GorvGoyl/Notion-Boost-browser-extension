@@ -1,7 +1,10 @@
 ## What's new in this update ✨
 
-### v1.7.5
+### v1.8
 
+- Broke down `small text & full width` setting into 2 seperate settings. Thank you for feedback.
+- Set full width for all pages
+- Set small text for all pages
 - fixed bug where NB setting was being reset after drag-drop action in page.
 
 ---

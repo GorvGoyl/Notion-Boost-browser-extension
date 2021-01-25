@@ -28,18 +28,40 @@ export function hideComments(isEnabled) {
   }
 }
 
-export function smallTextFullWidth(isEnabled) {
+export function smallText(isEnabled) {
   try {
-    console.log(`feature: smallTextFullWidth: ${isEnabled}`);
+    console.log(`feature: smallText: ${isEnabled}`);
 
     onElementLoaded(notionAppInner)
       .then((isPresent) => {
         if (isPresent) {
           const el = getElement(notionAppInner);
           if (isEnabled) {
-            el.classList.add("smallTextFullWidth-nb");
+            el.classList.add("smallText");
           } else {
-            el.classList.remove("smallTextFullWidth-nb");
+            el.classList.remove("smallText");
+          }
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function fullWidth(isEnabled) {
+  try {
+    console.log(`feature: fullWidth: ${isEnabled}`);
+
+    onElementLoaded(notionAppInner)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionAppInner);
+          if (isEnabled) {
+            el.classList.add("fullWidth");
+          } else {
+            el.classList.remove("fullWidth");
           }
         }
         return null;

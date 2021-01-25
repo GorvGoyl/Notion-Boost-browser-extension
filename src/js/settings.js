@@ -3,7 +3,8 @@ export const defaultSettings = {
   displayOutline: true,
   hideHelpBtn: false,
   bolderTextInDark: false,
-  smallTextFullWidth: false,
+  smallText: false,
+  fullWidth: false,
   hideComments: false,
   scrollTopBtn: false,
   hideSlashMenuAfterSpace: false,
@@ -21,9 +22,14 @@ export const settingDetails = [
       "Show sticky outline (table of contents) for pages that have headings",
   },
   {
-    func: "smallTextFullWidth",
-    name: "Small text & Full width for all pages",
-    desc: "Set small text and full width for all pages by default",
+    func: "fullWidth",
+    name: "Full width for all pages",
+    desc: "Set full width for all pages by default",
+  },
+  {
+    func: "smallText",
+    name: "Small text for all pages",
+    desc: "Set small text for all pages by default",
   },
   {
     func: "scrollTopBtn",

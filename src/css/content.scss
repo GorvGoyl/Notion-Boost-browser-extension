@@ -129,8 +129,8 @@ $docWidth: 83%;
   }
 }
 
-// # smallTextFullWidth
-.smallTextFullWidth-nb {
+// fullWidth
+.fullWidth {
   .notion-scroller.vertical.horizontal > :first-child > div {
     width: 100% !important;
   }
@@ -183,7 +183,10 @@ $docWidth: 83%;
     > div:nth-child(5) {
     min-width: calc(100% - 192px) !important;
   }
+}
 
+// smallText
+.smallText {
   // set fonts
   .notion-scroller.vertical.horizontal
     > div:first-child
@@ -193,10 +196,6 @@ $docWidth: 83%;
   .notion-scroller.vertical.horizontal .notion-page-content {
     font-size: 14px !important;
   }
-}
-
-.full-width-nb {
-  width: 100% !important;
 }
 
 // # hideComments
