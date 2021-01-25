@@ -1,5 +1,13 @@
 ## What's new in this update ✨
 
+### v1.7.5
+
+- fixed bug where NB setting was being reset after drag-drop action in page.
+
+---
+
+## Previous updates
+
 ### v1.7
 
 Added new features 🎉
@@ -15,10 +23,6 @@ Other info
 
 - Reached 2k+ downloads within 3 months of launch in Chrome store 🙌. Thank you all!
 - Fixed bug: slash menu wasn't hiding after space in some cases.
-
----
-
-## Previous updates
 
 ### v1.6
 

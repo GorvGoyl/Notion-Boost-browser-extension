@@ -35,7 +35,7 @@ export function scrollTopBtn(isEnabled) {
   }
 }
 
-// Internal methods
+// Internal methods //
 
 function bindScrollEventToDoc() {
   docElement = getElement(".notion-frame > .notion-scroller");

@@ -21,7 +21,8 @@ $docWidth: 83%;
   margin-left: 36px;
 }
 
-.notion-body.dark.bolder {
+// bolder
+.notion-dark-theme.bolder {
   [style^="font-weight:600"] {
     font-weight: 700 !important;
   }
@@ -262,6 +263,16 @@ $docWidth: 83%;
         @include themify() {
           background: themed("table-header");
         }
+
+        // .notion-dark-theme
+        //   .showHoverText
+        //   .notion-table-view
+        //   div.notion-table-view-header-cell
+        //   > div:hover
+        //   div
+        //   > div:nth-child(2) {
+        //   background: #474c50;
+        // }
 
         overflow: inherit !important;
         // border-right: solid 5px #efefef;

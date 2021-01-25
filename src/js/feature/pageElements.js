@@ -3,16 +3,17 @@ import { getElement, onElementLoaded } from "../utility";
 const notionHelpBtnCls = ".notion-help-button";
 const notionBodyCls = ".notion-body";
 const notionAppId = "#notion-app";
+const notionAppInner = ".notion-app-inner";
 const notionCursorListener = ".notion-cursor-listener";
 
 export function hideComments(isEnabled) {
   try {
     console.log(`feature: hideComments: ${isEnabled}`);
 
-    onElementLoaded(notionCursorListener)
+    onElementLoaded(notionAppInner)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionCursorListener);
+          const el = getElement(notionAppInner);
           if (isEnabled) {
             el.classList.add("hideComments-nb");
           } else {
@@ -31,10 +32,10 @@ export function smallTextFullWidth(isEnabled) {
   try {
     console.log(`feature: smallTextFullWidth: ${isEnabled}`);
 
-    onElementLoaded(notionCursorListener)
+    onElementLoaded(notionAppInner)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionCursorListener);
+          const el = getElement(notionAppInner);
           if (isEnabled) {
             el.classList.add("smallTextFullWidth-nb");
           } else {
@@ -53,16 +54,16 @@ export function bolderTextInDark(isEnabled) {
   try {
     console.log(`feature: bolderTextInDark: ${isEnabled}`);
 
-    onElementLoaded(notionBodyCls)
+    onElementLoaded(notionAppInner)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionBodyCls);
+          const el = getElement(notionAppInner);
           if (isEnabled) {
             el.classList.add("bolder");
           } else {
             el.classList.remove("bolder");
           }
-          // console.log(`${notionBodyCls} style is ${el.style.display}`);
+          // console.log(`${notionAppInner} style is ${el.style.display}`);
         }
         return null;
       })
@@ -168,10 +169,10 @@ export function leftAlignImage(isEnabled) {
   try {
     console.log(`feature: leftAlignImage: ${isEnabled}`);
 
-    onElementLoaded(notionCursorListener)
+    onElementLoaded(notionAppInner)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionCursorListener);
+          const el = getElement(notionAppInner);
           if (isEnabled) {
             el.classList.add("leftAlignImage");
           } else {
@@ -191,6 +192,7 @@ export function showHoverText(isEnabled) {
   try {
     console.log(`feature: showHoverText: ${isEnabled}`);
 
+    // TODO: replace notionCursorListener with notionAppInner after fixing theme bug
     onElementLoaded(notionCursorListener)
       .then((isPresent) => {
         if (isPresent) {
@@ -214,10 +216,10 @@ export function hideHiddenColumns(isHidden) {
   try {
     console.log(`feature: hideHiddenColumns: ${isHidden}`);
 
-    onElementLoaded(notionCursorListener)
+    onElementLoaded(notionAppInner)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionCursorListener);
+          const el = getElement(notionAppInner);
           if (isHidden) {
             el.classList.add("hideHiddenColumns");
           } else {

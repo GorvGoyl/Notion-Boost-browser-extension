@@ -30,19 +30,22 @@ chrome.runtime.onInstalled.addListener((details) => {
   console.log(`details: ${details}`);
   console.log(`Previous Version: ${previousVersion}`);
   console.log(`Current Version: ${currentVersion}`);
-  switch (reason) {
-    case "install":
-      console.log("New User installed the extension.");
-      break;
-    case "update":
-      console.log("User has updated their extension.");
-      chrome.tabs.create({ url: `https://gourav.io/notion-boost/whats-new` });
-      break;
-    case "chrome_update":
-    case "shared_module_update":
-    default:
-      console.log("Other install events within the browser");
-      break;
+  if (process.env.NODE_ENV === "production") {
+    switch (reason) {
+      case "install":
+        console.log("New User installed the extension.");
+        chrome.tabs.create({ url: `https://gourav.io/notion-boost` });
+        break;
+      case "update":
+        console.log("User has updated their extension.");
+        chrome.tabs.create({ url: `https://gourav.io/notion-boost/whats-new` });
+        break;
+      case "chrome_update":
+      case "shared_module_update":
+      default:
+        console.log("Other install events within the browser");
+        break;
+    }
   }
 });
 
