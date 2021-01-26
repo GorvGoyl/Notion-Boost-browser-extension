@@ -287,7 +287,9 @@ $docWidth: 83%;
     // each row
     .notion-selectable.notion-page-block.notion-collection-item {
       // for title (ID) cell
-      > div[style*="display: flex;"] > div:hover > span {
+      > div[style*="display: flex;"]
+        > div[style*="white-space: nowrap;"]:hover
+        > span {
         animation-name: hover-delay;
         animation-delay: 500ms;
         animation-duration: 2s;
@@ -300,7 +302,7 @@ $docWidth: 83%;
       }
 
       // for text, url
-      > div:hover > span {
+      > div[style*="white-space: nowrap;"]:hover > span {
         // position: absolute !important;
         animation-name: hover-delay;
         animation-delay: 500ms;
@@ -315,7 +317,8 @@ $docWidth: 83%;
       }
 
       // select & mutli-select
-      > div[style*="display: block;"]:hover > div[style*="display: flex;"] {
+      > div[style*="display: block;"]:hover
+        > div[style*="display: flex; flex-wrap: nowrap;"] {
         animation-name: hover-delay;
         animation-delay: 500ms;
         animation-duration: 2s;
@@ -327,7 +330,8 @@ $docWidth: 83%;
       }
 
       // for date
-      > div[style*="display: block;"]:hover > div {
+      > div[style*="display: block;"]:hover
+        > div[style*="white-space: nowrap;"] {
         animation-name: hover-delay;
         animation-delay: 500ms;
         animation-duration: 2s;
