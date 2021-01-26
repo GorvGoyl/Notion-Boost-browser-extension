@@ -262,7 +262,13 @@ $docWidth: 83%;
     }
   }
 
-  .notion-table-view {
+  .notion-timeline-view {
+    .notion-selectable.notion-collection_view-block {
+      clip-path: none !important;
+    }
+  }
+  .notion-table-view,
+  .notion-timeline-view {
     // Headers of table
     div.notion-table-view-header-cell > div:hover {
       //// make text fully visible

@@ -4,6 +4,7 @@
 
 - Broke down `small text & full width` setting into 2 seperate settings `Set full width for all pages` and `Set small text for all pages`. Thanks for feedback.
 - Full text on hover will trigger after some delay. Thanks for feedback.
+- Full text on hover is also supported for timeline view.
 - Fixed bug where NB settings were being reset after any drag-drop action in page.
 
 ---
