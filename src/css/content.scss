@@ -251,30 +251,32 @@ $docWidth: 83%;
 
 //showHoverText
 .showHoverText {
+  @keyframes hover-delay {
+    0% {
+      position: absolute;
+      z-index: 1;
+    }
+    100% {
+      position: absolute;
+      z-index: 1;
+    }
+  }
+
   .notion-table-view {
     // Headers of table
     div.notion-table-view-header-cell > div:hover {
       //// make text fully visible
-      position: absolute;
-      z-index: 1;
+      animation-name: hover-delay;
+      animation-delay: 500ms;
+      animation-duration: 2s;
+      // retain the style values that is set by the last keyframe
+      animation-fill-mode: forwards;
       //// remove ellipses, add bg color
       div > div:nth-child(2) {
         @include themify() {
           background: themed("table-header");
         }
-
-        // .notion-dark-theme
-        //   .showHoverText
-        //   .notion-table-view
-        //   div.notion-table-view-header-cell
-        //   > div:hover
-        //   div
-        //   > div:nth-child(2) {
-        //   background: #474c50;
-        // }
-
         overflow: inherit !important;
-        // border-right: solid 5px #efefef;
         padding-right: 10px;
         height: 100%;
         display: flex;
@@ -285,18 +287,26 @@ $docWidth: 83%;
     // each row
     .notion-selectable.notion-page-block.notion-collection-item {
       // for title (ID) cell
-      div[style*="display: flex;"] > div:hover > span {
-        position: absolute;
+      > div[style*="display: flex;"] > div:hover > span {
+        animation-name: hover-delay;
+        animation-delay: 500ms;
+        animation-duration: 2s;
+        // retain the style values that is set by the last keyframe
+        animation-fill-mode: forwards;
         @include themify() {
           background: themed("table-cell");
         }
-        z-index: 1;
         padding-right: 10px;
       }
 
       // for text, url
-      div:hover > span {
-        position: absolute !important;
+      > div:hover > span {
+        // position: absolute !important;
+        animation-name: hover-delay;
+        animation-delay: 500ms;
+        animation-duration: 2s;
+        // retain the style values that is set by the last keyframe
+        animation-fill-mode: forwards;
         @include themify() {
           background: themed("table-cell");
         }
@@ -305,16 +315,24 @@ $docWidth: 83%;
       }
 
       // select & mutli-select
-      div[style*="display: block;"]:hover > div[style*="display: flex;"] {
-        position: absolute !important;
+      > div[style*="display: block;"]:hover > div[style*="display: flex;"] {
+        animation-name: hover-delay;
+        animation-delay: 500ms;
+        animation-duration: 2s;
+        // retain the style values that is set by the last keyframe
+        animation-fill-mode: forwards;
         @include themify() {
           background: themed("table-cell");
         }
       }
 
       // for date
-      div[style*="display: block;"]:hover > div {
-        position: absolute;
+      > div[style*="display: block;"]:hover > div {
+        animation-name: hover-delay;
+        animation-delay: 500ms;
+        animation-duration: 2s;
+        // retain the style values that is set by the last keyframe
+        animation-fill-mode: forwards;
         @include themify() {
           background: themed("table-cell");
         }
