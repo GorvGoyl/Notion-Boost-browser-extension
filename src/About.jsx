@@ -72,7 +72,7 @@ export function About() {
       />
 
       <Bullet
-        txtS="Support this extension by "
+        txtS="Support Notion Boost by "
         urlTxt="tweeting 🖤"
         url={twitterShareTxt}
         txtE=" about it"
@@ -92,7 +92,7 @@ export function About() {
           </Fragment>
         }
         url="https://twitter.com/notionboost"
-        txtE=" for upcoming features and other Notion tips"
+        txtE=" for upcoming features and other Notion tips & tricks"
       />
       <Bullet
         txtS="Made by "

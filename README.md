@@ -14,7 +14,8 @@
 ## ✅ Currently added features
 
 - Show sticky outline
-- Set small text & full width for all pages
+- Set small text for all pages
+- Set full width for all pages
 - 'Scroll to top' button
 - Show full text on hover
 - Close Slash command menu after space
@@ -48,9 +49,9 @@
   </a>
 </p>
 
-#### 👍 Liked this extension? express your love by rating [★★★★★](https://chrome.google.com/webstore/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd) on chrome/firefox store.
+#### 👍 Liked this extension? express your love by rating [★★★★★](https://chrome.google.com/webstore/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd) on Chrome/Firefox store.
 
-#### ✨ Follow [@NotionBoost](https://twitter.com/intent/follow?user_id=1312809481240154112) on Twitter for upcoming features and other Notion tips.
+#### ✨ Follow [@NotionBoost](https://twitter.com/intent/follow?user_id=1312809481240154112) on Twitter for upcoming features and other Notion tips & tricks.
 
 #### 👨‍💻 Follow the maker [@GorvGoyl](https://twitter.com/intent/follow?user_id=325435736) behind this extension.
 
