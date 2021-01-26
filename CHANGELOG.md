@@ -2,10 +2,9 @@
 
 ### v1.8
 
-- Broke down `small text & full width` setting into 2 seperate settings. Thank you for feedback.
-- Set full width for all pages
-- Set small text for all pages
-- fixed bug where NB setting was being reset after drag-drop action in page.
+- Broke down `small text & full width` setting into 2 seperate settings `Set full width for all pages` and `Set small text for all pages`. Thanks for feedback.
+- Full text on hover will trigger after some delay. Thanks for feedback.
+- Fixed bug where NB settings were being reset after any drag-drop action in page.
 
 ---
 
