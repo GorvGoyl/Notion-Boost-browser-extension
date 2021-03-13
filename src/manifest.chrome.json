@@ -12,6 +12,6 @@
     "48": "images/icon48.png",
     "128": "images/icon128.png"
   },
-  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "permissions": ["declarativeContent", "storage"],
   "background": { "scripts": ["background.bundle.js"], "persistent": false }
 }
