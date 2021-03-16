@@ -1,5 +1,10 @@
 ## What's new in this update ✨
 
+### v1.9
+
+- [Feature] Disable popup when pasting external URL
+- [Bug] Fixed Slash menu not hiding
+
 ### v1.8
 
 - Broke down `small text & full width` setting into 2 seperate settings `Set full width for all pages` and `Set small text for all pages`. Thanks for feedback.

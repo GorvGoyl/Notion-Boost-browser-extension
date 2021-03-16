@@ -70,12 +70,12 @@ function isObserverType(obj) {
 // return promise when div is loaded
 // pass div and (optional) parent div class
 // if parent class is not passed then `document` is used
-export function onElementLoaded(divClass, ParentDivClass) {
-  console.log(`waiting for element: ${divClass}`);
+export function onElementLoaded(divClassToObserve, ParentDivClass) {
+  console.log(`waiting for element: ${divClassToObserve}`);
   const promise = new Promise((resolve, reject) => {
     try {
-      if (getElement(divClass)) {
-        console.log(`element already present: ${divClass}`);
+      if (getElement(divClassToObserve)) {
+        console.log(`element already present: ${divClassToObserve}`);
         resolve(true);
         return;
       }
@@ -84,11 +84,11 @@ export function onElementLoaded(divClass, ParentDivClass) {
         : document;
 
       const observer = new MutationObserver((mutationList, obsrvr) => {
-        const divToCheck = getElement(divClass);
+        const divToCheck = getElement(divClassToObserve);
         // console.log("checking for div...");
 
         if (divToCheck) {
-          console.log(`element loaded: ${divClass}`);
+          console.log(`element loaded: ${divClassToObserve}`);
           obsrvr.disconnect(); // stop observing
           resolve(true);
         }
@@ -99,6 +99,40 @@ export function onElementLoaded(divClass, ParentDivClass) {
         childList: true,
         subtree: true,
       });
+    } catch (e) {
+      console.log(e);
+      reject(Error("some issue... promise rejected"));
+    }
+  });
+  return promise;
+}
+
+export function onElementCSSChanged(divClassToObserve, timeOut) {
+  console.log(`waiting for element: ${divClassToObserve}`);
+  const promise = new Promise((resolve, reject) => {
+    try {
+      const observer = new MutationObserver((mutationList, obsrvr) => {
+        mutationList.forEach((mutation) => {
+          if (mutation.attributeName === "style") {
+            console.log("style change");
+            obsrvr.disconnect(); // stop observing
+            resolve(true);
+          }
+        });
+      });
+
+      // start observing for dynamic div
+      observer.observe(divClassToObserve, {
+        attributes: true,
+        attributeFilter: ["style"],
+      });
+
+      if (timeOut) {
+        setTimeout(() => {
+          observer.disconnect();
+          console.log(`observer disconnected after ${timeOut}`);
+        }, timeOut);
+      }
     } catch (e) {
       console.log(e);
       reject(Error("some issue... promise rejected"));
@@ -127,6 +161,16 @@ export function toElement(s) {
 //   c = [...t.content.childNodes];
 //   return c[l] > 1 ? c : c[0] || "";
 // }
+
+// run func every x millisec and stop after y millisec
+export function runMethod(func, runEvery, stopAfter) {
+  const process = setInterval(func, runEvery);
+
+  setTimeout(() => {
+    console.log("stopped");
+    clearInterval(process);
+  }, stopAfter);
+}
 
 export function removeChildren(el) {
   while (el.firstChild) el.removeChild(el.firstChild);

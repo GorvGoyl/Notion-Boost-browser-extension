@@ -12,6 +12,7 @@ export const defaultSettings = {
   leftAlignImage: false,
   showHoverText: false,
   hideHiddenColumns: false,
+  disablePopupOnURLPaste: false,
 };
 
 export const settingDetails = [
@@ -52,6 +53,11 @@ export const settingDetails = [
     func: "showHoverText",
     name: "Show full text on hover",
     desc: "Show full text in table cells on mouse hover",
+  },
+  {
+    func: "disablePopupOnURLPaste",
+    name: "Disable popup when pasting link",
+    desc: "Disable popup when pasting external URL",
   },
   {
     func: "leftAlignImage",

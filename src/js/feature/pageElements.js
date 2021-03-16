@@ -1,4 +1,4 @@
-import { getElement, onElementLoaded } from "../utility";
+import { getElement, onElementLoaded, onElementCSSChanged } from "../utility";
 
 const notionHelpBtnCls = ".notion-help-button";
 const notionBodyCls = ".notion-body";
@@ -257,7 +257,81 @@ export function hideHiddenColumns(isHidden) {
   }
 }
 
+export function disablePopupOnURLPaste(isEnabled) {
+  try {
+    console.log(`feature: disablePopupOnURLPaste: ${isEnabled}`);
+
+    onElementLoaded(notionAppId)
+      .then((isPresent) => {
+        if (isPresent) {
+          if (isEnabled) {
+            getElement(notionAppId).addEventListener(
+              "paste",
+              disablePopupOnURLPasteEvent
+            );
+          } else {
+            getElement(notionAppId).removeEventListener(
+              "paste",
+              disablePopupOnURLPasteEvent
+            );
+          }
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 // #region ## ----------------- internal methods ----------------- ##
+
+function disablePopupOnURLPasteEvent(e) {
+  const content = e.clipboardData.getData("text/plain");
+
+  // hide popup for external urls matching "xx.yy "
+  if (
+    (!content.includes(" ") || content.slice(-1) === " ") &&
+    !content.includes("notion.so") &&
+    content.includes(".")
+  ) {
+    onElementLoaded(
+      "#notion-app > div > div.notion-overlay-container.notion-default-overlay-container > div:nth-child(2) > div > div > div:nth-child(2) > div > div > div > div > div"
+    )
+      .then((ex) => {
+        document.querySelector(
+          "#notion-app > div > div.notion-overlay-container.notion-default-overlay-container > div:nth-child(2)"
+        ).style.display = "none";
+        console.log("stopped");
+
+        const ke = new KeyboardEvent("keydown", {
+          bubbles: true,
+          cancelable: true,
+          keyCode: 13,
+        });
+
+        const doc = document.querySelector(
+          "#notion-app > div > div.notion-cursor-listener.showHoverText > div.notion-frame > div.notion-scroller.vertical.horizontal"
+        );
+
+        onElementCSSChanged(doc, 2000)
+          .then((ex2) => {
+            doc.style.overflow = "auto";
+            doc.style.marginRight = "0px";
+            console.log("applied");
+            return true;
+          })
+          .catch((ex2) => {
+            console.log(ex2);
+          });
+
+        return true;
+      })
+      .catch((ex) => {
+        console.log(ex);
+      });
+  }
+}
 
 function isSlashMenuVisible() {
   // this selector covers both scenario of slash menu when it appears in main doc or inside popup doc
@@ -271,9 +345,10 @@ function hideSlashMenuAfterSpaceEvent(e) {
   try {
     const spaceKey = " ";
     if (e.key === spaceKey) {
-      const cursorPos = window.getSelection().getRangeAt(0).startOffset;
-      const lastChar = e.target.textContent[cursorPos - 1];
-      if (lastChar === "/") {
+      // const cursorPos = window.getSelection().getRangeAt(0).startOffset;
+      // const lastChar = e.target.textContent[cursorPos - 1];
+      // debugger;
+      if (e.target.textContent.includes("/")) {
         if (isSlashMenuVisible()) {
           // hide slash menu by clicking
           e.target.click();
