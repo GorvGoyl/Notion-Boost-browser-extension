@@ -13,6 +13,7 @@ export const defaultSettings = {
   showHoverText: false,
   hideHiddenColumns: false,
   disablePopupOnURLPaste: false,
+  addMoreHeightToPage: false,
 };
 
 export const settingDetails = [
@@ -68,6 +69,11 @@ export const settingDetails = [
     func: "bolderTextInDark",
     name: "Bolder text in dark mode",
     desc: "Fix poorly recognizable bold text in dark mode",
+  },
+  {
+    func: "addMoreHeightToPage",
+    name: "Add more height to page",
+    desc: "Add more height to page by hiding top padding, image cover, & icon",
   },
   {
     func: "hideHelpBtn",

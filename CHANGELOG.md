@@ -3,6 +3,8 @@
 ### v1.9
 
 - [Feature] Disable popup when pasting external URL
+- [Feature] Add more height to page: \
+  Add more height to page by hiding top padding, image cover, & icon
 - [Bug] Fixed Slash menu not hiding in some cases
 
 ### v1.8

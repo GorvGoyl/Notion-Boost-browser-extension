@@ -210,6 +210,29 @@ export function leftAlignImage(isEnabled) {
   }
 }
 
+export function addMoreHeightToPage(isEnabled) {
+  try {
+    console.log(`feature: addMoreHeightToPage: ${isEnabled}`);
+
+    onElementLoaded(notionAppInner)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionAppInner);
+          if (isEnabled) {
+            el.classList.add("addMoreHeightToPage");
+          } else {
+            el.classList.remove("addMoreHeightToPage");
+          }
+          // console.log(`${notionBodyCls} style is ${el.style.display}`);
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function showHoverText(isEnabled) {
   try {
     console.log(`feature: showHoverText: ${isEnabled}`);
