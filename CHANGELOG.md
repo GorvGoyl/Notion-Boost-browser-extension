@@ -3,7 +3,7 @@
 ### v1.9
 
 - [Feature] Disable popup when pasting external URL
-- [Bug] Fixed Slash menu not hiding
+- [Bug] Fixed Slash menu not hiding in some cases
 
 ### v1.8
 
