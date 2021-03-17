@@ -14,6 +14,7 @@ export const defaultSettings = {
   hideHiddenColumns: false,
   disablePopupOnURLPaste: false,
   addMoreHeightToPage: false,
+  enableSpellcheckForCode: false,
 };
 
 export const settingDetails = [
@@ -65,11 +66,7 @@ export const settingDetails = [
     name: "Left align images",
     desc: "Align document images to left instead of center",
   },
-  {
-    func: "bolderTextInDark",
-    name: "Bolder text in dark mode",
-    desc: "Fix poorly recognizable bold text in dark mode",
-  },
+
   {
     func: "addMoreHeightToPage",
     name: "Add more height to page",
@@ -81,9 +78,19 @@ export const settingDetails = [
     desc: "",
   },
   {
+    func: "bolderTextInDark",
+    name: "Bolder text in dark mode",
+    desc: "Fix poorly recognizable bold text in dark mode",
+  },
+  {
     func: "hideHiddenColumns",
     name: "Hide 'Hidden columns' in board view",
     desc: "Truly hide 'Hidden columns' in Kanban board view",
+  },
+  {
+    func: "enableSpellcheckForCode",
+    name: "Enable spellcheck inside code blocks",
+    desc: "",
   },
   {
     func: "hideComments",

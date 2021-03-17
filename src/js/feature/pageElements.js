@@ -232,6 +232,34 @@ export function addMoreHeightToPage(isEnabled) {
     console.log(e);
   }
 }
+export function enableSpellcheckForCode(isEnabled) {
+  try {
+    console.log(`feature: showHoverText: ${isEnabled}`);
+
+    onElementLoaded(notionAppInner)
+      .then((isPresent) => {
+        if (isPresent) {
+          const codeDivs = document.querySelectorAll(
+            "div.notion-page-content > div.notion-selectable.notion-code-block div.notion-code-block > div"
+          );
+
+          if (isEnabled) {
+            codeDivs.forEach((x) => {
+              x.setAttribute("spellcheck", "true");
+            });
+          } else {
+            codeDivs.forEach((x) => {
+              x.setAttribute("spellcheck", "false");
+            });
+          }
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 export function showHoverText(isEnabled) {
   try {

@@ -5,6 +5,7 @@
 - [Feature] Disable popup when pasting external URL
 - [Feature] Add more height to page: \
   Add more height to page by hiding top padding, image cover, & icon
+- [Feature] Enable spellcheck inside code blocks
 - [Bug] Fixed Slash menu not hiding in some cases
 
 ### v1.8
