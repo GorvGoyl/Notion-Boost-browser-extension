@@ -242,6 +242,30 @@ $docWidth: 83%;
   z-index: 101;
 }
 
+//
+.codeLineNumbers {
+  .notion-code-block.line-numbers > div {
+    position: relative;
+  }
+
+  .code-numbered {
+    padding-left: 48px !important;
+  }
+  .code-line-numbers {
+    font-size: 85%;
+    // font-family: var(--theme--font_code) !important;
+    // color: var(--theme--text_ui_info);
+    @include themify() {
+      color: themed("color2");
+    }
+    text-align: right;
+    position: absolute;
+    right: calc(100% - 30px);
+    overflow: hidden;
+    pointer-events: none;
+  }
+}
+
 // leftAlignImage
 .leftAlignImage {
   .notion-selectable.notion-image-block {

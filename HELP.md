@@ -3,7 +3,7 @@
 - add feature info to `src\js\settings.js`
 - add code to relevent file in `src\js\feature\` like `pageElements.js`
 - add CSS if any to `src\css\content.scss`
-- Add feature info to `CHANGELOG.md`
+- Add feature info to [`CHANGELOG.md`](./CHANGELOG.md)
 
 ---
 

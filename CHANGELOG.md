@@ -2,6 +2,7 @@
 
 ### v1.9
 
+- [Feature] Show line numbers for code blocks
 - [Feature] Disable popup when pasting external URL
 - [Feature] Add more height to page: \
   Add more height to page by hiding top padding, image cover, & icon

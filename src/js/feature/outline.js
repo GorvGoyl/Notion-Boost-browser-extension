@@ -41,6 +41,7 @@ export function displayOutline(isShow) {
       .then((isPresent) => {
         if (isPresent) {
           // addOutlineFrame();
+
           addOutline();
           docEditListener();
           // add listener for page change or window reload
@@ -207,7 +208,7 @@ function addOutline() {
 
 // add/update outline if any heading change occurs
 function docEditListener() {
-  console.log("listening for doc edit changes...");
+  DEBUG && console.log("listening for doc edit changes...");
 
   docEditObserverObj = new MutationObserver((mutationList, obsrvr) => {
     DEBUG && console.log("found changes in doc content");

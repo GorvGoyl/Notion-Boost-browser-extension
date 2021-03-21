@@ -107,6 +107,7 @@ export function onElementLoaded(divClassToObserve, ParentDivClass) {
   return promise;
 }
 
+// detect if css is changed for a div (once)
 export function onElementCSSChanged(divClassToObserve, timeOut) {
   console.log(`waiting for element: ${divClassToObserve}`);
   const promise = new Promise((resolve, reject) => {

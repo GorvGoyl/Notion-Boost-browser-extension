@@ -6,6 +6,7 @@ $btn-shadow-dark: rgba(15, 15, 15, 0.2) 0px 0px 0px 1px,
 $themes: (
   light: (
     color: rgba(55, 53, 47, 0.6),
+    color2: rgba(55, 53, 47, 0.4),
     fill: rgba(55, 53, 47, 0.6),
     background: rgba(55, 53, 47, 0.08),
     background-image:
@@ -22,6 +23,7 @@ $themes: (
   ),
   dark: (
     color: rgba(255, 255, 255, 0.6),
+    color2: rgba(255, 255, 255, 0.4),
     fill: rgba(255, 255, 255, 0.6),
     background: rgb(71, 76, 80),
     background-image:

@@ -3,6 +3,7 @@ import { defaultSettings } from "./settings";
 import { isEmpty, getLatestSettings } from "./utility";
 import { displayOutline } from "./feature/outline";
 import { scrollTopBtn } from "./feature/scrollToTopBtn";
+import { codeLineNumbers } from "./feature/codeLineNumbers";
 import * as features from "./feature/pageElements";
 
 let featureList = {};
@@ -10,6 +11,7 @@ let featureList = {};
 featureList = features;
 featureList.displayOutline = displayOutline;
 featureList.scrollTopBtn = scrollTopBtn;
+featureList.codeLineNumbers = codeLineNumbers;
 function init() {
   let syncSet = {};
   const updatedSet = { ...defaultSettings };

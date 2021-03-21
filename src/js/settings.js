@@ -15,6 +15,7 @@ export const defaultSettings = {
   disablePopupOnURLPaste: false,
   addMoreHeightToPage: false,
   enableSpellcheckForCode: false,
+  codeLineNumbers: false,
 };
 
 export const settingDetails = [
@@ -55,6 +56,11 @@ export const settingDetails = [
     func: "showHoverText",
     name: "Show full text on hover",
     desc: "Show full text in table cells on mouse hover",
+  },
+  {
+    func: "codeLineNumbers",
+    name: "Show code line numbers",
+    desc: "Show line numbers for code blocks",
   },
   {
     func: "disablePopupOnURLPaste",
