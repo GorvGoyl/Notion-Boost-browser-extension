@@ -27,6 +27,7 @@ const outlineFrameCls = ".nb-outline";
 // these gets removed on doc change
 const notionScrollerCls = ".notion-scroller.vertical.horizontal";
 const notionPageContentCls = ".notion-page-content";
+const notionContent = ".notion-page-content div[data-root=true]"
 
 // starting point
 export function displayOutline(isShow) {
@@ -41,9 +42,9 @@ export function displayOutline(isShow) {
       .then((isPresent) => {
         if (isPresent) {
           // addOutlineFrame();
-
           addOutline();
           docEditListener();
+          docClinkListener();
           // add listener for page change or window reload
           // it detaches old listeners and adds new doceditlistener and outline
           pageChangeObserverObj = pageChangeListener(
@@ -213,6 +214,8 @@ function docEditListener() {
   docEditObserverObj = new MutationObserver((mutationList, obsrvr) => {
     DEBUG && console.log("found changes in doc content");
 
+    docClinkListener();
+
     let isDocHeadingChanged = false;
 
     let placeholder = "";
@@ -307,6 +310,50 @@ function docEditListener() {
     characterData: true,
     subtree: true,
   });
+}
+
+function isHeaderBlock(element){
+  return element.classList.contains("notion-header-block")
+  || element.classList.contains("notion-sub_header-block")
+  || element.classList.contains("notion-sub_sub_header-block")
+}
+
+function onBlockClick(evt) {
+  DEBUG && console.debug(evt)
+
+  var porintELement = null
+
+  for (const index in evt.path) {
+    if (evt.path[index].classList.contains("notion-page-content") && index > 0) {
+        porintELement = evt.path[index - 1]
+      break
+    }
+  }
+
+  if(!porintELement)
+    return
+  
+
+  while (!isHeaderBlock(porintELement) && porintELement.previousElementSibling) {
+      porintELement = porintELement.previousElementSibling
+  }
+
+  if(!isHeaderBlock(porintELement))
+    return
+
+  for(const block of document.querySelectorAll(".nb-outline div.block")){
+    block.style.backgroundColor = null
+  }  
+
+  const blockId = porintELement.getAttribute("data-block-id").replace(/-/g, "");
+  document.querySelector(`.nb-outline div.block[hash="${blockId}"]`).style.backgroundColor = "rgba(45, 170, 219, 0.3)"
+}
+
+function docClinkListener() {
+  const contentBlocks = getElements(notionContent)
+  for (const block of contentBlocks) {
+    block.addEventListener("click", onBlockClick)
+  }
 }
 
 function isObserverType(obj) {
