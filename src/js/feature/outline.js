@@ -174,13 +174,14 @@ function addOutline() {
     } else {
       headingCls = "";
     }
-
     block = toElement(tocBlockHTML);
-
     // add text
     const text = h.textContent;
     block.querySelector(".align").classList.add(headingCls);
     block.querySelector(".text").textContent = text;
+    if (text.length > 30) {
+      block.querySelector(".btn").title = text;
+    }
 
     // add href
     const blockId = h.getAttribute("data-block-id").replace(/-/g, "");
