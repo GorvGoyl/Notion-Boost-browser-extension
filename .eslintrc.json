@@ -36,7 +36,7 @@
     //     "endOfLine": "auto"
     //   }
     // ],
-
+    "no-nested-ternary": "off",
     "no-unused-expressions": "off",
     "import/prefer-default-export": "off",
     "promise/catch-or-return": ["error", { "allowFinally": true }],

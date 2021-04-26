@@ -46,9 +46,9 @@ function getArgs() {
   return process.argv
     .slice(2)
     .map((arg) => arg.split("="))
-    .reduce((args, [value, key]) => {
-      args[value] = key;
-      return args;
+    .reduce((args1, [value, key]) => {
+      args1[value] = key;
+      return args1;
     }, {});
 }
 
