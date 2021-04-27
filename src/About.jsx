@@ -29,7 +29,12 @@ function Bullet({ txtS, url, urlTxt, txtE }) {
             >
               {txtS}
               {url && (
-                <a target="_blank" className="external-link" href={url}>
+                <a
+                  target="_blank"
+                  className="external-link"
+                  rel="noopener"
+                  href={url}
+                >
                   {urlTxt}
                 </a>
               )}
@@ -71,12 +76,12 @@ export function About() {
         url="https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues/new"
       />
 
-      <Bullet
+      {/* <Bullet
         txtS="Support Notion Boost by "
         urlTxt="tweeting 🖤"
         url={twitterShareTxt}
         txtE=" about it"
-      />
+      /> */}
 
       {/* <Bullet
         txtS="See "
@@ -93,6 +98,12 @@ export function About() {
         }
         url="https://twitter.com/notionboost"
         txtE=" for upcoming features and other Notion tips & tricks"
+      />
+
+      <Bullet
+        txtS="Support: hey@gourav.io"
+        // urlTxt={<Fragment>hey@gourav.io</Fragment>}
+        // url="hey@gourav.io"
       />
       <Bullet
         txtS="Made by "

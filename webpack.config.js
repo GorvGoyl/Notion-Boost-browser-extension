@@ -25,6 +25,7 @@ module.exports = (env, argv) => {
   const entry = {
     content: path.join(__dirname, "src", "js", "content.js"),
     popup: path.join(__dirname, "src", "popup.jsx"),
+    extPay: path.join(__dirname, "src", "js", "extPay.js"),
   };
 
   const manifest = ["src/manifest.json"];
@@ -229,6 +230,7 @@ module.exports = (env, argv) => {
     },
     resolve: {
       extensions: [".js", ".jsx"],
+      mainFields: ["module", "main"], // https://github.com/Glench/ExtPay/issues/2#issuecomment-783229999
     },
   };
 };

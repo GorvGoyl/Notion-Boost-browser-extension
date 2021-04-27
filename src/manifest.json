@@ -10,6 +10,11 @@
     {
       "matches": ["*://*.notion.so/*"],
       "js": ["content.bundle.js"]
+    },
+    {
+      "matches": ["https://extensionpay.com/*"],
+      "run_at": "document_start",
+      "js": ["extPay.bundle.js"]
     }
   ],
   "page_action": {
@@ -18,6 +23,6 @@
   },
   "web_accessible_resources": ["content.bundle.js"],
   "manifest_version": 2,
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'; connect-src https://extensionpay.com",
   "homepage_url": "https://gourav.io/notion-boost"
 }

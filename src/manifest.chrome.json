@@ -12,6 +12,13 @@
     "48": "images/icon48.png",
     "128": "images/icon128.png"
   },
-  "permissions": ["declarativeContent", "storage"],
-  "background": { "scripts": ["background.bundle.js"], "persistent": false }
+  "permissions": [
+    "declarativeContent",
+    "storage",
+    "https://extensionpay.com/*"
+  ],
+  "background": {
+    "scripts": ["background.bundle.js"],
+    "persistent": false
+  }
 }

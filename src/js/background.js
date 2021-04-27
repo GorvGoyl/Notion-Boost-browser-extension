@@ -6,6 +6,11 @@
 //     chrome.pageAction.show(sender.tab.id);
 //   }
 // });
+import ExtPay from "./extPay";
+// import * as ExtPay from "extpay";
+
+const extpay = ExtPay("notion-boost");
+
 chrome.runtime.onInstalled.addListener((details) => {
   // chrome.storage.sync.set({ color: "#3aa757" }, function () {
   //   console.log("The color is green.");
