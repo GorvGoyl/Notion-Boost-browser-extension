@@ -1,10 +1,15 @@
-import { getElement, onElementLoaded, onElementCSSChanged } from "../utility";
+import {
+  getElement,
+  onElementLoaded,
+  onElementCSSChanged,
+  isObserverType,
+} from "../utility";
 
 const notionHelpBtnCls = ".notion-help-button";
 const notionAppId = "#notion-app";
 const notionAppInnerCls = ".notion-app-inner";
 const notionCursorListenerCls = ".notion-cursor-listener";
-
+let titleObserver = {};
 export function hideComments(isEnabled) {
   try {
     console.log(`feature: hideComments: ${isEnabled}`);
@@ -177,6 +182,58 @@ export function disableSlashMenu(isEnabled) {
               disableSlashMenuEvent
             );
           }
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function hideNotification(isEnabled) {
+  try {
+    console.log(`feature: hideNotification: ${isEnabled}`);
+
+    const removeBadgeFromTitle = () => {
+      if (document.title.indexOf(")") > -1) {
+        document.title = document.title.substring(
+          document.title.indexOf(")") + 2
+        );
+      }
+    };
+    onElementLoaded(notionAppInnerCls)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionAppInnerCls);
+          if (isEnabled) {
+            el.classList.add("hideNotification");
+            removeBadgeFromTitle();
+            // select the target node
+            const target = document.querySelector("title");
+
+            // create an observer instance
+            titleObserver = new MutationObserver((mutations) => {
+              removeBadgeFromTitle();
+            });
+
+            // configuration of the observer:
+            const config = {
+              subtree: true,
+              characterData: true,
+              childList: true,
+            };
+
+            // pass in the target node, as well as the observer options
+            titleObserver.observe(target, config);
+          } else {
+            el.classList.remove("hideNotification");
+            if (isObserverType(titleObserver)) {
+              console.log("disconnected docEditObserver");
+              titleObserver.disconnect();
+            }
+          }
+          // console.log(`${notionBodyCls} style is ${el.style.display}`);
         }
         return null;
       })

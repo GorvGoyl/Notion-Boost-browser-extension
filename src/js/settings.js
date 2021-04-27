@@ -10,6 +10,7 @@ export const defaultSettings = {
   hideSlashMenuAfterSpace: false,
   disableSlashMenu: false,
   leftAlignImage: false,
+  hideNotification: false,
   showHoverText: false,
   hideHiddenColumns: false,
   disablePopupOnURLPaste: false,
@@ -87,6 +88,13 @@ export const settingDetails = [
     func: "addMoreHeightToPage",
     name: "Add more height to page",
     desc: "Add more height to page by hiding top padding, image cover, & icon",
+    pf: true,
+  },
+  {
+    func: "hideNotification",
+    name: "Hide notification icon",
+    desc:
+      "Hide red notification icon from sidebar when it's in closed state and hide notification number from tab title",
     pf: true,
   },
   {

@@ -63,7 +63,7 @@ export function removePageChangeListener(pageChangeObserverObj) {
   }
 }
 
-function isObserverType(obj) {
+export function isObserverType(obj) {
   return obj.disconnect !== undefined;
 }
 

@@ -273,6 +273,14 @@ $docWidth: 83%;
   }
 }
 
+// hideNotification
+.hideNotification {
+  .notion-topbar {
+    > div:nth-child(1) > div:nth-child(1) > div > div:nth-child(1) > div > div {
+      display: none !important;
+    }
+  }
+}
 // addMoreHeightToPage
 .addMoreHeightToPage {
   div.notion-scroller.vertical.horizontal div.notion-page-controls {

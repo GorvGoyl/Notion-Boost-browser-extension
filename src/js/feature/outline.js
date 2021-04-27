@@ -6,6 +6,7 @@ import {
   pageChangeListener,
   removePageChangeListener,
   getElements,
+  isObserverType,
 } from "../utility";
 
 let pageChangeObserverObj = {};
@@ -308,10 +309,6 @@ function docEditListener() {
     characterData: true,
     subtree: true,
   });
-}
-
-function isObserverType(obj) {
-  return obj.disconnect !== undefined;
 }
 
 function isHeading(placeholder) {
