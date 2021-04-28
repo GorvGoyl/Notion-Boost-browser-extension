@@ -177,7 +177,15 @@ function addOutline() {
     }
     block = toElement(tocBlockHTML);
     // add text
-    const text = h.textContent;
+    let text = "";
+    h.querySelector('div[placeholder*="Heading "]').childNodes.forEach((x) => {
+      if (x.alt) {
+        // get emoji as text
+        text += x.alt;
+      } else if (x.textContent) {
+        text += x.textContent;
+      }
+    });
     block.querySelector(".align").classList.add(headingCls);
     block.querySelector(".text").textContent = text;
     if (text.length > 30) {
@@ -289,7 +297,7 @@ function docEditListener() {
 
       // check if the change was related to headings
       if (isHeading(placeholder)) {
-        console.log("heading changed");
+        DEBUG && console.log("heading changed");
 
         isDocHeadingChanged = true;
         break;
