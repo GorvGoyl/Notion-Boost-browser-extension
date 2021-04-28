@@ -211,6 +211,18 @@ $docWidth: 83%;
   }
 }
 
+// # hideBacklinks
+.hideBacklinks {
+  .notion-scroller.vertical.horizontal {
+    > div:nth-child(2) > div > div[style*="width: 100%; max-width: 100%;"] {
+      display: none !important;
+      & + div {
+        display: none;
+      }
+    }
+  }
+}
+
 // # Scroll Top btn
 .scroll-top-btn {
   &.show {

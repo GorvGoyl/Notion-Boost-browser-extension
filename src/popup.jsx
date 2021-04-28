@@ -81,6 +81,7 @@ function isFuncEnabled(func) {
 }
 function updateSettings(ev) {
   console.log("clicked: ");
+
   const func = ev.currentTarget.getAttribute("data-func");
   const btnEl = getElement(`[data-func=${func}]`);
   const funcToDisable = btnEl.getAttribute("data-disable_func");

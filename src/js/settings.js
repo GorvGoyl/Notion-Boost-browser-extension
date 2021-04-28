@@ -6,6 +6,7 @@ export const defaultSettings = {
   smallText: false,
   fullWidth: false,
   hideComments: false,
+  hideBacklinks: false,
   scrollTopBtn: false,
   hideSlashMenuAfterSpace: false,
   disableSlashMenu: false,
@@ -123,7 +124,13 @@ export const settingDetails = [
   },
   {
     func: "hideComments",
-    name: "Hide comments section from pages",
+    name: "Hide comments section from all pages",
+    desc: "",
+    pf: false,
+  },
+  {
+    func: "hideBacklinks",
+    name: "Hide backlinks section from all pages",
     desc: "",
     pf: false,
   },

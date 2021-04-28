@@ -32,6 +32,28 @@ export function hideComments(isEnabled) {
   }
 }
 
+export function hideBacklinks(isEnabled) {
+  try {
+    console.log(`feature: hideBacklinks: ${isEnabled}`);
+
+    onElementLoaded(notionAppInnerCls)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionAppInnerCls);
+          if (isEnabled) {
+            el.classList.add("hideBacklinks");
+          } else {
+            el.classList.remove("hideBacklinks");
+          }
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function smallText(isEnabled) {
   try {
     console.log(`feature: smallText: ${isEnabled}`);
