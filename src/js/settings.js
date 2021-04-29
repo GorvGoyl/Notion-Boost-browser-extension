@@ -73,6 +73,12 @@ export const settingDetails = [
     pf: false,
   },
   {
+    func: "enableSpellcheckForCode",
+    name: "Enable spellcheck inside code blocks",
+    desc: "",
+    pf: false,
+  },
+  {
     func: "disablePopupOnURLPaste",
     name: "Disable popup when pasting link",
     desc: "Disable popup when pasting external URL",
@@ -116,12 +122,7 @@ export const settingDetails = [
     desc: "Truly hide 'Hidden columns' in Kanban board view",
     pf: false,
   },
-  {
-    func: "enableSpellcheckForCode",
-    name: "Enable spellcheck inside code blocks",
-    desc: "",
-    pf: false,
-  },
+
   {
     func: "hideComments",
     name: "Hide comments section from all pages",
