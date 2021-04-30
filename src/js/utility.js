@@ -75,7 +75,7 @@ export function onElementLoaded(divClassToObserve, ParentDivClass) {
   const promise = new Promise((resolve, reject) => {
     try {
       if (getElement(divClassToObserve)) {
-        console.log(`element already present: ${divClassToObserve}`);
+        DEBUG && console.log(`element already present: ${divClassToObserve}`);
         resolve(true);
         return;
       }

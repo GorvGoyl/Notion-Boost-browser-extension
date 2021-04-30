@@ -424,36 +424,12 @@ function disablePopupOnURLPasteEvent(e) {
     !content.includes("notion.so") &&
     content.includes(".")
   ) {
-    onElementLoaded(
-      "#notion-app > div > div.notion-overlay-container.notion-default-overlay-container > div:nth-child(2) > div > div > div:nth-child(2) > div > div > div > div > div"
-    )
+    const dismissBtn =
+      "#notion-app > div > div.notion-overlay-container.notion-default-overlay-container > div:nth-child(2) > div > div > div:nth-child(2) > div > div > div > div > div > div > div > div:nth-child(1)";
+    onElementLoaded(dismissBtn)
       .then((ex) => {
-        document.querySelector(
-          "#notion-app > div > div.notion-overlay-container.notion-default-overlay-container > div:nth-child(2)"
-        ).style.display = "none";
+        document.querySelector(dismissBtn).click();
         console.log("stopped");
-
-        const ke = new KeyboardEvent("keydown", {
-          bubbles: true,
-          cancelable: true,
-          keyCode: 13,
-        });
-
-        const doc = document.querySelector(
-          "#notion-app > div > div.notion-cursor-listener.showHoverText > div.notion-frame > div.notion-scroller.vertical.horizontal"
-        );
-
-        onElementCSSChanged(doc, 2000)
-          .then((ex2) => {
-            doc.style.overflow = "auto";
-            doc.style.marginRight = "0px";
-            console.log("applied");
-            return true;
-          })
-          .catch((ex2) => {
-            console.log(ex2);
-          });
-
         return true;
       })
       .catch((ex) => {
