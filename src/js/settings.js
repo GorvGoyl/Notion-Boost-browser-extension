@@ -16,7 +16,7 @@ export const defaultSettings = {
   hideHiddenColumns: false,
   disablePopupOnURLPaste: false,
   addMoreHeightToPage: false,
-  enableSpellcheckForCode: false,
+  spellcheckForCode: false,
   codeLineNumbers: false,
 };
 
@@ -73,7 +73,7 @@ export const settingDetails = [
     pf: false,
   },
   {
-    func: "enableSpellcheckForCode",
+    func: "spellcheckForCode",
     name: "Enable spellcheck inside code blocks",
     desc: "",
     pf: false,

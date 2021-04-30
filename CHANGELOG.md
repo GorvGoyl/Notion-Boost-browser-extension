@@ -16,7 +16,7 @@ Now back to the exciting stuff! I added many features ⭐ and fixed bugs 🐞 in
   Added option to hide backlinks section from all pages.
 
 - ⭐ **Disable popup when pasting link**  
-  Added opton to disable popup which comes when pasting any external URL into Notion page.
+  Added option to disable popup which comes when pasting any external URL into Notion page.
 
 - ⭐ **Show code line numbers**  
   Added option to show line numbers for code blocks.
