@@ -74,9 +74,9 @@ export const settingDetails = [
   },
   {
     func: "spellcheckForCode",
-    name:
+    name: "Enable spellcheck inside code blocks",
+    desc:
       "Show squiggly red lines for any spelling mistakes inside code blocks",
-    desc: "",
     pf: false,
   },
   {
