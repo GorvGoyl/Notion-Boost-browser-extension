@@ -73,8 +73,8 @@ export function About() {
       />
 
       <Bullet
-        txtS="Missing some feature? suggest on "
-        urlTxt="Github"
+        txtS="Missing something? "
+        urlTxt="suggest / feedback"
         url="https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues/new"
       />
 
@@ -99,7 +99,7 @@ export function About() {
           </Fragment>
         }
         url="https://twitter.com/notionboost"
-        txtE=" for upcoming features and other Notion tips & tricks"
+        txtE=" for many amazing Notion tips & tricks."
       />
 
       <Bullet
