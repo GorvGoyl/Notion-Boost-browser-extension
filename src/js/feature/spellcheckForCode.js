@@ -56,7 +56,8 @@ function docEditListener() {
         if (
           m.target &&
           m.addedNodes.length > 0 &&
-          m.target.classList.contains("notion-code-block")
+          m.target.classList.contains("notion-code-block") &&
+          m.target.querySelector("div[spellcheck]")
         ) {
           console.log("codeblok");
           isSpellcheckEnabled = true;
