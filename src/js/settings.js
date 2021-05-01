@@ -81,8 +81,9 @@ export const settingDetails = [
   },
   {
     func: "disablePopupOnURLPaste",
-    name: "Disable popup when pasting link",
-    desc: "Disable popup when pasting external URL",
+    name: "Don't show popup menu when pasting external links",
+    desc:
+      "Don't show popup menu i.e (dismiss, create bookmark, create embed) when pasting external links",
     pf: false,
   },
   {

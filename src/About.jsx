@@ -62,7 +62,9 @@ export function About() {
         <span class="icon-nb" />
         Notion Boost
       </div>
-      <div className="sub-title underline">Make Notion more productive</div>
+      <div className="sub-title underline">
+        Make Notion more productive and less distractive
+      </div>
 
       <Bullet
         txtS="Visit "
