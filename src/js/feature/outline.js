@@ -6,6 +6,7 @@ import {
   pageChangeListener,
   removePageChangeListener,
   getElements,
+  isObserverType,
 } from "../utility";
 
 let pageChangeObserverObj = {};
@@ -175,13 +176,22 @@ function addOutline() {
     } else {
       headingCls = "";
     }
-
     block = toElement(tocBlockHTML);
-
     // add text
-    const text = h.textContent;
+    let text = "";
+    h.querySelector('div[placeholder*="Heading "]').childNodes.forEach((x) => {
+      if (x.alt) {
+        // get emoji as text
+        text += x.alt;
+      } else if (x.textContent) {
+        text += x.textContent;
+      }
+    });
     block.querySelector(".align").classList.add(headingCls);
     block.querySelector(".text").textContent = text;
+    if (text.length > 30) {
+      block.querySelector(".btn").title = text;
+    }
 
     // add href
     const blockId = h.getAttribute("data-block-id").replace(/-/g, "");
@@ -290,7 +300,7 @@ function docEditListener() {
 
       // check if the change was related to headings
       if (isHeading(placeholder)) {
-        console.log("heading changed");
+        DEBUG && console.log("heading changed");
 
         isDocHeadingChanged = true;
         break;

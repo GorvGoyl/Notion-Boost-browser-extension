@@ -1,10 +1,15 @@
-import { getElement, onElementLoaded, onElementCSSChanged } from "../utility";
+import {
+  getElement,
+  onElementLoaded,
+  onElementCSSChanged,
+  isObserverType,
+} from "../utility";
 
 const notionHelpBtnCls = ".notion-help-button";
 const notionAppId = "#notion-app";
 const notionAppInnerCls = ".notion-app-inner";
 const notionCursorListenerCls = ".notion-cursor-listener";
-
+let titleObserver = {};
 export function hideComments(isEnabled) {
   try {
     console.log(`feature: hideComments: ${isEnabled}`);
@@ -17,6 +22,28 @@ export function hideComments(isEnabled) {
             el.classList.add("hideComments-nb");
           } else {
             el.classList.remove("hideComments-nb");
+          }
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function hideBacklinks(isEnabled) {
+  try {
+    console.log(`feature: hideBacklinks: ${isEnabled}`);
+
+    onElementLoaded(notionAppInnerCls)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionAppInnerCls);
+          if (isEnabled) {
+            el.classList.add("hideBacklinks");
+          } else {
+            el.classList.remove("hideBacklinks");
           }
         }
         return null;
@@ -186,6 +213,58 @@ export function disableSlashMenu(isEnabled) {
   }
 }
 
+export function hideNotification(isEnabled) {
+  try {
+    console.log(`feature: hideNotification: ${isEnabled}`);
+
+    const removeBadgeFromTitle = () => {
+      if (document.title.indexOf(")") > -1) {
+        document.title = document.title.substring(
+          document.title.indexOf(")") + 2
+        );
+      }
+    };
+    onElementLoaded(notionAppInnerCls)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionAppInnerCls);
+          if (isEnabled) {
+            el.classList.add("hideNotification");
+            removeBadgeFromTitle();
+            // select the target node
+            const target = document.querySelector("title");
+
+            // create an observer instance
+            titleObserver = new MutationObserver((mutations) => {
+              removeBadgeFromTitle();
+            });
+
+            // configuration of the observer:
+            const config = {
+              subtree: true,
+              characterData: true,
+              childList: true,
+            };
+
+            // pass in the target node, as well as the observer options
+            titleObserver.observe(target, config);
+          } else {
+            el.classList.remove("hideNotification");
+            if (isObserverType(titleObserver)) {
+              console.log("disconnected docEditObserver");
+              titleObserver.disconnect();
+            }
+          }
+          // console.log(`${notionBodyCls} style is ${el.style.display}`);
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function leftAlignImage(isEnabled) {
   try {
     console.log(`feature: leftAlignImage: ${isEnabled}`);
@@ -231,34 +310,34 @@ export function addMoreHeightToPage(isEnabled) {
     console.log(e);
   }
 }
-export function enableSpellcheckForCode(isEnabled) {
-  try {
-    console.log(`feature: enableSpellcheckForCode: ${isEnabled}`);
+// export function enableSpellcheckForCode(isEnabled) {
+//   try {
+//     console.log(`feature: enableSpellcheckForCode: ${isEnabled}`);
 
-    onElementLoaded(notionAppInnerCls)
-      .then((isPresent) => {
-        if (isPresent) {
-          const codeDivs = document.querySelectorAll(
-            "div.notion-page-content > div.notion-selectable.notion-code-block div.notion-code-block > div"
-          );
+//     onElementLoaded(notionAppInnerCls)
+//       .then((isPresent) => {
+//         if (isPresent) {
+//           const codeDivs = document.querySelectorAll(
+//             "div.notion-page-content > div.notion-selectable.notion-code-block div.notion-code-block > div"
+//           );
 
-          if (isEnabled) {
-            codeDivs.forEach((x) => {
-              x.setAttribute("spellcheck", "true");
-            });
-          } else {
-            codeDivs.forEach((x) => {
-              x.setAttribute("spellcheck", "false");
-            });
-          }
-        }
-        return null;
-      })
-      .catch((e) => console.log(e));
-  } catch (e) {
-    console.log(e);
-  }
-}
+//           if (isEnabled) {
+//             codeDivs.forEach((x) => {
+//               x.setAttribute("spellcheck", "true");
+//             });
+//           } else {
+//             codeDivs.forEach((x) => {
+//               x.setAttribute("spellcheck", "false");
+//             });
+//           }
+//         }
+//         return null;
+//       })
+//       .catch((e) => console.log(e));
+//   } catch (e) {
+//     console.log(e);
+//   }
+// }
 
 export function showHoverText(isEnabled) {
   try {
@@ -345,36 +424,12 @@ function disablePopupOnURLPasteEvent(e) {
     !content.includes("notion.so") &&
     content.includes(".")
   ) {
-    onElementLoaded(
-      "#notion-app > div > div.notion-overlay-container.notion-default-overlay-container > div:nth-child(2) > div > div > div:nth-child(2) > div > div > div > div > div"
-    )
+    const dismissBtn =
+      "#notion-app > div > div.notion-overlay-container.notion-default-overlay-container > div:nth-child(2) > div > div > div:nth-child(2) > div > div > div > div > div > div > div > div:nth-child(1)";
+    onElementLoaded(dismissBtn)
       .then((ex) => {
-        document.querySelector(
-          "#notion-app > div > div.notion-overlay-container.notion-default-overlay-container > div:nth-child(2)"
-        ).style.display = "none";
+        document.querySelector(dismissBtn).click();
         console.log("stopped");
-
-        const ke = new KeyboardEvent("keydown", {
-          bubbles: true,
-          cancelable: true,
-          keyCode: 13,
-        });
-
-        const doc = document.querySelector(
-          "#notion-app > div > div.notion-cursor-listener.showHoverText > div.notion-frame > div.notion-scroller.vertical.horizontal"
-        );
-
-        onElementCSSChanged(doc, 2000)
-          .then((ex2) => {
-            doc.style.overflow = "auto";
-            doc.style.marginRight = "0px";
-            console.log("applied");
-            return true;
-          })
-          .catch((ex2) => {
-            console.log(ex2);
-          });
-
         return true;
       })
       .catch((ex) => {

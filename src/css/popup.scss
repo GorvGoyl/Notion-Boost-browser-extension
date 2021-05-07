@@ -125,6 +125,7 @@ $line: 1px solid rgba($color-gray, 0.1);
   font-weight: 500;
   width: auto;
 }
+
 .sub-title {
   font-size: 14px;
 }
@@ -174,7 +175,7 @@ $line: 1px solid rgba($color-gray, 0.1);
         line-height: 1.2;
         min-width: 0px;
         padding: 3px 6px;
-        color: rgba($color-gray, 0.4);
+        color: rgba($color-gray, 0.5);
       }
     }
   }
@@ -211,6 +212,107 @@ $line: 1px solid rgba($color-gray, 0.1);
   }
 }
 
+.pro {
+  &.big {
+    position: relative;
+    bottom: 1px;
+    div {
+      padding: 4px 6px;
+      font-size: 11px;
+    }
+  }
+  &.small {
+    div {
+      padding: 2px 6px;
+
+      font-size: 9px;
+    }
+  }
+  // padding: 1px 4px;
+  // background-color: rgba($color-gray, 0.08);
+  // color: rgba($color-gray, 0.6);
+  // border-radius: 3px;
+  // margin-right: 5px;
+  // font-size: 12px;
+  // font-family: monospace;
+
+  user-select: none;
+  transition: background 20ms ease-in 0s;
+  cursor: pointer;
+  display: inline-block;
+  align-items: center;
+  border-radius: 3px;
+  margin-left: 8px;
+  margin-top: -3px;
+  div {
+    border-radius: 3px;
+    color: rgba($color-gray, 0.6);
+    background: rgba(206, 205, 202, 0.5);
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+}
+
+.payment {
+  > div:nth-child(1) {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    font-weight: 500;
+    line-height: 24px;
+  }
+  // > div:nth-child(2) {
+  //   margin: 3px 0px;
+  // }
+  display: flex;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: rgb(55, 53, 47);
+  fill: currentcolor;
+  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+    "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  -webkit-font-smoothing: auto;
+  flex-direction: column;
+
+  .pricing {
+    border: 1px solid rgba($color-gray, 0.09);
+    border-radius: 3px;
+    padding: 15px 10px;
+    .features {
+      display: flex;
+      flex-direction: column;
+      > div {
+        margin: 7px 0px;
+      }
+    }
+    .payBtn {
+      margin-top: 20px;
+      margin-bottom: 10px;
+      user-select: none;
+      transition: background 20ms ease-in 0s;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      flex-shrink: 0;
+      white-space: nowrap;
+      height: 32px;
+      border-radius: 3px;
+      box-shadow: #0f0f0f1a 0px 0px 0px 1px inset, #0f0f0f1a 0px 1px 2px;
+      background: #2eaadc;
+      color: white;
+      fill: white;
+      line-height: 1.2;
+      padding-left: 12px;
+      padding-right: 12px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+}
 .settings.table {
   display: flex;
   flex-direction: column;
@@ -220,7 +322,7 @@ $line: 1px solid rgba($color-gray, 0.1);
   padding-left: 0px;
   padding-right: 15px;
   overflow: auto;
-  max-height: 300px;
+  max-height: 380px;
   // fix for firefox
   scrollbar-width: thin;
 

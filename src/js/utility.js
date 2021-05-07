@@ -4,7 +4,7 @@ export const twitterShareTxt =
   "https://twitter.com/intent/tweet?url=&text=%40NotionBoost%20by%20%40GorvGoyl%20adds%20tons%20of%20capabilities%20to%20%40NotionHQ%20like%20outline%2C%20scroll%20top%20button%2C%20hide%20slash%20command%20menu%20and%20many%20more!";
 // stays on doc change
 const notionFrameCls = ".notion-frame";
-
+const DEBUG = false;
 // these gets removed on doc change
 const notionScrollerCls = ".notion-scroller.vertical.horizontal";
 const notionPageContentCls = ".notion-page-content";
@@ -63,7 +63,7 @@ export function removePageChangeListener(pageChangeObserverObj) {
   }
 }
 
-function isObserverType(obj) {
+export function isObserverType(obj) {
   return obj.disconnect !== undefined;
 }
 
@@ -71,11 +71,11 @@ function isObserverType(obj) {
 // pass div and (optional) parent div class
 // if parent class is not passed then `document` is used
 export function onElementLoaded(divClassToObserve, ParentDivClass) {
-  console.log(`waiting for element: ${divClassToObserve}`);
+  DEBUG && console.log(`waiting for element: ${divClassToObserve}`);
   const promise = new Promise((resolve, reject) => {
     try {
       if (getElement(divClassToObserve)) {
-        console.log(`element already present: ${divClassToObserve}`);
+        DEBUG && console.log(`element already present: ${divClassToObserve}`);
         resolve(true);
         return;
       }
@@ -109,7 +109,7 @@ export function onElementLoaded(divClassToObserve, ParentDivClass) {
 
 // detect if css is changed for a div (once)
 export function onElementCSSChanged(divClassToObserve, timeOut) {
-  console.log(`waiting for element: ${divClassToObserve}`);
+  DEBUG && console.log(`waiting for element: ${divClassToObserve}`);
   const promise = new Promise((resolve, reject) => {
     try {
       const observer = new MutationObserver((mutationList, obsrvr) => {

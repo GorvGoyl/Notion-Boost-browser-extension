@@ -59,7 +59,7 @@ function docEditListener() {
     for (let i = 0; i < mutationList.length; i++) {
       const m = mutationList[i];
 
-      // case: check for text change in headings
+      // case: check for text change
       if (m.type === "childList") {
         if (
           m.target &&

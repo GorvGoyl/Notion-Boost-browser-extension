@@ -19,6 +19,13 @@
               - `notion-page-content`
                 - blocks
 
+# Run in FF
+
+- run command from package.josn
+- open url in firefox
+  - about:debugging#/runtime/this-firefox
+    - pick manifest.json from folder `build_firefox`
+
 # Theme
 
 ## Dark

@@ -188,22 +188,34 @@ $docWidth: 83%;
 // smallText
 .smallText {
   // set fonts
-  .notion-scroller.vertical.horizontal
-    > div:first-child
-    .notion-selectable.notion-page-block {
-    font-size: 32px !important;
-  }
-  .notion-scroller.vertical.horizontal .notion-page-content {
-    font-size: 14px !important;
+  .notion-scroller.vertical {
+    > div:first-child .notion-selectable.notion-page-block {
+      font-size: 32px !important;
+    }
+    .notion-page-content {
+      font-size: 14px !important;
+    }
   }
 }
 
 // # hideComments
 .hideComments-nb {
-  .notion-scroller.vertical.horizontal {
+  .notion-scroller.vertical {
     .notion-page-view-discussion {
       display: none !important;
 
+      & + div {
+        display: none;
+      }
+    }
+  }
+}
+
+// # hideBacklinks
+.hideBacklinks {
+  .notion-scroller.vertical {
+    > div:nth-child(2) > div > div[style*="width: 100%; max-width: 100%;"] {
+      display: none !important;
       & + div {
         display: none;
       }
@@ -273,6 +285,14 @@ $docWidth: 83%;
   }
 }
 
+// hideNotification
+.hideNotification {
+  .notion-topbar {
+    > div:nth-child(1) > div:nth-child(1) > div > div:nth-child(1) > div > div {
+      display: none !important;
+    }
+  }
+}
 // addMoreHeightToPage
 .addMoreHeightToPage {
   div.notion-scroller.vertical.horizontal div.notion-page-controls {

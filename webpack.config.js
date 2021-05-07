@@ -1,7 +1,8 @@
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const ExtensionReloader = require("webpack-extension-reloader");
+// using chrome extension to reload it now
+// const ExtensionReloader = require("webpack-extension-reloader");
 const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MergeJsonWebpackPlugin = require("merge-jsons-webpack-plugin");
@@ -25,6 +26,7 @@ module.exports = (env, argv) => {
   const entry = {
     content: path.join(__dirname, "src", "js", "content.js"),
     popup: path.join(__dirname, "src", "popup.jsx"),
+    extPay: path.join(__dirname, "src", "js", "extPay.js"),
   };
 
   const manifest = ["src/manifest.json"];
@@ -150,19 +152,18 @@ module.exports = (env, argv) => {
   // DEV ENV
   // hot reload for extension and browser page
   if (isDev && isChrome) {
-    pluginsArr.push(
-      new ExtensionReloader({
-        reloadPage: true, // Force the reload of the page also
-        manifest: path.resolve(__dirname, buildDist, "manifest.json"),
-
-        // entries: {
-        //   contentScript: "./src/js/content",
-        //   background: "./src/js/background",
-        //   // The entries used for the content/background scripts or extension pages
-        //   // contentScript: "content",
-        // },
-      })
-    );
+    // pluginsArr.push(
+    //   new ExtensionReloader({
+    //     reloadPage: true, // Force the reload of the page also
+    //     manifest: path.resolve(__dirname, buildDist, "manifest.json"),
+    //     // entries: {
+    //     //   contentScript: "./src/js/content",
+    //     //   background: "./src/js/background",
+    //     //   // The entries used for the content/background scripts or extension pages
+    //     //   // contentScript: "content",
+    //     // },
+    //   })
+    // );
   }
 
   // PROD ENV
@@ -229,6 +230,7 @@ module.exports = (env, argv) => {
     },
     resolve: {
       extensions: [".js", ".jsx"],
+      mainFields: ["module", "main"], // https://github.com/Glench/ExtPay/issues/2#issuecomment-783229999
     },
   };
 };

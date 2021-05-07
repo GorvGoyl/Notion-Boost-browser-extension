@@ -29,7 +29,12 @@ function Bullet({ txtS, url, urlTxt, txtE }) {
             >
               {txtS}
               {url && (
-                <a target="_blank" className="external-link" href={url}>
+                <a
+                  target="_blank"
+                  className="external-link"
+                  rel="noopener"
+                  href={url}
+                >
                   {urlTxt}
                 </a>
               )}
@@ -57,7 +62,9 @@ export function About() {
         <span class="icon-nb" />
         Notion Boost
       </div>
-      <div className="sub-title underline">Make Notion more productive</div>
+      <div className="sub-title underline">
+        Make Notion more productive and less distractive
+      </div>
 
       <Bullet
         txtS="Visit "
@@ -66,17 +73,17 @@ export function About() {
       />
 
       <Bullet
-        txtS="Missing some feature? suggest on "
-        urlTxt="Github"
+        txtS="Missing something? "
+        urlTxt="suggest / feedback"
         url="https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues/new"
       />
 
-      <Bullet
+      {/* <Bullet
         txtS="Support Notion Boost by "
         urlTxt="tweeting 🖤"
         url={twitterShareTxt}
         txtE=" about it"
-      />
+      /> */}
 
       {/* <Bullet
         txtS="See "
@@ -92,7 +99,13 @@ export function About() {
           </Fragment>
         }
         url="https://twitter.com/notionboost"
-        txtE=" for upcoming features and other Notion tips & tricks"
+        txtE=" for many amazing Notion tips & tricks."
+      />
+
+      <Bullet
+        txtS="Support: hey@gourav.io"
+        // urlTxt={<Fragment>hey@gourav.io</Fragment>}
+        // url="hey@gourav.io"
       />
       <Bullet
         txtS="Made by "
