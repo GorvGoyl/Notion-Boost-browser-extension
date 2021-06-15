@@ -21,11 +21,18 @@
     "airbnb-base",
     "plugin:promise/recommended",
     "plugin:import/errors",
-    "plugin:import/warnings"
-    // "plugin:react-hooks/recommended",
-    // always put prettier at last
+    "plugin:import/warnings",
+    "plugin:react-hooks/recommended"
   ],
   "rules": {
+    "no-lonely-if": "off",
+    "no-loop-func": "off",
+    "space-before-blocks": "off",
+    "space-infix-ops": "off",
+    "keyword-spacing": "off",
+    "no-empty": "off",
+    "no-trailing-spaces": "off",
+    "padded-blocks": "off",
     "max-len": "off",
     "operator-linebreak": "off",
     "comma-dangle": "off",

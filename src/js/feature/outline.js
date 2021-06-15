@@ -1,12 +1,12 @@
 import {
   getElement,
-  toElement,
-  removeChildren,
-  onElementLoaded,
-  pageChangeListener,
-  removePageChangeListener,
   getElements,
   isObserverType,
+  onElementLoaded,
+  pageChangeListener,
+  removeChildren,
+  removePageChangeListener,
+  toElement,
 } from "../utility";
 
 let pageChangeObserverObj = {};
@@ -178,14 +178,27 @@ function addOutline() {
     block = toElement(tocBlockHTML);
     // add text
     let text = "";
-    h.querySelector('div[placeholder*="Heading "]').childNodes.forEach((x) => {
-      if (x.alt) {
-        // get emoji as text
-        text += x.alt;
-      } else if (x.textContent) {
-        text += x.textContent;
+    h.querySelector('div[placeholder*="Heading "]').childNodes.forEach(
+      (hxEl) => {
+        // it's a span
+        if (hxEl.nodeName === "SPAN") {
+          hxEl.childNodes.forEach((el) => {
+            if (el.nodeName === "#text") {
+              text += el.textContent;
+            } else if (el.nodeName === "IMG") {
+              text += el.alt;
+            }
+          });
+        } else {
+          // it's regualar text
+          if (hxEl.nodeName === "#text") {
+            text += hxEl.textContent;
+          } else if (hxEl.nodeName === "IMG") {
+            text += hxEl.alt;
+          }
+        }
       }
-    });
+    );
     block.querySelector(".align").classList.add(headingCls);
     block.querySelector(".text").textContent = text;
     if (text.length > 30) {
@@ -243,9 +256,8 @@ function docEditListener() {
           m.target.parentNode &&
           m.target.parentNode.parentNode
         ) {
-          placeholder = m.target.parentNode.parentNode.getAttribute(
-            "placeholder"
-          );
+          placeholder =
+            m.target.parentNode.parentNode.getAttribute("placeholder");
         }
       }
       if (!isHeading(placeholder) && m.type === "childList") {
@@ -260,9 +272,8 @@ function docEditListener() {
           m.removedNodes.length > 0 &&
           m.removedNodes[0].firstElementChild
         ) {
-          placeholder = m.removedNodes[0].firstElementChild.getAttribute(
-            "placeholder"
-          );
+          placeholder =
+            m.removedNodes[0].firstElementChild.getAttribute("placeholder");
 
           if (placeholder) {
             // console.log("empty block got removed");
@@ -274,9 +285,10 @@ function docEditListener() {
             m.removedNodes.length > 0 &&
             m.removedNodes[0].firstElementChild.firstElementChild
           ) {
-            placeholder = m.removedNodes[0].firstElementChild.firstElementChild.getAttribute(
-              "placeholder"
-            );
+            placeholder =
+              m.removedNodes[0].firstElementChild.firstElementChild.getAttribute(
+                "placeholder"
+              );
 
             // console.log("empty blocks got removed");
           }
@@ -288,9 +300,8 @@ function docEditListener() {
           m.addedNodes.length > 0 &&
           m.addedNodes[0].firstElementChild
         ) {
-          placeholder = m.addedNodes[0].firstElementChild.getAttribute(
-            "placeholder"
-          );
+          placeholder =
+            m.addedNodes[0].firstElementChild.getAttribute("placeholder");
           // console.log("empty block got added");
         }
       }
