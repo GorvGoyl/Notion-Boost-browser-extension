@@ -1,5 +1,5 @@
 {
-  "permissions": ["activeTab", "storage", "https://extensionpay.com/*"],
+  "permissions": ["activeTab", "storage"],
 
   "page_action": {
     "default_icon": {
