@@ -158,8 +158,9 @@ function updateCodeline(block) {
       const lineHeight = temp.getBoundingClientRect().height;
       temp.remove();
 
-      for (let j = 1; j < lineHeight / block.lineHeight - 1; j++)
+      for (let j = 1; j < lineHeight / block.lineHeight - 1; j++) {
         lineNumbers += "\n";
+      }
     }
   }
 

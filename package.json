@@ -17,7 +17,7 @@
     "lint-fix": "eslint ./src/ -c .eslintrc.json --ext .js --fix"
   },
   "keywords": [],
-  "author": "",
+  "author": "Gourav Goyal",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.14.6",

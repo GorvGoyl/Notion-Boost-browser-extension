@@ -14,28 +14,26 @@
     },
     "sourceType": "module"
   },
-  "plugins": ["promise", "prettier"],
+  "plugins": ["promise"],
   "extends": [
     "preact",
     "eslint:recommended",
     "airbnb-base",
     "plugin:promise/recommended",
     "plugin:import/errors",
-    "plugin:import/warnings",
+    "plugin:import/warnings"
     // "plugin:react-hooks/recommended",
     // always put prettier at last
-    "prettier"
   ],
   "rules": {
+    "max-len": "off",
+    "operator-linebreak": "off",
+    "comma-dangle": "off",
+    "linebreak-style": "off",
+    "quotes": "off",
     "promise/no-nesting": "off",
     "no-unused-vars": "off",
     "no-console": "off",
-    // "prettier/prettier": [
-    //   "off",
-    //   {
-    //     "endOfLine": "auto"
-    //   }
-    // ],
     "no-nested-ternary": "off",
     "no-unused-expressions": "off",
     "import/prefer-default-export": "off",

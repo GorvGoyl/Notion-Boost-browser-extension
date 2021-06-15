@@ -1,8 +1,8 @@
 import {
   getElement,
-  onElementLoaded,
-  onElementCSSChanged,
   isObserverType,
+  onElementCSSChanged,
+  onElementLoaded,
 } from "../utility";
 
 const notionHelpBtnCls = ".notion-help-button";
