@@ -18,14 +18,15 @@ export const defaultSettings = {
   addMoreHeightToPage: false,
   spellcheckForCode: false,
   codeLineNumbers: false,
+  // step 1 of 2: add function name
+  openFullPage: false,
 };
 
 export const settingDetails = [
   {
     func: "displayOutline",
     name: "Show Outline",
-    desc:
-      "Show sticky outline (table of contents) for pages that have headings",
+    desc: "Show sticky outline (table of contents) for pages that have headings",
     pf: false,
   },
   {
@@ -38,6 +39,12 @@ export const settingDetails = [
     func: "smallText",
     name: "Small text for all pages",
     desc: "Set small text for all pages by default",
+    pf: false,
+  },
+  {
+    func: "openFullPage",
+    name: "Open full page instead of preview",
+    desc: "Bypass preview and open full page of table, board, etc",
     pf: false,
   },
   {
@@ -75,15 +82,13 @@ export const settingDetails = [
   {
     func: "spellcheckForCode",
     name: "Enable spellcheck inside code blocks",
-    desc:
-      "Show squiggly red lines for any spelling mistakes inside code blocks",
+    desc: "Show squiggly red lines for any spelling mistakes inside code blocks",
     pf: false,
   },
   {
     func: "disablePopupOnURLPaste",
     name: "Don't show popup menu when pasting external links",
-    desc:
-      "Don't show popup menu i.e (dismiss, create bookmark, create embed) when pasting external links",
+    desc: "Don't show popup menu i.e (dismiss, create bookmark, create embed) when pasting external links",
     pf: false,
   },
   {
@@ -102,8 +107,7 @@ export const settingDetails = [
   {
     func: "hideNotification",
     name: "Hide notification icon",
-    desc:
-      "Hide red notification icon from sidebar when it's in closed state and hide notification number from tab title",
+    desc: "Hide red notification icon from sidebar when it's in closed state and hide notification number from tab title",
     pf: true,
   },
   {
@@ -137,4 +141,6 @@ export const settingDetails = [
     desc: "",
     pf: false,
   },
+
+  // step 2 of 2: add function name and description
 ];

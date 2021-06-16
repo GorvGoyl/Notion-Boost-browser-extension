@@ -25,6 +25,10 @@
     "plugin:react-hooks/recommended"
   ],
   "rules": {
+    "prefer-destructuring": "off",
+    "comma-spacing": "off",
+    "no-multiple-empty-lines": "off",
+    "indent": "off",
     "no-lonely-if": "off",
     "no-loop-func": "off",
     "space-before-blocks": "off",

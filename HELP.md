@@ -18,6 +18,9 @@
             - notion-scroller vertical horizontal _resets on doc change_
               - `notion-page-content`
                 - blocks
+      - notion-overlay-container notion-default-overlay-container
+        - notion-peek-renderer
+      - notion-overlay-container
 
 # Run in FF
 

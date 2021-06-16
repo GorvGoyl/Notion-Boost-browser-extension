@@ -1,19 +1,25 @@
 import "../css/content.scss";
-import { defaultSettings } from "./settings";
-import { isEmpty, getLatestSettings } from "./utility";
-import { displayOutline } from "./feature/outline";
-import { scrollTopBtn } from "./feature/scrollToTopBtn";
 import { codeLineNumbers } from "./feature/codeLineNumbers";
-import { spellcheckForCode } from "./feature/spellcheckForCode.js";
+import { openFullPage } from "./feature/openFullPage";
+import { displayOutline } from "./feature/outline";
 import * as features from "./feature/pageElements";
+import { scrollTopBtn } from "./feature/scrollToTopBtn";
+// step 1 of 2: import feature
+import { spellcheckForCode } from "./feature/spellcheckForCode.js";
+import { defaultSettings } from "./settings";
+import { getLatestSettings, isEmpty } from "./utility";
 
 let featureList = {};
 
 featureList = features;
+
+// step 2 of 2: add that feature to featureList object
 featureList.displayOutline = displayOutline;
 featureList.scrollTopBtn = scrollTopBtn;
 featureList.codeLineNumbers = codeLineNumbers;
 featureList.spellcheckForCode = spellcheckForCode;
+featureList.openFullPage = openFullPage;
+
 function init() {
   let syncSet = {};
   const updatedSet = { ...defaultSettings };
