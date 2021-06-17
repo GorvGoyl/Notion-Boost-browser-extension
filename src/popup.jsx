@@ -1,4 +1,4 @@
-import { Fragment, h, render } from "preact";
+import { h, render } from "preact";
 import { route, Router } from "preact-router";
 import { useEffect, useState } from "preact/hooks";
 import { About } from "./About";
@@ -7,7 +7,6 @@ import { SettingsTable } from "./js/components/settingsTable";
 // import * as ExtPay from "extpay";
 import ExtPay from "./js/extPay";
 import { msgLocked, msgThanks } from "./js/settings";
-import { getElement, getElements, getLatestSettings } from "./js/utility";
 import { Payment } from "./Payment";
 
 const extpay = ExtPay("notion-boost");
@@ -16,9 +15,6 @@ const extpay = ExtPay("notion-boost");
 function Home() {
   const [isPaid, setPaidHook] = useState(false);
   useEffect(() => {
-    // load settings
-    init();
-
     // listener
     extpay.onPaid.addListener((user) => {
       setPayment(true);
@@ -46,14 +42,6 @@ function Home() {
       showPaymentPage();
     }
   }
-
-  const handleFeature = (pf) => (ev) => {
-    if (!pf || isPaid) {
-      updateSettings(ev);
-    } else {
-      route("/payment", true);
-    }
-  };
 
   function setPayment(status) {
     chrome.storage.sync.set({ nb_settings_pd: status }, () => {});
@@ -103,7 +91,7 @@ function Home() {
           </div> */}
         </div>
 
-        <SettingsTable handleFeature={handleFeature} isPaid={isPaid} />
+        <SettingsTable isPaid={isPaid} />
         <div className="footer topline">
           <a
             className="footer-item"
@@ -146,106 +134,6 @@ function App() {
 render(<App />, document.body);
 
 // #region ## ----------------- INTERNAL METHODS ----------------- ##
-
-// set buttons state
-function init() {
-  getLatestSettings()
-    .then((set) => {
-      console.log("LatestSettings: ", set);
-
-      const rows = getElements(".row");
-      rows.forEach((e) => {
-        const cls = set[e.getAttribute("data-func")] ? "enable" : "disable";
-        e.classList.add(cls);
-      });
-
-      return null;
-    })
-    .catch((e) => console.log(e));
-}
-
-// enable/disable function
-function setFuncState(funcName, state) {
-  const promise = new Promise((resolve, reject) => {
-    try {
-      console.log(`${funcName} setting to ${state}`);
-
-      const btn = getElement(`[data-func=${funcName}]`);
-      toggleBtnUI(btn);
-
-      getLatestSettings()
-        .then((set) => {
-          console.log("getLatestSettings ->", set);
-          set[funcName] = state;
-          set.call_func = {
-            name: funcName,
-            arg: state,
-          };
-
-          chrome.storage.sync.set({ nb_settings: set }, () => {
-            console.log(`${funcName} set to ${state}`);
-            resolve();
-          });
-          return null;
-        })
-        .catch((e) => console.log(e));
-    } catch (e) {
-      console.log(e);
-      reject(Error("some issue... promise rejected"));
-    }
-  });
-  return promise;
-}
-
-function toggleBtnUI(el) {
-  if (el.classList.contains("enable")) {
-    el.classList.remove("enable");
-    el.classList.add("disable");
-  } else if (el.classList.contains("disable")) {
-    el.classList.remove("disable");
-    el.classList.add("enable");
-  }
-}
-
-function isFuncEnabled(func) {
-  const btnToDisable = getElement(`[data-func=${func}]`);
-
-  if (btnToDisable.classList.contains("enable")) {
-    return true;
-  }
-  return false;
-}
-function updateSettings(ev) {
-  console.log("clicked: ");
-
-  const func = ev.currentTarget.getAttribute("data-func");
-  const btnEl = getElement(`[data-func=${func}]`);
-  const funcToDisable = btnEl.getAttribute("data-disable_func");
-
-  console.log("updateSettings -> func", func);
-  console.log("updateSettings -> disableFunc", funcToDisable);
-
-  let toEnable = false;
-  const { classList } = btnEl;
-
-  if (classList.contains("enable")) {
-    toEnable = false;
-  } else if (classList.contains("disable")) {
-    toEnable = true;
-  }
-
-  // disable other related func if both are enabled
-  if (funcToDisable && isFuncEnabled(funcToDisable) && toEnable) {
-    setFuncState(funcToDisable, false)
-      .then(() => {
-        setFuncState(func, toEnable);
-        return null;
-      })
-      .catch((e) => console.log(e));
-  } else {
-    setFuncState(func, toEnable);
-  }
-}
 
 export function showPaymentPage() {
   try {

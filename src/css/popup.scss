@@ -313,6 +313,23 @@ $line: 1px solid rgba($color-gray, 0.1);
     }
   }
 }
+
+.settings.search {
+  &::placeholder {
+    color: rgba($color-gray, 0.4);
+    font-size: 14px;
+  }
+
+  width: 100%;
+  border: none;
+  // border: 1px solid rgba($color-gray, 1);
+  border-radius: 2px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  padding: 8px;
+  color: rgba($color-gray, 0.6);
+  background: rgba(206, 205, 202, 0.4);
+}
 .settings.table {
   display: flex;
   flex-direction: column;
@@ -325,7 +342,10 @@ $line: 1px solid rgba($color-gray, 0.1);
   max-height: 380px;
   // fix for firefox
   scrollbar-width: thin;
-
+  .no-setting {
+    font-size: 14px;
+    color: rgba($color-gray, 1);
+  }
   .row {
     user-select: none;
     display: flex;

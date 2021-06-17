@@ -25,6 +25,11 @@
     "plugin:react-hooks/recommended"
   ],
   "rules": {
+    "semi": "off",
+    "camelcase": "off",
+    "lines-between-class-members": "off",
+    "implicit-arrow-linebreak": "off",
+    "object-curly-newline": "off",
     "prefer-destructuring": "off",
     "comma-spacing": "off",
     "no-multiple-empty-lines": "off",
@@ -51,7 +56,6 @@
     "promise/catch-or-return": ["error", { "allowFinally": true }],
     "no-use-before-define": "off",
     "no-debugger": "off",
-    "camelcase": "warn",
     "no-plusplus": "off",
     "no-restricted-syntax": "off",
     "no-param-reassign": "off",
