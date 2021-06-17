@@ -22,6 +22,10 @@ export const defaultSettings = {
   openFullPage: false,
 };
 
+export const msgThanks = "Unlocked! Thank you for supporting developer :)";
+export const msgLocked =
+  "Please upgrade to use 'pro' features. One-time payment of $5 for lifetime access! Click to learn more.";
+
 export const settingDetails = [
   {
     func: "displayOutline",

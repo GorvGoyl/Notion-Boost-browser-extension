@@ -1,18 +1,154 @@
-import { h, render, Fragment } from "preact";
-import { Router, route } from "preact-router";
+import { Fragment, h, render } from "preact";
+import { route, Router } from "preact-router";
 import { useEffect, useState } from "preact/hooks";
+import { About } from "./About";
+import "./css/popup.scss";
+import { SettingsTable } from "./js/components/settingsTable";
 // import * as ExtPay from "extpay";
 import ExtPay from "./js/extPay";
-import { About } from "./About";
-import { Payment } from "./Payment";
-import "./css/popup.scss";
+import { msgLocked, msgThanks } from "./js/settings";
 import { getElement, getElements, getLatestSettings } from "./js/utility";
-import { settingDetails } from "./js/settings";
+import { Payment } from "./Payment";
 
 const extpay = ExtPay("notion-boost");
 
+// Home - Build popup settings
+function Home() {
+  const [isPaid, setPaidHook] = useState(false);
+  useEffect(() => {
+    // load settings
+    init();
+
+    // listener
+    extpay.onPaid.addListener((user) => {
+      setPayment(true);
+      route("/popup", true);
+      console.log("user paid!");
+    });
+  }, []);
+
+  // runs at init
+  extpay
+    .getUser()
+    .then((user) => {
+      setPayment(user.paid);
+      return true;
+    })
+    .catch((e) => {
+      console.log(`Error: ${JSON.stringify(e)}`);
+    });
+
+  function handleProBtn() {
+    // window.location.href = "/Payment";
+    if (!isPaid) {
+      route("/payment", true);
+    } else {
+      showPaymentPage();
+    }
+  }
+
+  const handleFeature = (pf) => (ev) => {
+    if (!pf || isPaid) {
+      updateSettings(ev);
+    } else {
+      route("/payment", true);
+    }
+  };
+
+  function setPayment(status) {
+    chrome.storage.sync.set({ nb_settings_pd: status }, () => {});
+    setPaidHook(status);
+  }
+  chrome.storage.sync.get(["nb_settings_pd"], (obj) => {
+    console.log(`isPaid: ${JSON.stringify(obj)}`);
+    try {
+      if (obj.nb_settings_pd === true) {
+        setPaidHook(true);
+      }
+    } catch (e) {
+      console.log(`Error: ${JSON.stringify(e)}`);
+    }
+  });
+
+  return (
+    <div>
+      <div className="wrapper">
+        <div className="title underline">
+          Notion Boost{" "}
+          <div
+            class="pro big"
+            role="button"
+            title={msgLocked}
+            aria-disabled="false"
+            tabindex="0"
+          >
+            <div
+              role="button"
+              title={isPaid ? msgThanks : msgLocked}
+              aria-disabled="false"
+              tabindex="0"
+              onClick={handleProBtn}
+            >
+              Pro {isPaid ? <TickIcon /> : <LockIcon />}
+            </div>
+          </div>
+          {/* <div>
+            {" "}
+            <a
+              className="sub-link"
+              href="https://gourav.io/notion-boost#-currently-added-features"
+            >
+              Feature details
+            </a>
+          </div> */}
+        </div>
+
+        <SettingsTable handleFeature={handleFeature} isPaid={isPaid} />
+        <div className="footer topline">
+          <a
+            className="footer-item"
+            rel="noopener"
+            href="https://gourav.io/notion-boost#-currently-added-features"
+            target="_blank"
+          >
+            <div className="button" style="" role="button" tabIndex={0}>
+              Features info <NewTabIcon />
+            </div>
+          </a>
+          {/* <a className="footer-item" href={twitterShareTxt} target="_blank">
+            <div className="button" style="" role="button" tabIndex={0}>
+              Share&nbsp;
+              <span className="twitter" />
+            </div>
+          </a> */}
+          <a className="footer-item" href="/about">
+            <div className="button" style="" role="button" tabIndex={0}>
+              About
+              {/* <AboutIcon /> */}
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Home path="/" default />
+      <About path="/about" />
+      <Payment path="/payment" />
+    </Router>
+  );
+}
+
+render(<App />, document.body);
+
+// #region ## ----------------- INTERNAL METHODS ----------------- ##
+
+// set buttons state
 function init() {
-  // set buttons state
   getLatestSettings()
     .then((set) => {
       console.log("LatestSettings: ", set);
@@ -119,186 +255,9 @@ export function showPaymentPage() {
   }
 }
 
-// Build popup settings
-function Home() {
-  const [isPaid, setPaidHook] = useState(false);
-  useEffect(() => {
-    init();
+// #endregion
 
-    // listener
-    extpay.onPaid.addListener((user) => {
-      setPayment(true);
-      route("/popup", true);
-      console.log("user paid!");
-    });
-  }, []);
-
-  const msgThanks = "Unlocked! Thank you for supporting developer :)";
-  const msgLocked =
-    "Please upgrade to use 'pro' features. One-time payment of $5 for lifetime access! Click to learn more.";
-
-  // runs at init
-  extpay
-    .getUser()
-    .then((user) => {
-      setPayment(user.paid);
-      return true;
-    })
-    .catch((e) => {
-      console.log(`Error: ${JSON.stringify(e)}`);
-    });
-
-  function handleProBtn() {
-    // window.location.href = "/Payment";
-    if (!isPaid) {
-      route("/payment", true);
-    } else {
-      showPaymentPage();
-    }
-  }
-
-  const handleFeature = (pf) => (ev) => {
-    if (!pf || isPaid) {
-      updateSettings(ev);
-    } else {
-      route("/payment", true);
-    }
-  };
-
-  function setPayment(status) {
-    chrome.storage.sync.set({ nb_settings_pd: status }, () => {});
-    setPaidHook(status);
-  }
-  chrome.storage.sync.get(["nb_settings_pd"], (obj) => {
-    console.log(`isPaid: ${JSON.stringify(obj)}`);
-    try {
-      if (obj.nb_settings_pd === true) {
-        setPaidHook(true);
-      }
-    } catch (e) {
-      console.log(`Error: ${JSON.stringify(e)}`);
-    }
-  });
-
-  return (
-    <div>
-      <div className="wrapper">
-        <div className="title underline">
-          Notion Boost{" "}
-          <div
-            class="pro big"
-            role="button"
-            title={msgLocked}
-            aria-disabled="false"
-            tabindex="0"
-          >
-            <div
-              role="button"
-              title={isPaid ? msgThanks : msgLocked}
-              aria-disabled="false"
-              tabindex="0"
-              onClick={handleProBtn}
-            >
-              Pro {isPaid ? <TickIcon /> : <LockIcon />}
-            </div>
-          </div>
-          {/* <div>
-            {" "}
-            <a
-              className="sub-link"
-              href="https://gourav.io/notion-boost#-currently-added-features"
-            >
-              Feature details
-            </a>
-          </div> */}
-        </div>
-
-        <div className="settings table">
-          {settingDetails.map((obj, index) => (
-            <Fragment>
-              <div
-                className="row"
-                data-func={obj.func}
-                data-disable_func={obj.disable_func}
-                title={obj.pf ? (isPaid ? "" : msgLocked) : ""}
-                onClick={handleFeature(obj.pf)}
-              >
-                <div className="text-wrapper">
-                  <div className="name">{obj.name}</div>
-                  {obj.pf && (
-                    <div
-                      class="pro small"
-                      role="button"
-                      title={isPaid ? msgThanks : msgLocked}
-                      aria-disabled="false"
-                      tabindex="0"
-                    >
-                      <div>Pro</div>
-                    </div>
-                  )}
-                  {obj.desc && <div className="desc">{obj.desc}</div>}
-                </div>
-                <div
-                  className="button toggle"
-                  role="button"
-                  aria-disabled="false"
-                  tabIndex={0}
-                >
-                  <div className="knob">
-                    <div className="pos" />
-                  </div>
-                </div>
-              </div>
-              {index === settingDetails.length - 1 ? (
-                <div className="divider last" />
-              ) : (
-                <div className="divider">
-                  <div className="border" />
-                </div>
-              )}
-            </Fragment>
-          ))}
-        </div>
-        <div className="footer topline">
-          <a
-            className="footer-item"
-            rel="noopener"
-            href="https://gourav.io/notion-boost#-currently-added-features"
-            target="_blank"
-          >
-            <div className="button" style="" role="button" tabIndex={0}>
-              Features info <NewTabIcon />
-            </div>
-          </a>
-          {/* <a className="footer-item" href={twitterShareTxt} target="_blank">
-            <div className="button" style="" role="button" tabIndex={0}>
-              Share&nbsp;
-              <span className="twitter" />
-            </div>
-          </a> */}
-          <a className="footer-item" href="/about">
-            <div className="button" style="" role="button" tabIndex={0}>
-              About
-              {/* <AboutIcon /> */}
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function App() {
-  return (
-    <Router>
-      <Home path="/" default />
-      <About path="/about" />
-      <Payment path="/payment" />
-    </Router>
-  );
-}
-
-render(<App />, document.body);
+// #region ## ----------------- ICONS ----------------- ##
 
 function LockIcon() {
   return (
@@ -372,3 +331,5 @@ function TickIcon() {
     </svg>
   );
 }
+
+// #endregion
