@@ -311,6 +311,21 @@ $line: 1px solid rgba($color-gray, 0.1);
       font-size: 14px;
       font-weight: 500;
     }
+
+    .loginWrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .loginBtn {
+        user-select: none;
+        cursor: pointer;
+        margin-left: 5px;
+        text-decoration: underline;
+        white-space: nowrap;
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
   }
 }
 

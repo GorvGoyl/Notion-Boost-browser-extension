@@ -1,5 +1,6 @@
 import { h, render } from "preact";
-import { Router, route } from "preact-router";
+import { route, Router } from "preact-router";
+import { price } from "./js/settings";
 import { showPaymentPage } from "./popup";
 
 const StoreURL = process.env.STOREURL;
@@ -31,11 +32,11 @@ export function Payment() {
         {/* <div>
           Hey there, building high quality browser extension on top of
           ever-changing software requires a lot of skill and time. Please
-          consider paying a one-time fee ($5) to support the developer.
+          consider paying a one-time fee ($) to support the developer.
         </div> */}
         <div>
-          Please upgrade to use 'pro' features. <br /> One-time payment of $5
-          USD for lifetime access!
+          Please upgrade to use 'pro' features. <br /> One-time payment of{" "}
+          {price} USD for lifetime access!
         </div>
         <div className="pricing">
           <div className="features">
@@ -49,9 +50,8 @@ export function Payment() {
               <CheckIcon /> Same account works on different Chrome profiles.
             </div>
             <div>
-              <CheckIcon /> Same account works on different browsers like
-              Chrome, Firefox, Brave (extension for Safari and Microsoft edge is
-              coming soon).
+              <CheckIcon /> Same account works on different browsers i.e.
+              Chrome, Firefox, Edge, Brave, etc. (not supported on Safari yet).
             </div>
             <div>
               <CheckIcon /> Works even when you uninstall/reinstall this
@@ -65,7 +65,19 @@ export function Payment() {
             className="payBtn"
             onClick={showPaymentPage}
           >
-            Purchase for $5
+            Purchase for {price}
+          </div>
+          <div className="loginWrapper">
+            Already paid?{"  "}
+            <div
+              role="button"
+              aria-disabled="false"
+              tabindex="0"
+              className="loginBtn"
+              onClick={showPaymentPage}
+            >
+              Login
+            </div>
           </div>
         </div>
       </div>
