@@ -93,13 +93,13 @@ export const settingDetails = [
   {
     func: "disablePopupOnURLPaste",
     name: "Don't show popup menu when pasting external links",
-    desc: "Don't show popup menu i.e (dismiss, create bookmark, create embed) when pasting external links",
+    desc: "Don't show popup menu (i.e. dismiss, create bookmark, create embed) when pasting external links",
     pf: false,
   },
   {
     func: "leftAlignImage",
     name: "Left align images",
-    desc: "Align document images to left instead of center",
+    desc: "Align document images to the left instead of center",
     pf: false,
   },
 

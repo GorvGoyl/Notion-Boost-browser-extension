@@ -1,5 +1,5 @@
-import { h, render, Fragment } from "preact";
-import { Router, route } from "preact-router";
+import { Fragment, h, render } from "preact";
+import { route, Router } from "preact-router";
 import { useEffect } from "preact/hooks";
 import { twitterShareTxt } from "./js/utility";
 
@@ -34,6 +34,7 @@ function Bullet({ txtS, url, urlTxt, txtE }) {
                   className="external-link"
                   rel="noopener"
                   href={url}
+                  title={url}
                 >
                   {urlTxt}
                 </a>
@@ -99,7 +100,7 @@ export function About() {
           </Fragment>
         }
         url="https://twitter.com/notionboost"
-        txtE=" for many amazing Notion tips & tricks."
+        txtE=" for unique tips, tricks, and free goodies."
       />
 
       <Bullet
