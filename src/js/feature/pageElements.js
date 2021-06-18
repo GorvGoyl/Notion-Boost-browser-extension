@@ -310,6 +310,30 @@ export function addMoreHeightToPage(isEnabled) {
     console.log(e);
   }
 }
+
+export function narrowListItems(isEnabled) {
+  try {
+    console.log(`feature: narrowListItems: ${isEnabled}`);
+
+    onElementLoaded(notionAppInnerCls)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionAppInnerCls);
+          if (isEnabled) {
+            el.classList.add("narrowListItems");
+          } else {
+            el.classList.remove("narrowListItems");
+          }
+          // console.log(`${notionBodyCls} style is ${el.style.display}`);
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 // export function enableSpellcheckForCode(isEnabled) {
 //   try {
 //     console.log(`feature: enableSpellcheckForCode: ${isEnabled}`);

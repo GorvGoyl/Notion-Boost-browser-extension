@@ -20,6 +20,7 @@ export const defaultSettings = {
   codeLineNumbers: false,
   // step 1 of 2: add function name
   openFullPage: false,
+  narrowListItems: false,
 };
 
 export const msgThanks = "Unlocked! Thank you for supporting developer :)";
@@ -119,6 +120,12 @@ export const settingDetails = [
     name: "Hide Help button from pages",
     desc: "",
     pf: false,
+  },
+  {
+    func: "narrowListItems",
+    name: "Narrow spacing between list items",
+    desc: "reduce space between items in a list i.e. bullet, checkbox, toggle list, etc.",
+    pf: true,
   },
   {
     func: "bolderTextInDark",

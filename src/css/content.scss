@@ -443,3 +443,40 @@ $docWidth: 83%;
     }
   }
 }
+
+// narrowListItems
+.narrowListItems {
+  .notion-selectable.notion-to_do-block,
+  .notion-selectable.notion-toggle-block,
+  .notion-selectable.notion-bulleted_list-block,
+  .notion-selectable.notion-numbered_list-block {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+
+    > div {
+      // align-items: center !important;
+
+      // select the list icon
+      div[style*="margin-right: 2px; width: 24px; display: flex; align-items: center; justify-content: center;"] {
+        min-height: auto !important;
+      }
+
+      // select the text
+      div[placeholder*="To-do"],
+      div[placeholder*="Toggle"],
+      div[placeholder*="List"] {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+      }
+    }
+  }
+
+  .notion-selectable.notion-to_do-block {
+    > div {
+      // align center checkbox icon
+      div[style*="margin-right: 2px; width: 24px; display: flex; align-items: center; justify-content: center;"] {
+        margin-top: 3px !important;
+      }
+    }
+  }
+}

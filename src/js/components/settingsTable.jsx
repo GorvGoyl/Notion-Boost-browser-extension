@@ -109,7 +109,7 @@ export function SettingsTable({ isPaid }) {
         type="text"
         autoFocus
         value={filterText}
-        placeholder="Search settings..."
+        placeholder="Search feature..."
         onInput={handleOnchange}
       />
       <div className="settings table">
