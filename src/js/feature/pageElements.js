@@ -448,8 +448,9 @@ function disablePopupOnURLPasteEvent(e) {
     !content.includes("notion.so") &&
     content.includes(".")
   ) {
+    console.log("inside disablePopupOnURLPasteEvent");
     const dismissBtn =
-      "#notion-app > div > div.notion-overlay-container.notion-default-overlay-container > div:nth-child(2) > div > div > div:nth-child(2) > div > div > div > div > div > div > div > div:nth-child(1)";
+      "#notion-app .notion-overlay-container.notion-default-overlay-container .notion-embed-menu .notion-scroller.vertical > div > div > div:nth-child(1)";
     onElementLoaded(dismissBtn)
       .then((ex) => {
         document.querySelector(dismissBtn).click();
