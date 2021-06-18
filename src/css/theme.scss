@@ -7,6 +7,7 @@ $themes: (
   light: (
     color: rgba(55, 53, 47, 0.6),
     color2: rgba(55, 53, 47, 0.4),
+    colorSolid: rgb(55, 53, 47),
     fill: rgba(55, 53, 47, 0.6),
     background: rgba(55, 53, 47, 0.08),
     background-image:
@@ -24,6 +25,7 @@ $themes: (
   dark: (
     color: rgba(255, 255, 255, 0.6),
     color2: rgba(255, 255, 255, 0.4),
+    colorSolid: rgba(255, 255, 255, 0.9),
     fill: rgba(255, 255, 255, 0.6),
     background: rgb(71, 76, 80),
     background-image:

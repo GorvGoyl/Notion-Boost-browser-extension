@@ -43,13 +43,14 @@ export function displayOutline(isShow) {
         if (isPresent) {
           // addOutlineFrame();
 
+          addOutlineToggleBtn();
           addOutline();
           docEditListener();
           // add listener for page change or window reload
           // it detaches old listeners and adds new doceditlistener and outline
           pageChangeObserverObj = pageChangeListener(
-            [removeDocEditListener, hideOutline],
-            [addOutline, docEditListener]
+            [removeDocEditListener, hideOutline, removeOutlineToggleBtn],
+            [addOutline, addOutlineToggleBtn, docEditListener]
           );
         }
         return null;
@@ -60,6 +61,47 @@ export function displayOutline(isShow) {
   }
 }
 
+function addOutlineToggleBtn() {
+  try {
+    const outlineToggleBtn = "outlineToggleBtn";
+    const siblingCls = ".notion-topbar-share-menu.notion-focusable";
+    console.log("add outline btn");
+    onElementLoaded(siblingCls)
+      .then((isPresent) => {
+        const pageContent = getElement(notionPageContentCls);
+        if (!pageContent) {
+          console.log("no page content class");
+          return;
+        }
+
+        // eslint-disable-next-line promise/always-return
+        if (isPresent) {
+          if (document.querySelector(`.${outlineToggleBtn}`)) {
+            // btn already exist somehow
+            return;
+          }
+          const sibling = document.querySelector(siblingCls);
+          const btnEl = toElement(
+            `<div class=${outlineToggleBtn} role="button" title="Show/hide outline" tabindex="-1">Outline</div>`
+          );
+
+          btnEl.onclick = () => {
+            console.log("yup");
+            const el = document.querySelector(".nb-outline");
+            if (el) {
+              el.classList.toggle("disableForPage");
+              el.classList.toggle("show");
+            }
+          };
+
+          sibling.parentNode.insertBefore(btnEl, sibling);
+        }
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log("Error: ", e.message);
+  }
+}
 function removeDocEditListener() {
   if (isObserverType(docEditObserverObj)) {
     console.log("disconnected docEditObserver");
@@ -76,9 +118,18 @@ function removeOutline() {
 
   clearOutline();
 
+  removeOutlineToggleBtn();
+
   console.log("removed outline feature");
 }
 
+function removeOutlineToggleBtn() {
+  const btn = document.querySelector(".outlineToggleBtn");
+
+  if (btn) {
+    btn.remove();
+  }
+}
 function hideOutline() {
   const outline = getElement(outlineFrameCls);
 
@@ -255,7 +306,9 @@ function addOutline() {
         }
       }
 
-      outlineEl.classList.add("show");
+      if (!outlineEl.classList.contains("disableForPage")) {
+        outlineEl.classList.add("show");
+      }
     }
   } catch (e) {
     console.log("Error: ", e.message);

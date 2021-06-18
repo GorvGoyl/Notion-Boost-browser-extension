@@ -32,6 +32,34 @@ $docWidth: 83%;
 //   font-weight: 700 !important;
 // }
 
+// set outline toggle btn
+
+.outlineToggleBtn {
+  user-select: none;
+  transition: background 20ms ease-in 0s;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+  height: 28px;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 1.2;
+  min-width: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+  @include themify() {
+    color: themed("colorSolid");
+  }
+
+  &:hover {
+    @include themify() {
+      background: themed("background");
+    }
+  }
+}
+
 // set inline tables width when outline is enabled.
 .nb-outline.show
   + .notion-scroller.vertical.horizontal
