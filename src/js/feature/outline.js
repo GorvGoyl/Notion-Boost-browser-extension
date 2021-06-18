@@ -163,16 +163,24 @@ function addOutline() {
 
     isHeadingsFound = headings.length > 0;
 
+    const contains = {
+      h1: false,
+      h2: false,
+      h3: false,
+    };
     // add headings to outline view
     for (let i = 0; i < headings.length; i++) {
       let headingCls = "";
       const h = headings[i];
       if (h.classList.contains("notion-header-block")) {
         headingCls = "nb-h1";
+        contains.h1 = true;
       } else if (h.classList.contains("notion-sub_header-block")) {
         headingCls = "nb-h2";
+        contains.h2 = true;
       } else if (h.classList.contains("notion-sub_sub_header-block")) {
         headingCls = "nb-h3";
+        contains.h3 = true;
       } else {
         headingCls = "";
       }
@@ -200,7 +208,7 @@ function addOutline() {
       });
       block.querySelector(".align").classList.add(headingCls);
       block.querySelector(".text").textContent = text;
-      if (text.length > 30) {
+      if (text.length > 20) {
         block.querySelector(".btn").title = text;
       }
 
@@ -222,6 +230,31 @@ function addOutline() {
       console.log("no heading found so removing outline frame");
       hideOutline();
     } else {
+      // if there's no h1 then reduce space from left
+      if (!contains.h1) {
+        if (contains.h2 && contains.h3) {
+          // convert h2->h1 and h3->h2
+          blockWrapperEl.querySelectorAll(".nb-h2").forEach((x) => {
+            x.classList.add("nb-h1");
+            x.classList.remove("nb-h2");
+          });
+          blockWrapperEl.querySelectorAll(".nb-h3").forEach((x) => {
+            x.classList.add("nb-h2");
+            x.classList.remove("nb-h3");
+          });
+        } else {
+          // all are of same type i.e. h2 or h3 so convert to h1
+          blockWrapperEl.querySelectorAll(".nb-h2").forEach((x) => {
+            x.classList.add("nb-h1");
+            x.classList.remove("nb-h2");
+          });
+          blockWrapperEl.querySelectorAll(".nb-h3").forEach((x) => {
+            x.classList.add("nb-h1");
+            x.classList.remove("nb-h3");
+          });
+        }
+      }
+
       outlineEl.classList.add("show");
     }
   } catch (e) {
