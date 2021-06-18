@@ -462,6 +462,9 @@ $docWidth: 83%;
       }
 
       // select the text
+      div[placeholder*="할 일"],
+      div[placeholder*="토글"],
+      div[placeholder*="리스트"],
       div[placeholder*="To-do"],
       div[placeholder*="Toggle"],
       div[placeholder*="List"] {

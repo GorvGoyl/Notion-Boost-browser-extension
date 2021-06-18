@@ -99,87 +99,87 @@ function clearOutline() {
 function addOutline() {
   DEBUG && console.log("adding/updating OUTLINE");
 
-  const pageContent = getElement(notionPageContentCls);
-  if (!pageContent) {
-    console.log("no page content class");
-    return;
-  }
+  try {
+    const pageContent = getElement(notionPageContentCls);
+    if (!pageContent) {
+      console.log("no page content class");
+      return;
+    }
 
-  const fullPageTable = getElement(".notion-peek-renderer");
-  if (fullPageTable && fullPageTable.querySelector(notionPageContentCls)) {
-    console.log("don't show outline for full page tables");
-    return;
-  }
+    const fullPageTable = getElement(".notion-peek-renderer");
+    if (fullPageTable && fullPageTable.querySelector(notionPageContentCls)) {
+      console.log("don't show outline for full page tables");
+      return;
+    }
 
-  const notionScrollerEl = getElement(notionScrollerCls);
+    const notionScrollerEl = getElement(notionScrollerCls);
 
-  // check if it outline exist already
-  let outlineEl = getElement(outlineFrameCls);
+    // check if it outline exist already
+    let outlineEl = getElement(outlineFrameCls);
 
-  if (!outlineEl || outlineEl.length === 0) {
-    // do not add any space between closing and ending of `
-    outlineEl = toElement(`<div class="nb-outline">
-      <div class="table_of_contents">
-        <div class="title">
-          <p>Outline</p>
+    if (!outlineEl || outlineEl.length === 0) {
+      // do not add any space between closing and ending of `
+      outlineEl = toElement(`<div class="nb-outline">
+        <div class="table_of_contents">
+          <div class="title">
+            <p>Outline</p>
+          </div>
+          <div class="block-wrapper">
+          </div>
         </div>
-        <div class="block-wrapper">
-        </div>
-      </div>
-      </div>`);
+        </div>`);
 
-    // add toc container
-    getElement(notionFrameCls).insertBefore(outlineEl, notionScrollerEl);
-  }
+      // add toc container
+      getElement(notionFrameCls).insertBefore(outlineEl, notionScrollerEl);
+    }
 
-  const blockWrapperEl = outlineEl.querySelector(".block-wrapper");
+    const blockWrapperEl = outlineEl.querySelector(".block-wrapper");
 
-  // empty any previous headings
-  removeChildren(blockWrapperEl);
+    // empty any previous headings
+    removeChildren(blockWrapperEl);
 
-  const tocBlockHTML = `<div class="block">
-     <a
-       href=""
-       rel="noopener noreferrer"
-     >
-       <div role="button" tabindex="0" class="btn">
-         <div class="align">
-           <div class="text">
+    const tocBlockHTML = `<div class="block">
+       <a
+         href=""
+         rel="noopener noreferrer"
+       >
+         <div role="button" tabindex="0" class="btn">
+           <div class="align">
+             <div class="text">
+             </div>
            </div>
          </div>
-       </div>
-     </a>
-   </div>`;
+       </a>
+     </div>`;
 
-  let block = "";
+    let block = "";
 
-  let isHeadingsFound = false;
+    let isHeadingsFound = false;
 
-  // select all divs containing headings
-  const headings = getElements(
-    `${notionPageContentCls} [class$="header-block"]`
-  );
+    // select all divs containing headings
+    const headings = getElements(
+      `${notionPageContentCls} [class$="header-block"]`
+    );
 
-  isHeadingsFound = headings.length > 0;
+    isHeadingsFound = headings.length > 0;
 
-  // add headings to outline view
-  for (let i = 0; i < headings.length; i++) {
-    let headingCls = "";
-    const h = headings[i];
-    if (h.classList.contains("notion-header-block")) {
-      headingCls = "nb-h1";
-    } else if (h.classList.contains("notion-sub_header-block")) {
-      headingCls = "nb-h2";
-    } else if (h.classList.contains("notion-sub_sub_header-block")) {
-      headingCls = "nb-h3";
-    } else {
-      headingCls = "";
-    }
-    block = toElement(tocBlockHTML);
-    // add text
-    let text = "";
-    h.querySelector('div[placeholder*="Heading "]').childNodes.forEach(
-      (hxEl) => {
+    // add headings to outline view
+    for (let i = 0; i < headings.length; i++) {
+      let headingCls = "";
+      const h = headings[i];
+      if (h.classList.contains("notion-header-block")) {
+        headingCls = "nb-h1";
+      } else if (h.classList.contains("notion-sub_header-block")) {
+        headingCls = "nb-h2";
+      } else if (h.classList.contains("notion-sub_sub_header-block")) {
+        headingCls = "nb-h3";
+      } else {
+        headingCls = "";
+      }
+      block = toElement(tocBlockHTML);
+      // add text
+      let text = "";
+      h.querySelector("div[placeholder]").childNodes.forEach((hxEl) => {
         // it's a span
         if (hxEl.nodeName === "SPAN") {
           hxEl.childNodes.forEach((el) => {
@@ -197,33 +197,35 @@ function addOutline() {
             text += hxEl.alt;
           }
         }
+      });
+      block.querySelector(".align").classList.add(headingCls);
+      block.querySelector(".text").textContent = text;
+      if (text.length > 30) {
+        block.querySelector(".btn").title = text;
       }
-    );
-    block.querySelector(".align").classList.add(headingCls);
-    block.querySelector(".text").textContent = text;
-    if (text.length > 30) {
-      block.querySelector(".btn").title = text;
+
+      // add href
+      const blockId = h.getAttribute("data-block-id").replace(/-/g, "");
+      block.setAttribute("hash", blockId);
+      // evaluate href at runtime cuz notion url is not consistent
+      block.addEventListener("click", (e) => {
+        e.currentTarget.querySelector("a").href = `${
+          window.location.pathname
+        }#${e.currentTarget.getAttribute("hash")}`;
+      });
+
+      blockWrapperEl.appendChild(block);
     }
 
-    // add href
-    const blockId = h.getAttribute("data-block-id").replace(/-/g, "");
-    block.setAttribute("hash", blockId);
-    // evaluate href at runtime cuz notion url is not consistent
-    block.addEventListener("click", (e) => {
-      e.currentTarget.querySelector("a").href = `${
-        window.location.pathname
-      }#${e.currentTarget.getAttribute("hash")}`;
-    });
-
-    blockWrapperEl.appendChild(block);
-  }
-
-  // hide outline if there is no heading
-  if (!isHeadingsFound) {
-    console.log("no heading found so removing outline frame");
-    hideOutline();
-  } else {
-    outlineEl.classList.add("show");
+    // hide outline if there is no heading
+    if (!isHeadingsFound) {
+      console.log("no heading found so removing outline frame");
+      hideOutline();
+    } else {
+      outlineEl.classList.add("show");
+    }
+  } catch (e) {
+    console.log("Error: ", e.message);
   }
 }
 
@@ -332,12 +334,17 @@ function docEditListener() {
 
 function isHeading(placeholder) {
   // check if the change was related to headings
-  if (
-    placeholder === "Heading 1" ||
-    placeholder === "Heading 2" ||
-    placeholder === "Heading 3"
-  ) {
+
+  if (!placeholder || !placeholder.trim()) {
     return true;
   }
+  const headings = ["Heading", "제목"];
+  // eslint-disable-next-line consistent-return
+  headings.forEach((x) => {
+    if (placeholder.includes(x)) {
+      return true;
+    }
+  });
+
   return false;
 }
