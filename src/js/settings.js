@@ -23,7 +23,7 @@ export const defaultSettings = {
   narrowListItems: false,
 };
 
-export const price = "$8";
+export const price = "$9";
 export const msgThanks = "Unlocked! Thank you for supporting developer :)";
 export const msgLocked = `Please upgrade to use 'pro' features. One-time payment of ${price} for lifetime access! Click to learn more.`;
 
