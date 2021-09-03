@@ -243,7 +243,6 @@ function addOutline() {
       pageHeading
         .querySelector("div[placeholder]")
         .childNodes.forEach((hxEl) => {
-          debugger;
           // heading is inside span
           if (hxEl.nodeName === "SPAN") {
             hxEl.childNodes.forEach((el) => {

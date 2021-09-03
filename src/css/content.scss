@@ -392,7 +392,7 @@ $docWidth: 83%;
         > span {
         animation-name: hover-delay;
         animation-delay: 500ms;
-        animation-duration: 2s;
+        animation-duration: 1.5s;
         // retain the style values that is set by the last keyframe
         animation-fill-mode: forwards;
         @include themify() {
@@ -401,12 +401,25 @@ $docWidth: 83%;
         padding-right: 10px;
       }
 
-      // for text, url
+      // for url
+      > div[style*="display: flex;"] > div.notion-focusable:hover span {
+        animation-name: hover-delay;
+        animation-delay: 500ms;
+        animation-duration: 1.5s;
+        // retain the style values that is set by the last keyframe
+        animation-fill-mode: forwards;
+        @include themify() {
+          background: themed("table-cell");
+        }
+        padding-right: 10px;
+      }
+
+      // for text
       > div[style*="white-space: nowrap;"]:hover > span {
         // position: absolute !important;
         animation-name: hover-delay;
         animation-delay: 500ms;
-        animation-duration: 2s;
+        animation-duration: 1.5s;
         // retain the style values that is set by the last keyframe
         animation-fill-mode: forwards;
         @include themify() {
@@ -421,7 +434,7 @@ $docWidth: 83%;
         > div[style*="display: flex; flex-wrap: nowrap;"] {
         animation-name: hover-delay;
         animation-delay: 500ms;
-        animation-duration: 2s;
+        animation-duration: 1.5s;
         // retain the style values that is set by the last keyframe
         animation-fill-mode: forwards;
         @include themify() {
@@ -434,7 +447,7 @@ $docWidth: 83%;
         > div[style*="white-space: nowrap;"] {
         animation-name: hover-delay;
         animation-delay: 500ms;
-        animation-duration: 2s;
+        animation-duration: 1.5s;
         // retain the style values that is set by the last keyframe
         animation-fill-mode: forwards;
         @include themify() {
