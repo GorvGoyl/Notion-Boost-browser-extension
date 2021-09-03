@@ -159,15 +159,17 @@ $docWidth: 83%;
 
 // fullWidth
 .fullWidth {
-  .notion-scroller.vertical.horizontal > :first-child > div {
+  // select first child div
+  .notion-scroller.vertical.horizontal > div:nth-of-type(1) > div {
     width: 100% !important;
   }
 
-  .notion-scroller.vertical.horizontal > :nth-child(2) > div {
+  // select 2nd child div
+  .notion-scroller.vertical.horizontal > div:nth-of-type(2) > div {
     width: 100% !important;
   }
 
-  .notion-scroller.vertical.horizontal > :nth-child(3) {
+  .notion-scroller.vertical.horizontal > .notion-page-content {
     width: 100% !important;
   }
 
