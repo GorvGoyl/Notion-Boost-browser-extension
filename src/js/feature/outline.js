@@ -208,11 +208,11 @@ function addOutline() {
     let isHeadingsFound = false;
 
     // select all divs containing headings
-    const headings = getElements(
+    const pageHeadings = getElements(
       `${notionPageContentCls} [class$="header-block"]`
     );
 
-    isHeadingsFound = headings.length > 0;
+    isHeadingsFound = pageHeadings.length > 0;
 
     const contains = {
       h1: false,
@@ -220,16 +220,18 @@ function addOutline() {
       h3: false,
     };
     // add headings to outline view
-    for (let i = 0; i < headings.length; i++) {
+    for (let i = 0; i < pageHeadings.length; i++) {
       let headingCls = "";
-      const h = headings[i];
-      if (h.classList.contains("notion-header-block")) {
+      const pageHeading = pageHeadings[i];
+      if (pageHeading.classList.contains("notion-header-block")) {
         headingCls = "nb-h1";
         contains.h1 = true;
-      } else if (h.classList.contains("notion-sub_header-block")) {
+      } else if (pageHeading.classList.contains("notion-sub_header-block")) {
         headingCls = "nb-h2";
         contains.h2 = true;
-      } else if (h.classList.contains("notion-sub_sub_header-block")) {
+      } else if (
+        pageHeading.classList.contains("notion-sub_sub_header-block")
+      ) {
         headingCls = "nb-h3";
         contains.h3 = true;
       } else {
@@ -238,25 +240,35 @@ function addOutline() {
       block = toElement(tocBlockHTML);
       // add text
       let text = "";
-      h.querySelector("div[placeholder]").childNodes.forEach((hxEl) => {
-        // it's a span
-        if (hxEl.nodeName === "SPAN") {
-          hxEl.childNodes.forEach((el) => {
-            if (el.nodeName === "#text") {
-              text += el.textContent;
-            } else if (el.nodeName === "IMG") {
-              text += el.alt;
-            }
-          });
-        } else {
-          // it's regualar text
-          if (hxEl.nodeName === "#text") {
+      pageHeading
+        .querySelector("div[placeholder]")
+        .childNodes.forEach((hxEl) => {
+          debugger;
+          // heading is inside span
+          if (hxEl.nodeName === "SPAN") {
+            hxEl.childNodes.forEach((el) => {
+              if (el.nodeName === "#text") {
+                // it's regualar text
+                text += el.textContent;
+              } else if (hxEl.nodeName === "A") {
+                // it's link inside heading
+                text += hxEl.textContent;
+              } else if (el.nodeName === "IMG") {
+                // emojis inside heading
+                text += el.alt;
+              }
+            });
+          } else if (hxEl.nodeName === "#text") {
+            // it's regualar text
+            text += hxEl.textContent;
+          } else if (hxEl.nodeName === "A") {
+            // it's link inside heading
             text += hxEl.textContent;
           } else if (hxEl.nodeName === "IMG") {
+            // emojis inside heading
             text += hxEl.alt;
           }
-        }
-      });
+        });
       block.querySelector(".align").classList.add(headingCls);
       block.querySelector(".text").textContent = text;
       if (text.length > 20) {
@@ -264,7 +276,9 @@ function addOutline() {
       }
 
       // add href
-      const blockId = h.getAttribute("data-block-id").replace(/-/g, "");
+      const blockId = pageHeading
+        .getAttribute("data-block-id")
+        .replace(/-/g, "");
       block.setAttribute("hash", blockId);
       // evaluate href at runtime cuz notion url is not consistent
       block.addEventListener("click", (e) => {
@@ -311,7 +325,7 @@ function addOutline() {
       }
     }
   } catch (e) {
-    console.log("Error: ", e.message);
+    console.error("Error: ", e.message);
   }
 }
 
