@@ -22,7 +22,8 @@
     "plugin:promise/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "prettier"
   ],
   "rules": {
     "semi": "off",
