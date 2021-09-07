@@ -333,6 +333,12 @@ $docWidth: 83%;
   }
 
   div.notion-scroller.vertical.horizontal
+    > div:nth-child(1)
+    > div
+    > div:nth-child(1) {
+    display: none !important;
+  }
+  div.notion-scroller.vertical.horizontal
     > div
     > div
     > div.notion-record-icon.notranslate {
