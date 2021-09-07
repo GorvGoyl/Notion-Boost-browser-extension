@@ -21,6 +21,7 @@ export const defaultSettings = {
   // step 1 of 2: add function name
   openFullPage: false,
   narrowListItems: false,
+  indentationLines: false,
 };
 
 export const price = "$9";
@@ -126,6 +127,12 @@ export const settingDetails = [
     name: "Narrow spacing between list items",
     desc: "Fit more content on screen by reducing space between items in a list i.e. bullet, checkbox, toggle list, etc.",
     pf: true,
+  },
+  {
+    func: "indentationLines",
+    name: "Add indentation lines to lists",
+    desc: "Add vertical indentation lines to bullet and to-do lists",
+    pf: false,
   },
   {
     func: "bolderTextInDark",

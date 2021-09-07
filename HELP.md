@@ -1,7 +1,7 @@
 # Add new Feature
 
 - add feature info to `src\js\settings.js`
-- add code to relevent file in `src\js\feature\` like `pageElements.js`
+- add code to relevant file in `src\js\feature\` like `pageElements.js`
 - add CSS if any to `src\css\content.scss`
 - Add feature info to [`CHANGELOG.md`](./CHANGELOG.md)
 
@@ -15,16 +15,16 @@
       - notion-cursor-listener _resets when dragging some bullet point_
         - notion-sidebar-container
           - notion-frame _stays on doc change_
-            - notion-scroller vertical horizontal _resets on doc change_
+            - notion-scroller vertical horizontal _resets_
               - `notion-page-content`
                 - blocks
-      - notion-overlay-container notion-default-overlay-container
+      - notion-overlay-container notion-default-overlay-container (_stays_)
         - notion-peek-renderer
       - notion-overlay-container
 
 # Run in FF
 
-- run command from package.josn
+- run command from package.json
 - open url in firefox
   - about:debugging#/runtime/this-firefox
     - pick manifest.json from folder `build_firefox`

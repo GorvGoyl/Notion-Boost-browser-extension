@@ -48,6 +48,7 @@ $themes: (
 @mixin themify() {
   @each $theme, $map in $themes {
     // set element colors based on notion theme
+    //class: .notion-dark-theme / .notion-light-theme
     .notion-#{$theme}-theme & {
       $theme-map: () !global;
       @each $key, $submap in $map {

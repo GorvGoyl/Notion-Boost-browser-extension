@@ -8,6 +8,9 @@ import {
 const notionHelpBtnCls = ".notion-help-button";
 const notionAppId = "#notion-app";
 const notionAppInnerCls = ".notion-app-inner";
+
+// To add theme based color: check indentationLines sass class
+
 const notionCursorListenerCls = ".notion-cursor-listener";
 let titleObserver = {};
 export function hideComments(isEnabled) {
@@ -428,6 +431,29 @@ export function disablePopupOnURLPaste(isEnabled) {
               disablePopupOnURLPasteEvent
             );
           }
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function indentationLines(isHidden) {
+  try {
+    console.log(`feature: indentationLines: ${isHidden}`);
+
+    onElementLoaded(notionAppInnerCls)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionAppInnerCls);
+          if (isHidden) {
+            el.classList.add("indentationLines");
+          } else {
+            el.classList.remove("indentationLines");
+          }
+          // console.log(`${notionBodyCls} style is ${el.style.display}`);
         }
         return null;
       })

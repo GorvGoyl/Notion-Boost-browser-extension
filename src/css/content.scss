@@ -1,5 +1,8 @@
 @import "theme.scss";
 
+$caret-color-light-theme: rgb(55, 53, 47);
+$caret-color-dark-theme: rgb(255, 255, 255);
+
 // # displayOutline
 
 $docWidth: 83%;
@@ -522,6 +525,45 @@ $docWidth: 83%;
       // align center checkbox icon
       div[style*="margin-right: 2px; width: 24px; display: flex; align-items: center; justify-content: center;"] {
         margin-top: 3px !important;
+      }
+    }
+  }
+}
+
+.indentationLines {
+  .notion-bulleted_list-block,
+  .notion-to_do-block {
+    > div > div:last-child {
+      position: relative;
+    }
+  }
+
+  .notion-bulleted_list-block,
+  .notion-to_do-block {
+    > div > div:last-child::before {
+      content: "";
+      position: absolute;
+      height: calc(100% - 2em);
+      top: 2em;
+      left: -14.48px;
+      width: 1px;
+    }
+  }
+
+  // add color based on theme
+  &.notion-light-theme {
+    .notion-bulleted_list-block,
+    .notion-to_do-block {
+      > div > div:last-child::before {
+        background: rgba($caret-color-light-theme, 0.2);
+      }
+    }
+  }
+  &.notion-dark-theme {
+    .notion-bulleted_list-block,
+    .notion-to_do-block {
+      > div > div:last-child::before {
+        background: rgba($caret-color-dark-theme, 0.2);
       }
     }
   }
