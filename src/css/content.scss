@@ -411,7 +411,9 @@ $docWidth: 83%;
       }
 
       // for url
-      > div[style*="display: flex;"] > div.notion-focusable:hover span {
+      > div[style*="display: flex;"]
+        > div.notion-focusable[style*="white-space: nowrap;"]:hover
+        span {
         animation-name: hover-delay;
         animation-delay: 500ms;
         animation-duration: 1.5s;
