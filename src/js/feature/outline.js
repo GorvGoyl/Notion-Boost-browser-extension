@@ -424,11 +424,13 @@ function docEditListener() {
   // now add listener for doc text change
   const pageContentEl = getElement(notionPageContentCls);
 
-  docEditObserverObj.observe(pageContentEl, {
-    childList: true,
-    characterData: true,
-    subtree: true,
-  });
+  if (pageContentEl) {
+    docEditObserverObj.observe(pageContentEl, {
+      childList: true,
+      characterData: true,
+      subtree: true,
+    });
+  }
 }
 
 function isHeading(placeholder) {

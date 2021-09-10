@@ -22,6 +22,7 @@ export const defaultSettings = {
   openFullPage: false,
   narrowListItems: false,
   indentationLines: false,
+  rollupUrlClickable: false,
 };
 
 export const price = "$9";
@@ -52,6 +53,12 @@ export const settingDetails = [
     name: "Open full page instead of preview",
     desc: "Bypass preview and open full page of table, board, etc",
     pf: false,
+  },
+  {
+    func: "rollupUrlClickable",
+    name: "Make Rollup URLs clickable",
+    desc: "Make URLs in rollup property clickable",
+    pf: true,
   },
   {
     func: "scrollTopBtn",

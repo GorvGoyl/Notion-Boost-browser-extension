@@ -3,6 +3,7 @@ import { codeLineNumbers } from "./feature/codeLineNumbers";
 import { openFullPage } from "./feature/openFullPage";
 import { displayOutline } from "./feature/outline";
 import * as features from "./feature/pageElements";
+import { rollupUrlClickable } from "./feature/rollupUrlClickable";
 import { scrollTopBtn } from "./feature/scrollToTopBtn";
 // step 1 of 2: import feature
 import { spellcheckForCode } from "./feature/spellcheckForCode.js";
@@ -19,6 +20,7 @@ featureList.scrollTopBtn = scrollTopBtn;
 featureList.codeLineNumbers = codeLineNumbers;
 featureList.spellcheckForCode = spellcheckForCode;
 featureList.openFullPage = openFullPage;
+featureList.rollupUrlClickable = rollupUrlClickable;
 
 function init() {
   let syncSet = {};

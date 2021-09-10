@@ -8,11 +8,12 @@ const DEBUG = false;
 // these gets removed on doc change
 const notionScrollerCls = ".notion-scroller.vertical.horizontal";
 const notionPageContentCls = ".notion-page-content";
+const notionPresenceContainerCls = ".notion-presence-container";
 
 // add listener for page change or window reload event
 // accepts array of functions
-// callbacksAfterDocReady: call any function after notion doc is ready, it triggers for all pages
-// callbacksAfterContentReady: call any function after notion doc content is loaded (async), this won't trigger in case of full length db
+// callbacksAfterDocReady: call any function after notion doc is ready
+// callbacksAfterContentReady: call any function after notion doc content is loaded (async)
 // return observer object which can be used to disconnect pageChangeListener
 export function pageChangeListener(
   callbacksAfterDocReady,
@@ -34,8 +35,8 @@ export function pageChangeListener(
       for (let i = 0; i < callbacksAfterDocReady.length; i++) {
         callbacksAfterDocReady[i]();
       }
-      // now wait for page-content class to be loaded
-      onElementLoaded(notionPageContentCls, notionScrollerCls)
+      // now wait for notionPresenceContainerCls to be loaded
+      onElementLoaded(notionPresenceContainerCls, notionScrollerCls)
         .then((isPresent) => {
           if (isPresent) {
             for (let i = 0; i < callbacksAfterContentReady.length; i++) {

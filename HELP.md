@@ -16,8 +16,9 @@
         - notion-sidebar-container
           - notion-frame _stays on doc change_
             - notion-scroller vertical horizontal _resets_
-              - `notion-page-content`
+              - `notion-page-content` _absent in case of full page table_
                 - blocks
+              - `notion-presence-container` _resets_ _present for both full page table and full page content_
       - notion-overlay-container notion-default-overlay-container (_stays_)
         - notion-peek-renderer
       - notion-overlay-container
