@@ -79,12 +79,12 @@ let linkComponentEl = "";
 let rollupCellEl = "";
 
 function handleTableHover(e) {
-  console.log("hover over table", e.target);
+  // console.log("hover over table", e.target);
   let nestedLevel = 0;
   const path = e.composedPath();
   for (let i = 0; i < path.length; i++) {
     const x = path[i];
-    console.log(x);
+    // console.log(x);
     nestedLevel++;
     // return if hovering over link component
     if (x.className === "linkComponent") {
@@ -109,12 +109,12 @@ function handleTableHover(e) {
 
   for (const x of path) {
     if (x.getAttribute("style") === rollupCellStyle) {
-      console.log(x.getAttribute("style"));
+      // console.log(x.getAttribute("style"));
       urlSpan = x.querySelector(
         'div[style*="display: block;"] div[style*="display: flex; flex-wrap: nowrap;"] span'
       );
       if (urlSpan) {
-        console.log("it's rollup cell");
+        // console.log("it's rollup cell");
         rollupCellEl = x;
         break;
       }
@@ -171,15 +171,14 @@ function handleTableHover(e) {
 
       rollupCellEl.appendChild(linkComponentEl);
 
-      console.log(url);
+      // console.log(url);
     } else {
-      console.log("empty text");
+      // console.log("empty text");
     }
   }
 }
 
 function handletableRowAsPageHover(e) {
-  console.log("target", e.target);
   //   console.log("relatedTarget", e.relatedTarget);
 
   //   debugger;
@@ -214,13 +213,11 @@ function handletableRowAsPageHover(e) {
   for (let i = 0; i < path.length; i++) {
     const x = path[i];
     if (x.getAttribute("style") === rollupCellStyle) {
-      console.log(i, x);
       urlSpan = x.querySelector(
         'div.notion-focusable div[style*="display: flex; flex-wrap:"] > span[style*="word-break: break-word;"]'
       );
       console.log(urlSpan);
       if (urlSpan) {
-        console.log("it's rollup cell");
         rollupCellEl = x;
         break;
       }
@@ -228,14 +225,12 @@ function handletableRowAsPageHover(e) {
 
     // break if it reaches original eventListener element
     if (x === e.currentTarget) {
-      // console.log(i, "breaking due to reached currentTarget");
       break;
     }
   }
 
   if (rollupCellEl) {
     // debugger;
-    // console.log("inside rollupcell");
     let text = "";
     // see if it contains actual link
     const anchor = urlSpan.querySelector("a");

@@ -161,7 +161,7 @@ $docWidth: 83%;
 }
 
 // fullWidth
-.fullWidth {
+.fullWidth .notion-frame {
   // select first child div
   .notion-scroller.vertical.horizontal > div:nth-of-type(1) > div {
     width: 100% !important;
