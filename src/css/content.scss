@@ -189,7 +189,7 @@ $docWidth: 83%;
   .notion-scroller.vertical.horizontal
     .notion-page-content
     > .notion-collection_view-block
-    > .notion-scroller.horizontal
+    .notion-scroller.horizontal
     > .notion-table-view
     > div:first-child
     > div:first-child {
@@ -200,7 +200,7 @@ $docWidth: 83%;
   .notion-scroller.vertical.horizontal
     .notion-page-content
     > .notion-collection_view-block
-    > .notion-scroller.horizontal
+    .notion-scroller.horizontal
     > div:first-child {
     padding-left: 96px !important;
     padding-right: 96px !important;
@@ -210,7 +210,7 @@ $docWidth: 83%;
   .notion-scroller.vertical.horizontal
     .notion-page-content
     > .notion-collection_view-block
-    > .notion-scroller.horizontal
+    .notion-scroller.horizontal
     > .notion-table-view
     > div:first-child
     > div:nth-child(5) {
