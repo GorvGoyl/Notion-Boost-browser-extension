@@ -79,8 +79,12 @@ let linkComponentEl = "";
 let rollupCellEl = "";
 
 function handleTableHover(e) {
+  console.log("hover over table", e.target);
   let nestedLevel = 0;
-  for (const x of e.path) {
+  const path = e.composedPath();
+  for (let i = 0; i < path.length; i++) {
+    const x = path[i];
+    console.log(x);
     nestedLevel++;
     // return if hovering over link component
     if (x.className === "linkComponent") {
@@ -103,14 +107,14 @@ function handleTableHover(e) {
   let urlSpan = "";
   const rollupCellStyle = "display: flex;";
 
-  for (const x of e.path) {
+  for (const x of path) {
     if (x.getAttribute("style") === rollupCellStyle) {
-      // console.log(x.getAttribute("style"));
+      console.log(x.getAttribute("style"));
       urlSpan = x.querySelector(
         'div[style*="display: block;"] div[style*="display: flex; flex-wrap: nowrap;"] span'
       );
       if (urlSpan) {
-        // console.log("it's rollup cell");
+        console.log("it's rollup cell");
         rollupCellEl = x;
         break;
       }
@@ -167,21 +171,23 @@ function handleTableHover(e) {
 
       rollupCellEl.appendChild(linkComponentEl);
 
-      // console.log(url);
+      console.log(url);
     } else {
-      // console.log("empty text");
+      console.log("empty text");
     }
   }
 }
 
 function handletableRowAsPageHover(e) {
-  // console.log("target", e.target);
+  console.log("target", e.target);
   //   console.log("relatedTarget", e.relatedTarget);
 
   //   debugger;
 
   let nestedLevel = 0;
-  for (const x of e.path) {
+  const path = e.composedPath();
+
+  for (const x of path) {
     nestedLevel++;
     // return if hovering over link component
     if (x.className === "linkComponent") {
@@ -205,16 +211,16 @@ function handletableRowAsPageHover(e) {
   let urlSpan = "";
   const rollupCellStyle = "display: flex; flex: 1 1 0%; min-width: 0px;";
 
-  for (let i = 0; i < e.path.length; i++) {
-    const x = e.path[i];
+  for (let i = 0; i < path.length; i++) {
+    const x = path[i];
     if (x.getAttribute("style") === rollupCellStyle) {
-      // console.log(i, x);
+      console.log(i, x);
       urlSpan = x.querySelector(
         'div.notion-focusable div[style*="display: flex; flex-wrap:"] > span[style*="word-break: break-word;"]'
       );
-      // console.log(urlSpan);
+      console.log(urlSpan);
       if (urlSpan) {
-        // console.log("it's rollup cell");
+        console.log("it's rollup cell");
         rollupCellEl = x;
         break;
       }

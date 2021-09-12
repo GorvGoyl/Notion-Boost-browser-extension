@@ -19,13 +19,7 @@ export function pageChangeListener(
   callbacksAfterDocReady,
   callbacksAfterContentReady
 ) {
-  try {
-    console.log(
-      `listening to page change events for: ${callbacksAfterDocReady[0].name}`
-    );
-  } catch (e) {
-    console.log(`Error: ${JSON.stringify(e)}`);
-  }
+  console.log(`listening to page change events`);
 
   const pageChangeObserverObj = new MutationObserver((mutationList, obsrvr) => {
     console.log("new page opened");

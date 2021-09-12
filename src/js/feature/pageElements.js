@@ -29,9 +29,9 @@ export function hideComments(isEnabled) {
         }
         return null;
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.error(e));
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 }
 
@@ -51,9 +51,9 @@ export function hideBacklinks(isEnabled) {
         }
         return null;
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.error(e));
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 }
 
@@ -73,9 +73,9 @@ export function smallText(isEnabled) {
         }
         return null;
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.error(e));
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 }
 
@@ -513,7 +513,7 @@ function hideSlashMenuAfterSpaceEvent(e) {
       }
     }
   } catch (x) {
-    console.log(`Error: ${JSON.stringify(x)}`);
+    console.error(e);
   }
 }
 
