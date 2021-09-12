@@ -26,7 +26,6 @@ export function Payment() {
         <span class="icon-nb" />
         Notion Boost
       </div>
-      <div className="sub-title underline">Support the developer</div>
 
       <div className="payment">
         {/* <div>
@@ -41,7 +40,7 @@ export function Payment() {
         <div className="pricing">
           <div className="features">
             <div>
-              <CheckIcon /> Use all 'pro' features.
+              <CheckIcon /> Use exisiting 'pro' features.
             </div>
             <div>
               <CheckIcon /> All upcoming 'pro' features will be free.
