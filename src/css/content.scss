@@ -327,7 +327,7 @@ $docWidth: 83%;
   }
 }
 // addMoreHeightToPage
-.addMoreHeightToPage {
+.addMoreHeightToPage .notion-frame {
   div.notion-scroller.vertical.horizontal div.notion-page-controls {
     display: none !important;
   }
