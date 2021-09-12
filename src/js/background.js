@@ -22,6 +22,9 @@ chrome.runtime.onInstalled.addListener((details) => {
           new chrome.declarativeContent.PageStateMatcher({
             pageUrl: { hostContains: "notion.so" },
           }),
+          new chrome.declarativeContent.PageStateMatcher({
+            pageUrl: { hostContains: "notion.site" },
+          }),
         ],
         actions: [new chrome.declarativeContent.ShowPageAction()],
       },

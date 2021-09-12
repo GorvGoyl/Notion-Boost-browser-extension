@@ -6,7 +6,7 @@
       "19": "images/icon19.png",
       "38": "images/icon38.png"
     },
-    "show_matches": ["*://*.notion.so/*"]
+    "show_matches": ["*://*.notion.so/*", "*://*.notion.site/*"]
   },
   "icons": {
     "48": "images/icon48.png",
