@@ -528,12 +528,10 @@ $docWidth: 83%;
     }
   }
 
+  // align center checkbox icon
   .notion-selectable.notion-to_do-block {
-    > div {
-      // align center checkbox icon
-      div[style*="margin-right: 2px; width: 24px; display: flex; align-items: center; justify-content: center;"] {
-        margin-top: 3px !important;
-      }
+    > div > div.pseudoSelection {
+      margin-top: 3px !important;
     }
   }
 }
