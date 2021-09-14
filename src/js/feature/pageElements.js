@@ -521,8 +521,31 @@ function disableSlashMenuEvent(e) {
   const slashKey = "/";
   if (e.key === slashKey) {
     // hide menu before it's appearing
+    // DEV: Click off first to avoid timing issues
     e.target.click();
     console.info("slash menu hid");
+
+    // Create a temporary stylesheet to handle annoying flicker issues
+    const styleEl = document.createElement('style');
+    styleEl.innerHTML = `
+      .notion-overlay-container.notion-default-overlay-container {
+        /* Hide menu temporarily showing in Firefox */
+        display: none;
+      }
+
+      .notion-frame .notion-scroller {
+        /* Prevent left/right toggle flicker */
+        overflow: auto !important;
+      }
+    `;
+    document.body.appendChild(styleEl);
+
+    // Reveal the overlay again for more interactions
+    // DEV: requestAnimationFrame is too fast, overlay still shows otherwise
+    //   For more precision, we could watch for the overlay to happen
+    setTimeout(() => {
+      document.body.removeChild(styleEl);
+    }, 300)
   }
 }
 
