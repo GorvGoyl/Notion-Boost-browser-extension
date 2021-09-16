@@ -57,7 +57,7 @@ export const settingDetails = [
   {
     func: "rollupUrlClickable",
     name: "Make Rollup URLs clickable",
-    desc: "Make URLs in rollup property clickable",
+    desc: "Make URLs in Rollup property clickable",
     pf: true,
   },
   {
