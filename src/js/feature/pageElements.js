@@ -519,7 +519,9 @@ function hideSlashMenuAfterSpaceEvent(e) {
 
 function disableSlashMenuEvent(e) {
   const slashKey = "/";
-  if (e.key === slashKey) {
+  // If the slash key is pressed, without the ctrl/cmd key (would be intent to modify selected block)
+  //   https://notion.notion.site/Learn-the-shortcuts-66e28cec810548c3a4061513126766b0#5c679ece35ee4e81b1217333a4cf35b3
+  if (e.key === slashKey && !(e.ctrlKey || e.metaKey)) {
     // hide menu before it's appearing
     // DEV: Click off first to avoid timing issues
     e.target.click();
