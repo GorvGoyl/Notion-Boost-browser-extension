@@ -228,9 +228,12 @@ $docWidth: 83%;
 .smallText {
   // set fonts
   .notion-scroller.vertical {
-    > div:first-child .notion-selectable.notion-page-block {
+    > div > div > div:nth-child(1) div.notion-selectable.notion-page-block {
       font-size: 32px !important;
     }
+    // > div:first-child .notion-selectable.notion-page-block {
+    //   font-size: 32px !important;
+    // }
     .notion-page-content {
       font-size: 14px !important;
     }
