@@ -11,6 +11,26 @@ import ExtPay from "./extPay";
 
 const extpay = ExtPay("notion-boost");
 
+function compareVer(previousVersion, currentVersion) {
+  const [prevMajor, prevMinor = 0, prevPatch = 0] = previousVersion
+    .split(".")
+    .map(Number);
+  const [curMajor, curMinor = 0, curPatch = 0] = currentVersion
+    .split(".")
+    .map(Number);
+
+  if (curMajor > prevMajor) {
+    return "major";
+  }
+  if (curMinor > prevMinor) {
+    return "minor";
+  }
+  if (curPatch > prevPatch) {
+    return "patch";
+  }
+  return "same or downgrade version";
+}
+
 chrome.runtime.onInstalled.addListener((details) => {
   // chrome.storage.sync.set({ color: "#3aa757" }, function () {
   //   console.log("The color is green.");
@@ -38,6 +58,8 @@ chrome.runtime.onInstalled.addListener((details) => {
   console.log(`details: ${details}`);
   console.log(`Previous Version: ${previousVersion}`);
   console.log(`Current Version: ${currentVersion}`);
+  const update = compareVer(previousVersion, currentVersion);
+
   if (process.env.NODE_ENV === "production") {
     switch (reason) {
       case "install":
@@ -46,7 +68,12 @@ chrome.runtime.onInstalled.addListener((details) => {
         break;
       case "update":
         console.log("User has updated their extension.");
-        chrome.tabs.create({ url: `https://gourav.io/notion-boost/whats-new` });
+        // open 'whats new' page on major or minor update
+        if (update === "major" || update === "minor") {
+          chrome.tabs.create({
+            url: `https://gourav.io/notion-boost/whats-new`,
+          });
+        }
         break;
       case "chrome_update":
       case "shared_module_update":
