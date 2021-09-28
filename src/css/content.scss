@@ -163,25 +163,25 @@ $docWidth: 83%;
 // fullWidth
 .fullWidth .notion-frame {
   // new notion page styling:
-  // div.notion-scroller.vertical.horizontal
-  //   > div:nth-child(2)
-  //   > div:nth-child(1)[style*="max-width: 100%; min-width: 0px;"] {
+  div.notion-scroller.vertical.horizontal
+    > div:nth-child(2)
+    > div:nth-child(1)[style*="max-width: 100%; min-width: 0px;"] {
+    width: 100% !important;
+  }
+
+  // select first child div
+  // .notion-scroller.vertical.horizontal > div:nth-of-type(1) > div {
   //   width: 100% !important;
   // }
 
-  // select first child div
-  .notion-scroller.vertical.horizontal > div:nth-of-type(1) > div {
-    width: 100% !important;
-  }
+  // // select 2nd child div
+  // .notion-scroller.vertical.horizontal > div:nth-of-type(2) > div {
+  //   width: 100% !important;
+  // }
 
-  // select 2nd child div
-  .notion-scroller.vertical.horizontal > div:nth-of-type(2) > div {
-    width: 100% !important;
-  }
-
-  .notion-scroller.vertical.horizontal > .notion-page-content {
-    width: 100% !important;
-  }
+  // .notion-scroller.vertical.horizontal > .notion-page-content {
+  //   width: 100% !important;
+  // }
 
   // set for inline tables - title
   .notion-scroller.vertical.horizontal
@@ -230,13 +230,13 @@ $docWidth: 83%;
   // set fonts
   .notion-scroller.vertical {
     // new notion page styling:
-    // > div > div > div:nth-child(1) div.notion-selectable.notion-page-block {
-    //   font-size: 32px !important;
-    // }
-    // old:
-    > div:first-child .notion-selectable.notion-page-block {
+    > div > div > div:nth-child(1) div.notion-selectable.notion-page-block {
       font-size: 32px !important;
     }
+    // old:
+    // > div:first-child .notion-selectable.notion-page-block {
+    //   font-size: 32px !important;
+    // }
     .notion-page-content {
       font-size: 14px !important;
     }
