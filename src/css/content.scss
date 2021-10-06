@@ -340,28 +340,38 @@ $docWidth: 83%;
 }
 // addMoreHeightToPage
 .addMoreHeightToPage .notion-frame {
-  div.notion-scroller.vertical.horizontal div.notion-page-controls {
-    display: none !important;
+  div.notion-scroller.vertical.horizontal {
+    div.notion-page-controls {
+      display: none !important;
+    }
+
+    > div:nth-child(2)
+      > div:nth-child(1)
+      > div:nth-child(1)
+      div
+      div.pseudoSelection {
+      display: none !important;
+    }
   }
 
-  div.notion-scroller.vertical.horizontal
-    > div:nth-child(1)
-    > div
-    > div:nth-child(1) {
-    display: none !important;
-  }
-  div.notion-scroller.vertical.horizontal
-    > div
-    > div
-    > div.notion-record-icon.notranslate {
-    display: none !important;
-  }
+  // div.notion-scroller.vertical.horizontal
+  //   > div:nth-child(1)
+  //   > div
+  //   > div:nth-child(1) {
+  //   display: none !important;
+  // }
+  // div.notion-scroller.vertical.horizontal
+  //   > div
+  //   > div
+  //   > div.notion-record-icon.notranslate {
+  //   display: none !important;
+  // }
 
-  div.notion-scroller.vertical.horizontal
-    > div:nth-child(1)
-    > div:nth-child(1)[style*="display: flex;"] {
-    display: none !important;
-  }
+  // div.notion-scroller.vertical.horizontal
+  //   > div:nth-child(1)
+  //   > div:nth-child(1)[style*="display: flex;"] {
+  //   display: none !important;
+  // }
 }
 
 //showHoverText
