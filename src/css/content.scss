@@ -230,9 +230,9 @@ $docWidth: 83%;
   // set fonts
   .notion-scroller.vertical {
     // new notion page styling:
-    > div > div > div:nth-child(1) div.notion-selectable.notion-page-block {
-      font-size: 32px !important;
-    }
+    // > div > div > div:nth-child(1) div.notion-selectable.notion-page-block {
+    //   font-size: 32px !important;
+    // }
     // old:
     // > div:first-child .notion-selectable.notion-page-block {
     //   font-size: 32px !important;
