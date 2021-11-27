@@ -164,10 +164,17 @@ $docWidth: 83%;
 
 // fullWidth
 .fullWidth .notion-frame {
-  // new notion page styling:
+  // page header
   div.notion-scroller.vertical.horizontal
     > div:nth-child(2)
     > div:nth-child(1)[style*="max-width: 100%; min-width: 0px;"] {
+    width: 100% !important;
+  }
+
+  // page content
+  div.notion-scroller.vertical.horizontal
+    > div:nth-child(3)[style*="display: flex; width: 100%;"]
+    > div:nth-child(1) {
     width: 100% !important;
   }
 
@@ -208,11 +215,12 @@ $docWidth: 83%;
   // inline db - set width
   .notion-scroller.vertical.horizontal
     .notion-page-content
-    > .notion-collection_view-block
-    .notion-scroller.horizontal
-    > div:first-child {
-    padding-left: 96px !important;
-    padding-right: 96px !important;
+    > .notion-collection_view-block,
+  .notion-table-block {
+    .notion-scroller.horizontal > div:first-child {
+      padding-left: 96px !important;
+      padding-right: 96px !important;
+    }
   }
 
   // inline table - set footer width
