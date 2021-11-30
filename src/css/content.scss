@@ -528,13 +528,20 @@ $docWidth: 83%;
 
 // hideHiddenColumns
 .hideHiddenColumns {
-  .notion-board-view > .notion-selectable {
+  // #notion-app > div > div.notion-cursor-listener.showHoverText > div:nth-child(2) > div.notion-frame > div.notion-scroller.vertical.horizontal > div:nth-child(3) > div > div > div > div:nth-child(1) > div:nth-child(4)
+  .notion-board-view > .notion-selectable.notion-collection_view-block {
     > div:nth-child(1)
-      > div[style*="flex-shrink: 0; display: flex; align-items: center;"]:nth-last-child(2) {
+      > div[style*="flex-shrink: 0; display: flex; align-items: center;"]:last-child {
       display: none !important;
     }
 
-    > div[style*="flex-shrink: 0;"]:nth-last-child(2) {
+    // old:
+    // > div:nth-child(1)
+    //   > div[style*="flex-shrink: 0; display: flex; align-items: center;"]:nth-last-child(2) {
+    //   display: none !important;
+    // }
+
+    > div[style*="flex-shrink: 0;"]:last-child {
       display: none !important;
     }
   }
