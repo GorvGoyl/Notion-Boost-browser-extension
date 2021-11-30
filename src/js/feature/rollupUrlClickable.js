@@ -186,8 +186,6 @@ function handleTableHover(e) {
 function handletableRowAsPageHover(e) {
   //   console.log("relatedTarget", e.relatedTarget);
 
-  //   debugger;
-
   let nestedLevel = 0;
   const path = e.composedPath();
 
@@ -272,7 +270,7 @@ function addrollupUrlClickable() {
   }
 
   const tableRowAsPage = document.querySelector(
-    '.notion-scroller.vertical.horizontal > div:nth-of-type(2)[style*="width: 100%; display: flex; flex-direction: column;"] div[style="margin: 0px;"]'
+    '.notion-scroller.vertical.horizontal > div:nth-of-type(2)[style*="display: flex;"] div[style="margin: 0px;"]'
   );
   if (tableRowAsPage) {
     tableRowAsPage.addEventListener("mouseover", handletableRowAsPageHover);
