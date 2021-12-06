@@ -12,6 +12,9 @@ import ExtPay from "./extPay";
 const extpay = ExtPay("notion-boost");
 
 function compareVer(previousVersion, currentVersion) {
+  if (!previousVersion || !currentVersion) {
+    return "some version is missing";
+  }
   const [prevMajor, prevMinor = 0, prevPatch = 0] = previousVersion
     .split(".")
     .map(Number);

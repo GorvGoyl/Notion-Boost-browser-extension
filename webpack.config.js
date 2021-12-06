@@ -176,20 +176,20 @@ module.exports = (env, argv) => {
       // new ZipPlugin({ filename: `notion-boost_${browser}.zip` })
     );
     // lint before prod build
-    rules.push({
-      enforce: "pre",
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: "eslint-loader",
-      options: {
-        cache: true,
-        failOnError: true,
-        emitError: true,
-        emitWarning: true,
-        failOnWarning: true,
-        // eslint options (if necessary)
-      },
-    });
+    // rules.push({
+    //   enforce: "pre",
+    //   test: /\.js$/,
+    //   exclude: /node_modules/,
+    //   loader: "eslint-loader",
+    //   options: {
+    //     cache: true,
+    //     failOnError: true,
+    //     emitError: true,
+    //     emitWarning: true,
+    //     failOnWarning: true,
+    //     // eslint options (if necessary)
+    //   },
+    // });
     // remove logs for production and other optimization
     optimization = {
       minimize: true,
