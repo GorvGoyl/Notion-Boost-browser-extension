@@ -213,3 +213,29 @@ export function getLatestSettings() {
   });
   return promise;
 }
+
+export function simulateKey(key) {
+  switch (key) {
+    case "esc": {
+      window.dispatchEvent(
+        new KeyboardEvent("keydown", {
+          altKey: false,
+          code: "Escape",
+          ctrlKey: false,
+          isComposing: false,
+          key: "Escape",
+          location: 0,
+          metaKey: false,
+          repeat: false,
+          shiftKey: false,
+          which: 27,
+          charCode: 0,
+          keyCode: 27,
+        })
+      );
+      break;
+    }
+    default:
+      console.error("key not implemented", key);
+  }
+}
