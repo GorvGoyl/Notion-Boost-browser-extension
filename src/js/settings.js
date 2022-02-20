@@ -10,7 +10,7 @@ export const defaultSettings = {
   scrollTopBtn: false,
   hideSlashMenuAfterSpace: false,
   disableSlashMenu: false,
-  leftAlignImage: false,
+  leftAlignMedia: false,
   hideNotification: false,
   showHoverText: false,
   hideHiddenColumns: false,
@@ -105,9 +105,9 @@ export const settingDetails = [
     pf: false,
   },
   {
-    func: "leftAlignImage",
-    name: "Left align images",
-    desc: "Align document images to the left instead of center",
+    func: "leftAlignMedia",
+    name: "Left align media",
+    desc: "Align document images and videos to the left instead of center",
     pf: false,
   },
 
