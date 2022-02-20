@@ -23,9 +23,9 @@
         - notion-peek-renderer
       - notion-overlay-container
 
-# Run in FF
+# Run in Firefox
 
-- run command from package.json
+- run command from package.json `npm run start:ff`
 - open url in firefox
   - about:debugging#/runtime/this-firefox
     - pick manifest.json from folder `build_firefox`
@@ -139,3 +139,9 @@ $('div[style*="width:100;"][style*="display:flex;"]');
 // select first element of its type among a group of sibling
 $('div[style*="width:100;"]:first-of-type');
 ```
+
+## simulate keys
+
+- https://stackoverflow.com/a/71195647/3073272
+- https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent
+- https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
