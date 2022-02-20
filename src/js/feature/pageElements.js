@@ -510,9 +510,20 @@ function hideSlashMenuAfterSpaceEvent(e) {
 
 function disableSlashMenuEvent(e) {
   const slashKey = "/";
+  const insideTable = e.path.some((x) => {
+    if (
+      e?.target?.classList?.contains("notranslate") && // select only cells and not preview window
+      x?.classList?.contains("notion-default-overlay-container") &&
+      x?.classList?.contains("notion-overlay-container")
+    ) {
+      return true;
+    }
+  });
+
+  // don't simulate esc when using slash key inside table cell becuz it'll exit the table
   // If the slash key is pressed, without the ctrl/cmd key (would be intent to modify selected block)
   //   https://notion.notion.site/Learn-the-shortcuts-66e28cec810548c3a4061513126766b0#5c679ece35ee4e81b1217333a4cf35b3
-  if (e.key === slashKey && !(e.ctrlKey || e.metaKey)) {
+  if (e.key === slashKey && !insideTable && !(e.ctrlKey || e.metaKey)) {
     // hide popup menu as soon as it's added to DOM
     onElementLoaded(
       "div.notion-scroller.vertical",
