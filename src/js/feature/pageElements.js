@@ -3,6 +3,7 @@ import {
   isObserverType,
   onElementCSSChanged,
   onElementLoaded,
+  simulateKey,
 } from "../utility";
 
 const notionHelpBtnCls = ".notion-help-button";
@@ -188,20 +189,12 @@ export function disableSlashMenu(isEnabled) {
               hideSlashMenuAfterSpaceEvent
             );
 
-            // simulate click for both events to prevent menu from appearing
-            getElement(notionAppId).addEventListener(
-              "keydown",
-              disableSlashMenuEvent
-            );
+            // simulate esc key to prevent menu from appearing
             getElement(notionAppId).addEventListener(
               "keyup",
               disableSlashMenuEvent
             );
           } else {
-            getElement(notionAppId).removeEventListener(
-              "keydown",
-              disableSlashMenuEvent
-            );
             getElement(notionAppId).removeEventListener(
               "keyup",
               disableSlashMenuEvent
@@ -500,14 +493,12 @@ function isSlashMenuVisible() {
 function hideSlashMenuAfterSpaceEvent(e) {
   try {
     const spaceKey = " ";
+    // console.log(e);
     if (e.key === spaceKey) {
-      // const cursorPos = window.getSelection().getRangeAt(0).startOffset;
-      // const lastChar = e.target.textContent[cursorPos - 1];
-      // debugger;
       if (e.target.textContent.includes("/")) {
         if (isSlashMenuVisible()) {
-          // hide slash menu by clicking
-          e.target.click();
+          // hide slash menu by simulating ESC key
+          simulateKey("esc");
           console.info("slash menu hid");
         }
       }
@@ -522,32 +513,19 @@ function disableSlashMenuEvent(e) {
   // If the slash key is pressed, without the ctrl/cmd key (would be intent to modify selected block)
   //   https://notion.notion.site/Learn-the-shortcuts-66e28cec810548c3a4061513126766b0#5c679ece35ee4e81b1217333a4cf35b3
   if (e.key === slashKey && !(e.ctrlKey || e.metaKey)) {
-    // hide menu before it's appearing
-    // DEV: Click off first to avoid timing issues
-    e.target.click();
-    console.info("slash menu hid");
-
-    // Create a temporary stylesheet to handle annoying flicker issues
-    const styleEl = document.createElement("style");
-    styleEl.innerHTML = `
-      .notion-overlay-container.notion-default-overlay-container {
-        /* Hide menu temporarily showing in Firefox */
-        display: none;
-      }
-
-      .notion-frame .notion-scroller {
-        /* Prevent left/right toggle flicker */
-        overflow: auto !important;
-      }
-    `;
-    document.body.appendChild(styleEl);
-
-    // Reveal the overlay again for more interactions
-    // DEV: requestAnimationFrame is too fast, overlay still shows otherwise
-    //   For more precision, we could watch for the overlay to happen
-    setTimeout(() => {
-      document.body.removeChild(styleEl);
-    }, 300);
+    // hide popup menu as soon as it's added to DOM
+    onElementLoaded(
+      "div.notion-scroller.vertical",
+      "div.notion-overlay-container.notion-default-overlay-container"
+    )
+      .then(() => {
+        console.log("popup found");
+        simulateKey("esc");
+        console.log("hid menu");
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   }
 }
 
