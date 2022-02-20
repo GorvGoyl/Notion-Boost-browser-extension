@@ -164,33 +164,18 @@ $docWidth: 83%;
 
 // fullWidth
 .fullWidth .notion-frame {
-  // page header
+  // applies to both: page header & page content
   div.notion-scroller.vertical.horizontal
-    > div:nth-child(2)
-    > div:nth-child(1)[style*="max-width: 100%; min-width: 0px;"] {
+    div[style^="max-width: 100%"][style*="min-width: 0px;"]:first-of-type {
     width: 100% !important;
   }
 
   // page content
   div.notion-scroller.vertical.horizontal
-    > div:nth-child(3)[style*="display: flex; width: 100%;"]
-    > div:nth-child(1) {
-    width: 100% !important;
+    > div
+    > div[style^="display: flex;"][style*="width: 100%"] {
+    justify-content: space-between !important;
   }
-
-  // select first child div
-  // .notion-scroller.vertical.horizontal > div:nth-of-type(1) > div {
-  //   width: 100% !important;
-  // }
-
-  // // select 2nd child div
-  // .notion-scroller.vertical.horizontal > div:nth-of-type(2) > div {
-  //   width: 100% !important;
-  // }
-
-  // .notion-scroller.vertical.horizontal > .notion-page-content {
-  //   width: 100% !important;
-  // }
 
   // set for inline tables - title
   .notion-scroller.vertical.horizontal

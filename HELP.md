@@ -116,3 +116,26 @@
       - notion-table-view (padding-left: 96px;padding-right: 96px;) / notion-board-view -diff
         - notion-selectable notion-collection_view-block
           - div (min-width: calc(100% - 192px);) -diff
+
+# Docs
+
+## CSS Selectors
+
+- CSS selectors based on inline styles: https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors
+
+```js
+// starts with
+$('div[style^="width:100;"]');
+
+// contains
+$('div[style*="width:100;"]');
+
+// ends with
+$('div[style$="width:100;"]');
+
+// contains 2 styles (anywhere in inline styles)
+$('div[style*="width:100;"][style*="display:flex;"]');
+
+// select first element of its type among a group of sibling
+$('div[style*="width:100;"]:first-of-type');
+```
