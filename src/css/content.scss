@@ -222,10 +222,17 @@ $docWidth: 83%;
 
 // smallText
 .smallText {
+  // page title
+  .notion-scroller.vertical.horizontal {
+    > div
+      > div[style^="width: 100%;"][style*="display: flex;"]
+      div[style*="font-weight: 700;"] {
+      font-size: 32px !important;
+    }
+  }
+
   // set fonts
   .notion-scroller.vertical {
-    // new notion page styling:
-
     > div:nth-child(2)
       > div
       > div:nth-child(1)
@@ -235,13 +242,6 @@ $docWidth: 83%;
       font-size: 32px !important;
     }
 
-    // > div > div > div:nth-child(1) div.notion-selectable.notion-page-block {
-    //   font-size: 32px !important;
-    // }
-    // old:
-    // > div:first-child .notion-selectable.notion-page-block {
-    //   font-size: 32px !important;
-    // }
     .notion-page-content {
       font-size: 14px !important;
     }
