@@ -328,9 +328,10 @@ $docWidth: 83%;
   }
 }
 
-// leftAlignImage
-.leftAlignImage {
-  .notion-selectable.notion-image-block {
+// leftAlignMedia
+.leftAlignMedia {
+  .notion-selectable.notion-image-block,
+  .notion-selectable.notion-video-block {
     align-self: flex-start !important;
   }
 }

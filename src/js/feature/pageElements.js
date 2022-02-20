@@ -268,18 +268,18 @@ export function hideNotification(isEnabled) {
   }
 }
 
-export function leftAlignImage(isEnabled) {
+export function leftAlignMedia(isEnabled) {
   try {
-    console.log(`feature: leftAlignImage: ${isEnabled}`);
+    console.log(`feature: leftAlignMedia: ${isEnabled}`);
 
     onElementLoaded(notionAppInnerCls)
       .then((isPresent) => {
         if (isPresent) {
           const el = getElement(notionAppInnerCls);
           if (isEnabled) {
-            el.classList.add("leftAlignImage");
+            el.classList.add("leftAlignMedia");
           } else {
-            el.classList.remove("leftAlignImage");
+            el.classList.remove("leftAlignMedia");
           }
           // console.log(`${notionBodyCls} style is ${el.style.display}`);
         }
@@ -528,7 +528,7 @@ function disableSlashMenuEvent(e) {
     console.info("slash menu hid");
 
     // Create a temporary stylesheet to handle annoying flicker issues
-    const styleEl = document.createElement('style');
+    const styleEl = document.createElement("style");
     styleEl.innerHTML = `
       .notion-overlay-container.notion-default-overlay-container {
         /* Hide menu temporarily showing in Firefox */
@@ -547,7 +547,7 @@ function disableSlashMenuEvent(e) {
     //   For more precision, we could watch for the overlay to happen
     setTimeout(() => {
       document.body.removeChild(styleEl);
-    }, 300)
+    }, 300);
   }
 }
 
