@@ -150,9 +150,10 @@ $docWidth: 83%;
               align-items: center;
               // margin-left: 0px; add heading class here
               .text {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                display: inline-block;
+                // white-space: nowrap;
+                // overflow: hidden;
+                // text-overflow: ellipsis;
               }
             }
           }

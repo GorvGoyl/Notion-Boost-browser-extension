@@ -270,9 +270,9 @@ function addOutline() {
         });
       block.querySelector(".align").classList.add(headingCls);
       block.querySelector(".text").textContent = text;
-      if (text.length > 20) {
-        block.querySelector(".btn").title = text;
-      }
+      // if (text.length > 20) {
+      //   block.querySelector(".btn").title = text;
+      // }
 
       // add href
       const blockId = pageHeading
