@@ -17,11 +17,11 @@ $docWidth: 83%;
 }
 
 .nb-h2 {
-  margin-left: 18px;
+  margin-left: 16px;
 }
 
 .nb-h3 {
-  margin-left: 36px;
+  margin-left: 32px;
 }
 
 // bolder
@@ -93,7 +93,7 @@ $docWidth: 83%;
     max-width: 1071px;
     margin-top: 2px;
     margin-bottom: 4px;
-    padding: 0 15px;
+    padding-left: 15px;
     .title {
       p {
         font-size: 15px;
@@ -144,8 +144,8 @@ $docWidth: 83%;
             width: 100%;
             .align {
               padding: 6px 2px;
-              font-size: 14px;
-              line-height: 1.3;
+              font-size: 13px;
+              line-height: 1.2;
               display: flex;
               align-items: center;
               // margin-left: 0px; add heading class here
