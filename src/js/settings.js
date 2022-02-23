@@ -25,7 +25,7 @@ export const defaultSettings = {
   rollupUrlClickable: false,
 };
 
-export const price = "$24";
+export const price = "$49";
 export const msgThanks = "Unlocked! Thank you for supporting developer :)";
 export const msgLocked = `Please upgrade to use 'pro' features. One-time payment of ${price} for lifetime access! Click to learn more.`;
 
