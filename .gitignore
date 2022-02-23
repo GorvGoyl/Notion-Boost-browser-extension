@@ -5,3 +5,4 @@ build_firefox
 **.zip
 test.html
 notion-boost-ext-key
+.DS_Store
