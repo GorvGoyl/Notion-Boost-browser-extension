@@ -270,7 +270,7 @@ function addrollupUrlClickable() {
   }
 
   const tableRowAsPage = document.querySelector(
-    '.notion-scroller.vertical.horizontal > div:nth-of-type(2)[style*="display: flex;"] div[style="margin: 0px;"]'
+    '.notion-scroller.vertical > div:nth-of-type(2)[style*="display: flex;"] div[style="margin: 0px;"]'
   );
   if (tableRowAsPage) {
     tableRowAsPage.addEventListener("mouseover", handletableRowAsPageHover);
@@ -291,7 +291,7 @@ function removerollupUrlClickable() {
   }
 
   const tableRowAsPage = document.querySelector(
-    '.notion-scroller.vertical.horizontal > div:nth-of-type(2)[style*="width: 100%; display: flex; flex-direction: column;"] div[style="margin: 0px;"]'
+    '.notion-scroller.vertical > div:nth-of-type(2)[style*="width: 100%; display: flex; flex-direction: column;"] div[style="margin: 0px;"]'
   );
   if (tableRowAsPage) {
     tableRowAsPage.removeEventListener("mouseover", handletableRowAsPageHover);

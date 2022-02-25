@@ -26,7 +26,7 @@ const notionFrameCls = ".notion-frame";
 const outlineFrameCls = ".nb-outline";
 
 // these gets removed on doc change
-const notionScrollerCls = ".notion-scroller.vertical.horizontal";
+const notionScrollerCls = ".notion-scroller.vertical";
 const notionPageContentCls = ".notion-page-content";
 
 // starting point

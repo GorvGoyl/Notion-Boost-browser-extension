@@ -6,7 +6,7 @@ export const twitterShareTxt =
 const notionFrameCls = ".notion-frame";
 const DEBUG = false;
 // these gets removed on doc change
-const notionScrollerCls = ".notion-scroller.vertical.horizontal";
+const notionScrollerCls = ".notion-scroller.vertical";
 const notionPageContentCls = ".notion-page-content";
 const notionPresenceContainerCls = ".notion-presence-container";
 

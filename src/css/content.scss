@@ -64,7 +64,7 @@ $docWidth: 83%;
 }
 
 // set inline tables width when outline is enabled.
-.nb-outline.show + .notion-scroller.vertical.horizontal .notion-page-content > {
+.nb-outline.show + .notion-scroller.vertical .notion-page-content > {
   .notion-table-block {
     width: calc(100vw - calc(110% - #{$docWidth})) !important;
   }
@@ -75,7 +75,7 @@ $docWidth: 83%;
   }
 }
 
-.nb-outline.show + .notion-scroller.vertical.horizontal {
+.nb-outline.show + .notion-scroller.vertical {
   width: $docWidth !important;
 }
 
@@ -165,20 +165,20 @@ $docWidth: 83%;
 // fullWidth
 .fullWidth .notion-frame {
   // applies to both: page header & page content
-  div.notion-scroller.vertical.horizontal
+  div.notion-scroller.vertical
     div[style^="max-width: 100%"][style*="min-width: 0px;"]:first-of-type {
     width: 100% !important;
   }
 
   // page content
-  div.notion-scroller.vertical.horizontal
+  div.notion-scroller.vertical
     > div
     > div[style^="display: flex;"][style*="width: 100%"] {
     justify-content: space-between !important;
   }
 
   // set for inline tables - title
-  .notion-scroller.vertical.horizontal
+  .notion-scroller.vertical
     .notion-page-content
     > .notion-collection_view-block
     > div:first-child {
@@ -187,10 +187,10 @@ $docWidth: 83%;
   }
 
   // inline table - set header width
-  .notion-scroller.vertical.horizontal
+  .notion-scroller.vertical
     .notion-page-content
     > .notion-collection_view-block
-    .notion-scroller.horizontal
+    .notion-scroller
     > .notion-table-view
     > div:first-child
     > div:first-child {
@@ -198,21 +198,21 @@ $docWidth: 83%;
   }
 
   // inline db - set width
-  .notion-scroller.vertical.horizontal
+  .notion-scroller.vertical
     .notion-page-content
     > .notion-collection_view-block,
   .notion-table-block {
-    .notion-scroller.horizontal > div:first-child {
+    .notion-scroller > div:first-child {
       padding-left: 96px !important;
       padding-right: 96px !important;
     }
   }
 
   // inline table - set footer width
-  .notion-scroller.vertical.horizontal
+  .notion-scroller.vertical
     .notion-page-content
     > .notion-collection_view-block
-    .notion-scroller.horizontal
+    .notion-scroller
     > .notion-table-view
     > div:first-child
     > div:nth-child(5) {
@@ -221,9 +221,9 @@ $docWidth: 83%;
 }
 
 // smallText
-.smallText {
+.smallText .notion-frame {
   // page title
-  .notion-scroller.vertical.horizontal {
+  .notion-scroller.vertical {
     > div
       > div[style^="width: 100%;"][style*="display: flex;"]
       div[style*="font-weight: 700;"] {
@@ -346,7 +346,7 @@ $docWidth: 83%;
 }
 // addMoreHeightToPage
 .addMoreHeightToPage .notion-frame {
-  div.notion-scroller.vertical.horizontal > div {
+  div.notion-scroller.vertical > div {
     > div.pseudoSelection[style^="user-select: none;"]:first-of-type {
       // hide cover
       display: none !important;
@@ -498,7 +498,7 @@ $docWidth: 83%;
 
 // hideHiddenColumns
 .hideHiddenColumns {
-  // #notion-app > div > div.notion-cursor-listener.showHoverText > div:nth-child(2) > div.notion-frame > div.notion-scroller.vertical.horizontal > div:nth-child(3) > div > div > div > div:nth-child(1) > div:nth-child(4)
+  // #notion-app > div > div.notion-cursor-listener.showHoverText > div:nth-child(2) > div.notion-frame > div.notion-scroller.vertical > div:nth-child(3) > div > div > div > div:nth-child(1) > div:nth-child(4)
   .notion-board-view > .notion-selectable.notion-collection_view-block {
     > div:nth-child(1)
       > div[style*="flex-shrink: 0; display: flex; align-items: center;"]:last-child {
