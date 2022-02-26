@@ -62,28 +62,33 @@ export function isObserverType(obj) {
   return obj.disconnect !== undefined;
 }
 
-// return promise when div is loaded
-// pass div and (optional) parent div class
-// if parent class is not passed then `document` is used
-export function onElementLoaded(divClassToObserve, ParentDivClass) {
-  DEBUG && console.log(`waiting for element: ${divClassToObserve}`);
+/**
+ *
+ * Wait for an HTML element to be loaded like `div`, `span`, `img`, etc.
+ * ex: `onElementLoaded("div.some_class").then(()=>{}).catch(()=>{})`
+ * @param {*} elementToObserve wait for this element to load
+ * @param {*} parentStaticElement (optional) if parent element is not passed then `document` is used
+ * @return {*} Promise - return promise when `elementToObserve` is loaded
+ */
+export function onElementLoaded(elementToObserve, parentStaticElement) {
+  DEBUG && console.log(`waiting for element: ${elementToObserve}`);
   const promise = new Promise((resolve, reject) => {
     try {
-      if (getElement(divClassToObserve)) {
-        DEBUG && console.log(`element already present: ${divClassToObserve}`);
+      if (getElement(elementToObserve)) {
+        DEBUG && console.log(`element already present: ${elementToObserve}`);
         resolve(true);
         return;
       }
-      const parentElement = ParentDivClass
-        ? getElement(ParentDivClass)
+      const parentElement = parentStaticElement
+        ? getElement(parentStaticElement)
         : document;
 
       const observer = new MutationObserver((mutationList, obsrvr) => {
-        const divToCheck = getElement(divClassToObserve);
+        const divToCheck = getElement(elementToObserve);
         // console.log("checking for div...");
 
         if (divToCheck) {
-          console.log(`element loaded: ${divClassToObserve}`);
+          console.log(`element loaded: ${elementToObserve}`);
           obsrvr.disconnect(); // stop observing
           resolve(true);
         }
