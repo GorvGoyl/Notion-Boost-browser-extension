@@ -221,29 +221,32 @@ $docWidth: 83%;
 }
 
 // smallText
-.smallText .notion-frame {
-  // page title
-  .notion-scroller.vertical {
-    > div
-      > div[style^="width: 100%;"][style*="display: flex;"]
-      div[style*="font-weight: 700;"] {
-      font-size: 32px !important;
-    }
+.smallText {
+  // for full page and kanban popup window
+  .notion-page-content {
+    font-size: 14px !important;
   }
 
-  // set fonts
-  .notion-scroller.vertical {
-    > div:nth-child(2)
+  .notion-frame {
+    // page title
+    .notion-scroller.vertical {
       > div
-      > div:nth-child(1)
-      > div
-      > div:nth-child(2)
-      > div.notion-selectable.notion-page-block {
-      font-size: 32px !important;
+        > div[style^="width: 100%;"][style*="display: flex;"]
+        div[style*="font-weight: 700;"] {
+        font-size: 32px !important;
+      }
     }
 
-    .notion-page-content {
-      font-size: 14px !important;
+    // set fonts
+    .notion-scroller.vertical {
+      > div:nth-child(2)
+        > div
+        > div:nth-child(1)
+        > div
+        > div:nth-child(2)
+        > div.notion-selectable.notion-page-block {
+        font-size: 32px !important;
+      }
     }
   }
 }
