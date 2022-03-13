@@ -6,15 +6,18 @@ export const twitterShareTxt =
 const notionFrameCls = ".notion-frame";
 const DEBUG = false;
 // these gets removed on doc change
-const notionScrollerCls = ".notion-scroller.vertical";
+const notionScrollerCls = ".notion-frame .notion-scroller.vertical";
 const notionPageContentCls = ".notion-page-content";
 const notionPresenceContainerCls = ".notion-presence-container";
 
-// add listener for page change or window reload event
-// accepts array of functions
-// callbacksAfterDocReady: call any function after notion doc is ready
-// callbacksAfterContentReady: call any function after notion doc content is loaded (async)
-// return observer object which can be used to disconnect pageChangeListener
+/**
+ *  add listener for page change or window reload event
+ *
+ *  accepts array of functions
+ * @param {*} callbacksAfterDocReady call any function after notion doc is ready
+ * @param {*} callbacksAfterContentReady call any function after notion doc content is loaded (async)
+ * @return {*} observer object which can be used to disconnect pageChangeListener
+ */
 export function pageChangeListener(
   callbacksAfterDocReady,
   callbacksAfterContentReady

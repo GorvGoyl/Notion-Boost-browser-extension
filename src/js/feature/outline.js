@@ -12,12 +12,8 @@ import {
 let pageChangeObserverObj = {};
 let docEditObserverObj = {};
 
-const DEBUG = false;
 // ENABLE/DISABLE Console Logs
-// if (!DEBUG) {
-
-//   console.log = () => {};
-// }
+const DEBUG = false;
 
 // keep classes in hierarchy of DOM
 
@@ -26,7 +22,7 @@ const notionFrameCls = ".notion-frame";
 const outlineFrameCls = ".nb-outline";
 
 // these gets removed on doc change
-const notionScrollerCls = ".notion-scroller.vertical";
+const notionScrollerCls = ".notion-frame .notion-scroller.vertical";
 const notionPageContentCls = ".notion-page-content";
 
 // starting point
@@ -47,7 +43,7 @@ export function displayOutline(isShow) {
           addOutline();
           docEditListener();
           // add listener for page change or window reload
-          // it detaches old listeners and adds new doceditlistener and outline
+          // it detaches old listeners and adds new docEditListener and outline
           pageChangeObserverObj = pageChangeListener(
             [removeDocEditListener, hideOutline, removeOutlineToggleBtn],
             [addOutline, addOutlineToggleBtn, docEditListener]
@@ -102,6 +98,7 @@ function addOutlineToggleBtn() {
     console.log("Error: ", e.message);
   }
 }
+
 function removeDocEditListener() {
   if (isObserverType(docEditObserverObj)) {
     console.log("disconnected docEditObserver");
@@ -440,7 +437,6 @@ function isHeading(placeholder) {
     return true;
   }
   const headings = ["Heading", "제목"];
-  // eslint-disable-next-line consistent-return
   headings.forEach((x) => {
     if (placeholder.includes(x)) {
       return true;
