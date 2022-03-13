@@ -82,3 +82,16 @@ See what's new in latest update: https://gourav.io/notion-boost/whats-new
 #### ✨ Follow [@NotionBoost](https://twitter.com/intent/follow?user_id=1312809481240154112) on Twitter for many amazing Notion tips & tricks.
 
 #### 👨‍💻 Follow the maker [@GorvGoyl](https://twitter.com/intent/follow?user_id=325435736) behind this extension.
+
+---
+
+#### Looking for Notion Desktop App?
+
+Use **Notion Enhancer**: https://notion-enhancer.github.io/
+
+---
+
+### 🙏 Credits
+
+- Notion Community for supporting and sharing this project.
+- [Notion Enhancer](https://github.com/notion-enhancer/desktop) project.
