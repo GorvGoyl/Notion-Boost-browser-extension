@@ -220,6 +220,24 @@ $docWidth: 83%;
   }
 }
 
+// borderOnImages
+.borderOnImages {
+  &.notion-light-theme {
+    .notion-frame {
+      .notion-page-content .notion-image-block {
+        box-shadow: 0px 0px 3px 0px $caret-color-light-theme !important;
+      }
+    }
+  }
+  &.notion-dark-theme {
+    .notion-frame {
+      .notion-page-content .notion-image-block {
+        box-shadow: 0px 0px 3px 0px $caret-color-dark-theme !important;
+      }
+    }
+  }
+}
+
 // smallText
 .smallText {
   // for full page and kanban popup window

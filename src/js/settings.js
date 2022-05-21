@@ -23,6 +23,7 @@ export const defaultSettings = {
   narrowListItems: false,
   indentationLines: false,
   rollupUrlClickable: false,
+  borderOnImages: false,
 };
 
 export const price = "$49";
@@ -165,6 +166,12 @@ export const settingDetails = [
     name: "Hide backlinks section from all pages",
     desc: "",
     pf: false,
+  },
+  {
+    func: "borderOnImages",
+    name: "Add frame to images",
+    desc: "Add frame around images to make them easily noticeable on page",
+    pf: true,
   },
 
   // step 2 of 2: add function name and description

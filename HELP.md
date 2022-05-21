@@ -9,9 +9,9 @@
 
 # Doc HTML Structure
 
-- notion-body
+- notion-body /dark
   - #notion-app
-    - notion-app-inner notion-light-theme
+    - notion-app-inner notion-light-theme /notion-dark-theme /notion-boost-classes
       - notion-cursor-listener _resets when dragging some bullet point_
         - notion-sidebar-container
           - notion-frame _stays on doc change_
