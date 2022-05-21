@@ -7,7 +7,7 @@ import { getElement, getElements, getLatestSettings } from "../utility";
 function isFuncEnabled(func) {
   const btnToDisable = getElement(`[data-func=${func}]`);
 
-  if (btnToDisable.classList.contains("enable")) {
+  if (btnToDisable && btnToDisable.classList.contains("enable")) {
     return true;
   }
   return false;
@@ -129,11 +129,10 @@ export function SettingsTable({ isPaid }) {
                 <div className="name">{obj.name}</div>
                 {obj.pf && (
                   <div
-                    class="pro small"
+                    className="pro small"
                     role="button"
                     title={isPaid ? msgThanks : msgLocked}
                     aria-disabled="false"
-                    tabindex="0"
                   >
                     <div>Pro</div>
                   </div>
