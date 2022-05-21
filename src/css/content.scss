@@ -3,9 +3,10 @@
 $caret-color-light-theme: rgb(55, 53, 47);
 $caret-color-dark-theme: rgb(255, 255, 255);
 
-// # displayOutline
-
-$docWidth: 83%;
+:root {
+  --sidebarWidth: 240px;
+  --outlineWidth: 260px;
+}
 
 .notion-frame {
   position: relative;
@@ -69,11 +70,12 @@ $docWidth: 83%;
   }
 }
 
-// set inline tables width when outline is enabled.
-.nb-outline.show + .notion-scroller.vertical .notion-page-content > {
-  .notion-table-block {
-    width: calc(100vw - calc(110% - #{$docWidth})) !important;
-  }
+// when outline shown: set inline db width
+.nb-outline.show
+  + .notion-scroller.vertical
+  div[style*=" width: 100%;"]
+  > .notion-page-content
+  > {
   .notion-collection_view-block {
     width: calc(
       100% + calc(2 * calc(96px + env(safe-area-inset-left)))
@@ -81,8 +83,35 @@ $docWidth: 83%;
   }
 }
 
+// when outline shown: set simple table width when sidebar is hidden
+.notion-sidebar-container[style*="width: 0"]
+  + div
+  .nb-outline.show
+  + .notion-scroller.vertical
+  .notion-page-content
+  > {
+  .notion-table-block {
+    width: calc(100vw - var(--outlineWidth) - 10px) !important;
+  }
+}
+
+// when outline shown: set simple table width when sidebar is hidden
+.notion-sidebar-container[style*="width: 2"]
+  + div
+  .nb-outline.show
+  + .notion-scroller.vertical
+  .notion-page-content
+  > {
+  .notion-table-block {
+    width: calc(
+      100vw - var(--outlineWidth) - 10px - var(--sidebarWidth)
+    ) !important;
+  }
+}
+
+// when outline shown: set page content width
 .nb-outline.show + .notion-scroller.vertical {
-  width: $docWidth !important;
+  width: calc(100% - var(--outlineWidth)) !important;
 }
 
 .nb-outline {
@@ -90,7 +119,7 @@ $docWidth: 83%;
     display: block !important;
   }
   display: none;
-  width: 100% - $docWidth;
+  width: var(--outlineWidth);
   position: absolute;
   right: 0px;
   top: 0px;
