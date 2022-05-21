@@ -64,9 +64,11 @@ function docEditListener() {
         if (
           m.target &&
           m.target.parentNode &&
+          // @ts-ignore
           m.target.parentNode.classList.contains("line-numbers")
         ) {
           isCodeChanged = true;
+          // @ts-ignore
           block = m.target.parentNode;
           // briefly pause listener to avoid recursive triggers
           removeDocEditListener();

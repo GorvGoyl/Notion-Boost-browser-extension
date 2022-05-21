@@ -45,6 +45,7 @@ function docEditListener() {
   console.log("listening for doc edit changes: enableSpellcheckForCode...");
   let isSpellcheckEnabled = false;
 
+  // @ts-ignore
   docEditObserverObj = new MutationObserver((mutationList, obsrvr) => {
     DEBUG && console.log("found changes in doc content");
 
@@ -56,7 +57,9 @@ function docEditListener() {
         if (
           m.target &&
           m.addedNodes.length > 0 &&
+          // @ts-ignore
           m.target.classList.contains("notion-code-block") &&
+          // @ts-ignore
           m.target.querySelector("div[spellcheck]")
         ) {
           console.log("codeblok");
@@ -65,6 +68,7 @@ function docEditListener() {
           // removeDocEditListener();
 
           m.target
+            // @ts-ignore
             .querySelector("div[spellcheck]")
             .setAttribute("spellcheck", "true");
           // updateCodeline(block);

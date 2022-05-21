@@ -24,11 +24,11 @@ $themes: (
     table-cell-hover: rgb(239, 239, 238),
   ),
   dark: (
-    color: rgba(255, 255, 255, 0.6),
+    color: rgb(155, 155, 155),
     color2: rgba(255, 255, 255, 0.4),
     colorSolid: rgba(255, 255, 255, 0.9),
-    fill: rgba(255, 255, 255, 0.6),
-    background: rgb(71, 76, 80),
+    fill: rgb(155, 155, 155),
+    background: rgba(255, 255, 255, 0.055),
     background-image:
       linear-gradient(
         to right,

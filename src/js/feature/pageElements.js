@@ -8,7 +8,6 @@ import {
 
 const notionHelpBtnCls = ".notion-help-button";
 const notionAppId = "#notion-app";
-const notionAppInnerCls = ".notion-app-inner";
 
 // To add theme based color: check indentationLines sass class
 
@@ -18,10 +17,10 @@ export function hideComments(isEnabled) {
   try {
     console.log(`feature: hideComments: ${isEnabled}`);
 
-    onElementLoaded(notionAppInnerCls)
+    onElementLoaded(notionAppId)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionAppInnerCls);
+          const el = getElement(notionAppId);
           if (isEnabled) {
             el.classList.add("hideComments-nb");
           } else {
@@ -40,10 +39,10 @@ export function hideBacklinks(isEnabled) {
   try {
     console.log(`feature: hideBacklinks: ${isEnabled}`);
 
-    onElementLoaded(notionAppInnerCls)
+    onElementLoaded(notionAppId)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionAppInnerCls);
+          const el = getElement(notionAppId);
           if (isEnabled) {
             el.classList.add("hideBacklinks");
           } else {
@@ -62,10 +61,10 @@ export function smallText(isEnabled) {
   try {
     console.log(`feature: smallText: ${isEnabled}`);
 
-    onElementLoaded(notionAppInnerCls)
+    onElementLoaded(notionAppId)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionAppInnerCls);
+          const el = getElement(notionAppId);
           if (isEnabled) {
             el.classList.add("smallText");
           } else {
@@ -84,10 +83,10 @@ export function fullWidth(isEnabled) {
   try {
     console.log(`feature: fullWidth: ${isEnabled}`);
 
-    onElementLoaded(notionAppInnerCls)
+    onElementLoaded(notionAppId)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionAppInnerCls);
+          const el = getElement(notionAppId);
           if (isEnabled) {
             el.classList.add("fullWidth");
           } else {
@@ -106,10 +105,10 @@ export function borderOnImages(isEnabled) {
   try {
     console.log(`feature: borderOnImages: ${isEnabled}`);
 
-    onElementLoaded(notionAppInnerCls)
+    onElementLoaded(notionAppId)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionAppInnerCls);
+          const el = getElement(notionAppId);
           if (isEnabled) {
             el.classList.add("borderOnImages");
           } else {
@@ -127,10 +126,10 @@ export function bolderTextInDark(isEnabled) {
   try {
     console.log(`feature: bolderTextInDark: ${isEnabled}`);
 
-    onElementLoaded(notionAppInnerCls)
+    onElementLoaded(notionAppId)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionAppInnerCls);
+          const el = getElement(notionAppId);
           if (isEnabled) {
             el.classList.add("bolder");
           } else {
@@ -241,10 +240,10 @@ export function hideNotification(isEnabled) {
         );
       }
     };
-    onElementLoaded(notionAppInnerCls)
+    onElementLoaded(notionAppId)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionAppInnerCls);
+          const el = getElement(notionAppId);
           if (isEnabled) {
             el.classList.add("hideNotification");
             removeBadgeFromTitle();
@@ -286,10 +285,10 @@ export function leftAlignMedia(isEnabled) {
   try {
     console.log(`feature: leftAlignMedia: ${isEnabled}`);
 
-    onElementLoaded(notionAppInnerCls)
+    onElementLoaded(notionAppId)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionAppInnerCls);
+          const el = getElement(notionAppId);
           if (isEnabled) {
             el.classList.add("leftAlignMedia");
           } else {
@@ -309,10 +308,10 @@ export function addMoreHeightToPage(isEnabled) {
   try {
     console.log(`feature: addMoreHeightToPage: ${isEnabled}`);
 
-    onElementLoaded(notionAppInnerCls)
+    onElementLoaded(notionAppId)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionAppInnerCls);
+          const el = getElement(notionAppId);
           if (isEnabled) {
             el.classList.add("addMoreHeightToPage");
           } else {
@@ -332,10 +331,10 @@ export function narrowListItems(isEnabled) {
   try {
     console.log(`feature: narrowListItems: ${isEnabled}`);
 
-    onElementLoaded(notionAppInnerCls)
+    onElementLoaded(notionAppId)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionAppInnerCls);
+          const el = getElement(notionAppId);
           if (isEnabled) {
             el.classList.add("narrowListItems");
           } else {
@@ -408,10 +407,10 @@ export function hideHiddenColumns(isHidden) {
   try {
     console.log(`feature: hideHiddenColumns: ${isHidden}`);
 
-    onElementLoaded(notionAppInnerCls)
+    onElementLoaded(notionAppId)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionAppInnerCls);
+          const el = getElement(notionAppId);
           if (isHidden) {
             el.classList.add("hideHiddenColumns");
           } else {
@@ -458,10 +457,10 @@ export function indentationLines(isHidden) {
   try {
     console.log(`feature: indentationLines: ${isHidden}`);
 
-    onElementLoaded(notionAppInnerCls)
+    onElementLoaded(notionAppId)
       .then((isPresent) => {
         if (isPresent) {
-          const el = getElement(notionAppInnerCls);
+          const el = getElement(notionAppId);
           if (isHidden) {
             el.classList.add("indentationLines");
           } else {

@@ -24,10 +24,12 @@ $docWidth: 83%;
   margin-left: 32px;
 }
 
-// bolder
-.notion-dark-theme.bolder {
-  [style^="font-weight:600"] {
-    font-weight: 700 !important;
+// bolder text
+.bolder {
+  .notion-dark-theme {
+    [style^="font-weight:600"] {
+      font-weight: 700 !important;
+    }
   }
 }
 
@@ -52,14 +54,18 @@ $docWidth: 83%;
   min-width: 0px;
   padding-left: 8px;
   padding-right: 8px;
-  @include themify() {
-    color: themed("colorSolid");
-  }
+}
 
+.notion-dark-theme .outlineToggleBtn {
+  color: rgba(255, 255, 255, 0.81);
   &:hover {
-    @include themify() {
-      background: themed("background");
-    }
+    background: rgba(255, 255, 255, 0.055);
+  }
+}
+.notion-light-theme .outlineToggleBtn {
+  color: rgb(55, 53, 47);
+  &:hover {
+    background: rgba(55, 53, 47, 0.08);
   }
 }
 
@@ -247,14 +253,14 @@ $docWidth: 83%;
 
 // borderOnImages
 .borderOnImages {
-  &.notion-light-theme {
+  .notion-light-theme {
     .notion-frame {
       .notion-page-content .notion-image-block {
         box-shadow: 0px 0px 3px 0px $caret-color-light-theme !important;
       }
     }
   }
-  &.notion-dark-theme {
+  .notion-dark-theme {
     .notion-frame {
       .notion-page-content .notion-image-block {
         box-shadow: 0px 0px 3px 0px $caret-color-dark-theme !important;
@@ -622,7 +628,7 @@ $docWidth: 83%;
   }
 
   // add color based on theme
-  &.notion-light-theme {
+  .notion-light-theme {
     .notion-bulleted_list-block,
     .notion-to_do-block {
       > div > div:last-child::before {
@@ -630,7 +636,7 @@ $docWidth: 83%;
       }
     }
   }
-  &.notion-dark-theme {
+  .notion-dark-theme {
     .notion-bulleted_list-block,
     .notion-to_do-block {
       > div > div:last-child::before {
