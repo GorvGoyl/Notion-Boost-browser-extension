@@ -24,9 +24,9 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.18.0",
+    "@babel/eslint-parser": "^7.17.0",
     "@babel/plugin-transform-react-jsx": "^7.17.12",
     "@babel/preset-env": "^7.18.0",
-    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.5",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
