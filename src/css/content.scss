@@ -177,35 +177,60 @@ $docWidth: 83%;
     justify-content: space-between !important;
   }
 
-  // set for inline tables - title
+  // inline db - set db tabs (view) width
   .notion-scroller.vertical
     .notion-page-content
     > .notion-collection_view-block
-    > div:first-child {
+    > div[style*="padding-left"] {
     padding-left: 96px !important;
     padding-right: 96px !important;
   }
 
-  // inline table - set header width
+  // inline db - set title width
   .notion-scroller.vertical
     .notion-page-content
     > .notion-collection_view-block
-    .notion-scroller
-    > .notion-table-view
-    > div:first-child
-    > div:first-child {
-    min-width: calc(100% - 192px) !important;
+    > div[style*="display: flex;"]
+    > div[style*="position: relative;"]
+    > div[style*="padding-left"][style*="display: flex"] {
+    padding-left: 96px !important;
+    padding-right: 96px !important;
   }
 
   // inline db - set width
   .notion-scroller.vertical
     .notion-page-content
-    > .notion-collection_view-block,
-  .notion-table-block {
-    .notion-scroller > div:first-child {
+    > .notion-collection_view-block
+    .notion-scroller {
+    div.notion-table-view,
+    div.notion-board-view,
+    div.notion-gallery-view,
+    div.notion-list-view,
+    div.notion-calendar-view {
       padding-left: 96px !important;
       padding-right: 96px !important;
     }
+  }
+
+  // inline db - timeline view - set width
+  .notion-scroller.vertical
+    .notion-page-content
+    > .notion-table-block
+    .notion-scroller.horizontal
+    > div[style*="padding-left"]
+    .notion-scroller.horizontal.notion-collection-view-body[style*="margin-left"] {
+    margin-right: 96px !important;
+    margin-left: 96px !important;
+  }
+
+  // simple table - set width
+  .notion-scroller.vertical
+    .notion-page-content
+    > .notion-table-block
+    .notion-scroller.horizontal
+    > div[style*="padding-left"] {
+    padding-left: 96px !important;
+    padding-right: 96px !important;
   }
 
   // inline table - set footer width

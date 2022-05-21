@@ -136,6 +136,9 @@ $('div[style$="width:100;"]');
 // contains 2 styles (anywhere in inline styles)
 $('div[style*="width:100;"][style*="display:flex;"]');
 
+// one of the classes should exactly be "notion-view"
+$('div[class~="notion-view"]');
+
 // select first element of its type among a group of sibling
 $('div[style*="width:100;"]:first-of-type');
 ```
