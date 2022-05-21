@@ -73,7 +73,10 @@ export function isObserverType(obj) {
  * @param {*} parentStaticElement (optional) if parent element is not passed then `document` is used
  * @return {*} Promise - return promise when `elementToObserve` is loaded
  */
-export function onElementLoaded(elementToObserve, parentStaticElement) {
+export function onElementLoaded(
+  elementToObserve,
+  parentStaticElement = undefined
+) {
   DEBUG && console.log(`waiting for element: ${elementToObserve}`);
   const promise = new Promise((resolve, reject) => {
     try {
@@ -152,6 +155,7 @@ export function toElement(s) {
   r.selectNodeContents(e);
   const f = r.createContextualFragment(s);
   e.appendChild(f);
+  // @ts-ignore
   e = e.firstElementChild;
   return e;
 }

@@ -537,6 +537,7 @@ function disableSlashMenuEvent(e) {
     ) {
       return true;
     }
+    return false;
   });
 
   // don't simulate esc when using slash key inside table cell becuz it'll exit the table
@@ -553,8 +554,8 @@ function disableSlashMenuEvent(e) {
         simulateKey("esc");
         console.log("hid menu");
       })
-      .catch((e) => {
-        console.error(e);
+      .catch((e2) => {
+        console.error(e2);
       });
   }
 }

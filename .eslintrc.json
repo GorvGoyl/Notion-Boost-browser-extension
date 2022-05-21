@@ -27,6 +27,8 @@
     "prettier"
   ],
   "rules": {
+    "consistent-return": "off",
+    "promise/always-return": "off",
     "semi": "off",
     "camelcase": "off",
     "lines-between-class-members": "off",
