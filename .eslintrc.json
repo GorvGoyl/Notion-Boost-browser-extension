@@ -6,9 +6,10 @@
     "es6": true,
     "webextensions": true
   },
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 11,
+    "requireConfigFile": false,
     "ecmaFeatures": {
       "impliedStrict": true
     },

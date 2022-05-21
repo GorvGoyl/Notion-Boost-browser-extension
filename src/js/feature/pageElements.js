@@ -102,6 +102,27 @@ export function fullWidth(isEnabled) {
   }
 }
 
+export function borderOnImages(isEnabled) {
+  try {
+    console.log(`feature: borderOnImages: ${isEnabled}`);
+
+    onElementLoaded(notionAppInnerCls)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionAppInnerCls);
+          if (isEnabled) {
+            el.classList.add("borderOnImages");
+          } else {
+            el.classList.remove("borderOnImages");
+          }
+        }
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function bolderTextInDark(isEnabled) {
   try {
     console.log(`feature: bolderTextInDark: ${isEnabled}`);
