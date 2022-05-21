@@ -12,6 +12,7 @@ import { getLatestSettings, isEmpty } from "./utility";
 
 let featureList = {};
 
+// @ts-ignore
 featureList = features;
 
 // step 2 of 2: add that feature to featureList object

@@ -3,7 +3,8 @@
     "baseUrl": ".",
     "module": "commonjs",
     "target": "es6",
-    "checkJs": true
+    "checkJs": true,
+    "jsx": "preserve"
   },
-  "exclude": ["node_modules", "**/node_modules", "build_*"]
+  "exclude": ["node_modules", "**/node_modules", "build_*", "*.json"]
 }
