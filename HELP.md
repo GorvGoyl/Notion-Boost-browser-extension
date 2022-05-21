@@ -9,16 +9,16 @@
 
 # Doc HTML Structure
 
-- notion-body /dark
-  - #notion-app
-    - notion-app-inner notion-light-theme /notion-dark-theme /notion-boost-classes
+- body.notion-body /dark
+  - #notion-app /notion-boost-classes
+    - notion-app-inner notion-light-theme /notion-dark-theme
       - notion-cursor-listener _resets when dragging some bullet point_
         - notion-sidebar-container
           - notion-frame _stays on doc change_
             - notion-scroller vertical horizontal _resets_
-              - `notion-page-content` _absent in case of full page table_
+              - notion-page-content _absent in case of full page table_
                 - blocks
-              - `notion-presence-container` _resets_ _present for both full page table and full page content_
+              - notion-presence-container _resets_ _present for both full page table and full page content_
       - notion-overlay-container notion-default-overlay-container (_stays_)
         - notion-peek-renderer
       - notion-overlay-container

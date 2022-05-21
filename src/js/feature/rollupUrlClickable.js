@@ -75,8 +75,8 @@ function getUrl(textParam) {
   return null;
 }
 
-let linkComponentEl = "";
-let rollupCellEl = "";
+let linkComponentEl = null;
+let rollupCellEl = null;
 
 function createLinkComponent(url) {
   return toElement(
@@ -130,11 +130,11 @@ function handleTableHover(e) {
   }
   if (rollupCellEl) {
     rollupCellEl.style.position = null;
-    rollupCellEl = "";
+    rollupCellEl = null;
   }
   //   onhover: background: rgb(239, 239, 238)
 
-  let urlSpan = "";
+  let urlSpan = null;
   const rollupCellStyle = "display: flex;";
 
   for (const x of path) {
@@ -206,11 +206,11 @@ function handletableRowAsPageHover(e) {
   }
   if (rollupCellEl) {
     rollupCellEl.style.position = null;
-    rollupCellEl = "";
+    rollupCellEl = null;
   }
   //   onhover: background: rgb(239, 239, 238)
 
-  let urlSpan = "";
+  let urlSpan = null;
   const rollupCellStyle = "display: flex; flex: 1 1 0%; min-width: 0px;";
 
   for (let i = 0; i < path.length; i++) {

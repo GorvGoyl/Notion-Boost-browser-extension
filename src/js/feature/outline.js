@@ -234,6 +234,7 @@ function addOutline() {
       } else {
         headingCls = "";
       }
+      // @ts-ignore
       block = toElement(tocBlockHTML);
       // add text
       let text = "";
@@ -265,7 +266,9 @@ function addOutline() {
             text += hxEl.alt;
           }
         });
+      // @ts-ignore
       block.querySelector(".align").classList.add(headingCls);
+      // @ts-ignore
       block.querySelector(".text").textContent = text;
       // if (text.length > 20) {
       //   block.querySelector(".btn").title = text;
@@ -275,8 +278,10 @@ function addOutline() {
       const blockId = pageHeading
         .getAttribute("data-block-id")
         .replace(/-/g, "");
+      // @ts-ignore
       block.setAttribute("hash", blockId);
       // evaluate href at runtime cuz notion url is not consistent
+      // @ts-ignore
       block.addEventListener("click", (e) => {
         e.currentTarget.querySelector("a").href = `${
           window.location.pathname
@@ -345,6 +350,7 @@ function docEditListener() {
         DEBUG && console.log(`changed text: ${m.target.textContent}`);
 
         if (!isHeading(placeholder) && m.target.parentNode) {
+          // @ts-ignore
           placeholder = m.target.parentNode.getAttribute("placeholder");
         }
 
@@ -355,6 +361,7 @@ function docEditListener() {
           m.target.parentNode.parentNode
         ) {
           placeholder =
+            // @ts-ignore
             m.target.parentNode.parentNode.getAttribute("placeholder");
         }
       }
@@ -362,15 +369,18 @@ function docEditListener() {
         // console.log("childList changed");
 
         // case: hitting backspace in headings
+        // @ts-ignore
         placeholder = m.target.getAttribute("placeholder");
 
         // case: when empty heading is being removed
         if (
           !isHeading(placeholder) &&
           m.removedNodes.length > 0 &&
+          // @ts-ignore
           m.removedNodes[0].firstElementChild
         ) {
           placeholder =
+            // @ts-ignore
             m.removedNodes[0].firstElementChild.getAttribute("placeholder");
 
           if (placeholder) {
@@ -381,9 +391,11 @@ function docEditListener() {
           if (
             !isHeading(placeholder) &&
             m.removedNodes.length > 0 &&
+            // @ts-ignore
             m.removedNodes[0].firstElementChild.firstElementChild
           ) {
             placeholder =
+              // @ts-ignore
               m.removedNodes[0].firstElementChild.firstElementChild.getAttribute(
                 "placeholder"
               );
@@ -396,9 +408,11 @@ function docEditListener() {
         if (
           !isHeading(placeholder) &&
           m.addedNodes.length > 0 &&
+          // @ts-ignore
           m.addedNodes[0].firstElementChild
         ) {
           placeholder =
+            // @ts-ignore
             m.addedNodes[0].firstElementChild.getAttribute("placeholder");
           // console.log("empty block got added");
         }
