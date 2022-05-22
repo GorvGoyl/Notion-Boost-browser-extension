@@ -73,7 +73,7 @@ $caret-color-dark-theme: rgb(255, 255, 255);
 // when outline shown: set inline db width
 .nb-outline.show
   + .notion-scroller.vertical
-  div[style*=" width: 100%;"]
+  div[style*="width: 100%;"]
   > .notion-page-content
   > {
   .notion-collection_view-block {
