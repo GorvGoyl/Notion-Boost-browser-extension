@@ -71,7 +71,7 @@ https://gourav.io/notion-boost
 
 https://gourav.io/notion-boost#-currently-added-features
 
-Missing some feature? [suggest it](https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues/new)
+Missing some feature? [suggest it](https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues)
 
 See what's new in latest update: https://gourav.io/notion-boost/whats-new
 

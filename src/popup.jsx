@@ -64,17 +64,17 @@ function Home() {
         <div className="title underline">
           Notion Boost{" "}
           <div
-            class="pro big"
+            className="pro big"
             role="button"
             title={msgLocked}
             aria-disabled="false"
-            tabindex="0"
+            tabIndex={0}
           >
             <div
               role="button"
               title={isPaid ? msgThanks : msgLocked}
               aria-disabled="false"
-              tabindex="0"
+              tabIndex={0}
               onClick={handleProBtn}
             >
               Pro {isPaid ? <TickIcon /> : <LockIcon />}
@@ -99,7 +99,7 @@ function Home() {
             href="https://gourav.io/notion-boost#-currently-added-features"
             target="_blank"
           >
-            <div className="button" style="" role="button" tabIndex={0}>
+            <div className="button" role="button" tabIndex={0}>
               Features info <NewTabIcon />
             </div>
           </a>
@@ -110,7 +110,7 @@ function Home() {
             </div>
           </a> */}
           <a className="footer-item" href="/about">
-            <div className="button" style="" role="button" tabIndex={0}>
+            <div className="button" role="button" tabIndex={0}>
               About
               {/* <AboutIcon /> */}
             </div>
@@ -175,7 +175,7 @@ function AboutIcon() {
       height="11"
       enableBackground="new 0 0 330 330"
       fill="currentColor"
-      style={"margin-left: 5px"}
+      style={{ marginLeft: "5px" }}
       version="1.1"
       viewBox="0 0 330 330"
       xmlSpace="preserve"
@@ -192,7 +192,7 @@ function NewTabIcon() {
       xmlns="http://www.w3.org/2000/svg"
       width="11"
       height="11"
-      style={"margin-left: 5px"}
+      style={{ marginLeft: "5px" }}
       fill="currentColor"
       viewBox="0 0 24 24"
     >
