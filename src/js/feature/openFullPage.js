@@ -77,7 +77,7 @@ function docEditListener() {
       // case: check for div change
       if (m.type === "childList" && m.addedNodes.length > 0 && m.target) {
         const fullPageLink = m.target.querySelector(
-          ".notion-peek-renderer [style*='height: 45px;'] > a"
+          ".notion-peek-renderer [style*='height: 45px;'] a"
         );
 
         if (!fullPageLink) return;
