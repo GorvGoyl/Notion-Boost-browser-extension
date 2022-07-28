@@ -13,8 +13,5 @@
     "128": "images/icon128.png"
   },
   "permissions": ["declarativeContent", "storage"],
-  "background": {
-    "scripts": ["background.bundle.js"],
-    "persistent": false
-  }
+  "background.service_worker": ["background.bundle.js"]
 }

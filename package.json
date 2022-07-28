@@ -7,7 +7,7 @@
   "scripts": {
     "start:ch": "webpack --watch --mode development --env browser=chrome",
     "start:ff": "webpack --watch --mode development --env browser=firefox",
-    "build:ch": "webpack --mode production --env browser=chrome",
+    "build:ch": "npx webpack --mode production --env browser=chrome",
     "build:ff": "webpack --mode production --env browser=firefox",
     "//mode": "https://webpack.js.org/configuration/mode/",
     "postbuild:ch": "node postBuild.js browser=chrome",

@@ -16,12 +16,16 @@
       "js": ["extPay.bundle.js"]
     }
   ],
-  "page_action": {
+  "action": {
     "default_title": "Notion Boost",
     "default_popup": "popup.html"
   },
-  "web_accessible_resources": ["content.bundle.js"],
-  "manifest_version": 2,
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'; connect-src https://extensionpay.com",
+  "web_accessible_resources": [
+    {
+      "resources": ["content.bundle.js"],
+      "matches": ["*://*.notion.so/*", "*://*.notion.site/*"]
+    }
+  ],
+  "manifest_version": 3,
   "homepage_url": "https://gourav.io/notion-boost"
 }
