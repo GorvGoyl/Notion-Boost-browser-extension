@@ -112,6 +112,9 @@ $caret-color-dark-theme: rgb(255, 255, 255);
 // when outline shown: set page content width
 .nb-outline.show + .notion-scroller.vertical {
   width: calc(100% - var(--outlineWidth)) !important;
+  > .whenContentEditable {
+    width: 100% !important;
+  }
 }
 
 .nb-outline {
