@@ -38,17 +38,17 @@ function removeDocEditListener() {
   }
 }
 let lastPageID;
-
+let previousUrl = "";
 /*
 Algo:
 
 case 1: open page and bypass preview
-id -> id?p -> p
+id -> id?p / id&p -> p
 
 here lastPageID is id
 
  case 2: navigate back and bypass preview
-id <- id?p  <- p
+id <- id?p / id&p  <- p
 
 here lastPageID is p
  */
@@ -57,59 +57,60 @@ function docEditListener() {
 
   docEditObserverObj = new MutationObserver((mutationList, obsrvr) => {
     DEBUG && console.log("found changes in doc content");
-    const curUrl = window.location.href;
 
-    // save last page url
-    if (!curUrl.includes("&p=") && !curUrl.includes("?p=")) {
-      // All credits goes to 'dragonwocky' for this approach
-      lastPageID = (window.location.search
-        .slice(1)
-        .split("&")
-        .map((opt) => opt.split("="))
-        .find((opt) => opt[0] === "p") || [
-        "",
-        ...window.location.pathname.split(/(-|\/)/g).reverse(),
-      ])[1];
-    }
-    for (let i = 0; i < mutationList.length; i++) {
-      const m = mutationList[i];
+    const currentUrl = window.location.href;
+    if (window.location.href !== previousUrl) {
+      DEBUG && console.log(`URL changed from ${previousUrl} to ${currentUrl}`);
+      previousUrl = currentUrl;
 
-      // case: check for div change
-      if (m.type === "childList" && m.addedNodes.length > 0 && m.target) {
-        const fullPageLink = m.target.querySelector(
-          ".notion-peek-renderer [style*='height: 45px;'] a"
-        );
-
-        if (!fullPageLink) return;
-
-        const previewPageID = (fullPageLink.href
+      // save last page url
+      const isPreviewPage =
+        currentUrl.includes("&p=") || currentUrl.includes("?p=");
+      if (!isPreviewPage) {
+        // Credits: @dragonwocky
+        lastPageID = (window.location.search
           .slice(1)
           .split("&")
           .map((opt) => opt.split("="))
           .find((opt) => opt[0] === "p") || [
           "",
-          ...fullPageLink.pathname.split(/(-|\/)/g).reverse(),
+          ...window.location.pathname.split(/(-|\/)/g).reverse(),
         ])[1];
+      }
+      // case: check for div change
+      const fullPageLink = document.querySelector(
+        ".notion-peek-renderer [style*='display: grid'] > a"
+      );
 
-        if (previewPageID) {
-          if (previewPageID === lastPageID) {
-            console.log("going back", lastPageID);
-            window.history.back();
-          } else {
-            console.log("full page link found", fullPageLink.href);
-            fullPageLink.click();
-          }
+      if (!fullPageLink) return;
+
+      const previewPageID = (fullPageLink.href
+        .slice(1)
+        .split("&")
+        .map((opt) => opt.split("="))
+        .find((opt) => opt[0] === "p") || [
+        "",
+        ...fullPageLink.pathname.split(/(-|\/)/g).reverse(),
+      ])[1];
+
+      if (isPreviewPage) {
+        if (previewPageID === lastPageID) {
+          DEBUG && console.log("going back", lastPageID);
+          window.history.back();
+        } else {
+          DEBUG && console.log("full page link found", fullPageLink.href);
+          fullPageLink.click();
         }
       }
     }
   });
 
   // now add listener for doc text change
-  const defaultOverlayEl = getElement(notionDefaultOverlayCls);
 
-  docEditObserverObj.observe(defaultOverlayEl, {
+  docEditObserverObj.observe(document, {
     childList: true,
     subtree: true,
+    // attributes: true,
   });
 }
 function addOpenFullPage() {
