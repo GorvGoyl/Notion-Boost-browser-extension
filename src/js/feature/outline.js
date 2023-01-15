@@ -60,40 +60,82 @@ export function displayOutline(isShow) {
 function addOutlineToggleBtn() {
   try {
     const outlineToggleBtn = "outlineToggleBtn";
-    const siblingCls = ".notion-topbar-share-menu.notion-focusable";
-    console.log("add outline btn");
-    onElementLoaded(siblingCls)
-      .then((isPresent) => {
-        const pageContent = getElement(notionPageContentCls);
-        if (!pageContent) {
-          console.log("no page content class");
-          return;
-        }
 
-        // eslint-disable-next-line promise/always-return
-        if (isPresent) {
-          if (document.querySelector(`.${outlineToggleBtn}`)) {
-            // btn already exist somehow
+    const addOutlineToNotion = () => {
+      const siblingCls = ".notion-topbar-share-menu.notion-focusable";
+      console.log("add outline btn");
+      onElementLoaded(siblingCls)
+        .then((isPresent) => {
+          const pageContent = getElement(notionPageContentCls);
+          if (!pageContent) {
+            console.log("no page content class");
             return;
           }
-          const sibling = document.querySelector(siblingCls);
-          const btnEl = toElement(
-            `<div class=${outlineToggleBtn} role="button" title="Show/hide outline" tabindex="-1">Outline</div>`
-          );
 
-          btnEl.onclick = () => {
-            console.log("yup");
-            const el = document.querySelector(".nb-outline");
-            if (el) {
-              el.classList.toggle("disableForPage");
-              el.classList.toggle("show");
+          // eslint-disable-next-line promise/always-return
+          if (isPresent) {
+            if (document.querySelector(`.${outlineToggleBtn}`)) {
+              // btn already exist somehow
+              return;
             }
-          };
+            const sibling = document.querySelector(siblingCls);
+            const btnEl = toElement(
+              `<div class=${outlineToggleBtn} role="button" title="Show/hide outline" tabindex="-1">Outline</div>`
+            );
 
-          sibling.parentNode.insertBefore(btnEl, sibling);
-        }
-      })
-      .catch((e) => console.log(e));
+            btnEl.onclick = () => {
+              console.log("yup");
+              const el = document.querySelector(".nb-outline");
+              if (el) {
+                el.classList.toggle("disableForPage");
+                el.classList.toggle("show");
+              }
+            };
+
+            sibling.parentNode.insertBefore(btnEl, sibling);
+          }
+        })
+        .catch((e) => console.log(e));
+    };
+
+    const addOutlineToNotionSubdomain = () => {
+      const siblingCls = ".notion-topbar > div > div.notion-focusable";
+      console.log("add outline btn");
+      onElementLoaded(siblingCls)
+        .then((isPresent) => {
+          const pageContent = getElement(notionPageContentCls);
+          if (!pageContent) {
+            console.log("no page content class");
+            return;
+          }
+
+          // eslint-disable-next-line promise/always-return
+          if (isPresent) {
+            if (document.querySelector(`.${outlineToggleBtn}`)) {
+              // btn already exist somehow
+              return;
+            }
+            const sibling = document.querySelectorAll(siblingCls)[2];
+            const btnEl = toElement(
+              `<div class=${outlineToggleBtn} role="button" title="Show/hide outline" tabindex="-1">Outline</div>`
+            );
+
+            btnEl.onclick = () => {
+              const el = document.querySelector(".nb-outline");
+              if (el) {
+                el.classList.toggle("disableForPage");
+                el.classList.toggle("show");
+              }
+            };
+
+            sibling.parentNode.insertBefore(btnEl, sibling);
+          }
+        })
+        .catch((e) => console.log(e));
+    };
+
+    addOutlineToNotion();
+    addOutlineToNotionSubdomain();
   } catch (e) {
     console.log("Error: ", e.message);
   }
