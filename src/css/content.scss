@@ -84,8 +84,9 @@ $caret-color-dark-theme: rgb(255, 255, 255);
 }
 
 // when outline shown: set simple table width when sidebar is hidden
-.notion-sidebar-container[style*="width: 0"]
-  + div
+
+.notion-cursor-listener
+  > div[style*="display: flex; flex-direction: column;"]
   .nb-outline.show
   + .notion-scroller.vertical
   .notion-page-content
@@ -95,7 +96,18 @@ $caret-color-dark-theme: rgb(255, 255, 255);
   }
 }
 
-// when outline shown: set simple table width when sidebar is hidden
+// .notion-sidebar-container[style*="width: 0"]
+//   + div
+//   .nb-outline.show
+//   + .notion-scroller.vertical
+//   .notion-page-content
+//   > {
+//   .notion-table-block {
+//     width: calc(100vw - var(--outlineWidth) - 10px) !important;
+//   }
+// }
+
+// when outline shown: set simple table width when sidebar is shown
 .notion-sidebar-container[style*="width: 2"]
   + div
   .nb-outline.show
