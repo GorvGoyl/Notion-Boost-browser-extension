@@ -733,3 +733,10 @@ $caret-color-dark-theme: rgb(255, 255, 255);
     }
   }
 }
+
+.disableSlashCommandPlaceholder {
+  /* prettier-ignore */
+  .notranslate[placeholder*="Type \'/\' for commands"]::after {
+    content: "" !important;
+  }
+}
