@@ -360,12 +360,19 @@ $caret-color-dark-theme: rgb(255, 255, 255);
 // # hideBacklinks
 .hideBacklinks {
   .notion-scroller.vertical {
-    > div:nth-child(2) > div > div[style*="width: 100%; max-width: 100%;"] {
+    div[contenteditable]
+      > div[style="width: 100%; max-width: 100%; margin: 0px auto 6px;"] {
       display: none !important;
       & + div {
-        display: none;
+        display: none !important;
       }
     }
+    // > div:nth-child(2) > div > div[style*="width: 100%; max-width: 100%;"] {
+    //   display: none !important;
+    //   & + div {
+    //     display: none;
+    //   }
+    // }
   }
 }
 
