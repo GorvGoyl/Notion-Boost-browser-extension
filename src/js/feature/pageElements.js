@@ -1,7 +1,6 @@
 import {
   getElement,
   isObserverType,
-  onElementCSSChanged,
   onElementLoaded,
   simulateKey,
 } from "../utility";
@@ -47,6 +46,28 @@ export function hideBacklinks(isEnabled) {
             el.classList.add("hideBacklinks");
           } else {
             el.classList.remove("hideBacklinks");
+          }
+        }
+        return null;
+      })
+      .catch((e) => console.error(e));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export function disableSlashCommandPlaceholder(isEnabled) {
+  try {
+    console.log(`feature: disableSlashCommandPlaceholder: ${isEnabled}`);
+
+    onElementLoaded(notionAppId)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionAppId);
+          if (isEnabled) {
+            el.classList.add("disableSlashCommandPlaceholder");
+          } else {
+            el.classList.remove("disableSlashCommandPlaceholder");
           }
         }
         return null;

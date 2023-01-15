@@ -24,6 +24,7 @@ export const defaultSettings = {
   indentationLines: false,
   rollupUrlClickable: false,
   borderOnImages: false,
+  disableSlashCommandPlaceholder: false,
 };
 
 export const price = "$38";
@@ -171,6 +172,13 @@ export const settingDetails = [
     func: "borderOnImages",
     name: "Add frame to images",
     desc: "Add frame around images to make them easily noticeable on page",
+    pf: true,
+  },
+
+  {
+    func: "disableSlashCommandPlaceholder",
+    name: "disable slash command placeholder",
+    desc: "disable placeholder: Type '/' for commands",
     pf: true,
   },
 
