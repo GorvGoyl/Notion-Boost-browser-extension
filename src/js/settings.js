@@ -178,8 +178,8 @@ export const settingDetails = [
 
   {
     func: "disableSlashCommandPlaceholder",
-    name: "disable slash command placeholder",
-    desc: "disable placeholder: Type '/' for commands",
+    name: "Hide slash command placeholder",
+    desc: "Hide placeholder: Type '/' for commands",
     pf: true,
   },
 
