@@ -1,6 +1,6 @@
 import { h, render } from "preact";
 import { route, Router } from "preact-router";
-import { price } from "./js/settings";
+import { nextPrice, price } from "./js/settings";
 import { showPaymentPage } from "./popup";
 
 const StoreURL = process.env.STOREURL;
@@ -13,17 +13,11 @@ function goBack() {
 export function Payment() {
   return (
     <div>
-      <div
-        className="back button"
-        style=""
-        role="button"
-        onClick={goBack}
-        tabIndex={0}
-      >
+      <div className="back button" role="button" onClick={goBack} tabIndex={0}>
         <span className="arrow" />
       </div>
-      <div className="title" style="display: flex;margin-bottom: 3px;">
-        <span class="icon-nb" />
+      <div className="title" style={{ display: "flex", marginBottom: "3px" }}>
+        <span className="icon-nb" />
         Notion Boost
       </div>
 
@@ -34,8 +28,9 @@ export function Payment() {
           consider paying a one-time fee ($) to support the developer.
         </div> */}
         <div>
-          Please upgrade to use 'pro' features. <br /> One-time payment of{" "}
-          {price} USD for lifetime access!
+          Please upgrade to use all 'pro' features. <br /> One-time payment of{" "}
+          {price} USD for lifetime access! <br />
+          <i>Note: Price will go up to {nextPrice} after next update.</i>
         </div>
         <div className="pricing">
           <div className="features">
@@ -60,7 +55,7 @@ export function Payment() {
           <div
             role="button"
             aria-disabled="false"
-            tabindex="0"
+            tabIndex={0}
             className="payBtn"
             onClick={showPaymentPage}
           >
@@ -71,7 +66,7 @@ export function Payment() {
             <div
               role="button"
               aria-disabled="false"
-              tabindex="0"
+              tabIndex={0}
               className="loginBtn"
               onClick={showPaymentPage}
             >
@@ -94,8 +89,7 @@ function CheckIcon() {
       style={{
         width: 12,
         height: 12,
-        webkitFlexShrink: "0",
-        msFlexShrink: "0",
+        WebkitFlexShrink: "0",
         flexShrink: "0",
         backfaceVisibility: "hidden",
       }}

@@ -27,9 +27,10 @@ export const defaultSettings = {
   disableSlashCommandPlaceholder: false,
 };
 
-export const price = "$38";
+export const price = "$69";
+export const nextPrice = "$99";
 export const msgThanks = "Unlocked! Thank you for supporting developer :)";
-export const msgLocked = `Please upgrade to use 'pro' features. One-time payment of ${price} for lifetime access! Click to learn more.`;
+export const msgLocked = `Please upgrade to use all 'pro' features. One-time payment of ${price} for lifetime access! Click to learn more.`;
 
 export const settingDetails = [
   {
