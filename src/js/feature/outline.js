@@ -208,11 +208,21 @@ function addOutline() {
     let outlineEl = getElement(outlineFrameCls);
 
     if (!outlineEl || outlineEl.length === 0) {
+      const script = `<script>
+      function nbScrollToTop(){
+        var doc = document.querySelector('.notion-frame > .notion-scroller'); doc.scroll({top: 0,left: 0});
+      }
+      </script>`;
+
+      const scriptEl = document.createRange().createContextualFragment(script);
+      document.body.append(scriptEl);
+
       // do not add any space between closing and ending of `
-      outlineEl = toElement(`<div class="nb-outline">
+      outlineEl = toElement(`
+      <div class="nb-outline">
         <div class="table_of_contents">
           <div class="title">
-            <p>Outline</p>
+          <p title="Go to top" role="button" onClick="nbScrollToTop()">Outline</p>
           </div>
           <div class="block-wrapper">
           </div>
