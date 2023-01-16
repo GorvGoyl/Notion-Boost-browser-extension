@@ -12,20 +12,63 @@ function goBack() {
 
 function Bullet({ txtS, url, urlTxt, txtE }) {
   return (
-    <div style="width: 100%; font-size:13px; margin-top: 8px; margin-bottom: 8px;">
-      <div style="display: flex; align-items: flex-start; width: 100%; padding-left: 2px; color: inherit; fill: inherit;">
-        <div style="margin-right: 2px; width: 24px; display: flex; align-items: center; justify-content: center; flex-grow: 0; flex-shrink: 0; min-height: calc(1.5em + 3px + 3px);">
-          <div style="font-size: 1.5em; line-height: 1; margin-bottom: 0.1em;">
+    <div
+      style={{
+        width: "100%",
+        fontSize: "13px",
+        marginTop: "8px",
+        marginBottom: "8px",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "flex-start",
+          width: "100%",
+          paddingLeft: "2px",
+          color: "inherit",
+          fill: "inherit",
+        }}
+      >
+        <div
+          style={{
+            marginRight: "2px",
+            width: "24px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexGrow: 0,
+            flexShrink: 0,
+          }}
+        >
+          <div
+            style={{ fontSize: "1.5em", lineHeight: 1, marginBottom: "0.1em" }}
+          >
             •
           </div>
         </div>
-        <div style="flex: 1 1 0px; min-width: 1px; display: flex; flex-direction: column;">
-          <div style="display: flex;">
+        <div
+          style={{
+            flex: "1 1 0px",
+            minWidth: "1px",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div style={{ display: "flex" }}>
             <div
               placeholder="List"
               data-root="true"
-              class="notranslate"
-              style="max-width: 100%; width: 100%; white-space: pre-wrap; word-break: break-word; caret-color: rgb(55, 53, 47); padding: 3px 2px; text-align: left;"
+              className="notranslate"
+              style={{
+                maxWidth: "100%",
+                width: "100%",
+                whiteSpace: "pre-wrap",
+                wordBreak: "break-word",
+                caretColor: "rgb(55, 53, 47)",
+                padding: "3px 2px",
+                textAlign: "left",
+              }}
             >
               {txtS}
               {url && (
@@ -50,17 +93,11 @@ function Bullet({ txtS, url, urlTxt, txtE }) {
 export function About() {
   return (
     <div>
-      <div
-        className="back button"
-        style=""
-        role="button"
-        onClick={goBack}
-        tabIndex={0}
-      >
+      <div className="back button" role="button" onClick={goBack} tabIndex={0}>
         <span className="arrow" />
       </div>
-      <div className="title" style="display: flex;margin-bottom: 3px;">
-        <span class="icon-nb" />
+      <div className="title" style={{ display: "flex", marginBottom: "3px" }}>
+        <span className="icon-nb" />
         Notion Boost
       </div>
       <div className="sub-title underline">
@@ -69,11 +106,13 @@ export function About() {
 
       <Bullet
         txtS="Visit "
+        txtE=""
         urlTxt="Homepage"
         url="https://gourav.io/notion-boost"
       />
 
       <Bullet
+        txtE=""
         txtS="Missing something? "
         urlTxt="suggest / feedback"
         url="https://github.com/GorvGoyl/Notion-Boost-browser-extension/issues"
@@ -92,7 +131,7 @@ export function About() {
         url="https://gourav.io/notion-boost/whats-new"
         txtE=" in this update"
       /> */}
-      <Bullet
+      {/* <Bullet
         txtS="Follow "
         urlTxt={
           <Fragment>
@@ -101,23 +140,25 @@ export function About() {
         }
         url="https://twitter.com/notionboost"
         txtE=" for unique tips, tricks, and free goodies."
-      />
+      /> */}
 
-      <Bullet
+      {/* <Bullet
         txtS="Support: hey@gourav.io"
         // urlTxt={<Fragment>hey@gourav.io</Fragment>}
         // url="hey@gourav.io"
+      /> */}
+      <Bullet
+        txtE=""
+        txtS="Made by "
+        urlTxt={<Fragment>Gourav Goyal</Fragment>}
+        url="https://gourav.io"
       />
       <Bullet
-        txtS="Made by "
-        urlTxt={
-          <Fragment>
-            @GorvGoyl <span className="twitter" />
-          </Fragment>
-        }
-        url="https://twitter.com/gorvgoyl"
+        txtE=""
+        url={""}
+        urlTxt=""
+        txtS={`Version: ${chrome.runtime.getManifest().version}`}
       />
-      <Bullet txtS={`Version: ${chrome.runtime.getManifest().version}`} />
     </div>
   );
 }
