@@ -133,8 +133,8 @@ export const settingDetails = [
   },
   {
     func: "narrowListItems",
-    name: "Narrow spacing between list items",
-    desc: "Fit more content on screen by reducing space between items in a list i.e. bullet, checkbox, toggle list, etc.",
+    name: "Narrow spacing between items",
+    desc: "Fit more content on screen by reducing space between items i.e. headings, lists, etc.",
     pf: true,
   },
   {

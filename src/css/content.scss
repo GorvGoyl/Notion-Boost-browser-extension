@@ -622,6 +622,31 @@ $caret-color-dark-theme: rgb(255, 255, 255);
 
 // narrowListItems
 .narrowListItems {
+  // notion internal links
+  .notion-selectable.notion-page-block {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  // headings
+  .notion-selectable.notion-header-block,
+  .notion-selectable.notion-sub_header-block,
+  .notion-selectable.notion-sub_sub_header-block {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  // toc
+  .notion-selectable.notion-table_of_contents-block {
+    a {
+      div[style*="display: flex; align-items: center;"] {
+        padding-top: 3px !important;
+        padding-bottom: 3px !important;
+      }
+    }
+  }
+
+  // bullet points
   .notion-selectable.notion-to_do-block,
   .notion-selectable.notion-toggle-block,
   .notion-selectable.notion-bulleted_list-block,
@@ -633,6 +658,12 @@ $caret-color-dark-theme: rgb(255, 255, 255);
       // align-items: center !important;
 
       // select the list icon
+
+      // numbered list
+      div.pseudoSelection[data-text-edit-side="start"] {
+        min-height: auto !important;
+      }
+
       div[style*="margin-right: 2px; width: 24px; display: flex; align-items: center; justify-content: center;"] {
         min-height: auto !important;
       }
