@@ -3,6 +3,7 @@ import { route, Router } from "preact-router";
 import { useEffect, useState } from "preact/hooks";
 import { About } from "./About";
 import "./css/popup.scss";
+import { styles } from "./css/styles";
 import { SettingsTable } from "./js/components/settingsTable";
 // import * as ExtPay from "extpay";
 import ExtPay from "./js/extPay";
@@ -95,7 +96,6 @@ function Home() {
         <div className="footer topline">
           <a
             className="footer-item"
-            rel="noopener"
             href="https://gourav.io/notion-boost#-currently-added-features"
             target="_blank"
           >
@@ -115,6 +115,26 @@ function Home() {
               {/* <AboutIcon /> */}
             </div>
           </a>
+        </div>
+        <div
+          style={{
+            paddingTop: "10px",
+            borderTop: "1px solid rgb(55 53 47 / 10%)",
+            marginTop: "10px",
+          }}
+        >
+          <a
+            style={styles.link}
+            href="https://get.eesel.app/notion"
+            target="_blank"
+            title="eesel (sponsored)"
+          >
+            eesel
+          </a>
+          <span style={styles.smallGreyText}>
+            {" "}
+            - Automatically organise your Notion pages, Google Docs and more
+          </span>
         </div>
       </div>
     </div>

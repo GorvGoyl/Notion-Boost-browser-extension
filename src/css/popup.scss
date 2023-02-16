@@ -36,7 +36,7 @@ $color-gray: #37352f;
 body {
   margin: 0;
   margin: 8px;
-  width: 370px;
+  width: 450px;
   padding: 9px 15px;
 
   fill: currentcolor;
@@ -354,7 +354,7 @@ $line: 1px solid rgba($color-gray, 0.1);
   padding-left: 0px;
   padding-right: 15px;
   overflow: auto;
-  max-height: 380px;
+  max-height: 350px;
   // fix for firefox
   scrollbar-width: thin;
   .no-setting {
