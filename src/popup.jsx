@@ -125,15 +125,15 @@ function Home() {
         >
           <a
             style={styles.link}
-            href="https://get.eesel.app/notion"
+            href="https://chatgptwriter.ai?ref=notionboost"
             target="_blank"
-            title="eesel (sponsored)"
+            title="ChatGPT Writer"
           >
-            eesel
+            ChatGPT Writer
           </a>
           <span style={styles.smallGreyText}>
             {" "}
-            - Automatically organise your Notion pages, Google Docs and more
+            - Let AI write emails and messages for you
           </span>
         </div>
       </div>

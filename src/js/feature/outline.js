@@ -62,7 +62,7 @@ function addOutlineToggleBtn() {
     const outlineToggleBtn = "outlineToggleBtn";
 
     const addOutlineToNotion = () => {
-      const siblingCls = ".notion-topbar-share-menu.notion-focusable";
+      const siblingCls = ".notion-topbar-share-menu";
       console.log("add outline btn");
       onElementLoaded(siblingCls)
         .then((isPresent) => {
