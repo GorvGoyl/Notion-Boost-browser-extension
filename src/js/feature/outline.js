@@ -291,12 +291,12 @@ function addOutline() {
       // add text
       let text = "";
       pageHeading
-        .querySelector("div[placeholder]")
+        .querySelector("div")
         .childNodes.forEach((hxEl) => {
           // heading is inside span
           if (hxEl.nodeName === "SPAN") {
             hxEl.childNodes.forEach((el) => {
-              if (el.nodeName === "#text") {
+              if (["#text","H1","H2","H3","H4","H5","H6"].includes(el.nodeName)) {
                 // it's regualar text
                 text += el.textContent;
               } else if (hxEl.nodeName === "A") {
@@ -307,7 +307,7 @@ function addOutline() {
                 text += el.alt;
               }
             });
-          } else if (hxEl.nodeName === "#text") {
+          } else if (["#text","H1","H2","H3","H4","H5","H6"].includes(hxEl.nodeName)) {
             // it's regualar text
             text += hxEl.textContent;
           } else if (hxEl.nodeName === "A") {
