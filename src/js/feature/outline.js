@@ -290,34 +290,45 @@ function addOutline() {
       block = toElement(tocBlockHTML);
       // add text
       let text = "";
-      pageHeading
-        .querySelector("div")
-        .childNodes.forEach((hxEl) => {
-          // heading is inside span
-          if (hxEl.nodeName === "SPAN") {
-            hxEl.childNodes.forEach((el) => {
-              if (["#text","H1","H2","H3","H4","H5","H6"].includes(el.nodeName)) {
-                // it's regualar text
-                text += el.textContent;
-              } else if (hxEl.nodeName === "A") {
-                // it's link inside heading
-                text += hxEl.textContent;
-              } else if (el.nodeName === "IMG") {
-                // emojis inside heading
-                text += el.alt;
+      pageHeading.querySelector("div").childNodes.forEach((hxEl) => {
+        // heading is inside span
+        if (["SPAN", "DIV"].includes(hxEl.nodeName)) {
+          hxEl.childNodes.forEach((el) => {
+            if (
+              ["#text", "H1", "H2", "H3", "H4", "H5", "H6"].includes(
+                el.nodeName
+              )
+            ) {
+              // it's regualar text
+              text += el.textContent;
+            } else if (hxEl.nodeName === "A") {
+              // it's link inside heading
+              text += hxEl.textContent;
+            } else if (el.nodeName === "IMG") {
+              // emojis inside heading
+              text += el.alt;
+            }
+            // handle toggle heading type
+            else if (el.nodeName === "DIV") {
+              const heading = el.querySelector("H1,H2,H3,H4,H5,H6");
+              if (heading) {
+                text += heading.textContent;
               }
-            });
-          } else if (["#text","H1","H2","H3","H4","H5","H6"].includes(hxEl.nodeName)) {
-            // it's regualar text
-            text += hxEl.textContent;
-          } else if (hxEl.nodeName === "A") {
-            // it's link inside heading
-            text += hxEl.textContent;
-          } else if (hxEl.nodeName === "IMG") {
-            // emojis inside heading
-            text += hxEl.alt;
-          }
-        });
+            }
+          });
+        } else if (
+          ["#text", "H1", "H2", "H3", "H4", "H5", "H6"].includes(hxEl.nodeName)
+        ) {
+          // it's regualar text
+          text += hxEl.textContent;
+        } else if (hxEl.nodeName === "A") {
+          // it's link inside heading
+          text += hxEl.textContent;
+        } else if (hxEl.nodeName === "IMG") {
+          // emojis inside heading
+          text += hxEl.alt;
+        }
+      });
       // @ts-ignore
       block.querySelector(".align").classList.add(headingCls);
       // @ts-ignore
