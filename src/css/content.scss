@@ -475,19 +475,19 @@ $caret-color-dark-theme: rgb(255, 255, 255);
 // addMoreHeightToPage
 .addMoreHeightToPage .notion-frame {
   div.notion-scroller.vertical > div {
-    > div.pseudoSelection[style^="user-select: none;"]:first-of-type {
-      // hide cover
+    // hide cover
+    div.layout-full div.pseudoSelection > div[style*="height"] {
       display: none !important;
     }
 
-    > div[style^="width: 100%;"][style*="display: flex;"] {
-      div.notion-page-controls {
-        display: none !important;
-      }
-      div.pseudoSelection[style^="user-select: none;"]:first-of-type {
-        // hide page icon
-        display: none !important;
-      }
+    // page icon
+    div.notion-record-icon.notranslate[style*="margin-top"] {
+      // margin-top: 0px !important;
+      display: none !important;
+    }
+
+    div.notion-page-controls {
+      margin-top: 0px !important;
     }
   }
 }
