@@ -74,7 +74,7 @@ $caret-color-dark-theme: rgb(255, 255, 255);
 .nb-outline.show
   + .notion-scroller.vertical
   div[style*="width: 100%;"]
-  > .notion-page-content
+  .notion-page-content
   > {
   .notion-collection_view-block {
     width: calc(
@@ -225,6 +225,10 @@ $caret-color-dark-theme: rgb(255, 255, 255);
 
 // fullWidth
 .fullWidth .notion-frame {
+  div.notion-scroller.vertical div.layout {
+    --margin-width: 96px;
+    --content-width: 1fr;
+  }
   // applies to both: page header & page content
   div.notion-scroller.vertical
     div[style^="max-width: 100%"][style*="min-width: 0px;"]:first-of-type {
@@ -245,6 +249,14 @@ $caret-color-dark-theme: rgb(255, 255, 255);
     > div[style*="padding-left"] {
     padding-left: 96px !important;
     padding-right: 96px !important;
+  }
+
+  // inline db - move subgroup to left
+  .notion-scroller.vertical
+    .notion-page-content
+    > .notion-collection_view-block
+    div[style*="left"][style*="position: sticky"] {
+    left: 96px !important;
   }
 
   // inline db - set title width
@@ -403,7 +415,9 @@ $caret-color-dark-theme: rgb(255, 255, 255);
   }
   display: none;
   user-select: none;
-  transition: opacity 700ms ease 0s, color 700ms ease 0s;
+  transition:
+    opacity 700ms ease 0s,
+    color 700ms ease 0s;
   cursor: pointer;
   opacity: 1;
   position: absolute;
