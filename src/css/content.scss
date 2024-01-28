@@ -465,12 +465,8 @@ $caret-color-dark-theme: rgb(255, 255, 255);
 }
 
 // hideNotification
-.hideNotification {
-  .notion-topbar {
-    > div:nth-child(1) > div:nth-child(1) > div > div:nth-child(1) > div > div {
-      display: none !important;
-    }
-  }
+.hideNotification .notion-topbar svg.hamburgerMenu + div[style*="background"] {
+  display: none !important;
 }
 // addMoreHeightToPage
 .addMoreHeightToPage .notion-frame {
