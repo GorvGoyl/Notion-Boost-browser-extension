@@ -55,7 +55,7 @@ export const settingDetails = [
   {
     func: "disableAiAfterSpaceKey",
     name: "Disable AI menu when pressing space",
-    desc: "Don't show AI comand menu when pressing space",
+    desc: "Don't show AI command menu when pressing space key",
     disable_func: "disableAiAfterSpaceKey",
     pf: false,
   },
