@@ -230,15 +230,33 @@ export function disableSlashMenu(isEnabled) {
               hideSlashMenuAfterSpaceEvent
             );
 
-            // simulate esc key to prevent menu from appearing
-            getElement(notionAppId).addEventListener(
-              "keyup",
-              disableSlashMenuEvent
-            );
+            window.addEventListener("keyup", disableSlashMenuEvent, {});
           } else {
-            getElement(notionAppId).removeEventListener(
-              "keyup",
-              disableSlashMenuEvent
+            window.removeEventListener("keyup", disableSlashMenuEvent, {});
+          }
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function disableAiAfterSpaceKey(isEnabled) {
+  try {
+    console.log(`feature: disableAiAfterSpaceKey: ${isEnabled}`);
+
+    onElementLoaded(notionAppId)
+      .then((isPresent) => {
+        if (isPresent) {
+          if (isEnabled) {
+            // simulate esc key to prevent menu from appearing
+            window.addEventListener("keydown", disableAiAfterSpaceKeyHandler);
+          } else {
+            window.removeEventListener(
+              "keydown",
+              disableAiAfterSpaceKeyHandler
             );
           }
         }
@@ -547,9 +565,17 @@ function hideSlashMenuAfterSpaceEvent(e) {
   }
 }
 
+function disableAiAfterSpaceKeyHandler(e) {
+  if (e.code === "Space") {
+    e.preventDefault();
+    document.execCommand("insertText", false, " ");
+  }
+}
+
 function disableSlashMenuEvent(e) {
   const slashKey = "/";
-  const insideTable = e.path.some((x) => {
+
+  const insideTable = e?.path?.some((x) => {
     if (
       e?.target?.classList?.contains("notranslate") && // select only cells and not preview window
       x?.classList?.contains("notion-default-overlay-container") &&
@@ -563,7 +589,7 @@ function disableSlashMenuEvent(e) {
   // don't simulate esc when using slash key inside table cell becuz it'll exit the table
   // If the slash key is pressed, without the ctrl/cmd key (would be intent to modify selected block)
   //   https://notion.notion.site/Learn-the-shortcuts-66e28cec810548c3a4061513126766b0#5c679ece35ee4e81b1217333a4cf35b3
-  if (e.key === slashKey && !insideTable && !(e.ctrlKey || e.metaKey)) {
+  if (e.code === "Slash" && !insideTable && !(e.ctrlKey || e.metaKey)) {
     // hide popup menu as soon as it's added to DOM
     onElementLoaded(
       "div.notion-scroller.vertical",

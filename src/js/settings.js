@@ -25,6 +25,7 @@ export const defaultSettings = {
   rollupUrlClickable: false,
   borderOnImages: false,
   disableSlashCommandPlaceholder: false,
+  disableAiAfterSpaceKey: false,
 };
 
 export const price = "$69";
@@ -49,6 +50,13 @@ export const settingDetails = [
     func: "smallText",
     name: "Small text for all pages",
     desc: "Set small text for all pages by default",
+    pf: false,
+  },
+  {
+    func: "disableAiAfterSpaceKey",
+    name: "Disable AI menu when pressing space",
+    desc: "Don't show AI comand menu when pressing space",
+    disable_func: "disableAiAfterSpaceKey",
     pf: false,
   },
   {
