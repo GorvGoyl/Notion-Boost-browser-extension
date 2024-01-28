@@ -346,8 +346,8 @@ $caret-color-dark-theme: rgb(255, 255, 255);
   .notion-frame {
     // page title
     .notion-scroller.vertical {
-      > div
-        > div[style^="width: 100%;"][style*="display: flex;"]
+      div
+        div[style^="width: 100%;"][style*="display: flex;"]
         div[style*="font-weight: 700;"] {
         font-size: 32px !important;
       }
