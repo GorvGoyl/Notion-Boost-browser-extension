@@ -1,20 +1,19 @@
 {
-  "offline_enabled": true,
-  "page_action": {
-    "default_icon": {
-      "16": "images/icon16.png",
-      "24": "images/icon24.png",
-      "32": "images/icon32.png"
-    }
-  },
-  "icons": {
-    "16": "images/icon16.png",
-    "48": "images/icon48.png",
-    "128": "images/icon128.png"
-  },
-  "permissions": ["declarativeContent", "storage"],
-  "background": {
-    "scripts": ["background.bundle.js"],
-    "persistent": false
-  }
+	"offline_enabled": true,
+	"icons": {
+		"16": "images/icon16.png",
+		"48": "images/icon48.png",
+		"128": "images/icon128.png"
+	},
+	"action": {
+		"default_icon": {
+			"16": "images/icon16.png",
+			"24": "images/icon24.png",
+			"32": "images/icon32.png"
+		}
+	},
+	"permissions": ["storage", "declarativeContent"],
+	"background": {
+		"service_worker": "background.bundle.js"
+	}
 }

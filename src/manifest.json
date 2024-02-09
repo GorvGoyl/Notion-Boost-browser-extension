@@ -1,27 +1,35 @@
 {
-  "name": "Notion Boost",
-  "short_name": "Notion Boost",
-  "version": "3.3.0",
-  "description": "Boost Notion productivity with 20+ customizations like outline,small text full width for all,back to top button etc",
-  "author": "Gourav Goyal",
+	"name": "Notion Boost",
+	"short_name": "Notion Boost",
+	"version": "3.3.0",
+	"description": "Boost Notion productivity with 20+ customizations like outline,small text full width for all,back to top button etc",
+	"author": "Gourav Goyal",
 
-  "content_scripts": [
-    {
-      "matches": ["*://*.notion.so/*", "*://*.notion.site/*"],
-      "js": ["content.bundle.js"]
-    },
-    {
-      "matches": ["https://extensionpay.com/*"],
-      "run_at": "document_start",
-      "js": ["extPay.bundle.js"]
-    }
-  ],
-  "page_action": {
-    "default_title": "Notion Boost",
-    "default_popup": "popup.html"
-  },
-  "web_accessible_resources": ["content.bundle.js"],
-  "manifest_version": 2,
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'; connect-src https://extensionpay.com",
-  "homepage_url": "https://gourav.io/notion-boost"
+	"content_scripts": [
+		{
+			"matches": ["*://*.notion.so/*", "*://*.notion.site/*"],
+			"js": ["content.bundle.js"]
+		},
+		{
+			"matches": ["https://extensionpay.com/*"],
+			"run_at": "document_start",
+			"js": ["extPay.bundle.js"]
+		}
+	],
+	"action": {
+		"default_title": "Notion Boost",
+		"default_popup": "popup.html"
+	},
+	"web_accessible_resources": [
+		{
+			"resources": ["content.bundle.js"],
+			"matches": ["<all_urls>"]
+		}
+	],
+	"host_permissions": ["*://*.notion.so/*", "*://*.notion.site/*", "https://extensionpay.com/*"],
+	"manifest_version": 3,
+	"content_security_policy": {
+		"extension_pages": "script-src 'self'; object-src 'self'; connect-src https://extensionpay.com"
+	},
+	"homepage_url": "https://gourav.io/notion-boost"
 }
