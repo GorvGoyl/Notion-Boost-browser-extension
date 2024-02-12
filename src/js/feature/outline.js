@@ -208,30 +208,35 @@ function addOutline() {
     let outlineEl = getElement(outlineFrameCls);
 
     if (!outlineEl || outlineEl.length === 0) {
-      const script = `<script>
-      function nbScrollToTop(){
-        var doc = document.querySelector('.notion-frame > .notion-scroller'); doc.scroll({top: 0,left: 0});
-      }
-      </script>`;
-
-      const scriptEl = document.createRange().createContextualFragment(script);
-      document.body.append(scriptEl);
-
-      // do not add any space between closing and ending of `
+      // Directly create the outline element with the structure needed
       outlineEl = toElement(`
       <div class="nb-outline">
-        <div class="table_of_contents">
-          <div class="title">
-          <p title="Go to top" role="button" onClick="nbScrollToTop()">Outline</p>
+          <div class="table_of_contents">
+              <div class="title">
+                  <p title="Go to top" role="button">Outline</p>
+              </div>
+              <div class="block-wrapper">
+              </div>
           </div>
-          <div class="block-wrapper">
-          </div>
-        </div>
-        </div>`);
-
-      // add toc container
-      getElement(notionFrameCls).insertBefore(outlineEl, notionScrollerEl);
-    }
+      </div>`);
+  
+      // Find the title paragraph where the click event should be attached
+      const titleP = outlineEl.querySelector('.title p');
+      if (titleP) {
+          titleP.addEventListener('click', () => {
+              const doc = document.querySelector('.notion-frame > .notion-scroller');
+              if (doc) {
+                  doc.scroll({ top: 0, left: 0 });
+              }
+          });
+      }
+  
+      // Add the outline container to the DOM
+      const notionFrameEl = getElement(notionFrameCls);
+      if (notionFrameEl && notionScrollerEl) {
+          notionFrameEl.insertBefore(outlineEl, notionScrollerEl);
+      }
+  }
 
     const blockWrapperEl = outlineEl.querySelector(".block-wrapper");
 
