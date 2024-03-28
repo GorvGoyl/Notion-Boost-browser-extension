@@ -230,7 +230,7 @@ function addOutline() {
         </div>`);
 
       // add toc container
-      getElement(notionFrameCls).insertBefore(outlineEl, notionScrollerEl);
+      notionScrollerEl.parentNode.insertBefore(outlineEl, notionScrollerEl);
     }
 
     const blockWrapperEl = outlineEl.querySelector(".block-wrapper");
