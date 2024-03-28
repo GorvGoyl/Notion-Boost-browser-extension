@@ -148,3 +148,28 @@ $('div[style*="width:100;"]:first-of-type');
 - https://stackoverflow.com/a/71195647/3073272
 - https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent
 - https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
+
+```js
+function simulatePointerdownEvent(element) {
+  // const element = document.querySelector('div.sticky div[type="button"][id]');
+
+  // Calculate the center of the element
+  const rect = element.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+
+  // Create the pointerdown event
+  const event = new PointerEvent("pointerdown", {
+    pointerId: 1,
+    bubbles: true,
+    cancelable: true,
+    clientX: centerX,
+    clientY: centerY,
+    button: 0,
+    // Additional properties can be added as needed
+  });
+
+  // Dispatch the event on the target element
+  element.dispatchEvent(event);
+}
+```
