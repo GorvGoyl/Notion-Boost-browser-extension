@@ -5,6 +5,7 @@ export const defaultSettings = {
   bolderTextInDark: false,
   smallText: false,
   fullWidth: false,
+  wideDialog: false,
   hideComments: false,
   hideBacklinks: false,
   scrollTopBtn: false,
@@ -44,6 +45,12 @@ export const settingDetails = [
     func: "fullWidth",
     name: "Full width for all pages",
     desc: "Set full width for all pages by default",
+    pf: false,
+  },
+  {
+    func: "wideDialog",
+    name: "Wide dialog windows",
+    desc: "Make the dialog windows wider",
     pf: false,
   },
   {

@@ -122,6 +122,28 @@ export function fullWidth(isEnabled) {
   }
 }
 
+export function wideDialog(isEnabled) {
+  try {
+    console.log(`feature: wideDialog: ${isEnabled}`);
+
+    onElementLoaded(notionAppId)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionAppId);
+          if (isEnabled) {
+            el.classList.add("wideDialog");
+          } else {
+            el.classList.remove("wideDialog");
+          }
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function borderOnImages(isEnabled) {
   try {
     console.log(`feature: borderOnImages: ${isEnabled}`);

@@ -318,6 +318,12 @@ $caret-color-dark-theme: rgb(255, 255, 255);
   }
 }
 
+.wideDialog .notion-overlay-container {
+    [role="dialog"] {
+        max-width: 90% !important;
+    }
+}
+
 // borderOnImages
 .borderOnImages {
   .notion-light-theme {
