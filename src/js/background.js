@@ -49,7 +49,7 @@ chrome.runtime.onInstalled.addListener((details) => {
             pageUrl: { hostContains: "notion.site" },
           }),
         ],
-        actions: [new chrome.declarativeContent.ShowPageAction()],
+        actions: [new chrome.declarativeContent.ShowAction()],
       },
     ]);
   });

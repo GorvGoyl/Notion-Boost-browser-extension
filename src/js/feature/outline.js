@@ -83,14 +83,14 @@ function addOutlineToggleBtn() {
               `<div class=${outlineToggleBtn} role="button" title="Show/hide outline" tabindex="-1">Outline</div>`
             );
 
-            btnEl.onclick = () => {
+            btnEl.addEventListener("click", () => {
               console.log("yup");
               const el = document.querySelector(".nb-outline");
               if (el) {
                 el.classList.toggle("disableForPage");
                 el.classList.toggle("show");
               }
-            };
+            });
 
             sibling.parentNode.insertBefore(btnEl, sibling);
           }
@@ -120,13 +120,13 @@ function addOutlineToggleBtn() {
               `<div class=${outlineToggleBtn} role="button" title="Show/hide outline" tabindex="-1">Outline</div>`
             );
 
-            btnEl.onclick = () => {
+            btnEl.addEventListener("click", () => {
               const el = document.querySelector(".nb-outline");
               if (el) {
                 el.classList.toggle("disableForPage");
                 el.classList.toggle("show");
               }
-            };
+            });
 
             sibling.parentNode.insertBefore(btnEl, sibling);
           }
@@ -208,21 +208,12 @@ function addOutline() {
     let outlineEl = getElement(outlineFrameCls);
 
     if (!outlineEl || outlineEl.length === 0) {
-      const script = `<script>
-      function nbScrollToTop(){
-        var doc = document.querySelector('.notion-frame > .notion-scroller'); doc.scroll({top: 0,left: 0});
-      }
-      </script>`;
-
-      const scriptEl = document.createRange().createContextualFragment(script);
-      document.body.append(scriptEl);
-
       // do not add any space between closing and ending of `
       outlineEl = toElement(`
       <div class="nb-outline">
         <div class="table_of_contents">
           <div class="title">
-          <p title="Go to top" role="button" onClick="nbScrollToTop()">Outline</p>
+          <p id="nbScrollToTop" title="Go to top" role="button">Outline</p>
           </div>
           <div class="block-wrapper">
           </div>
@@ -231,6 +222,13 @@ function addOutline() {
 
       // add toc container
       notionScrollerEl.parentNode.insertBefore(outlineEl, notionScrollerEl);
+
+      document.getElementById("nbScrollToTop").addEventListener("click", () => {
+        const doc = document.querySelector(".notion-frame > .notion-scroller");
+        if (doc) {
+          doc.scroll({ top: 0, left: 0 });
+        }
+      });
     }
 
     const blockWrapperEl = outlineEl.querySelector(".block-wrapper");
