@@ -69,7 +69,7 @@ export const settingDetails = [
     func: "rollupUrlClickable",
     name: "Make Rollup URLs clickable",
     desc: "Make URLs in Rollup property clickable",
-    pf: true,
+    pf: false,
   },
   {
     func: "scrollTopBtn",
@@ -126,13 +126,13 @@ export const settingDetails = [
     func: "addMoreHeightToPage",
     name: "Add more height to page",
     desc: "Add more height to page by hiding top padding, image cover, & icon",
-    pf: true,
+    pf: false,
   },
   {
     func: "hideNotification",
     name: "Hide notification icon",
     desc: "Hide red notification icon from sidebar when it's in closed state and hide notification number from tab title",
-    pf: true,
+    pf: false,
   },
   {
     func: "hideHelpBtn",
@@ -144,7 +144,7 @@ export const settingDetails = [
     func: "narrowListItems",
     name: "Narrow spacing between items",
     desc: "Fit more content on screen by reducing space between items i.e. headings, lists, etc.",
-    pf: true,
+    pf: false,
   },
   {
     func: "indentationLines",
@@ -181,14 +181,14 @@ export const settingDetails = [
     func: "borderOnImages",
     name: "Add frame to images",
     desc: "Add frame around images to make them easily noticeable on page",
-    pf: true,
+    pf: false,
   },
 
   {
     func: "disableSlashCommandPlaceholder",
     name: "Hide slash command placeholder",
     desc: "Hide placeholder: Press '/' for commands…",
-    pf: true,
+    pf: false,
   },
 
   // step 2 of 2: add function name and description

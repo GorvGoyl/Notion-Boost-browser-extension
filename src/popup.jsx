@@ -5,82 +5,15 @@ import { About } from "./About";
 import "./css/popup.scss";
 import { styles } from "./css/styles";
 import { SettingsTable } from "./js/components/settingsTable";
-// import * as ExtPay from "extpay";
-import ExtPay from "./js/extPay";
 import { msgLocked, msgThanks } from "./js/settings";
-import { Payment } from "./Payment";
-
-const extpay = ExtPay("notion-boost");
 
 // Home - Build popup settings
 function Home() {
-  const [isPaid, setPaidHook] = useState(false);
-  useEffect(() => {
-    // listener
-    extpay.onPaid.addListener((user) => {
-      setPayment(true);
-      route("/popup", true);
-      console.log("user paid!");
-    });
-  }, []);
-
-  // runs at init
-  extpay
-    .getUser()
-    .then((user) => {
-      setPayment(user.paid);
-      return true;
-    })
-    .catch((e) => {
-      console.log(`Error: ${JSON.stringify(e)}`);
-    });
-
-  function handleProBtn() {
-    // window.location.href = "/Payment";
-    if (!isPaid) {
-      route("/payment", true);
-    } else {
-      showPaymentPage();
-    }
-  }
-
-  function setPayment(status) {
-    chrome.storage.sync.set({ nb_settings_pd: status }, () => {});
-    setPaidHook(status);
-  }
-  chrome.storage.sync.get(["nb_settings_pd"], (obj) => {
-    console.log(`isPaid: ${JSON.stringify(obj)}`);
-    try {
-      if (obj.nb_settings_pd === true) {
-        setPaidHook(true);
-      }
-    } catch (e) {
-      console.log(`Error: ${JSON.stringify(e)}`);
-    }
-  });
-
   return (
     <div>
       <div className="wrapper">
         <div className="title underline">
           Notion Boost{" "}
-          <div
-            className="pro big"
-            role="button"
-            title={msgLocked}
-            aria-disabled="false"
-            tabIndex={0}
-          >
-            <div
-              role="button"
-              title={isPaid ? msgThanks : msgLocked}
-              aria-disabled="false"
-              tabIndex={0}
-              onClick={handleProBtn}
-            >
-              Pro {isPaid ? <TickIcon /> : <LockIcon />}
-            </div>
-          </div>
           {/* <div>
             {" "}
             <a
@@ -92,7 +25,7 @@ function Home() {
           </div> */}
         </div>
 
-        <SettingsTable isPaid={isPaid} />
+        <SettingsTable />
         <div className="footer topline">
           <a
             className="footer-item"
@@ -146,7 +79,6 @@ function App() {
     <Router>
       <Home path="/" default />
       <About path="/about" />
-      <Payment path="/payment" />
     </Router>
   );
 }
@@ -154,14 +86,6 @@ function App() {
 render(<App />, document.body);
 
 // #region ## ----------------- INTERNAL METHODS ----------------- ##
-
-export function showPaymentPage() {
-  try {
-    extpay.openPaymentPage();
-  } catch (e) {
-    console.log(`Error: ${JSON.stringify(e)}`);
-  }
-}
 
 // #endregion
 

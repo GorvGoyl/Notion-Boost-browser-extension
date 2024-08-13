@@ -9,11 +9,6 @@
     {
       "matches": ["*://*.notion.so/*", "*://*.notion.site/*"],
       "js": ["content.bundle.js"]
-    },
-    {
-      "matches": ["https://extensionpay.com/*"],
-      "run_at": "document_start",
-      "js": ["extPay.bundle.js"]
     }
   ],
   "action": {
@@ -26,14 +21,10 @@
       "matches": ["<all_urls>"]
     }
   ],
-  "host_permissions": [
-    "*://*.notion.so/*",
-    "*://*.notion.site/*",
-    "https://extensionpay.com/*"
-  ],
+  "host_permissions": ["*://*.notion.so/*", "*://*.notion.site/*"],
   "manifest_version": 3,
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'; connect-src https://extensionpay.com"
+    "extension_pages": "script-src 'self'; object-src 'self';"
   },
   "homepage_url": "https://gourav.io/notion-boost"
 }

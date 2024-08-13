@@ -24,7 +24,6 @@ module.exports = (env, argv) => {
   const entry = {
     content: path.join(__dirname, "src", "js", "content.js"),
     popup: path.join(__dirname, "src", "popup.jsx"),
-    extPay: path.join(__dirname, "src", "js", "extPay.js"),
   };
 
   const manifest = ["src/manifest.json"];

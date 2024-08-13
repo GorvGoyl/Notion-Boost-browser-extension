@@ -6,10 +6,6 @@
 //     chrome.pageAction.show(sender.tab.id);
 //   }
 // });
-import ExtPay from "./extPay";
-// import * as ExtPay from "extpay";
-
-const extpay = ExtPay("notion-boost");
 
 function compareVer(previousVersion, currentVersion) {
   if (!previousVersion || !currentVersion) {

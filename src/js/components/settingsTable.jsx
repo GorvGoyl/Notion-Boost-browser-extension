@@ -13,7 +13,7 @@ function isFuncEnabled(func) {
   return false;
 }
 
-export function SettingsTable({ isPaid }) {
+export function SettingsTable() {
   const [filterText, setFilterText] = useState("");
   const [settings, setSettings] = useState(settingDetails);
 
@@ -41,53 +41,46 @@ export function SettingsTable({ isPaid }) {
       .catch((e) => console.log(e));
   };
 
-  const handleFeature = useCallback(
-    (obj) => {
-      console.log("obj", obj);
+  const handleFeature = useCallback((obj) => {
+    console.log("obj", obj);
 
-      console.log("clicked: ");
-      if (!obj.pf || isPaid) {
-        const func = obj.func;
-        const funcToDisable = obj.disable_func;
+    console.log("clicked: ");
+    const func = obj.func;
+    const funcToDisable = obj.disable_func;
 
-        let toEnable = false;
+    let toEnable = false;
 
-        if (obj.status === "enable") {
-          toEnable = false;
-        } else {
-          toEnable = true;
-        }
+    if (obj.status === "enable") {
+      toEnable = false;
+    } else {
+      toEnable = true;
+    }
 
-        try {
-          getLatestSettings()
-            .then((set) => {
-              console.log("getLatestSettings ->", set);
-              set[func] = toEnable;
-              set.call_func = {
-                name: func,
-                arg: toEnable,
-              };
+    try {
+      getLatestSettings()
+        .then((set) => {
+          console.log("getLatestSettings ->", set);
+          set[func] = toEnable;
+          set.call_func = {
+            name: func,
+            arg: toEnable,
+          };
 
-              // disable other related func if both are enabled
-              if (funcToDisable && isFuncEnabled(funcToDisable) && toEnable) {
-                set[funcToDisable] = false;
-              }
+          // disable other related func if both are enabled
+          if (funcToDisable && isFuncEnabled(funcToDisable) && toEnable) {
+            set[funcToDisable] = false;
+          }
 
-              chrome.storage.sync.set({ nb_settings: set }, () => {
-                refreshSettings();
-              });
-              return null;
-            })
-            .catch((e) => console.log(e));
-        } catch (e) {
-          console.log(e);
-        }
-      } else {
-        route("/payment", true);
-      }
-    },
-    [isPaid]
-  );
+          chrome.storage.sync.set({ nb_settings: set }, () => {
+            refreshSettings();
+          });
+          return null;
+        })
+        .catch((e) => console.log(e));
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
 
   const filteredItems = settings.filter(
     (item) =>
@@ -122,21 +115,11 @@ export function SettingsTable({ isPaid }) {
               className={`row ${obj.status}`}
               data-func={obj.func}
               data-disable_func={obj.disable_func}
-              title={obj.pf ? (isPaid ? "" : msgLocked) : ""}
+              title={""}
               onClick={() => handleFeature(obj)}
             >
               <div className="text-wrapper">
                 <div className="name">{obj.name}</div>
-                {obj.pf && (
-                  <div
-                    className="pro small"
-                    role="button"
-                    title={isPaid ? msgThanks : msgLocked}
-                    aria-disabled="false"
-                  >
-                    <div>Pro</div>
-                  </div>
-                )}
                 {obj.desc && <div className="desc">{obj.desc}</div>}
               </div>
               <div
