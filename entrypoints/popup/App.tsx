@@ -1,63 +1,37 @@
-import { h, render } from "preact";
-import { route, Router } from "preact-router";
-import { useEffect, useState } from "preact/hooks";
-import { About } from "./About";
-import "./css/popup.scss";
-import { styles } from "./css/styles";
-import { SettingsTable } from "./js/components/settingsTable";
-// import * as ExtPay from "extpay";
-import ExtPay from "./js/extPay";
-import { msgLocked, msgThanks } from "./js/settings";
-import { Payment } from "./Payment";
+import { Dispatch, useState, useEffect } from "react";
 
-const extpay = ExtPay("notion-boost");
+import { Page } from "./main";
+import { msgLocked } from "@/components/settings";
+import { SettingsTable } from "@/components/SettingsTable";
 
-// Home - Build popup settings
-function Home() {
-  const [isPaid, setPaidHook] = useState(false);
+function Home({
+  setPageToShow,
+}: {
+  setPageToShow: Dispatch<React.SetStateAction<Page>>;
+}) {
+  const [isPaid, setPaidHook] = useState<boolean>(false);
+
   useEffect(() => {
-    // listener
-    extpay.onPaid.addListener((user) => {
-      setPayment(true);
-      route("/popup", true);
-      console.log("user paid!");
-    });
+    browser.storage.sync.set({ nb_settings_pd: false });
   }, []);
 
-  // runs at init
-  extpay
-    .getUser()
-    .then((user) => {
-      setPayment(user.paid);
-      return true;
-    })
-    .catch((e) => {
-      console.log(`Error: ${JSON.stringify(e)}`);
-    });
-
-  function handleProBtn() {
-    // window.location.href = "/Payment";
-    if (!isPaid) {
-      route("/payment", true);
-    } else {
-      showPaymentPage();
-    }
-  }
-
-  function setPayment(status) {
-    chrome.storage.sync.set({ nb_settings_pd: status }, () => {});
+  function setPayment(status: boolean) {
+    browser.storage.sync.set({ nb_settings_pd: status });
     setPaidHook(status);
   }
-  chrome.storage.sync.get(["nb_settings_pd"], (obj) => {
-    console.log(`isPaid: ${JSON.stringify(obj)}`);
-    try {
-      if (obj.nb_settings_pd === true) {
-        setPaidHook(true);
+
+  useEffect(() => {
+    browser.storage.sync.get(["nb_settings_pd"]).then((obj: any) => {
+      console.log(`isPaid: ${JSON.stringify(obj)}`);
+      try {
+        if (obj.nb_settings_pd === true) {
+          setPaidHook(true);
+        }
+      } catch (e) {
+        console.log(`Error: ${JSON.stringify(e)}`);
       }
-    } catch (e) {
-      console.log(`Error: ${JSON.stringify(e)}`);
-    }
-  });
+    });
+  }, []);
 
   return (
     <div>
@@ -70,26 +44,16 @@ function Home() {
             title={msgLocked}
             aria-disabled="false"
             tabIndex={0}
-          >
-            <div
-              role="button"
-              title={isPaid ? msgThanks : msgLocked}
-              aria-disabled="false"
-              tabIndex={0}
-              onClick={handleProBtn}
-            >
-              Pro {isPaid ? <TickIcon /> : <LockIcon />}
-            </div>
-          </div>
+          ></div>
           {/* <div>
-            {" "}
-            <a
-              className="sub-link"
-              href="https://gourav.io/notion-boost#-currently-added-features"
-            >
-              Feature details
-            </a>
-          </div> */}
+              {" "}
+              <a
+                className="sub-link"
+                href="https://gourav.io/notion-boost#-currently-added-features"
+              >
+                Feature details
+              </a>
+            </div> */}
         </div>
 
         <SettingsTable isPaid={isPaid} />
@@ -98,23 +62,24 @@ function Home() {
             className="footer-item"
             href="https://gourav.io/notion-boost#-currently-added-features"
             target="_blank"
+            rel="noopener noreferrer"
           >
             <div className="button" role="button" tabIndex={0}>
               Features info <NewTabIcon />
             </div>
           </a>
           {/* <a className="footer-item" href={twitterShareTxt} target="_blank">
-            <div className="button" style="" role="button" tabIndex={0}>
-              Share&nbsp;
-              <span className="twitter" />
-            </div>
-          </a> */}
-          <a className="footer-item" href="/about">
+              <div className="button" style="" role="button" tabIndex={0}>
+                Share 
+                <span className="twitter" />
+              </div>
+            </a> */}
+          <div className="footer-item" onClick={() => setPageToShow("about")}>
             <div className="button" role="button" tabIndex={0}>
               About
               {/* <AboutIcon /> */}
             </div>
-          </a>
+          </div>
         </div>
         <div
           style={{
@@ -127,6 +92,7 @@ function Home() {
             style={styles.link}
             href="https://chatgptwriter.ai?ref=notionboost"
             target="_blank"
+            rel="noopener noreferrer"
             title="ChatGPT Writer"
           >
             ChatGPT Writer
@@ -141,23 +107,11 @@ function Home() {
   );
 }
 
-function App() {
-  return (
-    <Router>
-      <Home path="/" default />
-      <About path="/about" />
-      <Payment path="/payment" />
-    </Router>
-  );
-}
-
-render(<App />, document.body);
-
-// #region ## ----------------- INTERNAL METHODS ----------------- ##
+export default Home;
 
 export function showPaymentPage() {
   try {
-    extpay.openPaymentPage();
+    // extpay.openPaymentPage();
   } catch (e) {
     console.log(`Error: ${JSON.stringify(e)}`);
   }
@@ -241,3 +195,18 @@ function TickIcon() {
 }
 
 // #endregion
+
+export const styles = {
+  link: {
+    textDecoration: "underline",
+    color: "#37352f80",
+    lineHeight: "1.2",
+    fontSize: "13px",
+    cursor: "pointer",
+  },
+  smallGreyText: {
+    color: "#37352f80",
+    lineHeight: "1.2",
+    fontSize: "12px",
+  },
+};

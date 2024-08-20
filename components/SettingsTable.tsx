@@ -1,20 +1,20 @@
-import { Fragment, h, render } from "preact";
-import { route, Router } from "preact-router";
-import { useCallback, useEffect, useState } from "preact/hooks";
-import { msgLocked, msgThanks, settingDetails } from "../settings";
-import { getElement, getElements, getLatestSettings } from "../utility";
+import { route } from 'preact-router';
 
-function isFuncEnabled(func) {
+import { msgLocked, msgThanks, settingDetails } from './settings';
+import { getElement, getLatestSettings } from './utils';
+import React from 'react';
+
+function isFuncEnabled(func: any) {
   const btnToDisable = getElement(`[data-func=${func}]`);
 
-  if (btnToDisable && btnToDisable.classList.contains("enable")) {
+  if (btnToDisable && btnToDisable.classList.contains('enable')) {
     return true;
   }
   return false;
 }
 
-export function SettingsTable({ isPaid }) {
-  const [filterText, setFilterText] = useState("");
+export function SettingsTable({ isPaid }: { isPaid: boolean }) {
+  const [filterText, setFilterText] = useState('');
   const [settings, setSettings] = useState(settingDetails);
 
   useEffect(() => {
@@ -22,16 +22,16 @@ export function SettingsTable({ isPaid }) {
   }, []);
 
   const refreshSettings = () => {
-    console.log("refreshing settings");
+    console.log('refreshing settings');
     const obj = [...settingDetails];
 
     getLatestSettings()
-      .then((set) => {
-        console.log("LatestSettings: ", set);
+      .then((set: any) => {
+        console.log('LatestSettings: ', set);
 
         // add current status to settings object
-        obj.forEach((e) => {
-          e.status = set[e.func] ? "enable" : "disable";
+        obj.forEach((e: any) => {
+          e.status = set[e.func] ? 'enable' : 'disable';
         });
 
         setSettings([...obj]);
@@ -42,17 +42,17 @@ export function SettingsTable({ isPaid }) {
   };
 
   const handleFeature = useCallback(
-    (obj) => {
-      console.log("obj", obj);
+    (obj: any) => {
+      console.log('obj', obj);
 
-      console.log("clicked: ");
+      console.log('clicked: ');
       if (!obj.pf || isPaid) {
         const func = obj.func;
         const funcToDisable = obj.disable_func;
 
         let toEnable = false;
 
-        if (obj.status === "enable") {
+        if (obj.status === 'enable') {
           toEnable = false;
         } else {
           toEnable = true;
@@ -60,8 +60,8 @@ export function SettingsTable({ isPaid }) {
 
         try {
           getLatestSettings()
-            .then((set) => {
-              console.log("getLatestSettings ->", set);
+            .then((set: any) => {
+              console.log('getLatestSettings ->', set);
               set[func] = toEnable;
               set.call_func = {
                 name: func,
@@ -73,7 +73,7 @@ export function SettingsTable({ isPaid }) {
                 set[funcToDisable] = false;
               }
 
-              chrome.storage.sync.set({ nb_settings: set }, () => {
+              browser.storage.sync.set({ nb_settings: set }).then(() => {
                 refreshSettings();
               });
               return null;
@@ -83,7 +83,7 @@ export function SettingsTable({ isPaid }) {
           console.log(e);
         }
       } else {
-        route("/payment", true);
+        route('/payment', true);
       }
     },
     [isPaid]
@@ -94,12 +94,12 @@ export function SettingsTable({ isPaid }) {
       item.name.toLocaleLowerCase().includes(filterText) ||
       item.desc.toLocaleLowerCase().includes(filterText)
   );
-  console.log("filtered items", filteredItems);
+  console.log('filtered items', filteredItems);
 
   const itemsToDisplay = filterText ? filteredItems : settings;
 
-  const handleOnchange = (e) => {
-    console.log("value changed");
+  const handleOnchange = (e: any) => {
+    console.log('value changed');
     setFilterText(e.target.value.toLocaleLowerCase());
   };
   return (
@@ -113,16 +113,14 @@ export function SettingsTable({ isPaid }) {
         onInput={handleOnchange}
       />
       <div className="settings table">
-        {!filteredItems.length && (
-          <div className="no-setting">No setting found</div>
-        )}
+        {!filteredItems.length && <div className="no-setting">No setting found</div>}
         {itemsToDisplay.map((obj, index) => (
-          <Fragment key={obj.func}>
+          <React.Fragment key={obj.func}>
             <div
-              className={`row ${obj.status}`}
+              className={`row ${(obj as any).status}`}
               data-func={obj.func}
               data-disable_func={obj.disable_func}
-              title={obj.pf ? (isPaid ? "" : msgLocked) : ""}
+              title={obj.pf ? (isPaid ? '' : msgLocked) : ''}
               onClick={() => handleFeature(obj)}
             >
               <div className="text-wrapper">
@@ -139,12 +137,7 @@ export function SettingsTable({ isPaid }) {
                 )}
                 {obj.desc && <div className="desc">{obj.desc}</div>}
               </div>
-              <div
-                className="button toggle"
-                role="button"
-                aria-disabled="false"
-                tabIndex={0}
-              >
+              <div className="button toggle" role="button" aria-disabled="false" tabIndex={0}>
                 <div className="knob">
                   <div className="pos" />
                 </div>
@@ -157,7 +150,7 @@ export function SettingsTable({ isPaid }) {
                 <div className="border" />
               </div>
             )}
-          </Fragment>
+          </React.Fragment>
         ))}
       </div>
     </>

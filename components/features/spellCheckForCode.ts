@@ -1,13 +1,13 @@
-import { getElement, onElementLoaded, isObserverType } from "../utility";
+import { getElement, onElementLoaded, isObserverType } from '../utils';
 
-const notionAppInnerCls = ".notion-app-inner";
-const notionPageContentCls = ".notion-page-content";
+const notionAppInnerCls = '.notion-app-inner';
+const notionPageContentCls = '.notion-page-content';
 
 const DEBUG = false;
 
 let docEditObserverObj = {};
 
-export function spellcheckForCode(isEnabled) {
+export function spellcheckForCode(isEnabled: boolean) {
   try {
     console.log(`feature: enableSpellcheckForCode: ${isEnabled}`);
 
@@ -35,42 +35,42 @@ export function spellcheckForCode(isEnabled) {
 
 function removeDocEditListener() {
   if (isObserverType(docEditObserverObj)) {
-    DEBUG && console.log("disconnected docEditObserver");
-    docEditObserverObj.disconnect();
+    DEBUG && console.log('disconnected docEditObserver');
+    (docEditObserverObj as MutationObserver).disconnect();
   }
 }
 
 // works for page change or window reload
 function docEditListener() {
-  console.log("listening for doc edit changes: enableSpellcheckForCode...");
+  console.log('listening for doc edit changes: enableSpellcheckForCode...');
   let isSpellcheckEnabled = false;
 
   // @ts-ignore
   docEditObserverObj = new MutationObserver((mutationList, obsrvr) => {
-    DEBUG && console.log("found changes in doc content");
+    DEBUG && console.log('found changes in doc content');
 
     for (let i = 0; i < mutationList.length; i++) {
       const m = mutationList[i];
 
       // case: check for div change
-      if (m.type === "childList") {
+      if (m.type === 'childList') {
         if (
           m.target &&
           m.addedNodes.length > 0 &&
           // @ts-ignore
-          m.target.classList.contains("notion-code-block") &&
+          m.target.classList.contains('notion-code-block') &&
           // @ts-ignore
-          m.target.querySelector("div[spellcheck]")
+          m.target.querySelector('div[spellcheck]')
         ) {
-          console.log("codeblok");
+          console.log('codeblok');
           isSpellcheckEnabled = true;
           // briefly pause listener to avoid recursive triggers
           // removeDocEditListener();
 
           m.target
             // @ts-ignore
-            .querySelector("div[spellcheck]")
-            .setAttribute("spellcheck", "true");
+            .querySelector('div[spellcheck]')
+            .setAttribute('spellcheck', 'true');
           // updateCodeline(block);
           // docEditListener();
         }
@@ -78,7 +78,7 @@ function docEditListener() {
     }
 
     if (isSpellcheckEnabled) {
-      console.log("spellcheck enabled");
+      console.log('spellcheck enabled');
       isSpellcheckEnabled = false;
     }
   });
@@ -86,32 +86,32 @@ function docEditListener() {
   // now add listener for doc text change
   const pageContentEl = getElement(notionAppInnerCls);
 
-  docEditObserverObj.observe(pageContentEl, {
+  (docEditObserverObj as MutationObserver).observe(pageContentEl, {
     childList: true,
     subtree: true,
   });
 }
 function addSpellCheckForCode() {
   const codeDivs = document.querySelectorAll(
-    "div.notion-page-content > div.notion-selectable.notion-code-block div.notion-code-block > div"
+    'div.notion-page-content > div.notion-selectable.notion-code-block div.notion-code-block > div'
   );
   codeDivs.forEach((x) => {
-    x.setAttribute("spellcheck", "true");
+    x.setAttribute('spellcheck', 'true');
   });
 }
 
 function removeSpellCheckForCode() {
-  console.log("removing removeSpellCheckForCode feature...");
+  console.log('removing removeSpellCheckForCode feature...');
 
   removeDocEditListener();
 
   const codeDivs = document.querySelectorAll(
-    "div.notion-page-content > div.notion-selectable.notion-code-block div.notion-code-block > div"
+    'div.notion-page-content > div.notion-selectable.notion-code-block div.notion-code-block > div'
   );
 
   codeDivs.forEach((x) => {
-    x.setAttribute("spellcheck", "false");
+    x.setAttribute('spellcheck', 'false');
   });
 
-  console.log("removeCodeLineNumbers feature done");
+  console.log('removeCodeLineNumbers feature done');
 }

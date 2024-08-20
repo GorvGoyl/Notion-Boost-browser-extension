@@ -1,4 +1,4 @@
-import { getElement, isObserverType, onElementLoaded } from "../utility";
+import { isObserverType, onElementLoaded } from "../utils";
 
 const notionDefaultOverlayCls = ".notion-default-overlay-container";
 
@@ -6,7 +6,7 @@ const DEBUG = true;
 
 let docEditObserverObj = {};
 
-export function openFullPage(isEnabled) {
+export function openFullPage(isEnabled: boolean) {
   try {
     console.log(`feature: enableOpenFullPage: ${isEnabled}`);
 
@@ -34,10 +34,10 @@ export function openFullPage(isEnabled) {
 function removeDocEditListener() {
   if (isObserverType(docEditObserverObj)) {
     DEBUG && console.log("disconnected docEditObserver");
-    docEditObserverObj.disconnect();
+    (docEditObserverObj as MutationObserver).disconnect();
   }
 }
-let lastPageID;
+let lastPageID: any;
 let previousUrl = "";
 /*
 Algo:
@@ -87,8 +87,8 @@ function docEditListener() {
       const previewPageID = (fullPageLink.href
         .slice(1)
         .split("&")
-        .map((opt) => opt.split("="))
-        .find((opt) => opt[0] === "p") || [
+        .map((opt:any) => opt.split("="))
+        .find((opt:any) => opt[0] === "p") || [
         "",
         ...fullPageLink.pathname.split(/(-|\/)/g).reverse(),
       ])[1];
@@ -107,7 +107,7 @@ function docEditListener() {
 
   // now add listener for doc text change
 
-  docEditObserverObj.observe(document, {
+  (docEditObserverObj as MutationObserver).observe(document, {
     childList: true,
     subtree: true,
     // attributes: true,

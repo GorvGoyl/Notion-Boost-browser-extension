@@ -1,4 +1,4 @@
-![Notion Boost](./src/images/readme/header.jpg)
+![Notion Boost](./assets/readme/header.jpg)
 
 # Notion Boost browser extension
 

@@ -1,4 +1,4 @@
-import { getElement, onElementLoaded, toElement } from "../utility";
+import { getElement, onElementLoaded, toElement } from "../utils";
 
 const notionAppInnerCls = ".notion-app-inner";
 const notionPageContentCls = ".notion-page-content";
@@ -9,7 +9,7 @@ const DEBUG = false;
 
 let docEditObserverObj = {};
 
-export function codeLineNumbers(isEnabled) {
+export function codeLineNumbers(isEnabled: boolean) {
   try {
     console.log(`feature: codeLineNumbers: ${isEnabled}`);
 
@@ -38,11 +38,11 @@ export function codeLineNumbers(isEnabled) {
 function removeDocEditListener() {
   if (isObserverType(docEditObserverObj)) {
     DEBUG && console.log("disconnected docEditObserver");
-    docEditObserverObj.disconnect();
+    (docEditObserverObj as MutationObserver).disconnect();
   }
 }
 
-function isObserverType(obj) {
+function isObserverType(obj:any) {
   return obj.disconnect !== undefined;
 }
 
@@ -87,7 +87,7 @@ function docEditListener() {
   // now add listener for doc text change
   const pageContentEl = getElement(notionAppInnerCls);
 
-  docEditObserverObj.observe(pageContentEl, {
+  (docEditObserverObj as MutationObserver).observe(pageContentEl, {
     childList: true,
     subtree: true,
   });
@@ -125,7 +125,7 @@ function removeCodeLineNumbers() {
 }
 
 // credit @CloudHill
-function updateCodeline(block) {
+function updateCodeline(block: any) {
   let lineNumbers = "";
 
   let numbers = block.querySelector(".code-line-numbers");

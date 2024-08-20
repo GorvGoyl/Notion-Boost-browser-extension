@@ -1,18 +1,13 @@
-import {
-  getElement,
-  isObserverType,
-  onElementLoaded,
-  simulateKey,
-} from "../utility";
+import { getElement, isObserverType, onElementLoaded, simulateKey } from '../utils';
 
-const notionHelpBtnCls = ".notion-help-button";
-const notionAppId = "#notion-app";
+const notionHelpBtnCls = '.notion-help-button';
+const notionAppId = '#notion-app';
 
 // To add theme based color: check indentationLines sass class
 
-const notionCursorListenerCls = ".notion-cursor-listener";
+const notionCursorListenerCls = '.notion-cursor-listener';
 let titleObserver = {};
-export function hideComments(isEnabled) {
+export function hideComments(isEnabled: boolean) {
   try {
     console.log(`feature: hideComments: ${isEnabled}`);
 
@@ -21,9 +16,9 @@ export function hideComments(isEnabled) {
         if (isPresent) {
           const el = getElement(notionAppId);
           if (isEnabled) {
-            el.classList.add("hideComments-nb");
+            el.classList.add('hideComments-nb');
           } else {
-            el.classList.remove("hideComments-nb");
+            el.classList.remove('hideComments-nb');
           }
         }
         return null;
@@ -34,7 +29,7 @@ export function hideComments(isEnabled) {
   }
 }
 
-export function hideBacklinks(isEnabled) {
+export function hideBacklinks(isEnabled: boolean) {
   try {
     console.log(`feature: hideBacklinks: ${isEnabled}`);
 
@@ -43,9 +38,9 @@ export function hideBacklinks(isEnabled) {
         if (isPresent) {
           const el = getElement(notionAppId);
           if (isEnabled) {
-            el.classList.add("hideBacklinks");
+            el.classList.add('hideBacklinks');
           } else {
-            el.classList.remove("hideBacklinks");
+            el.classList.remove('hideBacklinks');
           }
         }
         return null;
@@ -56,7 +51,7 @@ export function hideBacklinks(isEnabled) {
   }
 }
 
-export function disableSlashCommandPlaceholder(isEnabled) {
+export function disableSlashCommandPlaceholder(isEnabled: boolean) {
   try {
     console.log(`feature: disableSlashCommandPlaceholder: ${isEnabled}`);
 
@@ -65,9 +60,9 @@ export function disableSlashCommandPlaceholder(isEnabled) {
         if (isPresent) {
           const el = getElement(notionAppId);
           if (isEnabled) {
-            el.classList.add("disableSlashCommandPlaceholder");
+            el.classList.add('disableSlashCommandPlaceholder');
           } else {
-            el.classList.remove("disableSlashCommandPlaceholder");
+            el.classList.remove('disableSlashCommandPlaceholder');
           }
         }
         return null;
@@ -78,7 +73,7 @@ export function disableSlashCommandPlaceholder(isEnabled) {
   }
 }
 
-export function smallText(isEnabled) {
+export function smallText(isEnabled: boolean) {
   try {
     console.log(`feature: smallText: ${isEnabled}`);
 
@@ -87,9 +82,9 @@ export function smallText(isEnabled) {
         if (isPresent) {
           const el = getElement(notionAppId);
           if (isEnabled) {
-            el.classList.add("smallText");
+            el.classList.add('smallText');
           } else {
-            el.classList.remove("smallText");
+            el.classList.remove('smallText');
           }
         }
         return null;
@@ -100,7 +95,7 @@ export function smallText(isEnabled) {
   }
 }
 
-export function fullWidth(isEnabled) {
+export function fullWidth(isEnabled: boolean) {
   try {
     console.log(`feature: fullWidth: ${isEnabled}`);
 
@@ -109,9 +104,9 @@ export function fullWidth(isEnabled) {
         if (isPresent) {
           const el = getElement(notionAppId);
           if (isEnabled) {
-            el.classList.add("fullWidth");
+            el.classList.add('fullWidth');
           } else {
-            el.classList.remove("fullWidth");
+            el.classList.remove('fullWidth');
           }
         }
         return null;
@@ -122,7 +117,7 @@ export function fullWidth(isEnabled) {
   }
 }
 
-export function borderOnImages(isEnabled) {
+export function borderOnImages(isEnabled: boolean) {
   try {
     console.log(`feature: borderOnImages: ${isEnabled}`);
 
@@ -131,9 +126,9 @@ export function borderOnImages(isEnabled) {
         if (isPresent) {
           const el = getElement(notionAppId);
           if (isEnabled) {
-            el.classList.add("borderOnImages");
+            el.classList.add('borderOnImages');
           } else {
-            el.classList.remove("borderOnImages");
+            el.classList.remove('borderOnImages');
           }
         }
       })
@@ -143,7 +138,7 @@ export function borderOnImages(isEnabled) {
   }
 }
 
-export function bolderTextInDark(isEnabled) {
+export function bolderTextInDark(isEnabled: boolean) {
   try {
     console.log(`feature: bolderTextInDark: ${isEnabled}`);
 
@@ -152,9 +147,9 @@ export function bolderTextInDark(isEnabled) {
         if (isPresent) {
           const el = getElement(notionAppId);
           if (isEnabled) {
-            el.classList.add("bolder");
+            el.classList.add('bolder');
           } else {
-            el.classList.remove("bolder");
+            el.classList.remove('bolder');
           }
           // console.log(`${notionAppInner} style is ${el.style.display}`);
         }
@@ -166,7 +161,7 @@ export function bolderTextInDark(isEnabled) {
   }
 }
 
-export function hideHelpBtn(isHidden) {
+export function hideHelpBtn(isHidden: boolean) {
   try {
     console.log(`feature: hideHelpBtn: ${isHidden}`);
 
@@ -175,9 +170,9 @@ export function hideHelpBtn(isHidden) {
         if (isPresent) {
           const el = getElement(notionHelpBtnCls);
           if (isHidden) {
-            el.style.display = "none";
+            el.style.display = 'none';
           } else {
-            el.style.display = "flex";
+            el.style.display = 'flex';
           }
           console.log(`${notionHelpBtnCls} style is ${el.style.display}`);
         }
@@ -189,7 +184,7 @@ export function hideHelpBtn(isHidden) {
   }
 }
 
-export function hideSlashMenuAfterSpace(isEnabled) {
+export function hideSlashMenuAfterSpace(isEnabled: boolean) {
   try {
     console.log(`feature: hideSlashMenuAfterSpace: ${isEnabled}`);
 
@@ -197,15 +192,9 @@ export function hideSlashMenuAfterSpace(isEnabled) {
       .then((isPresent) => {
         if (isPresent) {
           if (isEnabled) {
-            getElement(notionAppId).addEventListener(
-              "keydown",
-              hideSlashMenuAfterSpaceEvent
-            );
+            getElement(notionAppId).addEventListener('keydown', hideSlashMenuAfterSpaceEvent);
           } else {
-            getElement(notionAppId).removeEventListener(
-              "keydown",
-              hideSlashMenuAfterSpaceEvent
-            );
+            getElement(notionAppId).removeEventListener('keydown', hideSlashMenuAfterSpaceEvent);
           }
         }
         return null;
@@ -216,7 +205,7 @@ export function hideSlashMenuAfterSpace(isEnabled) {
   }
 }
 
-export function disableSlashMenu(isEnabled) {
+export function disableSlashMenu(isEnabled: boolean) {
   try {
     console.log(`feature: disableSlashMenu: ${isEnabled}`);
 
@@ -225,14 +214,11 @@ export function disableSlashMenu(isEnabled) {
         if (isPresent) {
           if (isEnabled) {
             // this preceeds 'hideSlashMenuAfterSpaceEvent' so remove that first
-            getElement(notionAppId).removeEventListener(
-              "keydown",
-              hideSlashMenuAfterSpaceEvent
-            );
+            getElement(notionAppId).removeEventListener('keydown', hideSlashMenuAfterSpaceEvent);
 
-            window.addEventListener("keyup", disableSlashMenuEvent, {});
+            window.addEventListener('keyup', disableSlashMenuEvent, {});
           } else {
-            window.removeEventListener("keyup", disableSlashMenuEvent, {});
+            window.removeEventListener('keyup', disableSlashMenuEvent, {});
           }
         }
         return null;
@@ -243,7 +229,7 @@ export function disableSlashMenu(isEnabled) {
   }
 }
 
-export function disableAiAfterSpaceKey(isEnabled) {
+export function disableAiAfterSpaceKey(isEnabled: boolean) {
   try {
     console.log(`feature: disableAiAfterSpaceKey: ${isEnabled}`);
 
@@ -252,12 +238,9 @@ export function disableAiAfterSpaceKey(isEnabled) {
         if (isPresent) {
           if (isEnabled) {
             // simulate esc key to prevent menu from appearing
-            window.addEventListener("keydown", disableAiAfterSpaceKeyHandler);
+            window.addEventListener('keydown', disableAiAfterSpaceKeyHandler);
           } else {
-            window.removeEventListener(
-              "keydown",
-              disableAiAfterSpaceKeyHandler
-            );
+            window.removeEventListener('keydown', disableAiAfterSpaceKeyHandler);
           }
         }
         return null;
@@ -268,15 +251,13 @@ export function disableAiAfterSpaceKey(isEnabled) {
   }
 }
 
-export function hideNotification(isEnabled) {
+export function hideNotification(isEnabled: boolean) {
   try {
     console.log(`feature: hideNotification: ${isEnabled}`);
 
     const removeBadgeFromTitle = () => {
-      if (document.title.indexOf(")") > -1) {
-        document.title = document.title.substring(
-          document.title.indexOf(")") + 2
-        );
+      if (document.title.indexOf(')') > -1) {
+        document.title = document.title.substring(document.title.indexOf(')') + 2);
       }
     };
     onElementLoaded(notionAppId)
@@ -284,10 +265,10 @@ export function hideNotification(isEnabled) {
         if (isPresent) {
           const el = getElement(notionAppId);
           if (isEnabled) {
-            el.classList.add("hideNotification");
+            el.classList.add('hideNotification');
             removeBadgeFromTitle();
             // select the target node
-            const target = document.querySelector("title");
+            const target = document.querySelector('title') as Node;
 
             // create an observer instance
             titleObserver = new MutationObserver((mutations) => {
@@ -302,12 +283,12 @@ export function hideNotification(isEnabled) {
             };
 
             // pass in the target node, as well as the observer options
-            titleObserver.observe(target, config);
+            (titleObserver as MutationObserver).observe(target, config);
           } else {
-            el.classList.remove("hideNotification");
+            el.classList.remove('hideNotification');
             if (isObserverType(titleObserver)) {
-              console.log("disconnected docEditObserver");
-              titleObserver.disconnect();
+              console.log('disconnected docEditObserver');
+              (titleObserver as MutationObserver).disconnect();
             }
           }
           // console.log(`${notionBodyCls} style is ${el.style.display}`);
@@ -320,7 +301,7 @@ export function hideNotification(isEnabled) {
   }
 }
 
-export function leftAlignMedia(isEnabled) {
+export function leftAlignMedia(isEnabled: boolean) {
   try {
     console.log(`feature: leftAlignMedia: ${isEnabled}`);
 
@@ -329,9 +310,9 @@ export function leftAlignMedia(isEnabled) {
         if (isPresent) {
           const el = getElement(notionAppId);
           if (isEnabled) {
-            el.classList.add("leftAlignMedia");
+            el.classList.add('leftAlignMedia');
           } else {
-            el.classList.remove("leftAlignMedia");
+            el.classList.remove('leftAlignMedia');
           }
           // console.log(`${notionBodyCls} style is ${el.style.display}`);
         }
@@ -343,7 +324,7 @@ export function leftAlignMedia(isEnabled) {
   }
 }
 
-export function addMoreHeightToPage(isEnabled) {
+export function addMoreHeightToPage(isEnabled: boolean) {
   try {
     console.log(`feature: addMoreHeightToPage: ${isEnabled}`);
 
@@ -352,9 +333,9 @@ export function addMoreHeightToPage(isEnabled) {
         if (isPresent) {
           const el = getElement(notionAppId);
           if (isEnabled) {
-            el.classList.add("addMoreHeightToPage");
+            el.classList.add('addMoreHeightToPage');
           } else {
-            el.classList.remove("addMoreHeightToPage");
+            el.classList.remove('addMoreHeightToPage');
           }
           // console.log(`${notionBodyCls} style is ${el.style.display}`);
         }
@@ -366,7 +347,7 @@ export function addMoreHeightToPage(isEnabled) {
   }
 }
 
-export function narrowListItems(isEnabled) {
+export function narrowListItems(isEnabled: boolean) {
   try {
     console.log(`feature: narrowListItems: ${isEnabled}`);
 
@@ -375,9 +356,9 @@ export function narrowListItems(isEnabled) {
         if (isPresent) {
           const el = getElement(notionAppId);
           if (isEnabled) {
-            el.classList.add("narrowListItems");
+            el.classList.add('narrowListItems');
           } else {
-            el.classList.remove("narrowListItems");
+            el.classList.remove('narrowListItems');
           }
           // console.log(`${notionBodyCls} style is ${el.style.display}`);
         }
@@ -418,7 +399,7 @@ export function narrowListItems(isEnabled) {
 //   }
 // }
 
-export function showHoverText(isEnabled) {
+export function showHoverText(isEnabled: boolean) {
   try {
     console.log(`feature: showHoverText: ${isEnabled}`);
 
@@ -428,9 +409,9 @@ export function showHoverText(isEnabled) {
         if (isPresent) {
           const el = getElement(notionCursorListenerCls);
           if (isEnabled) {
-            el.classList.add("showHoverText");
+            el.classList.add('showHoverText');
           } else {
-            el.classList.remove("showHoverText");
+            el.classList.remove('showHoverText');
           }
           // console.log(`${notionCursorListener} style is ${el.style.display}`);
         }
@@ -442,7 +423,7 @@ export function showHoverText(isEnabled) {
   }
 }
 
-export function hideHiddenColumns(isHidden) {
+export function hideHiddenColumns(isHidden: boolean) {
   try {
     console.log(`feature: hideHiddenColumns: ${isHidden}`);
 
@@ -451,9 +432,9 @@ export function hideHiddenColumns(isHidden) {
         if (isPresent) {
           const el = getElement(notionAppId);
           if (isHidden) {
-            el.classList.add("hideHiddenColumns");
+            el.classList.add('hideHiddenColumns');
           } else {
-            el.classList.remove("hideHiddenColumns");
+            el.classList.remove('hideHiddenColumns');
           }
           // console.log(`${notionBodyCls} style is ${el.style.display}`);
         }
@@ -465,7 +446,7 @@ export function hideHiddenColumns(isHidden) {
   }
 }
 
-export function disablePopupOnURLPaste(isEnabled) {
+export function disablePopupOnURLPaste(isEnabled: boolean) {
   try {
     console.log(`feature: disablePopupOnURLPaste: ${isEnabled}`);
 
@@ -473,15 +454,9 @@ export function disablePopupOnURLPaste(isEnabled) {
       .then((isPresent) => {
         if (isPresent) {
           if (isEnabled) {
-            getElement(notionAppId).addEventListener(
-              "paste",
-              disablePopupOnURLPasteEvent
-            );
+            getElement(notionAppId).addEventListener('paste', disablePopupOnURLPasteEvent);
           } else {
-            getElement(notionAppId).removeEventListener(
-              "paste",
-              disablePopupOnURLPasteEvent
-            );
+            getElement(notionAppId).removeEventListener('paste', disablePopupOnURLPasteEvent);
           }
         }
         return null;
@@ -492,7 +467,7 @@ export function disablePopupOnURLPaste(isEnabled) {
   }
 }
 
-export function indentationLines(isHidden) {
+export function indentationLines(isHidden: boolean) {
   try {
     console.log(`feature: indentationLines: ${isHidden}`);
 
@@ -501,9 +476,9 @@ export function indentationLines(isHidden) {
         if (isPresent) {
           const el = getElement(notionAppId);
           if (isHidden) {
-            el.classList.add("indentationLines");
+            el.classList.add('indentationLines');
           } else {
-            el.classList.remove("indentationLines");
+            el.classList.remove('indentationLines');
           }
           // console.log(`${notionBodyCls} style is ${el.style.display}`);
         }
@@ -517,21 +492,21 @@ export function indentationLines(isHidden) {
 
 // #region ## ----------------- internal methods ----------------- ##
 
-function disablePopupOnURLPasteEvent(e) {
-  const content = e.clipboardData.getData("text/plain");
+function disablePopupOnURLPasteEvent(e: any) {
+  const content = e.clipboardData.getData('text/plain');
 
   // hide popup for external urls matching "xx.yy "
   if (
-    (!content.includes(" ") || content.slice(-1) === " ") &&
-    !content.includes("notion.so") &&
-    content.includes(".")
+    (!content.includes(' ') || content.slice(-1) === ' ') &&
+    !content.includes('notion.so') &&
+    content.includes('.')
   ) {
-    console.log("inside disablePopupOnURLPasteEvent");
+    console.log('inside disablePopupOnURLPasteEvent');
     const dismissBtn =
-      "#notion-app .notion-overlay-container.notion-default-overlay-container .notion-embed-menu .notion-scroller.vertical > div > div > div:nth-child(1)";
+      '#notion-app .notion-overlay-container.notion-default-overlay-container .notion-embed-menu .notion-scroller.vertical > div > div > div:nth-child(1)';
     onElementLoaded(dismissBtn)
       .then((ex) => {
-        simulateKey("esc");
+        simulateKey('esc');
       })
       .catch((ex) => {
         console.log(ex);
@@ -542,21 +517,21 @@ function disablePopupOnURLPasteEvent(e) {
 function isSlashMenuVisible() {
   // this selector covers both scenario of slash menu when it appears in main doc or inside popup doc
   const slashMenuCls =
-    "#notion-app > div > div.notion-overlay-container.notion-default-overlay-container > div > div > div > div:nth-child(2) > div > div > div > div > div.notion-scroller.vertical";
+    '#notion-app > div > div.notion-overlay-container.notion-default-overlay-container > div > div > div > div:nth-child(2) > div > div > div > div > div.notion-scroller.vertical';
   const isVisible = getElement(slashMenuCls) !== null;
   return isVisible;
 }
 
-function hideSlashMenuAfterSpaceEvent(e) {
+function hideSlashMenuAfterSpaceEvent(e: any) {
   try {
-    const spaceKey = " ";
+    const spaceKey = ' ';
     // console.log(e);
     if (e.key === spaceKey) {
-      if (e.target.textContent.includes("/")) {
+      if (e.target.textContent.includes('/')) {
         if (isSlashMenuVisible()) {
           // hide slash menu by simulating ESC key
-          simulateKey("esc");
-          console.info("slash menu hid");
+          simulateKey('esc');
+          console.info('slash menu hid');
         }
       }
     }
@@ -565,21 +540,21 @@ function hideSlashMenuAfterSpaceEvent(e) {
   }
 }
 
-function disableAiAfterSpaceKeyHandler(e) {
-  if (e.code === "Space") {
+function disableAiAfterSpaceKeyHandler(e: any) {
+  if (e.code === 'Space') {
     e.preventDefault();
-    document.execCommand("insertText", false, " ");
+    document.execCommand('insertText', false, ' ');
   }
 }
 
-function disableSlashMenuEvent(e) {
-  const slashKey = "/";
+function disableSlashMenuEvent(e: any) {
+  const slashKey = '/';
 
-  const insideTable = e?.path?.some((x) => {
+  const insideTable = e?.path?.some((x: any) => {
     if (
-      e?.target?.classList?.contains("notranslate") && // select only cells and not preview window
-      x?.classList?.contains("notion-default-overlay-container") &&
-      x?.classList?.contains("notion-overlay-container")
+      e?.target?.classList?.contains('notranslate') && // select only cells and not preview window
+      x?.classList?.contains('notion-default-overlay-container') &&
+      x?.classList?.contains('notion-overlay-container')
     ) {
       return true;
     }
@@ -589,21 +564,20 @@ function disableSlashMenuEvent(e) {
   // don't simulate esc when using slash key inside table cell becuz it'll exit the table
   // If the slash key is pressed, without the ctrl/cmd key (would be intent to modify selected block)
   //   https://notion.notion.site/Learn-the-shortcuts-66e28cec810548c3a4061513126766b0#5c679ece35ee4e81b1217333a4cf35b3
-  if (e.code === "Slash" && !insideTable && !(e.ctrlKey || e.metaKey)) {
+  if (e.code === 'Slash' && !insideTable && !(e.ctrlKey || e.metaKey)) {
     // hide popup menu as soon as it's added to DOM
     onElementLoaded(
-      "div.notion-scroller.vertical",
-      "div.notion-overlay-container.notion-default-overlay-container"
+      'div.notion-scroller.vertical',
+      // @ts-ignore
+      'div.notion-overlay-container.notion-default-overlay-container'
     )
       .then(() => {
-        console.log("popup found");
-        simulateKey("esc");
-        console.log("hid menu");
+        console.log('popup found');
+        simulateKey('esc');
+        console.log('hid menu');
       })
       .catch((e2) => {
         console.error(e2);
       });
   }
 }
-
-// #endregion
