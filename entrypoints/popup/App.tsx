@@ -2,13 +2,12 @@ import { Dispatch, useState, useEffect } from "react";
 
 import { Page } from "./main";
 import { SettingsTable } from "@/components/SettingsTable";
-
+// test
 function Home({
   setPageToShow,
 }: {
   setPageToShow: Dispatch<React.SetStateAction<Page>>;
 }) {
-
   return (
     <div>
       <div className="wrapper">
@@ -77,8 +76,6 @@ function Home({
 }
 
 export default Home;
-
-
 
 // #endregion
 
