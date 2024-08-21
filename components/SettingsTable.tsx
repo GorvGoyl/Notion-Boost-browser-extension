@@ -1,5 +1,3 @@
-import { route } from 'preact-router';
-
 import { msgLocked, msgThanks, settingDetails } from './settings';
 import { getElement, getLatestSettings } from './utils';
 import React from 'react';
@@ -13,7 +11,7 @@ function isFuncEnabled(func: any) {
   return false;
 }
 
-export function SettingsTable({ isPaid }: { isPaid: boolean }) {
+export function SettingsTable() {
   const [filterText, setFilterText] = useState('');
   const [settings, setSettings] = useState(settingDetails);
 
@@ -46,7 +44,7 @@ export function SettingsTable({ isPaid }: { isPaid: boolean }) {
       console.log('obj', obj);
 
       console.log('clicked: ');
-      if (!obj.pf || isPaid) {
+      
         const func = obj.func;
         const funcToDisable = obj.disable_func;
 
@@ -82,12 +80,7 @@ export function SettingsTable({ isPaid }: { isPaid: boolean }) {
         } catch (e) {
           console.log(e);
         }
-      } else {
-        route('/payment', true);
-      }
-    },
-    [isPaid]
-  );
+    },[]);
 
   const filteredItems = settings.filter(
     (item) =>
@@ -120,21 +113,10 @@ export function SettingsTable({ isPaid }: { isPaid: boolean }) {
               className={`row ${(obj as any).status}`}
               data-func={obj.func}
               data-disable_func={obj.disable_func}
-              title={obj.pf ? (isPaid ? '' : msgLocked) : ''}
               onClick={() => handleFeature(obj)}
             >
               <div className="text-wrapper">
                 <div className="name">{obj.name}</div>
-                {obj.pf && (
-                  <div
-                    className="pro small"
-                    role="button"
-                    title={isPaid ? msgThanks : msgLocked}
-                    aria-disabled="false"
-                  >
-                    <div>Pro</div>
-                  </div>
-                )}
                 {obj.desc && <div className="desc">{obj.desc}</div>}
               </div>
               <div className="button toggle" role="button" aria-disabled="false" tabIndex={0}>

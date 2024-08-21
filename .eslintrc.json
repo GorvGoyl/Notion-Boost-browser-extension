@@ -17,7 +17,6 @@
   },
   "plugins": ["promise"],
   "extends": [
-    "preact",
     "eslint:recommended",
     "airbnb-base",
     "plugin:promise/recommended",

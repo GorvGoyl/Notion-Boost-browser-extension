@@ -1,7 +1,6 @@
 import { Dispatch, useState, useEffect } from "react";
 
 import { Page } from "./main";
-import { msgLocked } from "@/components/settings";
 import { SettingsTable } from "@/components/SettingsTable";
 
 function Home({
@@ -9,42 +8,12 @@ function Home({
 }: {
   setPageToShow: Dispatch<React.SetStateAction<Page>>;
 }) {
-  const [isPaid, setPaidHook] = useState<boolean>(false);
-
-  useEffect(() => {
-    browser.storage.sync.set({ nb_settings_pd: false });
-  }, []);
-
-  function setPayment(status: boolean) {
-    browser.storage.sync.set({ nb_settings_pd: status });
-    setPaidHook(status);
-  }
-
-  useEffect(() => {
-    browser.storage.sync.get(["nb_settings_pd"]).then((obj: any) => {
-      console.log(`isPaid: ${JSON.stringify(obj)}`);
-      try {
-        if (obj.nb_settings_pd === true) {
-          setPaidHook(true);
-        }
-      } catch (e) {
-        console.log(`Error: ${JSON.stringify(e)}`);
-      }
-    });
-  }, []);
 
   return (
     <div>
       <div className="wrapper">
         <div className="title underline">
           Notion Boost{" "}
-          <div
-            className="pro big"
-            role="button"
-            title={msgLocked}
-            aria-disabled="false"
-            tabIndex={0}
-          ></div>
           {/* <div>
               {" "}
               <a
@@ -56,7 +25,7 @@ function Home({
             </div> */}
         </div>
 
-        <SettingsTable isPaid={isPaid} />
+        <SettingsTable />
         <div className="footer topline">
           <a
             className="footer-item"
@@ -109,13 +78,7 @@ function Home({
 
 export default Home;
 
-export function showPaymentPage() {
-  try {
-    // extpay.openPaymentPage();
-  } catch (e) {
-    console.log(`Error: ${JSON.stringify(e)}`);
-  }
-}
+
 
 // #endregion
 
