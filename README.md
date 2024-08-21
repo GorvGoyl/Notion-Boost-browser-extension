@@ -93,5 +93,5 @@ Use **Notion Enhancer**: https://notion-enhancer.github.io/
 
 ### 🙏 Credits
 
-- Notion community for supporting and sharing this project.
+- Notion Community for supporting and sharing this project.
 - [Notion Enhancer](https://github.com/notion-enhancer/desktop) project.

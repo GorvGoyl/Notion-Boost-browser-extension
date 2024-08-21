@@ -1,6 +1,4 @@
-import { route } from 'preact-router';
-
-import { msgLocked, msgThanks, settingDetails } from './settings';
+import { settingDetails } from './settings';
 import { getElement, getLatestSettings } from './utils';
 import React from 'react';
 
@@ -13,7 +11,7 @@ function isFuncEnabled(func: any) {
   return false;
 }
 
-export function SettingsTable({ isPaid }: { isPaid: boolean }) {
+export function SettingsTable() {
   const [filterText, setFilterText] = useState('');
   const [settings, setSettings] = useState(settingDetails);
 
@@ -41,53 +39,47 @@ export function SettingsTable({ isPaid }: { isPaid: boolean }) {
       .catch((e) => console.log(e));
   };
 
-  const handleFeature = useCallback(
-    (obj: any) => {
-      console.log('obj', obj);
+  const handleFeature = useCallback((obj: any) => {
+    console.log('obj', obj);
 
-      console.log('clicked: ');
-      if (!obj.pf || isPaid) {
-        const func = obj.func;
-        const funcToDisable = obj.disable_func;
+    console.log('clicked: ');
 
-        let toEnable = false;
+    const func = obj.func;
+    const funcToDisable = obj.disable_func;
 
-        if (obj.status === 'enable') {
-          toEnable = false;
-        } else {
-          toEnable = true;
-        }
+    let toEnable = false;
 
-        try {
-          getLatestSettings()
-            .then((set: any) => {
-              console.log('getLatestSettings ->', set);
-              set[func] = toEnable;
-              set.call_func = {
-                name: func,
-                arg: toEnable,
-              };
+    if (obj.status === 'enable') {
+      toEnable = false;
+    } else {
+      toEnable = true;
+    }
 
-              // disable other related func if both are enabled
-              if (funcToDisable && isFuncEnabled(funcToDisable) && toEnable) {
-                set[funcToDisable] = false;
-              }
+    try {
+      getLatestSettings()
+        .then((set: any) => {
+          console.log('getLatestSettings ->', set);
+          set[func] = toEnable;
+          set.call_func = {
+            name: func,
+            arg: toEnable,
+          };
 
-              browser.storage.sync.set({ nb_settings: set }).then(() => {
-                refreshSettings();
-              });
-              return null;
-            })
-            .catch((e) => console.log(e));
-        } catch (e) {
-          console.log(e);
-        }
-      } else {
-        route('/payment', true);
-      }
-    },
-    [isPaid]
-  );
+          // disable other related func if both are enabled
+          if (funcToDisable && isFuncEnabled(funcToDisable) && toEnable) {
+            set[funcToDisable] = false;
+          }
+
+          browser.storage.sync.set({ nb_settings: set }).then(() => {
+            refreshSettings();
+          });
+          return null;
+        })
+        .catch((e) => console.log(e));
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
 
   const filteredItems = settings.filter(
     (item) =>
@@ -113,31 +105,27 @@ export function SettingsTable({ isPaid }: { isPaid: boolean }) {
         onInput={handleOnchange}
       />
       <div className="settings table">
-        {!filteredItems.length && <div className="no-setting">No setting found</div>}
+        {!filteredItems.length && (
+          <div className="no-setting">No setting found</div>
+        )}
         {itemsToDisplay.map((obj, index) => (
           <React.Fragment key={obj.func}>
             <div
               className={`row ${(obj as any).status}`}
               data-func={obj.func}
               data-disable_func={obj.disable_func}
-              title={obj.pf ? (isPaid ? '' : msgLocked) : ''}
               onClick={() => handleFeature(obj)}
             >
               <div className="text-wrapper">
                 <div className="name">{obj.name}</div>
-                {obj.pf && (
-                  <div
-                    className="pro small"
-                    role="button"
-                    title={isPaid ? msgThanks : msgLocked}
-                    aria-disabled="false"
-                  >
-                    <div>Pro</div>
-                  </div>
-                )}
                 {obj.desc && <div className="desc">{obj.desc}</div>}
               </div>
-              <div className="button toggle" role="button" aria-disabled="false" tabIndex={0}>
+              <div
+                className="button toggle"
+                role="button"
+                aria-disabled="false"
+                tabIndex={0}
+              >
                 <div className="knob">
                   <div className="pos" />
                 </div>
