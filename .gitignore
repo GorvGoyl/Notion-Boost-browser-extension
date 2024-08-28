@@ -26,3 +26,4 @@ web-ext.config.ts
 *.sw?
 build_chrome
 build_firefox
+build

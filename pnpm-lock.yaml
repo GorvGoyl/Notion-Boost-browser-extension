@@ -54,6 +54,9 @@ importers:
       globals:
         specifier: ^15.9.0
         version: 15.9.0
+      prettier:
+        specifier: ^3.3.3
+        version: 3.3.3
       sass:
         specifier: ^1.70.0
         version: 1.70.0
