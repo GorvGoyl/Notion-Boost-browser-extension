@@ -33,6 +33,7 @@ const config = {
             },
         },
     ],
+
     plugins: [
         'prettier-plugin-tailwindcss', //must be last
     ],
