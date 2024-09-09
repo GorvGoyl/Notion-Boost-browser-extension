@@ -8,13 +8,12 @@
         "dev": "wxt",
         "dev:firefox": "wxt -b firefox --mv2",
         "build": "wxt build",
-        "build:firefox": "wxt build -b firefox",
-        "build-zip": "wxt zip",
-        "build-zip:firefox": "wxt zip -b firefox",
         "compile": "tsc --noEmit",
         "postinstall": "wxt prepare",
         "lint": "eslint .",
-        "package": "pnpm build-zip && pnpm build-zip:firefox"
+        "package-chrome": "wxt zip",
+        "package-firefox": "wxt zip -b firefox",
+        "package": "pnpm run package-chrome && pnpm run package-firefox"
     },
     "dependencies": {
         "react": "^18.3.1",
