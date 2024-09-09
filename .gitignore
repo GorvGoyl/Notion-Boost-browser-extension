@@ -1,8 +1,26 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
 node_modules
-build
+.output
+stats.html
+stats-*.json
+.wxt
+
+# Editor directories and files
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 build_chrome
 build_firefox
-**.zip
-test.html
-notion-boost-ext-key
-.DS_Store
+build

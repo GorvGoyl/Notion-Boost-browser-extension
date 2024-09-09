@@ -4,16 +4,16 @@ import {
   toElement,
   pageChangeListener,
   removePageChangeListener,
-} from "../utility";
+} from '../utils';
 
-const notionFrameCls = ".notion-frame";
+const notionFrameCls = '.notion-frame';
 let pageChangeObserverObj = {};
 let ticking = false;
 let isBtnVisible = false;
-let scrollBtn = "";
-let docElement = "";
+let scrollBtn: HTMLElement;
+let docElement: HTMLElement;
 
-export function scrollTopBtn(isEnabled) {
+export function scrollTopBtn(isEnabled: boolean) {
   try {
     console.log(`feature: scrollTopBtn: ${isEnabled}`);
 
@@ -38,10 +38,10 @@ export function scrollTopBtn(isEnabled) {
 // Internal methods //
 
 function bindScrollEventToDoc() {
-  docElement = getElement(".notion-frame > .notion-scroller");
-  docElement.addEventListener("scroll", handleScrollEvent);
+  docElement = getElement('.notion-frame > .notion-scroller');
+  docElement.addEventListener('scroll', handleScrollEvent);
   adjustBtnVisibilty();
-  console.log("added bindScrollEventToDoc");
+  console.log('added bindScrollEventToDoc');
 }
 function scrollToTop() {
   docElement.scroll({
@@ -54,11 +54,11 @@ function addScrollTopBtn() {
   // add btn div to HTML
   const btnHTML = `<div class="scroll-top-btn" title="Scroll back to top" role="button" tabindex="0">⭡</div>`;
   getElement(notionFrameCls).after(toElement(btnHTML));
-  console.log("inserted scroll btn div");
-  scrollBtn = getElement(".scroll-top-btn");
+  console.log('inserted scroll btn div');
+  scrollBtn = getElement('.scroll-top-btn');
   // scrollTopBtn.classList.add(btnCls);
   // add onclick event
-  scrollBtn.addEventListener("click", scrollToTop);
+  scrollBtn.addEventListener('click', scrollToTop);
   adjustBtnVisibilty();
 
   // add scroll event to doc
@@ -89,15 +89,15 @@ function adjustBtnVisibilty() {
   if (didUserScrollDown) {
     // Show button if it's not shown
     if (!isBtnVisible) {
-      scrollBtn.classList.add("show");
+      scrollBtn.classList.add('show');
       isBtnVisible = true;
-      console.log("btn shown");
+      console.log('btn shown');
     }
   } else if (isBtnVisible) {
     // Hide button if it's not hidden
-    scrollBtn.classList.remove("show");
+    scrollBtn.classList.remove('show');
     isBtnVisible = false;
-    console.log("btn hidden");
+    console.log('btn hidden');
   }
   ticking = false;
 }
@@ -107,6 +107,6 @@ function removeScrollTopBtn() {
   isBtnVisible = false;
   if (scrollBtn) {
     scrollBtn.remove();
-    console.log("scrollTopBtn removed");
+    console.log('scrollTopBtn removed');
   }
 }
