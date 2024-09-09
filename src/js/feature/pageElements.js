@@ -6,6 +6,7 @@ import {
 } from "../utility";
 
 const notionHelpBtnCls = ".notion-help-button";
+const notionAiBtnCls = ".notion-ai-button"
 const notionAppId = "#notion-app";
 
 // To add theme based color: check indentationLines sass class
@@ -157,6 +158,29 @@ export function bolderTextInDark(isEnabled) {
             el.classList.remove("bolder");
           }
           // console.log(`${notionAppInner} style is ${el.style.display}`);
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function hideAiBtn(isHidden) {
+  try {
+    console.log(`feature: hideAiBtn: ${isHidden}`);
+
+    onElementLoaded(notionAiBtnCls)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionAiBtnCls);
+          if (isHidden) {
+            el.style.display = "none";
+          } else {
+            el.style.display = "flex";
+          }
+          console.log(`${notionAiBtnCls} style is ${el.style.display}`);
         }
         return null;
       })

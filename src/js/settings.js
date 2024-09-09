@@ -2,6 +2,7 @@
 export const defaultSettings = {
   displayOutline: true,
   hideHelpBtn: false,
+  hideAiBtn: false,
   bolderTextInDark: false,
   smallText: false,
   fullWidth: false,
@@ -137,6 +138,12 @@ export const settingDetails = [
   {
     func: "hideHelpBtn",
     name: "Hide Help button from pages",
+    desc: "",
+    pf: false,
+  },
+  {
+    func: "hideAiBtn",
+    name: "Hide AI Assistant Q&A button from pages",
     desc: "",
     pf: false,
   },
