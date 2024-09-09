@@ -1,10 +1,4 @@
-import {
-  isObserverType,
-  onElementLoaded,
-  pageChangeListener,
-  removePageChangeListener,
-  toElement,
-} from '../utils';
+import { isObserverType, onElementLoaded, pageChangeListener, removePageChangeListener, toElement } from '../utils';
 
 const notionAppInnerCls = '.notion-app-inner';
 
@@ -17,69 +11,69 @@ const docEditObserverObj = {};
 let pageChangeObserverObj = {};
 
 export function rollupUrlClickable(isEnabled: boolean) {
-  try {
-    console.log(`feature: enablerollupUrlClickable: ${isEnabled}`);
+    try {
+        console.log(`feature: enablerollupUrlClickable: ${isEnabled}`);
 
-    // triggers on page load
-    // it waits for doc to be loaded
-    onElementLoaded(notionPresenceContainerCls)
-      .then((isPresent) => {
-        if (isPresent) {
-          if (isEnabled) {
-            console.log('calling addrollupUrlClickable');
-            bindRollupClickableEvent();
-            // docEditListener();
-          } else {
-            removerollupUrlClickable();
-          }
-        }
-        return true;
-      })
-      .catch((e) => console.error(e));
-  } catch (e) {
-    console.error(e);
-  }
+        // triggers on page load
+        // it waits for doc to be loaded
+        onElementLoaded(notionPresenceContainerCls)
+            .then((isPresent) => {
+                if (isPresent) {
+                    if (isEnabled) {
+                        console.log('calling addrollupUrlClickable');
+                        bindRollupClickableEvent();
+                        // docEditListener();
+                    } else {
+                        removerollupUrlClickable();
+                    }
+                }
+                return true;
+            })
+            .catch((e) => console.error(e));
+    } catch (e) {
+        console.error(e);
+    }
 }
 
 // Internal methods //
 
 function removeDocEditListener() {
-  if (isObserverType(docEditObserverObj)) {
-    DEBUG && console.log('disconnected docEditObserver');
-    (docEditObserverObj as MutationObserver).disconnect();
-  }
+    if (isObserverType(docEditObserverObj)) {
+        DEBUG && console.log('disconnected docEditObserver');
+        (docEditObserverObj as MutationObserver).disconnect();
+    }
 }
 
 function bindRollupClickableEvent() {
-  // add event
-  addrollupUrlClickable();
+    // add event
+    addrollupUrlClickable();
 
-  // re-add event on page change
-  pageChangeObserverObj = pageChangeListener([], [addrollupUrlClickable]);
+    // re-add event on page change
+    pageChangeObserverObj = pageChangeListener([], [addrollupUrlClickable]);
 }
 
 function getUrl(textParam: string) {
-  if (!textParam) {
-    return null;
-  }
-  let text = textParam.trim();
-
-  if (text.indexOf(' ') === -1 && text.indexOf('.') > 0 && text.length > 3) {
-    // href needs http(s) in url
-    if (!/^https?:\/\//i.test(text)) {
-      text = `http://${text}`;
+    if (!textParam) {
+        return null;
     }
-    return text;
-  }
-  return null;
+    let text = textParam.trim();
+
+    if (text.indexOf(' ') === -1 && text.indexOf('.') > 0 && text.length > 3) {
+        // href needs http(s) in url
+        if (!/^https?:\/\//i.test(text)) {
+            text = `http://${text}`;
+        }
+        return text;
+    }
+    return null;
 }
 
 let linkComponentEl: any = null;
 let rollupCellEl: any = null;
 
 function createLinkComponent(url: string) {
-  return toElement(
-    `<div class="linkComponent">
+    return toElement(
+        `<div class="linkComponent">
       <div>
         <a
           title="Open URL in new tab"
@@ -103,198 +97,198 @@ function createLinkComponent(url: string) {
         </a>
       </div>
     </div>
-    `
-  );
+    `,
+    );
 }
 
 function handleTableHover(e: any) {
-  // console.log("hover over table", e.target);
-  let nestedLevel = 0;
-  const path = e.composedPath();
-  for (let i = 0; i < path.length; i++) {
-    const x = path[i];
-    // console.log(x);
-    nestedLevel++;
-    // return if hovering over link component
-    if (x.className === 'linkComponent') {
-      return;
+    // console.log("hover over table", e.target);
+    let nestedLevel = 0;
+    const path = e.composedPath();
+    for (let i = 0; i < path.length; i++) {
+        const x = path[i];
+        // console.log(x);
+        nestedLevel++;
+        // return if hovering over link component
+        if (x.className === 'linkComponent') {
+            return;
+        }
+        if (nestedLevel > 5) {
+            // linkComponent not found
+            break;
+        }
     }
-    if (nestedLevel > 5) {
-      // linkComponent not found
-      break;
+    if (linkComponentEl) {
+        linkComponentEl.remove();
     }
-  }
-  if (linkComponentEl) {
-    linkComponentEl.remove();
-  }
-  if (rollupCellEl) {
-    rollupCellEl.style.position = null;
-    rollupCellEl = null;
-  }
-  //   onhover: background: rgb(239, 239, 238)
+    if (rollupCellEl) {
+        rollupCellEl.style.position = null;
+        rollupCellEl = null;
+    }
+    //   onhover: background: rgb(239, 239, 238)
 
-  let urlSpan = null;
-  const rollupCellStyle = 'display: flex;';
+    let urlSpan = null;
+    const rollupCellStyle = 'display: flex;';
 
-  for (const x of path) {
-    if (x.getAttribute('style') === rollupCellStyle) {
-      // console.log(x.getAttribute("style"));
-      urlSpan = x.querySelector(
-        'div[style*="display: block;"] div[style*="display: flex; flex-wrap: nowrap;"] span'
-      );
-      if (urlSpan) {
-        // console.log("it's rollup cell");
-        rollupCellEl = x;
-        break;
-      }
+    for (const x of path) {
+        if (x.getAttribute('style') === rollupCellStyle) {
+            // console.log(x.getAttribute("style"));
+            urlSpan = x.querySelector(
+                'div[style*="display: block;"] div[style*="display: flex; flex-wrap: nowrap;"] span',
+            );
+            if (urlSpan) {
+                // console.log("it's rollup cell");
+                rollupCellEl = x;
+                break;
+            }
+        }
+
+        // break if it reaches original eventListener element
+        if (x === e.currentTarget) {
+            break;
+        }
     }
 
-    // break if it reaches original eventListener element
-    if (x === e.currentTarget) {
-      break;
+    if (rollupCellEl) {
+        // debugger;
+        // console.log("inside rollupcell");
+        let text = '';
+        // see if it contains actual link
+        const anchor = urlSpan.querySelector('a');
+        if (anchor) {
+            text = anchor.href;
+        } else {
+            // nope it's just a span
+            text = urlSpan.textContent;
+        }
+        const url = getUrl(text);
+        if (url) {
+            rollupCellEl.style.position = 'relative';
+
+            linkComponentEl = createLinkComponent(url);
+
+            rollupCellEl.appendChild(linkComponentEl);
+
+            // console.log(url);
+        } else {
+            // console.log("empty text");
+        }
     }
-  }
-
-  if (rollupCellEl) {
-    // debugger;
-    // console.log("inside rollupcell");
-    let text = '';
-    // see if it contains actual link
-    const anchor = urlSpan.querySelector('a');
-    if (anchor) {
-      text = anchor.href;
-    } else {
-      // nope it's just a span
-      text = urlSpan.textContent;
-    }
-    const url = getUrl(text);
-    if (url) {
-      rollupCellEl.style.position = 'relative';
-
-      linkComponentEl = createLinkComponent(url);
-
-      rollupCellEl.appendChild(linkComponentEl);
-
-      // console.log(url);
-    } else {
-      // console.log("empty text");
-    }
-  }
 }
 
 function handletableRowAsPageHover(e: any) {
-  //   console.log("relatedTarget", e.relatedTarget);
+    //   console.log("relatedTarget", e.relatedTarget);
 
-  let nestedLevel = 0;
-  const path = e.composedPath();
+    let nestedLevel = 0;
+    const path = e.composedPath();
 
-  for (const x of path) {
-    nestedLevel++;
-    // return if hovering over link component
-    if (x.className === 'linkComponent') {
-      // console.log("ignoring link hover");
-      return;
+    for (const x of path) {
+        nestedLevel++;
+        // return if hovering over link component
+        if (x.className === 'linkComponent') {
+            // console.log("ignoring link hover");
+            return;
+        }
+        if (nestedLevel > 5) {
+            // linkComponent not found
+            break;
+        }
     }
-    if (nestedLevel > 5) {
-      // linkComponent not found
-      break;
+    if (linkComponentEl) {
+        linkComponentEl.remove();
     }
-  }
-  if (linkComponentEl) {
-    linkComponentEl.remove();
-  }
-  if (rollupCellEl) {
-    rollupCellEl.style.position = null;
-    rollupCellEl = null;
-  }
-  //   onhover: background: rgb(239, 239, 238)
+    if (rollupCellEl) {
+        rollupCellEl.style.position = null;
+        rollupCellEl = null;
+    }
+    //   onhover: background: rgb(239, 239, 238)
 
-  let urlSpan = null;
-  const rollupCellStyle = 'display: flex; flex: 1 1 0%; min-width: 0px;';
+    let urlSpan = null;
+    const rollupCellStyle = 'display: flex; flex: 1 1 0%; min-width: 0px;';
 
-  for (let i = 0; i < path.length; i++) {
-    const x = path[i];
-    if (x.getAttribute('style') === rollupCellStyle) {
-      urlSpan = x.querySelector(
-        'div.notion-focusable div[style*="display: flex; flex-wrap:"] > span[style*="word-break: break-word;"]'
-      );
-      console.log(urlSpan);
-      if (urlSpan) {
-        rollupCellEl = x;
-        break;
-      }
+    for (let i = 0; i < path.length; i++) {
+        const x = path[i];
+        if (x.getAttribute('style') === rollupCellStyle) {
+            urlSpan = x.querySelector(
+                'div.notion-focusable div[style*="display: flex; flex-wrap:"] > span[style*="word-break: break-word;"]',
+            );
+            console.log(urlSpan);
+            if (urlSpan) {
+                rollupCellEl = x;
+                break;
+            }
+        }
+
+        // break if it reaches original eventListener element
+        if (x === e.currentTarget) {
+            break;
+        }
     }
 
-    // break if it reaches original eventListener element
-    if (x === e.currentTarget) {
-      break;
-    }
-  }
+    if (rollupCellEl) {
+        // debugger;
+        let text = '';
+        // see if it contains actual link
+        const anchor = urlSpan.querySelector('a');
+        if (anchor) {
+            text = anchor.href;
+        } else {
+            // nope it's just a span
+            text = urlSpan.textContent;
+        }
+        const url = getUrl(text);
+        if (url) {
+            rollupCellEl.style.position = 'relative';
 
-  if (rollupCellEl) {
-    // debugger;
-    let text = '';
-    // see if it contains actual link
-    const anchor = urlSpan.querySelector('a');
-    if (anchor) {
-      text = anchor.href;
-    } else {
-      // nope it's just a span
-      text = urlSpan.textContent;
-    }
-    const url = getUrl(text);
-    if (url) {
-      rollupCellEl.style.position = 'relative';
+            linkComponentEl = createLinkComponent(url);
 
-      linkComponentEl = createLinkComponent(url);
-
-      rollupCellEl.appendChild(linkComponentEl);
+            rollupCellEl.appendChild(linkComponentEl);
+        }
     }
-  }
 }
 
 function addrollupUrlClickable() {
-  console.log('adding addrollupUrlClickable feature...');
+    console.log('adding addrollupUrlClickable feature...');
 
-  // console.log(
-  //   "notion-table-view count",
-  //   document.querySelectorAll(".notion-table-view").length
-  // );
+    // console.log(
+    //   "notion-table-view count",
+    //   document.querySelectorAll(".notion-table-view").length
+    // );
 
-  const tables = document.querySelectorAll('.notion-table-view');
-  if (tables) {
-    tables.forEach((x) => {
-      x.addEventListener('mouseover', handleTableHover);
-    });
-  }
+    const tables = document.querySelectorAll('.notion-table-view');
+    if (tables) {
+        tables.forEach((x) => {
+            x.addEventListener('mouseover', handleTableHover);
+        });
+    }
 
-  const tableRowAsPage = document.querySelector(
-    '.notion-scroller.vertical > div:nth-of-type(2)[style*="display: flex;"] div[style="margin: 0px;"]'
-  );
-  if (tableRowAsPage) {
-    tableRowAsPage.addEventListener('mouseover', handletableRowAsPageHover);
-  }
+    const tableRowAsPage = document.querySelector(
+        '.notion-scroller.vertical > div:nth-of-type(2)[style*="display: flex;"] div[style="margin: 0px;"]',
+    );
+    if (tableRowAsPage) {
+        tableRowAsPage.addEventListener('mouseover', handletableRowAsPageHover);
+    }
 }
 
 function removerollupUrlClickable() {
-  console.log('removing removerollupUrlClickable feature...');
+    console.log('removing removerollupUrlClickable feature...');
 
-  removePageChangeListener(pageChangeObserverObj);
+    removePageChangeListener(pageChangeObserverObj);
 
-  // removeDocEditListener();
-  const tables = document.querySelectorAll('.notion-table-view');
-  if (tables) {
-    tables.forEach((x) => {
-      x.removeEventListener('mouseover', handleTableHover);
-    });
-  }
+    // removeDocEditListener();
+    const tables = document.querySelectorAll('.notion-table-view');
+    if (tables) {
+        tables.forEach((x) => {
+            x.removeEventListener('mouseover', handleTableHover);
+        });
+    }
 
-  const tableRowAsPage = document.querySelector(
-    '.notion-scroller.vertical > div:nth-of-type(2)[style*="width: 100%; display: flex; flex-direction: column;"] div[style="margin: 0px;"]'
-  );
-  if (tableRowAsPage) {
-    tableRowAsPage.removeEventListener('mouseover', handletableRowAsPageHover);
-  }
+    const tableRowAsPage = document.querySelector(
+        '.notion-scroller.vertical > div:nth-of-type(2)[style*="width: 100%; display: flex; flex-direction: column;"] div[style="margin: 0px;"]',
+    );
+    if (tableRowAsPage) {
+        tableRowAsPage.removeEventListener('mouseover', handletableRowAsPageHover);
+    }
 
-  console.log('removerollupUrlClickable feature done');
+    console.log('removerollupUrlClickable feature done');
 }
