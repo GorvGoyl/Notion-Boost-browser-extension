@@ -1,23 +1,22 @@
-import { Dispatch, useState, useEffect } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 import { Page } from './main';
 import { SettingsTable } from '@/components/SettingsTable';
 
-function Home({ setPageToShow }: { setPageToShow: Dispatch<React.SetStateAction<Page>> }) {
+function Home({ setPageToShow }: { setPageToShow: Dispatch<SetStateAction<Page>> }) {
     return (
         <div>
             <div className="wrapper">
-                <div className="title underline">
-                    Notion Boost{' '}
-                    {/* <div>
-              {" "}
-              <a
-                className="sub-link"
-                href="https://gourav.io/notion-boost#-currently-added-features"
-              >
-                Feature details
-              </a>
-            </div> */}
+                <div>
+                    <div
+                        role="button"
+                        tabIndex={0}
+                        className="title"
+                        onClick={() => {
+                            window.open('https://gourav.io/notion-boost', '_blank');
+                        }}>
+                        Notion Boost
+                    </div>
                 </div>
 
                 <SettingsTable />

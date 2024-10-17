@@ -2,6 +2,7 @@
 export const defaultSettings = {
     displayOutline: true,
     hideAiBtn: false,
+    hideTableOfContents: false,
     bolderTextInDark: false,
     smallText: false,
     fullWidth: false,
@@ -35,9 +36,20 @@ export const settingDetails = [
         desc: 'Show sticky outline (table of contents) for pages that have headings',
     },
     {
+        func: 'hideTableOfContents',
+        name: 'Hide Table of contents',
+        desc: "Hide Notion's default 'Table of contents' feature",
+    },
+    {
         func: 'hideAiBtn',
         name: 'Hide AI button from pages',
         desc: 'Hide floating AI button (bottom-right corner) from pages',
+    },
+    {
+        func: 'disableAiAfterSpaceKey',
+        name: 'Disable AI menu when pressing space',
+        desc: "Don't show AI command menu when pressing space key",
+        disable_func: 'disableAiAfterSpaceKey',
     },
     {
         func: 'fullWidth',
@@ -49,12 +61,7 @@ export const settingDetails = [
         name: 'Small text for all pages',
         desc: 'Set small text for all pages by default',
     },
-    {
-        func: 'disableAiAfterSpaceKey',
-        name: 'Disable AI menu when pressing space',
-        desc: "Don't show AI command menu when pressing space key",
-        disable_func: 'disableAiAfterSpaceKey',
-    },
+
     {
         func: 'leftAlignMedia',
         name: 'Left align media',

@@ -9,7 +9,7 @@ import { scrollTopBtn } from '../components/features/scrollToTopBtn';
 import { spellcheckForCode } from '../components/features/spellCheckForCode';
 import { defaultSettings } from '../components/settings';
 import { getLatestSettings, isEmpty } from '../components/utils';
-import { hideAiBtn } from '../components/features/pageElements';
+import { hideAiBtn, hideTableOfContents } from '../components/features/pageElements';
 
 let featureList: any = {};
 
@@ -23,6 +23,7 @@ featureList.spellcheckForCode = spellcheckForCode;
 featureList.openFullPage = openFullPage;
 featureList.rollupUrlClickable = rollupUrlClickable;
 featureList.hideAiBtn = hideAiBtn;
+featureList.hideTableOfContents = hideTableOfContents;
 
 export default defineContentScript({
     matches: ['*://*.notion.so/*', '*://*.notion.site/*'],

@@ -1,4 +1,4 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 
 import '@/styles/popup.scss';
@@ -6,9 +6,9 @@ import Home from './App';
 import { About } from './About';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
+    <StrictMode>
         <App />
-    </React.StrictMode>,
+    </StrictMode>,
 );
 
 function App() {

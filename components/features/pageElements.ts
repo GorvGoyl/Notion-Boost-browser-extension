@@ -581,3 +581,25 @@ function disableSlashMenuEvent(e: any) {
             });
     }
 }
+
+export function hideTableOfContents(isEnabled: boolean) {
+    try {
+        console.debug(`feature: hideTableOfContents: ${isEnabled}`);
+
+        onElementLoaded(notionAppId)
+            .then((isPresent) => {
+                if (isPresent) {
+                    const el = getElement(notionAppId);
+                    if (isEnabled) {
+                        el.classList.add('hideTableOfContents');
+                    } else {
+                        el.classList.remove('hideTableOfContents');
+                    }
+                }
+                return null;
+            })
+            .catch((e) => console.error(e));
+    } catch (e) {
+        console.error(e);
+    }
+}
