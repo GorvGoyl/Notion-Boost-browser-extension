@@ -1,6 +1,6 @@
 import { getElement, isObserverType, onElementLoaded, simulateKey } from '../utils';
 
-const notionHelpBtnCls = '.notion-help-button';
+const notionAiBtnCls = '[role=button].notion-ai-button';
 const notionAppId = '#notion-app';
 
 // To add theme based color: check indentationLines sass class
@@ -161,20 +161,20 @@ export function bolderTextInDark(isEnabled: boolean) {
     }
 }
 
-export function hideHelpBtn(isHidden: boolean) {
+export function hideAiBtn(isHidden: boolean) {
     try {
-        console.log(`feature: hideHelpBtn: ${isHidden}`);
+        console.debug(`feature: hideAiBtn: ${isHidden}`);
 
-        onElementLoaded(notionHelpBtnCls)
+        onElementLoaded(notionAiBtnCls)
             .then((isPresent) => {
                 if (isPresent) {
-                    const el = getElement(notionHelpBtnCls);
+                    const el = getElement(notionAiBtnCls);
                     if (isHidden) {
                         el.style.display = 'none';
                     } else {
                         el.style.display = 'flex';
                     }
-                    console.log(`${notionHelpBtnCls} style is ${el.style.display}`);
+                    console.log(`${notionAiBtnCls} style is ${el.style.display}`);
                 }
                 return null;
             })

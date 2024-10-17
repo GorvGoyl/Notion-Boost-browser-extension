@@ -1,7 +1,7 @@
 // settings and their default value
 export const defaultSettings = {
     displayOutline: true,
-    hideHelpBtn: false,
+    hideAiBtn: false,
     bolderTextInDark: false,
     smallText: false,
     fullWidth: false,
@@ -35,6 +35,11 @@ export const settingDetails = [
         desc: 'Show sticky outline (table of contents) for pages that have headings',
     },
     {
+        func: 'hideAiBtn',
+        name: 'Hide AI button from pages',
+        desc: 'Hide floating AI button (bottom-right corner) from pages',
+    },
+    {
         func: 'fullWidth',
         name: 'Full width for all pages',
         desc: 'Set full width for all pages by default',
@@ -49,6 +54,18 @@ export const settingDetails = [
         name: 'Disable AI menu when pressing space',
         desc: "Don't show AI command menu when pressing space key",
         disable_func: 'disableAiAfterSpaceKey',
+    },
+    {
+        func: 'leftAlignMedia',
+        name: 'Left align media',
+        desc: 'Align document images and videos to the left instead of center',
+    },
+
+    {
+        func: 'addMoreHeightToPage',
+        name: 'Add more height to page',
+        desc: 'Add more height to page by hiding top padding, image cover, & icon',
+        pf: true,
     },
     {
         func: 'openFullPage',
@@ -78,6 +95,11 @@ export const settingDetails = [
         disable_func: 'hideSlashMenuAfterSpace',
     },
     {
+        func: 'disableSlashCommandPlaceholder',
+        name: 'Hide slash command placeholder',
+        desc: "Hide placeholder: Press '/' for commands…",
+    },
+    {
         func: 'showHoverText',
         name: 'Show full text on hover',
         desc: 'Show full text in table cells on mouse hover',
@@ -97,27 +119,11 @@ export const settingDetails = [
         name: "Don't show popup menu when pasting external links",
         desc: "Don't show popup menu (i.e. dismiss, create bookmark, create embed) when pasting external URLs",
     },
-    {
-        func: 'leftAlignMedia',
-        name: 'Left align media',
-        desc: 'Align document images and videos to the left instead of center',
-    },
 
-    {
-        func: 'addMoreHeightToPage',
-        name: 'Add more height to page',
-        desc: 'Add more height to page by hiding top padding, image cover, & icon',
-        pf: true,
-    },
     {
         func: 'hideNotification',
         name: 'Hide notification icon',
         desc: "Hide red notification icon from sidebar when it's in closed state and hide notification number from tab title",
-    },
-    {
-        func: 'hideHelpBtn',
-        name: 'Hide Help button from pages',
-        desc: '',
     },
     {
         func: 'narrowListItems',
@@ -139,7 +145,6 @@ export const settingDetails = [
         name: "Hide 'Hidden columns' in board view",
         desc: "Truly hide 'Hidden columns' in Kanban board view",
     },
-
     {
         func: 'hideComments',
         name: 'Hide comments section from all pages',
@@ -154,12 +159,6 @@ export const settingDetails = [
         func: 'borderOnImages',
         name: 'Add frame to images',
         desc: 'Add frame around images to make them easily noticeable on page',
-    },
-
-    {
-        func: 'disableSlashCommandPlaceholder',
-        name: 'Hide slash command placeholder',
-        desc: "Hide placeholder: Press '/' for commands…",
     },
 
     // step 2 of 2: add function name and description

@@ -9,6 +9,7 @@ import { scrollTopBtn } from '../components/features/scrollToTopBtn';
 import { spellcheckForCode } from '../components/features/spellCheckForCode';
 import { defaultSettings } from '../components/settings';
 import { getLatestSettings, isEmpty } from '../components/utils';
+import { hideAiBtn } from '../components/features/pageElements';
 
 let featureList: any = {};
 
@@ -21,6 +22,7 @@ featureList.codeLineNumbers = codeLineNumbers;
 featureList.spellcheckForCode = spellcheckForCode;
 featureList.openFullPage = openFullPage;
 featureList.rollupUrlClickable = rollupUrlClickable;
+featureList.hideAiBtn = hideAiBtn;
 
 export default defineContentScript({
     matches: ['*://*.notion.so/*', '*://*.notion.site/*'],
@@ -28,23 +30,23 @@ export default defineContentScript({
         init();
 
         browser.storage.onChanged.addListener((changes, namespace) => {
-            console.log(changes);
-            console.log(namespace);
+            console.debug(changes);
+            console.debug(namespace);
             const func = changes.nb_settings.newValue.call_func;
             featureList[func.name](func.arg);
         });
 
         if (document.readyState !== 'loading') {
-            console.log('document is already ready');
+            console.debug('document is already ready');
         } else {
             document.addEventListener('DOMContentLoaded', () => {
-                console.log('document was not ready');
+                console.debug('document was not ready');
             });
         }
 
         window.onload = () => {
             // same as window.addEventListener('load', (event) => {
-            console.log('window is ready');
+            console.debug('window is ready');
         };
     },
 });
@@ -55,9 +57,9 @@ function init() {
 
     getLatestSettings()
         .then((set: any) => {
-            console.log('LatestSettings: ', set);
+            console.debug('LatestSettings: ', set);
 
-            console.log('enabling features...');
+            console.debug('enabling features...');
             // on page load, execute only enabled features
             for (const func of Object.keys(set)) {
                 const isEnabled = set[func];
@@ -67,7 +69,7 @@ function init() {
             }
             return null;
         })
-        .catch((e) => console.log(e));
+        .catch((e) => console.debug(e));
 
     browser.storage.sync.get(['nb_settings']).then((result) => {
         syncSet = result;
