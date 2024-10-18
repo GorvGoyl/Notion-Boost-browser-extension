@@ -24,3 +24,4 @@ stats-*.json
 build_chrome
 build_firefox
 build
+chrome-mv3.pem

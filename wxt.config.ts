@@ -31,11 +31,11 @@ export default defineConfig({
 const baseManifest = {
     name: 'Notion Boost',
     short_name: 'Notion Boost',
-    version: '3.3.2',
+    version: '3.3.6',
     description:
         'Boost Notion productivity with 20+ customizations like outline, small text full width for all, back to top button etc',
     author: 'Gourav Goyal',
-    permissions: ['storage', 'activeTab'],
+    permissions: ['storage'],
     host_permissions: ['*://*.notion.so/*', '*://*.notion.site/*'],
     homepage_url: 'https://gourav.io/notion-boost',
     icons: {
