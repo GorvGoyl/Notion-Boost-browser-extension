@@ -26,7 +26,7 @@ featureList.hideAiBtn = hideAiBtn;
 featureList.hideTableOfContents = hideTableOfContents;
 
 export default defineContentScript({
-    matches: ['*://*.notion.so/*', '*://*.notion.site/*'],
+    matches: ['*://*.notion.so/*', '*://*.notion.site/*', '*://*.notion.com/*'],
     main() {
         init();
 

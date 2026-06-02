@@ -1,6 +1,6 @@
 {
     "name": "notion-boost-browser-extension",
-    "description": "Notion Boost - add outline and more to notion.so",
+    "description": "Notion Boost - add outline and more to Notion",
     "private": false,
     "version": "1.0.0",
     "type": "module",
