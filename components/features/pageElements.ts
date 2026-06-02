@@ -499,6 +499,7 @@ function disablePopupOnURLPasteEvent(e: any) {
     if (
         (!content.includes(' ') || content.slice(-1) === ' ') &&
         !content.includes('notion.so') &&
+        !content.includes('notion.com') &&
         content.includes('.')
     ) {
         console.log('inside disablePopupOnURLPasteEvent');

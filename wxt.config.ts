@@ -36,7 +36,7 @@ const baseManifest = {
         'Boost Notion productivity with 20+ customizations like outline, small text full width for all, back to top button etc',
     author: 'Gourav Goyal',
     permissions: ['storage'],
-    host_permissions: ['*://*.notion.so/*', '*://*.notion.site/*'],
+    host_permissions: ['*://*.notion.so/*', '*://*.notion.site/*', '*://*.notion.com/*'],
     homepage_url: 'https://gourav.io/notion-boost',
     icons: {
         '16': '/icon/icon16.png',
