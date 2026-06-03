@@ -117,6 +117,28 @@ export function fullWidth(isEnabled: boolean) {
     }
 }
 
+export function wideSearchBox(isEnabled) {
+  try {
+    console.log(`feature: wideSearchBox: ${isEnabled}`);
+
+    onElementLoaded(notionAppId)
+      .then((isPresent) => {
+        if (isPresent) {
+          const el = getElement(notionAppId);
+          if (isEnabled) {
+            el.classList.add("wideSearchBox");
+          } else {
+            el.classList.remove("wideSearchBox");
+          }
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function borderOnImages(isEnabled: boolean) {
     try {
         console.log(`feature: borderOnImages: ${isEnabled}`);

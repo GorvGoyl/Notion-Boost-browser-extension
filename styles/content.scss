@@ -301,6 +301,12 @@ $caret-color-dark-theme: rgb(255, 255, 255);
     }
 }
 
+.wideSearchBox .notion-overlay-container {
+    [role="dialog"]:has(> .notion-search-menu) {
+        max-width: 90% !important;
+    }
+}
+
 // borderOnImages
 .borderOnImages {
     .notion-light-theme {

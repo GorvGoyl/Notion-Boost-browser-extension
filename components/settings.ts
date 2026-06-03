@@ -6,6 +6,7 @@ export const defaultSettings = {
     bolderTextInDark: false,
     smallText: false,
     fullWidth: false,
+    wideSearchBox: false,
     hideComments: false,
     hideBacklinks: false,
     scrollTopBtn: false,
@@ -55,6 +56,12 @@ export const settingDetails = [
         func: 'fullWidth',
         name: 'Full width for all pages',
         desc: 'Set full width for all pages by default',
+    },
+    {
+        func: "wideSearchBox",
+        name: "Wide search box",
+        desc: "Make the search box wider, especially for large displays",
+        pf: false,
     },
     {
         func: 'smallText',
