@@ -31,7 +31,7 @@ export default defineConfig({
 const baseManifest = {
     name: 'Notion Boost',
     short_name: 'Notion Boost',
-    version: '3.3.6',
+    version: '3.3.7',
     description:
         'Boost Notion productivity with 20+ customizations like outline, small text full width for all, back to top button etc',
     author: 'Gourav Goyal',
