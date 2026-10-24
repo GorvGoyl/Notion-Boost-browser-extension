@@ -25,6 +25,10 @@ $caret-color-dark-theme: rgb(255, 255, 255);
     margin-left: 32px;
 }
 
+.nb-h4 {
+    margin-left: 48px;
+}
+
 // bolder text
 .bolder {
     .notion-dark-theme {
@@ -77,41 +81,16 @@ $caret-color-dark-theme: rgb(255, 255, 255);
     }
 }
 
-// when outline shown: set simple table width for notion site subdomain
-
-.notion-cursor-listener
-    > div:first-child[style*='display: flex; flex-direction: column;']
-    .nb-outline.show
+// when outline shown: set simple table width
+// Notion sizes top-level simple tables to the full page width (ignoring the outline), which pushes wide
+// tables off the left edge. --nb-scroller-width is the page width next to the outline, set by outline.ts;
+// Notion then adjusts the table's inner padding itself.
+.nb-outline.show
     + .notion-scroller.vertical
     .notion-page-content
-    > {
-    .notion-table-block {
-        width: calc(100vw - var(--outlineWidth) - 10px) !important;
-    }
-}
-
-// when outline shown: set simple table width when sidebar is hidden
-.notion-sidebar-container[style*='width: 0']
-    ~ div[style*='display: flex; flex-direction: column;']
-    .nb-outline.show
-    + .notion-scroller.vertical
-    .notion-page-content
-    > {
-    .notion-table-block {
-        width: calc(100vw - var(--outlineWidth) - 10px) !important;
-    }
-}
-
-// when outline shown: set simple table width when sidebar is shown
-.notion-sidebar-container[style*='width: 2']
-    ~ div[style*='display: flex; flex-direction: column;']
-    .nb-outline.show
-    + .notion-scroller.vertical
-    .notion-page-content
-    > {
-    .notion-table-block {
-        width: calc(100vw - var(--outlineWidth) - 10px - var(--sidebarWidth)) !important;
-    }
+    .notion-table-block:not(.notion-page-content [data-block-id] .notion-table-block) {
+    width: var(--nb-scroller-width) !important;
+    max-width: var(--nb-scroller-width) !important;
 }
 
 // when outline shown: set page content width

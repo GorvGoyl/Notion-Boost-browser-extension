@@ -25,3 +25,9 @@ build_chrome
 build_firefox
 build
 chrome-mv3.pem
+
+# tests
+test-results
+playwright-report
+# saved Notion login of the e2e test account
+e2e/.auth

@@ -14,13 +14,18 @@
         "lint": "eslint .",
         "package-chrome": "wxt zip",
         "package-firefox": "wxt zip -b firefox",
-        "package": "pnpm run package-chrome && pnpm run package-firefox"
+        "package": "pnpm run package-chrome && pnpm run package-firefox",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "test:e2e": "wxt build && playwright test",
+        "test:e2e:login": "node e2e/save-login.mjs"
     },
     "dependencies": {
         "react": "^18.3.1",
         "react-dom": "^18.3.1"
     },
     "devDependencies": {
+        "@playwright/test": "1.64.1",
         "@types/react": "^18.3.11",
         "@types/react-dom": "^18.3.1",
         "@typescript-eslint/eslint-plugin": "^8.9.0",
@@ -34,6 +39,7 @@
         "eslint-plugin-react": "^7.37.1",
         "eslint-plugin-react-hooks": "^5.0.0",
         "globals": "^15.11.0",
+        "happy-dom": "^20.14.6",
         "prettier": "^3.3.3",
         "prettier-plugin-tailwindcss": "^0.6.8",
         "sass": "1.70.0",
@@ -42,6 +48,7 @@
         "svg-inline-loader": "^0.8.2",
         "typescript": "^5.6.3",
         "typescript-eslint": "^8.9.0",
+        "vitest": "2.1.9",
         "wxt": "^0.19.11"
     }
 }
