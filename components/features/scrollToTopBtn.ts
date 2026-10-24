@@ -7,11 +7,13 @@ import {
 } from '../utils';
 
 const notionFrameCls = '.notion-frame';
+// replaced on page change
+const notionScrollerCls = '.notion-frame .notion-scroller.vertical';
 let pageChangeObserverObj = {};
 let ticking = false;
 let isBtnVisible = false;
-let scrollBtn: HTMLElement;
-let docElement: HTMLElement;
+let scrollBtn: HTMLElement | undefined;
+let docElement: HTMLElement | undefined;
 
 export function scrollTopBtn(isEnabled: boolean) {
   try {
@@ -37,29 +39,38 @@ export function scrollTopBtn(isEnabled: boolean) {
 
 // Internal methods //
 
+// listen to the scroller of the page that's open; without one yet, the page change listener calls this again
 function bindScrollEventToDoc() {
-  docElement = getElement('.notion-frame > .notion-scroller');
-  docElement.addEventListener('scroll', handleScrollEvent);
+  const scrollerEl = getElement(notionScrollerCls);
+  if (!scrollerEl) return;
+
+  if (scrollerEl !== docElement) {
+    docElement?.removeEventListener('scroll', handleScrollEvent);
+    docElement = scrollerEl;
+    scrollerEl.addEventListener('scroll', handleScrollEvent);
+    console.log('added bindScrollEventToDoc');
+  }
   adjustBtnVisibilty();
-  console.log('added bindScrollEventToDoc');
 }
 function scrollToTop() {
-  docElement.scroll({
+  docElement?.scroll({
     top: 0,
     left: 0,
     // behavior: "auto",
   });
 }
 function addScrollTopBtn() {
+  // already added
+  if (scrollBtn) return;
+
   // add btn div to HTML
   const btnHTML = `<div class="scroll-top-btn" title="Scroll back to top" role="button" tabindex="0">⭡</div>`;
-  getElement(notionFrameCls).after(toElement(btnHTML));
+  const btnEl = toElement(btnHTML);
+  getElement(notionFrameCls).after(btnEl);
   console.log('inserted scroll btn div');
-  scrollBtn = getElement('.scroll-top-btn');
-  // scrollTopBtn.classList.add(btnCls);
   // add onclick event
-  scrollBtn.addEventListener('click', scrollToTop);
-  adjustBtnVisibilty();
+  btnEl.addEventListener('click', scrollToTop);
+  scrollBtn = btnEl;
 
   // add scroll event to doc
   bindScrollEventToDoc();
@@ -83,6 +94,9 @@ function handleScrollEvent() {
 }
 
 function adjustBtnVisibilty() {
+  ticking = false;
+  if (!docElement || !scrollBtn) return;
+
   // show scroll btn when user scroll down 100% of window height
   const didUserScrollDown = docElement.scrollTop >= docElement.clientHeight;
 
@@ -99,14 +113,17 @@ function adjustBtnVisibilty() {
     isBtnVisible = false;
     console.log('btn hidden');
   }
-  ticking = false;
 }
 function removeScrollTopBtn() {
   removePageChangeListener(pageChangeObserverObj);
+  pageChangeObserverObj = {};
 
+  docElement?.removeEventListener('scroll', handleScrollEvent);
+  docElement = undefined;
   isBtnVisible = false;
   if (scrollBtn) {
     scrollBtn.remove();
+    scrollBtn = undefined;
     console.log('scrollTopBtn removed');
   }
 }

@@ -2,8 +2,6 @@ import { defaultSettings } from './settings';
 
 export const twitterShareTxt =
   'https://twitter.com/intent/tweet?url=&text=%40NotionBoost%20by%20%40GorvGoyl%20adds%20tons%20of%20capabilities%20to%20%40NotionHQ%20like%20outline%2C%20scroll%20top%20button%2C%20hide%20slash%20command%20menu%20and%20many%20more!';
-// stays on doc change
-const notionFrameCls = '.notion-frame';
 const DEBUG = false;
 // these gets removed on doc change
 const notionScrollerCls = '.notion-frame .notion-scroller.vertical';
@@ -11,7 +9,10 @@ const notionPageContentCls = '.notion-page-content';
 const notionPresenceContainerCls = '.notion-presence-container';
 
 /**
- *  add listener for page change or window reload event
+ *  add listener for page change event
+ *
+ *  Notion opens another page without reloading: it replaces the page scroller, on its own or together with its
+ *  wrapper (.notion-selectable-container). So a page change is when the scroller in the frame is a different element.
  *
  *  accepts array of functions
  * @param {*} callbacksAfterDocReady call any function after notion doc is ready
@@ -21,32 +22,35 @@ const notionPresenceContainerCls = '.notion-presence-container';
 export function pageChangeListener(callbacksAfterDocReady: any, callbacksAfterContentReady: any) {
   console.log(`listening to page change events`);
 
-  const pageChangeObserverObj = new MutationObserver((mutationList, obsrvr) => {
+  // the page that's open now is set up by the caller
+  let scrollerEl = getElement(notionScrollerCls);
+
+  const pageChangeObserverObj = new MutationObserver(() => {
+    const currentScrollerEl = getElement(notionScrollerCls);
+    if (!currentScrollerEl || currentScrollerEl === scrollerEl) return;
+    scrollerEl = currentScrollerEl;
     console.log('new page opened');
 
-    // check if scroller class is loaded
-    if (getElement(notionScrollerCls)) {
-      for (let i = 0; i < callbacksAfterDocReady.length; i++) {
-        callbacksAfterDocReady[i]();
-      }
-      // now wait for notionPresenceContainerCls to be loaded
-      onElementLoaded(notionPresenceContainerCls, notionScrollerCls as any)
-        .then((isPresent) => {
-          if (isPresent) {
-            for (let i = 0; i < callbacksAfterContentReady.length; i++) {
-              callbacksAfterContentReady[i]();
-            }
-          }
-          return null;
-        })
-        .catch((e) => console.log(e));
+    for (let i = 0; i < callbacksAfterDocReady.length; i++) {
+      callbacksAfterDocReady[i]();
     }
+    // now wait for notionPresenceContainerCls to be loaded
+    onElementLoaded(notionPresenceContainerCls, notionScrollerCls as any)
+      .then((isPresent) => {
+        if (isPresent) {
+          for (let i = 0; i < callbacksAfterContentReady.length; i++) {
+            callbacksAfterContentReady[i]();
+          }
+        }
+        return null;
+      })
+      .catch((e) => console.log(e));
   });
 
-  const docFrameEl = getElement(notionFrameCls);
-
-  pageChangeObserverObj.observe(docFrameEl, {
+  // not only the frame's children: the scroller and its ancestors can be replaced, so watch the whole document
+  pageChangeObserverObj.observe(document.body, {
     childList: true,
+    subtree: true,
   });
   return pageChangeObserverObj;
 }
