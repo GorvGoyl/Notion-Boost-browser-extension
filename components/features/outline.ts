@@ -1,214 +1,368 @@
-import {
-    getElement,
-    getElements,
-    isObserverType,
-    onElementLoaded,
-    pageChangeListener,
-    removeChildren,
-    removePageChangeListener,
-    toElement,
-  } from "../utils";
+import { getElement, toElement } from '../utils';
+import { getPageHeadings, type Heading, pageIdFromPath } from './outlineData';
 
+// ENABLE/DISABLE Console Logs
+const DEBUG = false;
 
-  let pageChangeObserverObj = {};
-  let docEditObserverObj = {};
-  
-  // ENABLE/DISABLE Console Logs
-  const DEBUG = false;
-  
-  // keep classes in hierarchy of DOM
-  
-  // stays on doc change
-  const notionFrameCls = ".notion-frame";
-  const outlineFrameCls = ".nb-outline";
-  
-  // these gets removed on doc change
-  const notionScrollerCls = ".notion-frame .notion-scroller.vertical";
-  const notionPageContentCls = ".notion-page-content";
-  
-  // starting point
-  export function displayOutline(isShow: boolean) {
+// keep classes in hierarchy of DOM
+
+// stays on page change
+const outlineFrameCls = '.nb-outline';
+const outlineToggleBtnCls = 'outlineToggleBtn';
+
+// these get replaced on page change
+const notionScrollerCls = '.notion-frame .notion-scroller.vertical';
+const notionPageContentCls = '.notion-frame .notion-page-content';
+const headingBlockSel = '[data-block-id][class*="header-block"]';
+
+// Notion only renders the blocks around the viewport (a virtualized list), so the headings are read
+// from the page data (the same API Notion itself uses) and then kept in sync with the rendered blocks.
+let pageId = '';
+let headings: Heading[] = [];
+let isPageDataLoaded = false; // false: the page data isn't available, so only rendered headings are shown
+let isLoadingPageData = false;
+let pageDataRequest = 0; // bumped on every load so that stale responses are dropped
+let topBlockIds: string[] = []; // top-level blocks of the page, in order
+let topBlockIndex = new Map<string, number>(); // top-level block id -> its position on the page
+let headingTopIndex = new Map<string, number>(); // heading id -> position of its top-level block
+
+let checkPageTimer: number | undefined;
+let docEditObserver: MutationObserver | undefined;
+let observedPageContent: Element | null = null;
+let syncTimer: number | undefined;
+let refreshTimer: number | undefined;
+let removedHeadingIds = new Set<string>();
+let isHiddenByUser = false;
+let renderedKey = '';
+let scrollRequest = 0;
+
+// starting point
+export function displayOutline(isShow: boolean) {
     console.log(`feature: displayOutline: ${isShow}`);
-  
+
     if (isShow) {
-      console.log("setting up outline feature");
-  
-      // triggers on page load
-      // it waits for doc to be loaded
-      onElementLoaded(notionPageContentCls)
-        .then((isPresent) => {
-          if (isPresent) {
-            // addOutlineFrame();
-  
-            addOutlineToggleBtn();
-            addOutline();
-            docEditListener();
-            // add listener for page change or window reload
-            // it detaches old listeners and adds new docEditListener and outline
-            pageChangeObserverObj = pageChangeListener(
-              [removeDocEditListener, hideOutline, removeOutlineToggleBtn],
-              [addOutline, addOutlineToggleBtn, docEditListener]
-            );
-          }
-          return null;
-        })
-        .catch((e) => console.log(e));
+        if (checkPageTimer) return;
+        console.log('setting up outline feature');
+
+        // Notion swaps the page content on navigation without reloading, so keep checking which page is open
+        checkPage();
+        checkPageTimer = window.setInterval(checkPage, 500);
     } else {
-      removeOutline();
+        removeOutline();
     }
-  }
-  
-  function addOutlineToggleBtn() {
-    try {
-      const outlineToggleBtn = "outlineToggleBtn";
-  
-      const addOutlineToNotion = () => {
-        const siblingCls = ".notion-topbar-share-menu";
-        console.log("add outline btn");
-        onElementLoaded(siblingCls)
-          .then((isPresent) => {
-            const pageContent = getElement(notionPageContentCls);
-            if (!pageContent) {
-              console.log("no page content class");
-              return;
-            }
-  
-            // eslint-disable-next-line promise/always-return
-            if (isPresent) {
-              if (document.querySelector(`.${outlineToggleBtn}`)) {
-                // btn already exist somehow
-                return;
-              }
-              const sibling = document.querySelector(siblingCls);
-              const btnEl = toElement(
-                `<div class=${outlineToggleBtn} role="button" title="Show/hide outline" tabindex="-1">Outline</div>`
-              );
-  
-              btnEl.addEventListener("click", () => {
-                console.log("yup");
-                const el = document.querySelector(".nb-outline");
-                if (el) {
-                  el.classList.toggle("disableForPage");
-                  el.classList.toggle("show");
-                }
-              });
-  
-              sibling?.parentNode?.insertBefore(btnEl, sibling);
-            }
-          })
-          .catch((e) => console.log(e));
-      };
-  
-      const addOutlineToNotionSubdomain = () => {
-        const siblingCls = ".notion-topbar > div > div.notion-focusable";
-        console.log("add outline btn");
-        onElementLoaded(siblingCls)
-          .then((isPresent) => {
-            const pageContent = getElement(notionPageContentCls);
-            if (!pageContent) {
-              console.log("no page content class");
-              return;
-            }
-  
-            // eslint-disable-next-line promise/always-return
-            if (isPresent) {
-              if (document.querySelector(`.${outlineToggleBtn}`)) {
-                // btn already exist somehow
-                return;
-              }
-              const sibling = document.querySelectorAll(siblingCls)[2];
-              const btnEl = toElement(
-                `<div class=${outlineToggleBtn} role="button" title="Show/hide outline" tabindex="-1">Outline</div>`
-              );
-  
-              btnEl.addEventListener("click", () => {
-                const el = document.querySelector(".nb-outline");
-                if (el) {
-                  el.classList.toggle("disableForPage");
-                  el.classList.toggle("show");
-                }
-              });
-  
-              sibling?.parentNode?.insertBefore(btnEl, sibling);
-            }
-          })
-          .catch((e) => console.log(e));
-      };
-  
-      addOutlineToNotion();
-      addOutlineToNotionSubdomain();
-    } catch (e:any) {
-      console.log("Error: ", e.message);
+}
+
+function checkPage() {
+    const pageContent = getElement(notionPageContentCls);
+    const currentPageId = pageContent ? getPageId() : '';
+
+    if (!currentPageId) {
+        // no page content, e.g. a full page database
+        if (pageId) closePage();
+        return;
     }
-  }
-  
-  function removeDocEditListener() {
-    if (isObserverType(docEditObserverObj)) {
-      console.log("disconnected docEditObserver");
-      (docEditObserverObj as MutationObserver).disconnect();
-    }
-  }
-  
-  function removeOutline() {
-    console.log("removing outline feature...");
-  
+
+    if (currentPageId !== pageId) openPage(currentPageId);
+    if (pageContent !== observedPageContent) docEditListener(pageContent);
+    addOutlineToggleBtn();
+    render();
+}
+
+function openPage(id: string) {
+    DEBUG && console.log(`outline: opened page ${id}`);
+
+    pageId = id;
+    headings = [];
+    isPageDataLoaded = false;
+    topBlockIds = [];
+    topBlockIndex = new Map();
+    headingTopIndex = new Map();
+    removedHeadingIds = new Set();
+    window.clearTimeout(refreshTimer);
+    loadPageData(true);
+}
+
+function closePage() {
+    pageId = '';
+    headings = [];
+    pageDataRequest++;
     removeDocEditListener();
-  
-    removePageChangeListener(pageChangeObserverObj);
-  
-    clearOutline();
-  
-    removeOutlineToggleBtn();
-  
-    console.log("removed outline feature");
-  }
-  
-  function removeOutlineToggleBtn() {
-    const btn = document.querySelector(".outlineToggleBtn");
-  
-    if (btn) {
-      btn.remove();
-    }
-  }
-  function hideOutline() {
-    const outline = getElement(outlineFrameCls);
-  
-    if (!outline) return;
-    outline.classList.remove("show");
-  }
-  
-  function clearOutline() {
+    window.clearTimeout(syncTimer);
+    window.clearTimeout(refreshTimer);
     hideOutline();
-  
-    const outline = getElement(outlineFrameCls);
-    if (outline) {
-      console.log("removed outline div");
-      outline.remove();
-    }
-  }
-  
-  function addOutline() {
-    DEBUG && console.log("adding/updating OUTLINE");
-  
+    removeOutlineToggleBtn();
+}
+
+function removeOutline() {
+    console.log('removing outline feature...');
+
+    window.clearInterval(checkPageTimer);
+    checkPageTimer = undefined;
+    closePage();
+    getElement(outlineFrameCls)?.remove();
+    renderedKey = '';
+
+    console.log('removed outline feature');
+}
+
+// id of the page that is open: its title block sits above the page content
+function getPageId(): string {
+    const titleBlock = [...document.querySelectorAll('.notion-frame .notion-page-block[data-block-id]')].find(
+        (el) => !el.closest('.notion-page-content'),
+    );
+    if (titleBlock) return titleBlock.getAttribute('data-block-id') ?? '';
+
+    return pageIdFromPath(location.pathname);
+}
+
+// PAGE DATA
+
+async function loadPageData(isFirstLoad: boolean) {
+    const request = ++pageDataRequest;
+    const id = pageId;
+    const blocks: Record<string, any> = {};
+    isLoadingPageData = true;
+
     try {
-      const pageContent = getElement(notionPageContentCls);
-      if (!pageContent) {
-        console.log("no page content class");
+        // long pages come in chunks of ~100 blocks
+        let cursor = { stack: [] as unknown[] };
+        for (let chunkNumber = 0; chunkNumber < 100; chunkNumber++) {
+            const res = await fetch(`${location.origin}/api/v3/loadPageChunk`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ pageId: id, limit: 100, cursor, chunkNumber, verticalColumns: false }),
+            });
+            if (!res.ok) throw new Error(`loadPageChunk failed: ${res.status}`);
+            const data = await res.json();
+            if (request !== pageDataRequest) return;
+
+            Object.assign(blocks, data?.recordMap?.block);
+            cursor = data?.cursor;
+            const isLastChunk = !cursor?.stack?.length;
+            if (isLastChunk) isLoadingPageData = false;
+
+            // on first load show the headings of a long page as its chunks arrive
+            if ((isFirstLoad || isLastChunk) && !applyPageData(blocks, id)) {
+                throw new Error('page not found in page data');
+            }
+            if (isLastChunk) return;
+        }
+    } catch (e) {
+        if (request !== pageDataRequest) return;
+        console.log('outline: could not load page data, showing rendered headings only', e);
+        isLoadingPageData = false;
+        isPageDataLoaded = false;
+        syncWithDom();
+    }
+}
+
+function applyPageData(blocks: Record<string, any>, id: string): boolean {
+    const pageHeadings = getPageHeadings(blocks, id);
+    if (!pageHeadings) return false;
+
+    ({ headings, topBlockIds, headingTopIndex } = pageHeadings);
+    topBlockIndex = new Map(topBlockIds.map((blockId, i) => [blockId, i]));
+    isPageDataLoaded = true;
+    syncWithDom();
+    return true;
+}
+
+// RENDERED HEADINGS
+
+function getRenderedHeadings(pageContent: Element): Heading[] {
+    return [...pageContent.querySelectorAll(headingBlockSel)]
+        .map((el) => ({
+            id: el.getAttribute('data-block-id') ?? '',
+            level: headingLevelOfBlock(el),
+            text: headingText(el),
+        }))
+        .filter((h) => h.id && h.level);
+}
+
+// notion-header-block, notion-sub_header-block, notion-sub_sub_header-block -> 1, 2, 3
+function headingLevelOfBlock(el: Element): number {
+    for (const cls of el.classList) {
+        const match = cls.match(/^notion-((?:sub_)*)header-block$/);
+        if (match) return match[1].length / 4 + 1;
+    }
+    return 0;
+}
+
+function headingText(blockEl: Element): string {
+    // the first editable text is the heading itself; toggle headings also contain their children
+    const textEl = blockEl.querySelector('[data-content-editable-leaf], h1, h2, h3, h4, h5, h6');
+    return textEl ? nodeText(textEl) : '';
+}
+
+function nodeText(node: Node): string {
+    if (node.nodeType === Node.TEXT_NODE) return node.textContent ?? '';
+    if (!(node instanceof Element)) return '';
+    // emojis
+    if (node.tagName === 'IMG') return node.getAttribute('alt') ?? '';
+    // hidden copy of an inline equation
+    if (node.classList.contains('katex-mathml')) return '';
+    return [...node.childNodes].map(nodeText).join('');
+}
+
+// update headings with what's rendered: text edits, new headings, and headings turned into other blocks
+function syncWithDom() {
+    const pageContent = getElement(notionPageContentCls);
+    if (!pageContent || getPageId() !== pageId) return;
+
+    const rendered = getRenderedHeadings(pageContent);
+
+    if (!isPageDataLoaded) {
+        headings = rendered;
+        render();
         return;
-      }
-  
-      const fullPageTable = getElement(".notion-peek-renderer");
-      if (fullPageTable && fullPageTable.querySelector(notionPageContentCls)) {
-        console.log("don't show outline for full page tables");
-        return;
-      }
-  
-      const notionScrollerEl = getElement(notionScrollerCls);
-  
-      // check if it outline exist already
-      let outlineEl = getElement(outlineFrameCls);
-  
-      if (!outlineEl || outlineEl.length === 0) {
+    }
+
+    let needsRefresh = false;
+    const byId = new Map(headings.map((h) => [h.id, h]));
+    const renderedBlocks = getRenderedBlocks(pageContent);
+
+    rendered.forEach((heading, i) => {
+        const known = byId.get(heading.id);
+        if (known) {
+            known.level = heading.level;
+            known.text = heading.text;
+            return;
+        }
+
+        // added after the page data was loaded: put it next to the closest rendered heading
+        const before = rendered
+            .slice(0, i)
+            .reverse()
+            .find((h) => byId.has(h.id));
+        const after = rendered.slice(i + 1).find((h) => byId.has(h.id));
+        let index = headings.length;
+        if (before) index = headings.indexOf(byId.get(before.id)!) + 1;
+        else if (after) index = headings.indexOf(byId.get(after.id)!);
+        headings.splice(index, 0, heading);
+        byId.set(heading.id, heading);
+        needsRefresh = true;
+    });
+
+    // headings turned into another block type
+    headings = headings.filter((h) => {
+        const el = renderedBlocks.get(h.id);
+        return !el || headingLevelOfBlock(el) > 0;
+    });
+
+    // Notion also removes blocks that scroll out of view, so a removed heading only counts as deleted
+    // when its top-level block lies within the part of the page that's rendered
+    if (!isLoadingPageData && removedHeadingIds.size) {
+        const { first, last } = getRenderedTopRange(renderedBlocks);
+        for (const id of removedHeadingIds) {
+            const topIndex = headingTopIndex.get(id);
+            if (!renderedBlocks.has(id) && topIndex !== undefined && topIndex >= first && topIndex <= last) {
+                needsRefresh = true;
+            }
+        }
+        removedHeadingIds.clear();
+    }
+
+    if (needsRefresh && !isLoadingPageData) scheduleRefresh();
+    render();
+}
+
+function getRenderedBlocks(pageContent: Element): Map<string, Element> {
+    return new Map(
+        [...pageContent.querySelectorAll('[data-block-id]')].map((el) => [el.getAttribute('data-block-id') ?? '', el]),
+    );
+}
+
+// positions of the first and last rendered top-level blocks
+function getRenderedTopRange(renderedBlocks: Map<string, Element>) {
+    const indexes = [...renderedBlocks.keys()]
+        .map((id) => topBlockIndex.get(id))
+        .filter((i): i is number => i !== undefined);
+    return { first: Math.min(...indexes), last: Math.max(...indexes) };
+}
+
+function scheduleSync() {
+    window.clearTimeout(syncTimer);
+    syncTimer = window.setTimeout(syncWithDom, 200);
+}
+
+// reload the page data after headings were added, deleted or moved; wait a bit so Notion has saved the change
+function scheduleRefresh() {
+    window.clearTimeout(refreshTimer);
+    refreshTimer = window.setTimeout(() => loadPageData(false), 1500);
+}
+
+// add/update outline if any heading change occurs
+function docEditListener(pageContent: Element) {
+    DEBUG && console.log('listening for doc edit changes...');
+
+    removeDocEditListener();
+    observedPageContent = pageContent;
+
+    const hasHeading = (node: Node) =>
+        node instanceof Element && (node.matches(headingBlockSel) || !!node.querySelector(headingBlockSel));
+
+    docEditObserver = new MutationObserver((mutationList) => {
+        let isHeadingChanged = false;
+
+        for (const m of mutationList) {
+            const target = m.target instanceof Element ? m.target : m.target.parentElement;
+
+            // text typed into a heading, or a block turned into/from a heading
+            if (target?.closest(headingBlockSel) || (m.type === 'attributes' && m.oldValue?.includes('header-block'))) {
+                isHeadingChanged = true;
+            }
+
+            m.addedNodes.forEach((node) => {
+                if (hasHeading(node)) isHeadingChanged = true;
+            });
+
+            m.removedNodes.forEach((node) => {
+                if (!hasHeading(node)) return;
+                isHeadingChanged = true;
+                const el = node as Element;
+                [el, ...el.querySelectorAll(headingBlockSel)].forEach((heading) => {
+                    const id = heading.getAttribute('data-block-id');
+                    if (id) removedHeadingIds.add(id);
+                });
+            });
+        }
+
+        if (isHeadingChanged) {
+            DEBUG && console.log('heading changed');
+            scheduleSync();
+        }
+    });
+
+    docEditObserver.observe(pageContent, {
+        childList: true,
+        characterData: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['class'],
+        attributeOldValue: true,
+    });
+
+    scheduleSync();
+}
+
+function removeDocEditListener() {
+    if (docEditObserver) {
+        console.log('disconnected docEditObserver');
+        docEditObserver.disconnect();
+        docEditObserver = undefined;
+    }
+    observedPageContent = null;
+}
+
+// OUTLINE
+
+function render() {
+    const scroller = getElement(notionScrollerCls);
+    if (!scroller) return;
+
+    let outlineEl = getElement(outlineFrameCls);
+    if (!outlineEl) {
         // do not add any space between closing and ending of `
         outlineEl = toElement(`
         <div class="nb-outline">
@@ -220,28 +374,40 @@ import {
             </div>
           </div>
           </div>`);
-  
-        // add toc container
-        notionScrollerEl.parentNode.insertBefore(outlineEl, notionScrollerEl);
-  
-        document.getElementById("nbScrollToTop")?.addEventListener("click", () => {
-          const doc = document.querySelector(".notion-frame > .notion-scroller");
-          if (doc) {
-            doc.scroll({ top: 0, left: 0 });
-          }
+
+        outlineEl.querySelector('#nbScrollToTop')?.addEventListener('click', () => {
+            getElement(notionScrollerCls)?.scroll({ top: 0, left: 0 });
         });
-      }
-  
-      const blockWrapperEl = outlineEl.querySelector(".block-wrapper");
-  
-      // empty any previous headings
-      removeChildren(blockWrapperEl);
-  
-      const tocBlockHTML = `<div class="block">
-         <a
-           href=""
-           rel="noopener noreferrer"
-         >
+        renderedKey = '';
+    }
+
+    // css expects the outline right before the page scroller, which is replaced on page change
+    if (outlineEl.nextElementSibling !== scroller) {
+        scroller.parentNode.insertBefore(outlineEl, scroller);
+    }
+
+    const visibleHeadings = headings.filter((h) => h.text.trim());
+    const key = visibleHeadings.map((h) => `${h.id} ${h.level} ${h.text}`).join('\n');
+    if (key !== renderedKey) {
+        renderedKey = key;
+        renderHeadings(outlineEl.querySelector('.block-wrapper'), visibleHeadings);
+    }
+
+    // hide outline if there is no heading
+    outlineEl.classList.toggle('show', visibleHeadings.length > 0 && !isHiddenByUser);
+
+    // page width next to the outline, used by css to fit wide tables
+    if (outlineEl.classList.contains('show')) {
+        const scrollerWidth = `${scroller.clientWidth}px`;
+        if (document.documentElement.style.getPropertyValue('--nb-scroller-width') !== scrollerWidth) {
+            document.documentElement.style.setProperty('--nb-scroller-width', scrollerWidth);
+        }
+    }
+}
+
+function renderHeadings(blockWrapperEl: Element, visibleHeadings: Heading[]) {
+    const tocBlockEl = toElement(`<div class="block">
+         <a role="link">
            <div role="button" tabindex="0" class="btn">
              <div class="align">
                <div class="text">
@@ -249,276 +415,133 @@ import {
              </div>
            </div>
          </a>
-       </div>`;
-  
-      let block = "";
-  
-      let isHeadingsFound = false;
-  
-      // select all divs containing headings
-      const pageHeadings = getElements(
-        `${notionPageContentCls} [class$="header-block"]`
-      );
-  
-      isHeadingsFound = pageHeadings.length > 0;
-  
-      const contains = {
-        h1: false,
-        h2: false,
-        h3: false,
-      };
-      // add headings to outline view
-      for (let i = 0; i < pageHeadings.length; i++) {
-        let headingCls = "";
-        const pageHeading = pageHeadings[i];
-        if (pageHeading.classList.contains("notion-header-block")) {
-          headingCls = "nb-h1";
-          contains.h1 = true;
-        } else if (pageHeading.classList.contains("notion-sub_header-block")) {
-          headingCls = "nb-h2";
-          contains.h2 = true;
-        } else if (
-          pageHeading.classList.contains("notion-sub_sub_header-block")
-        ) {
-          headingCls = "nb-h3";
-          contains.h3 = true;
-        } else {
-          headingCls = "";
-        }
-        // @ts-ignore
-        block = toElement(tocBlockHTML);
-        // add text
-        let text = "";
-        pageHeading.querySelector("div").childNodes.forEach((hxEl: { nodeName: string; childNodes: any[]; textContent: string; alt: string; }) => {
-          // heading is inside span
-          if (["SPAN", "DIV"].includes(hxEl.nodeName)) {
-            hxEl.childNodes.forEach((el) => {
-              if (
-                ["#text", "H1", "H2", "H3", "H4", "H5", "H6"].includes(
-                  el.nodeName
-                )
-              ) {
-                // it's regualar text
-                text += el.textContent;
-              } else if (hxEl.nodeName === "A") {
-                // it's link inside heading
-                text += hxEl.textContent;
-              } else if (el.nodeName === "IMG") {
-                // emojis inside heading
-                text += el.alt;
-              }
-              // handle toggle heading type
-              else if (el.nodeName === "DIV") {
-                const heading = el.querySelector("H1,H2,H3,H4,H5,H6");
-                if (heading) {
-                  text += heading.textContent;
-                }
-              }
-            });
-          } else if (
-            ["#text", "H1", "H2", "H3", "H4", "H5", "H6"].includes(hxEl.nodeName)
-          ) {
-            // it's regualar text
-            text += hxEl.textContent;
-          } else if (hxEl.nodeName === "A") {
-            // it's link inside heading
-            text += hxEl.textContent;
-          } else if (hxEl.nodeName === "IMG") {
-            // emojis inside heading
-            text += hxEl.alt;
-          }
+       </div>`);
+
+    // if there's no h1 then reduce space from left
+    const minLevel = Math.min(...visibleHeadings.map((h) => h.level));
+
+    const blockEls = visibleHeadings.map((heading) => {
+        const blockEl = tocBlockEl.cloneNode(true) as Element;
+        blockEl.querySelector('.align')?.classList.add(`nb-h${heading.level - minLevel + 1}`);
+        blockEl.querySelector('.text')!.textContent = heading.text;
+        blockEl.addEventListener('click', (e) => {
+            e.preventDefault();
+            scrollToHeading(heading.id);
         });
-        // @ts-ignore
-        block.querySelector(".align").classList.add(headingCls);
-        // @ts-ignore
-        block.querySelector(".text").textContent = text;
-        // if (text.length > 20) {
-        //   block.querySelector(".btn").title = text;
-        // }
-  
-        // add href
-        const blockId = pageHeading
-          .getAttribute("data-block-id")
-          .replace(/-/g, "");
-        // @ts-ignore
-        block.setAttribute("hash", blockId);
-        // evaluate href at runtime cuz notion url is not consistent
-        // @ts-ignore
-        block.addEventListener("click", (e) => {
-          e.currentTarget.querySelector("a").href = `${
-            window.location.pathname
-          }#${e.currentTarget.getAttribute("hash")}`;
-        });
-  
-        blockWrapperEl.appendChild(block);
-      }
-  
-      // hide outline if there is no heading
-      if (!isHeadingsFound) {
-        console.log("no heading found so removing outline frame");
-        hideOutline();
-      } else {
-        // if there's no h1 then reduce space from left
-        if (!contains.h1) {
-          if (contains.h2 && contains.h3) {
-            // convert h2->h1 and h3->h2
-            blockWrapperEl.querySelectorAll(".nb-h2").forEach((x:any) => {
-              x.classList.add("nb-h1");
-              x.classList.remove("nb-h2");
-            });
-            blockWrapperEl.querySelectorAll(".nb-h3").forEach((x:any) => {
-              x.classList.add("nb-h2");
-              x.classList.remove("nb-h3");
-            });
-          } else {
-            // all are of same type i.e. h2 or h3 so convert to h1
-            blockWrapperEl.querySelectorAll(".nb-h2").forEach((x:any) => {
-              x.classList.add("nb-h1");
-              x.classList.remove("nb-h2");
-            });
-            blockWrapperEl.querySelectorAll(".nb-h3").forEach((x:any) => {
-              x.classList.add("nb-h1");
-              x.classList.remove("nb-h3");
-            });
-          }
-        }
-  
-        if (!outlineEl.classList.contains("disableForPage")) {
-          outlineEl.classList.add("show");
-        }
-      }
-    } catch (e:any) {
-      console.error("Error: ", e.message);
-    }
-  }
-  
-  // UTILITY FUNCTIONS
-  
-  // add/update outline if any heading change occurs
-  function docEditListener() {
-    DEBUG && console.log("listening for doc edit changes...");
-
-    docEditObserverObj = new MutationObserver((mutationList, obsrvr) => {
-      DEBUG && console.log("found changes in doc content");
-
-      let isDocHeadingChanged = false;
-
-      let placeholder = "";
-      for (let i = 0; i < mutationList.length; i++) {
-        const m = mutationList[i];
-
-        // case: check for text change in headings
-        if (!isHeading(placeholder) && m.type === "characterData") {
-          DEBUG && console.log(`changed text: ${m.target.textContent}`);
-
-          if (!isHeading(placeholder) && m.target.parentNode) {
-            // @ts-ignore
-            placeholder = m.target.parentNode.getAttribute("placeholder");
-          }
-
-          // case: when styling (b/i) is added to heading
-          if (
-            !isHeading(placeholder) &&
-            m.target.parentNode &&
-            m.target.parentNode.parentNode
-          ) {
-            placeholder =
-              // @ts-ignore
-              m.target.parentNode.parentNode.getAttribute("placeholder");
-          }
-        }
-        if (!isHeading(placeholder) && m.type === "childList") {
-          // console.log("childList changed");
-
-          // case: hitting backspace in headings
-          // @ts-ignore
-          placeholder = m.target.getAttribute("placeholder");
-
-          // case: when empty heading is being removed
-          if (
-            !isHeading(placeholder) &&
-            m.removedNodes.length > 0 &&
-            // @ts-ignore
-            m.removedNodes[0].firstElementChild
-          ) {
-            placeholder =
-              // @ts-ignore
-              m.removedNodes[0].firstElementChild.getAttribute("placeholder");
-
-            if (placeholder) {
-              // console.log("empty block got removed");
-            }
-
-            // case: when select and delete multiple headings
-            if (
-              !isHeading(placeholder) &&
-              m.removedNodes.length > 0 &&
-              // @ts-ignore
-              m.removedNodes[0].firstElementChild.firstElementChild
-            ) {
-              placeholder =
-                // @ts-ignore
-                m.removedNodes[0].firstElementChild.firstElementChild.getAttribute(
-                  "placeholder"
-                );
-
-              // console.log("empty blocks got removed");
-            }
-          }
-
-          // case: when empty heading is being added
-          if (
-            !isHeading(placeholder) &&
-            m.addedNodes.length > 0 &&
-            // @ts-ignore
-            m.addedNodes[0].firstElementChild
-          ) {
-            placeholder =
-              // @ts-ignore
-              m.addedNodes[0].firstElementChild.getAttribute("placeholder");
-            // console.log("empty block got added");
-          }
-        }
-
-        // check if the change was related to headings
-        if (isHeading(placeholder)) {
-          DEBUG && console.log("heading changed");
-
-          isDocHeadingChanged = true;
-          break;
-        }
-      }
-
-      if (isDocHeadingChanged) {
-        addOutline();
-      }
+        return blockEl;
     });
 
-    // now add listener for doc text change
-    const pageContentEl = getElement(notionPageContentCls);
+    blockWrapperEl.replaceChildren(...blockEls);
+}
 
-    if (pageContentEl && docEditObserverObj) {
-      (docEditObserverObj as MutationObserver).observe(pageContentEl, {
-        childList: true,
-        characterData: true,
-        subtree: true,
-      });
+function hideOutline() {
+    getElement(outlineFrameCls)?.classList.remove('show');
+}
+
+const sleep = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
+// scroll a heading into view; if it isn't rendered, jump to where it should be until Notion renders it
+async function scrollToHeading(id: string) {
+    const request = ++scrollRequest;
+    // range of scroll positions the heading is known to be between
+    let low = 0;
+    let high = Infinity;
+
+    for (let step = 0; step < 50; step++) {
+        const scroller = getElement(notionScrollerCls);
+        const pageContent = getElement(notionPageContentCls);
+        if (!scroller || !pageContent || request !== scrollRequest) return;
+
+        // a heading in a collapsed toggle isn't rendered, so go to its top-level block instead
+        const topIndex = headingTopIndex.get(id);
+        const targetEl =
+            pageContent.querySelector(`[data-block-id="${id}"]`) ??
+            (topIndex === undefined ? null : pageContent.querySelector(`[data-block-id="${topBlockIds[topIndex]}"]`));
+        if (targetEl) {
+            scrollToElement(scroller, targetEl);
+            // blocks rendered above it can change height, so check again
+            await sleep(150);
+            if (request === scrollRequest && targetEl.isConnected) scrollToElement(scroller, targetEl);
+            return;
+        }
+
+        const estimate = estimateScrollTop(scroller, pageContent, id);
+        if (!estimate) return;
+
+        if (estimate.isAbove) high = Math.min(high, scroller.scrollTop);
+        else low = Math.max(low, scroller.scrollTop);
+
+        let next = estimate.scrollTop;
+        if (next <= low || next >= high) {
+            next = Number.isFinite(high) ? (low + high) / 2 : low + scroller.clientHeight;
+        }
+        scroller.scrollTop = next;
+        await sleep(80);
     }
-  }
-  
-  function isHeading(placeholder:string) {
-    // check if the change was related to headings
-  
-    if (!placeholder || !placeholder.trim()) {
-      return true;
+}
+
+function scrollToElement(scroller: Element, el: Element) {
+    // leave some room above the heading
+    scroller.scrollTop += el.getBoundingClientRect().top - scroller.getBoundingClientRect().top - 80;
+}
+
+// estimate the scroll position of a heading that isn't rendered, from the top-level blocks that are
+function estimateScrollTop(scroller: Element, pageContent: Element, id: string) {
+    const targetIndex = headingTopIndex.get(id);
+    if (targetIndex === undefined) return null;
+
+    const rendered = [...getRenderedBlocks(pageContent)]
+        .map(([blockId, el]) => ({ index: topBlockIndex.get(blockId), top: el.getBoundingClientRect().top }))
+        .filter((block): block is { index: number; top: number } => block.index !== undefined)
+        .sort((a, b) => a.index - b.index);
+    if (!rendered.length) return null;
+
+    const first = rendered[0];
+    const last = rendered[rendered.length - 1];
+    const blockHeight = last.index > first.index ? (last.top - first.top) / (last.index - first.index) : 50;
+    const isAbove = targetIndex < first.index;
+    const ref = isAbove ? first : last;
+    const targetTop = ref.top + (targetIndex - ref.index) * blockHeight;
+
+    return {
+        isAbove,
+        scrollTop: scroller.scrollTop + targetTop - scroller.getBoundingClientRect().top - scroller.clientHeight / 3,
+    };
+}
+
+// OUTLINE TOGGLE BUTTON
+
+function addOutlineToggleBtn() {
+    try {
+        if (document.querySelector(`.${outlineToggleBtnCls}`)) return;
+
+        const sibling = getToggleBtnSibling();
+        if (!sibling?.parentNode) return;
+
+        console.log('add outline btn');
+        const btnEl = toElement(
+            `<div class=${outlineToggleBtnCls} role="button" title="Show/hide outline" tabindex="-1">Outline</div>`,
+        );
+        btnEl.addEventListener('click', () => {
+            isHiddenByUser = !isHiddenByUser;
+            render();
+        });
+        sibling.parentNode.insertBefore(btnEl, sibling);
+    } catch (e: any) {
+        console.log('Error: ', e.message);
     }
-    const headings = ["Heading", "제목"];
-    headings.forEach((x) => {
-      if (placeholder.includes(x)) {
-        return true;
-      }
-    });
-  
-    return false;
-  }
-  
+}
+
+function getToggleBtnSibling(): Element | null {
+    // workspace pages: next to the Share button
+    const shareBtn = getElement('.notion-topbar-share-menu');
+    if (shareBtn) return shareBtn;
+
+    // public pages (notion.site) have no named topbar buttons: use the "•••" menu, the last button with a popup
+    const popupBtns = document.querySelectorAll('.notion-topbar [role="button"][aria-haspopup]');
+    return popupBtns[popupBtns.length - 1] ?? null;
+}
+
+function removeOutlineToggleBtn() {
+    document.querySelector(`.${outlineToggleBtnCls}`)?.remove();
+}

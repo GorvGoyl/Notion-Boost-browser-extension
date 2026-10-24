@@ -7,6 +7,15 @@
 
 ---
 
+# Tests
+
+- `pnpm test`: unit tests (`tests/`)
+- `pnpm test:e2e`: the built extension on live Notion pages (`e2e/`)
+
+See [`e2e/README.md`](./e2e/README.md).
+
+---
+
 # Doc HTML Structure
 
 - body.notion-body /dark
