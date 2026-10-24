@@ -5,7 +5,7 @@ There are two kinds of tests:
 
 | Command         | What it runs                                                                                                                                 |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pnpm test`     | Unit tests (`tests/`, Vitest + happy-dom): the outline on a fake Notion page with mocked page data. Fast, no network.                        |
+| `pnpm test`     | Unit tests (`tests/`, Vitest + happy-dom): features on a fake Notion page, e.g. the outline with mocked page data. Fast, no network.         |
 | `pnpm test:e2e` | Builds the extension and runs it in Chromium on live Notion pages (`e2e/`, Playwright). This is what notices when Notion changes its markup. |
 
 ## End-to-end tests
@@ -24,6 +24,10 @@ There are two kinds of tests:
   created in the account. To use an existing page instead, set `NOTION_TEST_PAGE_URL`.
   Run it again when the session expires. To keep the login outside the repo (e.g. when working in temporary
   git worktrees), set `NOTION_E2E_AUTH_DIR` for both commands.
+
+- `e2e/scrollTopBtn.spec.ts` turns on the 'Scroll to top' button and checks it on the same test page, also after
+  opening another page from the sidebar and coming back. It needs the saved login too. Specs turn features on with
+  `setSettings()` from `e2e/fixtures.ts`.
 
 Notes:
 

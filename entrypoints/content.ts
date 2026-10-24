@@ -3,7 +3,6 @@ import { codeLineNumbers } from '../components/features/codeLineNumbers';
 import { openFullPage } from '../components/features/openFullPage';
 import { displayOutline } from '../components/features/outline';
 import * as features from '../components/features/pageElements';
-import { rollupUrlClickable } from '../components/features/rollupUrlClickable';
 import { scrollTopBtn } from '../components/features/scrollToTopBtn';
 // step 1 of 2: import feature
 import { spellcheckForCode } from '../components/features/spellCheckForCode';
@@ -21,7 +20,6 @@ featureList.scrollTopBtn = scrollTopBtn;
 featureList.codeLineNumbers = codeLineNumbers;
 featureList.spellcheckForCode = spellcheckForCode;
 featureList.openFullPage = openFullPage;
-featureList.rollupUrlClickable = rollupUrlClickable;
 featureList.hideAiBtn = hideAiBtn;
 featureList.hideTableOfContents = hideTableOfContents;
 
@@ -34,7 +32,8 @@ export default defineContentScript({
             console.debug(changes);
             console.debug(namespace);
             const func = changes.nb_settings.newValue.call_func;
-            featureList[func.name](func.arg);
+            // an older version of the extension on another synced device can still name a removed feature
+            featureList[func.name]?.(func.arg);
         });
 
         if (document.readyState !== 'loading') {

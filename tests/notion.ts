@@ -78,6 +78,7 @@ export function scrollerHtml(pageId: string, renderedBlocks: Block[]): string {
         <div class="notion-scroller vertical">
             <div class="notion-selectable notion-page-block" data-block-id="${pageId}"><h1>Test page</h1></div>
             <div class="notion-page-content"><div><div>${renderedBlocks.map(slotHtml).join('')}</div></div></div>
+            <div class="notion-presence-container"></div>
         </div>`;
 }
 
