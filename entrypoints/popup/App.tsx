@@ -1,6 +1,6 @@
-import { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 
-import { Page } from './main';
+import type { Page } from './main';
 import { SettingsTable } from '@/components/SettingsTable';
 
 function Home({ setPageToShow }: { setPageToShow: Dispatch<SetStateAction<Page>> }) {

@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 $btn-shadow-light: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px,
   rgba(15, 15, 15, 0.1) 0px 2px 4px;
 $btn-shadow-dark: rgba(15, 15, 15, 0.2) 0px 0px 0px 1px,
@@ -42,6 +44,9 @@ $themes: (
   ),
 );
 
+// set by themify() for themed() to read
+$theme-map: null;
+
 /*
  * Implementation of themes
  */
@@ -52,8 +57,8 @@ $themes: (
     .notion-#{$theme}-theme & {
       $theme-map: () !global;
       @each $key, $submap in $map {
-        $value: map-get(map-get($themes, $theme), "#{$key}");
-        $theme-map: map-merge(
+        $value: map.get(map.get($themes, $theme), "#{$key}");
+        $theme-map: map.merge(
           $theme-map,
           (
             $key: $value,
@@ -67,5 +72,5 @@ $themes: (
 }
 
 @function themed($key) {
-  @return map-get($theme-map, $key);
+  @return map.get($theme-map, $key);
 }

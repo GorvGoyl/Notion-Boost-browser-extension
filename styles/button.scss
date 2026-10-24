@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 $toggle: (
   enable: (
     background: rgb(46, 170, 220),
@@ -9,14 +11,17 @@ $toggle: (
   ),
 );
 
+// set by button() for themed() to read
+$theme-map: null;
+
 // states of toggle button in popup
 @mixin button() {
   @each $theme, $map in $toggle {
     .row.#{$theme} & {
       $theme-map: () !global;
       @each $key, $submap in $map {
-        $value: map-get(map-get($toggle, $theme), "#{$key}");
-        $theme-map: map-merge(
+        $value: map.get(map.get($toggle, $theme), "#{$key}");
+        $theme-map: map.merge(
           $theme-map,
           (
             $key: $value,
@@ -30,5 +35,5 @@ $toggle: (
 }
 
 @function themed($key) {
-  @return map-get($theme-map, $key);
+  @return map.get($theme-map, $key);
 }

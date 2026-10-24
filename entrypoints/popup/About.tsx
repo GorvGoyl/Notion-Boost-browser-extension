@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction } from 'react';
-import { Page } from './main';
+import type { Dispatch, SetStateAction } from 'react';
+import type { Page } from './main';
 
 export function About({ setPageToShow }: { setPageToShow: Dispatch<SetStateAction<Page>> }) {
     return (

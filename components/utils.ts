@@ -205,7 +205,7 @@ export function getLatestSettings() {
       const latestSet = { ...defaultSettings };
 
       browser.storage.sync.get(['nb_settings']).then((result) => {
-        const savedSet = result.nb_settings;
+        const savedSet: any = result.nb_settings;
         if (!isEmpty(savedSet)) {
           for (const k of Object.keys(defaultSettings)) {
             if (!isEmpty(savedSet[k])) {

@@ -1,4 +1,4 @@
-@import 'theme.scss';
+@use 'theme' as *;
 
 $caret-color-light-theme: rgb(55, 53, 47);
 $caret-color-dark-theme: rgb(255, 255, 255);
@@ -102,14 +102,14 @@ $caret-color-dark-theme: rgb(255, 255, 255);
 }
 
 .nb-outline {
-    &.show {
-        display: block !important;
-    }
     display: none;
     width: var(--outlineWidth);
     position: absolute;
     right: 0px;
     top: 0px;
+    &.show {
+        display: block !important;
+    }
     .table_of_contents {
         width: 100%;
         max-width: 1071px;
@@ -126,6 +126,11 @@ $caret-color-dark-theme: rgb(255, 255, 255);
                 white-space: pre-wrap;
                 margin: 0 0 6px 0;
                 text-align: center;
+                font-weight: 500;
+                text-transform: uppercase;
+                background-repeat: repeat-x;
+                background-position: 0px 100%;
+                background-size: 100% 1px;
 
                 &:hover,
                 &:focus,
@@ -140,12 +145,6 @@ $caret-color-dark-theme: rgb(255, 255, 255);
                     fill: themed('fill');
                     background-image: themed('background-image');
                 }
-
-                font-weight: 500;
-                text-transform: uppercase;
-                background-repeat: repeat-x;
-                background-position: 0px 100%;
-                background-size: 100% 1px;
             }
         }
         .block-wrapper {
@@ -163,6 +162,9 @@ $caret-color-dark-theme: rgb(255, 255, 255);
                     text-decoration: none;
 
                     .btn {
+                        transition: background 20ms ease-in 0s;
+                        cursor: pointer;
+                        width: 100%;
                         &:hover,
                         &:focus,
                         &:active {
@@ -170,9 +172,6 @@ $caret-color-dark-theme: rgb(255, 255, 255);
                                 background: themed('background');
                             }
                         }
-                        transition: background 20ms ease-in 0s;
-                        cursor: pointer;
-                        width: 100%;
                         .align {
                             padding: 6px 2px;
                             font-size: 13px;
@@ -360,18 +359,6 @@ $caret-color-dark-theme: rgb(255, 255, 255);
 
 // # Scroll Top btn
 .scroll-top-btn {
-    &.show {
-        display: flex !important;
-    }
-    &:hover {
-        @include themify() {
-            background: themed('floating-btn-hover-bg');
-        }
-    }
-    @include themify() {
-        background: themed('floating-btn-bg');
-        box-shadow: themed('floating-btn-shadow');
-    }
     display: none;
     user-select: none;
     transition:
@@ -389,6 +376,18 @@ $caret-color-dark-theme: rgb(255, 255, 255);
     border-radius: 100%;
     font-size: 20px;
     z-index: 101;
+    &.show {
+        display: flex !important;
+    }
+    &:hover {
+        @include themify() {
+            background: themed('floating-btn-hover-bg');
+        }
+    }
+    @include themify() {
+        background: themed('floating-btn-bg');
+        box-shadow: themed('floating-btn-shadow');
+    }
 }
 
 //
@@ -404,14 +403,14 @@ $caret-color-dark-theme: rgb(255, 255, 255);
         font-size: 85%;
         // font-family: var(--theme--font_code) !important;
         // color: var(--theme--text_ui_info);
-        @include themify() {
-            color: themed('color2');
-        }
         text-align: right;
         position: absolute;
         right: calc(100% - 30px);
         overflow: hidden;
         pointer-events: none;
+        @include themify() {
+            color: themed('color2');
+        }
     }
 }
 
@@ -477,14 +476,14 @@ $caret-color-dark-theme: rgb(255, 255, 255);
             animation-fill-mode: forwards;
             //// remove ellipses, add bg color
             div > div:nth-child(2) {
-                @include themify() {
-                    background: themed('table-header');
-                }
                 overflow: inherit !important;
                 padding-right: 10px;
                 height: 100%;
                 display: flex;
                 align-items: center;
+                @include themify() {
+                    background: themed('table-header');
+                }
             }
         }
 
@@ -497,10 +496,10 @@ $caret-color-dark-theme: rgb(255, 255, 255);
                 animation-duration: 1.5s;
                 // retain the style values that is set by the last keyframe
                 animation-fill-mode: forwards;
+                padding-right: 10px;
                 @include themify() {
                     background: themed('table-cell');
                 }
-                padding-right: 10px;
             }
 
             // for url
@@ -510,10 +509,10 @@ $caret-color-dark-theme: rgb(255, 255, 255);
                 animation-duration: 1.5s;
                 // retain the style values that is set by the last keyframe
                 animation-fill-mode: forwards;
+                padding-right: 10px;
                 @include themify() {
                     background: themed('table-cell');
                 }
-                padding-right: 10px;
             }
 
             // for text
@@ -524,11 +523,11 @@ $caret-color-dark-theme: rgb(255, 255, 255);
                 animation-duration: 1.5s;
                 // retain the style values that is set by the last keyframe
                 animation-fill-mode: forwards;
+                z-index: 1;
+                padding-right: 10px;
                 @include themify() {
                     background: themed('table-cell');
                 }
-                z-index: 1;
-                padding-right: 10px;
             }
 
             // select & mutli-select
@@ -550,10 +549,10 @@ $caret-color-dark-theme: rgb(255, 255, 255);
                 animation-duration: 1.5s;
                 // retain the style values that is set by the last keyframe
                 animation-fill-mode: forwards;
+                padding-right: 10px;
                 @include themify() {
                     background: themed('table-cell');
                 }
-                padding-right: 10px;
             }
 
             // // files & media

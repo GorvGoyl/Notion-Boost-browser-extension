@@ -5,6 +5,8 @@ export default defineConfig({
     modules: ['@wxt-dev/module-react'],
     manifestVersion: 3,
     outDir: 'build',
+    // dev and production builds share build/chrome-mv3 (WXT's default puts dev builds in build/chrome-mv3-dev)
+    outDirTemplate: '{{browser}}-mv{{manifestVersion}}',
     zip: {
         name: 'notion_boost',
         artifactTemplate: '{{name}}_{{browser}}.zip',
