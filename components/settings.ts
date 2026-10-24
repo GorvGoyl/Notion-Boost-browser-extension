@@ -23,7 +23,6 @@ export const defaultSettings = {
     openFullPage: false,
     narrowListItems: false,
     indentationLines: false,
-    rollupUrlClickable: false,
     borderOnImages: false,
     disableSlashCommandPlaceholder: false,
     disableAiAfterSpaceKey: false,
@@ -78,11 +77,6 @@ export const settingDetails = [
         func: 'openFullPage',
         name: 'Open full page instead of preview',
         desc: 'Bypass preview and open full page of table, board, etc',
-    },
-    {
-        func: 'rollupUrlClickable',
-        name: 'Make Rollup URLs clickable',
-        desc: 'Make URLs in Rollup property clickable',
     },
     {
         func: 'scrollTopBtn',
