@@ -6,8 +6,7 @@ import * as features from '../components/features/pageElements';
 import { scrollTopBtn } from '../components/features/scrollToTopBtn';
 // step 1 of 2: import feature
 import { spellcheckForCode } from '../components/features/spellCheckForCode';
-import { defaultSettings } from '../components/settings';
-import { getLatestSettings, isEmpty } from '../components/utils';
+import { getLatestSettings } from '../components/utils';
 import { hideAiBtn, hideTableOfContents } from '../components/features/pageElements';
 
 let featureList: any = {};
@@ -52,9 +51,6 @@ export default defineContentScript({
 });
 
 function init() {
-    let syncSet: any = {};
-    const updatedSet = { ...defaultSettings };
-
     getLatestSettings()
         .then((set: any) => {
             console.debug('LatestSettings: ', set);
@@ -70,21 +66,4 @@ function init() {
             return null;
         })
         .catch((e) => console.debug(e));
-
-    browser.storage.sync.get(['nb_settings']).then((result) => {
-        syncSet = result;
-
-        // merge synced settings with default settings and then apply updated settings
-        if (!isEmpty(syncSet)) {
-            for (const k of Object.keys(defaultSettings)) {
-                if (
-                    k in syncSet &&
-                    !isEmpty(syncSet[k as keyof typeof syncSet]) &&
-                    syncSet[k as keyof typeof syncSet] !== defaultSettings[k as keyof typeof defaultSettings]
-                ) {
-                    updatedSet[k as keyof typeof updatedSet] = syncSet[k as keyof typeof syncSet];
-                }
-            }
-        }
-    });
 }
