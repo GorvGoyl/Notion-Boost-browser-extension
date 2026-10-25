@@ -2,6 +2,8 @@
   "extends": "./.wxt/tsconfig.json",
   "compilerOptions": {
     "allowImportingTsExtensions": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    // WXT 0.21 turns this on in .wxt/tsconfig.json; the code isn't written for it yet
+    "noUncheckedIndexedAccess": false
   }
 }

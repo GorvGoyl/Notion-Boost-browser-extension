@@ -31,7 +31,7 @@ export default defineContentScript({
         browser.storage.onChanged.addListener((changes, namespace) => {
             console.debug(changes);
             console.debug(namespace);
-            const func = changes.nb_settings.newValue.call_func;
+            const func = (changes.nb_settings.newValue as any).call_func;
             // an older version of the extension on another synced device can still name a removed feature
             featureList[func.name]?.(func.arg);
         });

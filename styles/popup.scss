@@ -1,4 +1,4 @@
-@import 'button.scss';
+@use 'button' as *;
 
 $color-gray: #37352f;
 *,
@@ -41,7 +41,8 @@ body {
 
     fill: currentcolor;
     line-height: 1.5;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, 'Apple Color Emoji', Arial, sans-serif,
+    font-family:
+        -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, 'Apple Color Emoji', Arial, sans-serif,
         'Segoe UI Emoji', 'Segoe UI Symbol';
     -webkit-font-smoothing: auto;
 }
@@ -71,6 +72,8 @@ p {
 
 .back.button {
     display: inline-block;
+    cursor: pointer;
+    margin-bottom: 5px;
     .arrow {
         -webkit-mask-image: url('../assets/left-arrow.svg');
         mask-image: url('../assets/left-arrow.svg');
@@ -82,8 +85,6 @@ p {
         mask-repeat: no-repeat;
         padding-left: 60px;
     }
-    cursor: pointer;
-    margin-bottom: 5px;
 }
 
 $line: 1px solid rgba($color-gray, 0.1);
@@ -115,9 +116,6 @@ $line: 1px solid rgba($color-gray, 0.1);
     background-size: 100% 1px;
 }
 .title {
-    &:hover {
-        text-decoration: underline;
-    }
     color: $color-gray;
     text-decoration: none;
     cursor: pointer;
@@ -126,6 +124,9 @@ $line: 1px solid rgba($color-gray, 0.1);
     width: auto;
     margin-bottom: 10px;
     display: inline-block;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 .sub-title {
@@ -145,9 +146,6 @@ $line: 1px solid rgba($color-gray, 0.1);
             color: inherit;
             // margin-left: -6px;
             .btn2 {
-                &:hover {
-                    background-color: rgba($color-gray, 0.08);
-                }
                 user-select: none;
                 cursor: pointer;
                 display: inline-flex;
@@ -160,11 +158,11 @@ $line: 1px solid rgba($color-gray, 0.1);
                 padding-left: 5px;
                 padding-right: 5px;
                 color: rgba($color-gray, 0.6);
-            }
-            .button {
                 &:hover {
                     background-color: rgba($color-gray, 0.08);
                 }
+            }
+            .button {
                 user-select: none;
                 cursor: pointer;
                 display: inline-flex;
@@ -178,6 +176,9 @@ $line: 1px solid rgba($color-gray, 0.1);
                 min-width: 0px;
                 padding: 3px 6px;
                 color: rgba($color-gray, 0.5);
+                &:hover {
+                    background-color: rgba($color-gray, 0.08);
+                }
             }
         }
     }
@@ -198,13 +199,13 @@ $line: 1px solid rgba($color-gray, 0.1);
         border-radius: 44px;
         padding: 2px;
         box-sizing: content-box;
+        transition:
+            background 200ms ease 0s,
+            box-shadow 200ms ease 0s;
 
         @include button() {
             background: themed('background');
         }
-        transition:
-            background 200ms ease 0s,
-            box-shadow 200ms ease 0s;
     }
     .pos {
         width: 14px;
@@ -221,6 +222,17 @@ $line: 1px solid rgba($color-gray, 0.1);
 }
 
 .payment {
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: rgb(55, 53, 47);
+    fill: currentcolor;
+    line-height: 1.5;
+    font-family:
+        -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, 'Apple Color Emoji', Arial, sans-serif,
+        'Segoe UI Emoji', 'Segoe UI Symbol';
+    -webkit-font-smoothing: auto;
+    flex-direction: column;
     > div:nth-child(1) {
         margin-top: 5px;
         margin-bottom: 15px;
@@ -230,16 +242,6 @@ $line: 1px solid rgba($color-gray, 0.1);
     // > div:nth-child(2) {
     //   margin: 3px 0px;
     // }
-    display: flex;
-    margin-bottom: 10px;
-    font-size: 14px;
-    color: rgb(55, 53, 47);
-    fill: currentcolor;
-    line-height: 1.5;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, 'Apple Color Emoji', Arial, sans-serif,
-        'Segoe UI Emoji', 'Segoe UI Symbol';
-    -webkit-font-smoothing: auto;
-    flex-direction: column;
 
     .pricing {
         border: 1px solid rgba($color-gray, 0.09);
@@ -297,11 +299,6 @@ $line: 1px solid rgba($color-gray, 0.1);
 }
 
 .settings.search {
-    &::placeholder {
-        color: rgba($color-gray, 0.4);
-        font-size: 14px;
-    }
-
     width: 100%;
     border: none;
     // border: 1px solid rgba($color-gray, 1);
@@ -311,6 +308,11 @@ $line: 1px solid rgba($color-gray, 0.1);
     padding: 8px;
     color: rgba($color-gray, 0.8);
     background: rgba(206, 205, 202, 0.3);
+
+    &::placeholder {
+        color: rgba($color-gray, 0.4);
+        font-size: 14px;
+    }
 }
 .settings.table {
     display: flex;
@@ -356,9 +358,6 @@ $line: 1px solid rgba($color-gray, 0.1);
     }
 
     .divider {
-        &.last {
-            height: 12px;
-        }
         display: flex;
         align-items: center;
         justify-content: center;
@@ -366,6 +365,9 @@ $line: 1px solid rgba($color-gray, 0.1);
         width: 100%;
         height: 24px;
         flex: 0 0 auto;
+        &.last {
+            height: 12px;
+        }
         .border {
             width: 100%;
             height: 1px;

@@ -1,5 +1,5 @@
-import { defineRunnerConfig } from 'wxt';
+import { defineWebExtConfig } from 'wxt';
 
-export default defineRunnerConfig({
+export default defineWebExtConfig({
     disabled: true, // stop browser from being launched automatically after running `pnpm run dev`
 });
