@@ -70,10 +70,9 @@ export function SettingsTable() {
                         set[funcToDisable] = false;
                     }
 
-                    browser.storage.sync.set({ nb_settings: set }).then(() => {
+                    return browser.storage.sync.set({ nb_settings: set }).then(() => {
                         refreshSettings();
                     });
-                    return null;
                 })
                 .catch((e) => console.log(e));
         } catch (e) {

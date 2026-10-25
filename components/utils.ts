@@ -204,17 +204,20 @@ export function getLatestSettings() {
     try {
       const latestSet = { ...defaultSettings };
 
-      browser.storage.sync.get(['nb_settings']).then((result) => {
-        const savedSet: any = result.nb_settings;
-        if (!isEmpty(savedSet)) {
-          for (const k of Object.keys(defaultSettings)) {
-            if (!isEmpty(savedSet[k])) {
-              (latestSet as any)[k] = savedSet[k];
+      browser.storage.sync
+        .get(['nb_settings'])
+        .then((result) => {
+          const savedSet: any = result.nb_settings;
+          if (!isEmpty(savedSet)) {
+            for (const k of Object.keys(defaultSettings)) {
+              if (!isEmpty(savedSet[k])) {
+                (latestSet as any)[k] = savedSet[k];
+              }
             }
           }
-        }
-        resolve(latestSet);
-      });
+          resolve(latestSet);
+        })
+        .catch(reject);
     } catch (e) {
       console.log(e);
       reject(Error('some issue... promise rejected'));
