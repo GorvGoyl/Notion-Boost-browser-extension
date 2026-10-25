@@ -248,6 +248,7 @@ describe('page content', () => {
 
         // same page, re-rendered page content
         const content = pageContent();
+        // eslint-disable-next-line no-self-assign -- setting outerHTML replaces the element with a new copy
         content.outerHTML = content.outerHTML;
         await sleep(600);
         renderedBlock('h1-11').querySelector('[data-content-editable-leaf]')!.textContent = 'Edited after re-render';
