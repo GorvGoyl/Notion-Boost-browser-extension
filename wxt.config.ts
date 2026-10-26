@@ -11,6 +11,8 @@ export default defineConfig({
         name: 'notion_boost',
         artifactTemplate: '{{name}}_{{browser}}.zip',
         sourcesTemplate: '{{name}}_sourcecode.zip',
+        // the source zip goes to Firefox's reviewers: keep out the private key for packing .crx files
+        excludeSources: ['**/*.pem'],
     },
     manifest: ({ browser }) => {
         // case: browser is firefox, add browser_specific_settings to avoid storage access error
@@ -20,6 +22,8 @@ export default defineConfig({
                 browser_specific_settings: {
                     gecko: {
                         id: '{0d49b33c-467a-4897-bea4-c82d6756e5c4}',
+                        // Firefox's data consent: the extension sends no user data anywhere
+                        data_collection_permissions: { required: ['none'] },
                     },
                 },
             };
