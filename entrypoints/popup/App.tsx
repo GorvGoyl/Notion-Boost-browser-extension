@@ -59,11 +59,11 @@ function Home({ setPageToShow }: { setPageToShow: Dispatch<SetStateAction<Page>>
                     }}>
                     <a
                         style={styles.link}
-                        href="https://chatgptwriter.ai?ref=notionboost"
+                        href="https://jetwriter.ai?ref=notionboost"
                         target="_blank"
                         rel="noopener noreferrer"
-                        title="ChatGPT Writer">
-                        ChatGPT Writer
+                        title="Jetwriter AI">
+                        Jetwriter AI
                     </a>
                     <span style={styles.smallGreyText}> - Let AI write emails and messages for you</span>
                 </div>
