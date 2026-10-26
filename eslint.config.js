@@ -11,7 +11,8 @@ import tseslint from 'typescript-eslint';
 import wxtAutoImports from './.wxt/eslint-auto-imports.mjs';
 
 export default defineConfig([
-    globalIgnores(['build/', '.wxt/', '.output/', 'test-results/', 'playwright-report/']),
+    // .claude/worktrees/ holds agent worktrees: full copies of the repo, each with its own build/
+    globalIgnores(['build/', '.wxt/', '.output/', 'test-results/', 'playwright-report/', '.claude/']),
     {
         files: ['**/*.{js,mjs,cjs,ts,tsx}'],
         extends: [
