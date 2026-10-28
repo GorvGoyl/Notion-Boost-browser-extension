@@ -40,7 +40,7 @@ const baseManifest = {
     short_name: 'Notion Boost',
     version: '3.3.8',
     description:
-        'Boost Notion productivity with 20+ customizations like outline, small text full width for all, back to top button etc',
+        'Boost Notion productivity with 20+ tweaks: a sticky outline, full width and small text by default, a scroll-to-top button and more',
     author: 'Gourav Goyal',
     permissions: ['storage'],
     host_permissions: ['*://*.notion.so/*', '*://*.notion.site/*', '*://*.notion.com/*'],
