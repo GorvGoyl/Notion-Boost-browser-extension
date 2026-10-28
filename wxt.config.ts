@@ -12,7 +12,8 @@ export default defineConfig({
         artifactTemplate: '{{name}}_{{browser}}.zip',
         sourcesTemplate: '{{name}}_sourcecode.zip',
         // the source zip goes to Firefox's reviewers: keep out the private key for packing .crx files
-        excludeSources: ['**/*.pem'],
+        // and the Chrome Web Store service account's key
+        excludeSources: ['**/*.pem', 'chrome-web-store-service-account.json'],
     },
     manifest: ({ browser }) => {
         // case: browser is firefox, add browser_specific_settings to avoid storage access error

@@ -31,3 +31,6 @@ test-results
 playwright-report
 # saved Notion login of the e2e test account
 e2e/.auth
+
+# key of the service account that publishes to the Chrome Web Store
+chrome-web-store-service-account.json
