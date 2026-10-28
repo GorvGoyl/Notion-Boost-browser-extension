@@ -24,6 +24,13 @@ featureList.hideTableOfContents = hideTableOfContents;
 
 export default defineContentScript({
     matches: ['*://*.notion.so/*', '*://*.notion.site/*', '*://*.notion.com/*'],
+    // Notion Calendar and Notion Mail are separate apps that none of the features are for
+    excludeMatches: [
+        '*://calendar.notion.so/*',
+        '*://calendar.notion.com/*',
+        '*://mail.notion.so/*',
+        '*://mail.notion.com/*',
+    ],
     main() {
         init();
 
