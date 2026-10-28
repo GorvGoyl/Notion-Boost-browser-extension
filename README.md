@@ -2,12 +2,12 @@
 
 # Notion Boost browser extension
 
-> Browser extension to add 20+ features to Notion.so like sticky outline (table of contents), small text & full width by default,scroll to top button, hide slash command menu, hide help button, bolder text and more.
+> Browser extension to add 20+ features to Notion like sticky outline (table of contents), small text & full width by default, scroll to top button, hide slash command menu, hide AI button, bolder text and more.
 
 <div style="display:flex;gap:10px;">
   <a
     title="Chrome extension link"
-    href="https://chrome.google.com/webstore/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd"
+    href="https://chromewebstore.google.com/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd"
     target="_blank"
     rel="noopener"
     ><img
@@ -17,7 +17,7 @@
       src="https://flat.badgen.net/chrome-web-store/v/eciepnnimnjaojlkcpdpcgbfkpcagahd?color=fb9836&amp;icon=chrome&amp;label=chrome" /></a
   ><a
     title="Chrome extension link"
-    href="https://chrome.google.com/webstore/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd"
+    href="https://chromewebstore.google.com/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd"
     target="_blank"
     rel="noopener"
     ><img
@@ -27,7 +27,7 @@
       src="https://flat.badgen.net/chrome-web-store/users/eciepnnimnjaojlkcpdpcgbfkpcagahd?color=fb9836&amp;icon=chrome" /></a
   ><a
     title="Chrome extension link"
-    href="https://chrome.google.com/webstore/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd"
+    href="https://chromewebstore.google.com/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd"
     target="_blank"
     rel="noopener"
     ><img
@@ -64,7 +64,7 @@ https://gourav.io/notion-boost
 
 ### ⬇ Downloads
 
-- Chrome/Edge/Brave extension - https://chrome.google.com/webstore/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd
+- Chrome/Edge/Brave extension - https://chromewebstore.google.com/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd
 - Firefox addon - https://addons.mozilla.org/en-US/firefox/addon/notion-boost/
 
 ### ⭐ All Features
@@ -77,7 +77,9 @@ See what's new in latest update: https://gourav.io/notion-boost/whats-new
 
 ---
 
-#### 👍 Liked this extension? express your love by rating [★★★★★](https://chrome.google.com/webstore/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd) on Chrome/Firefox store.
+#### 👍 Liked this extension? express your love by rating [★★★★★](https://chromewebstore.google.com/detail/notion-boost/eciepnnimnjaojlkcpdpcgbfkpcagahd) on Chrome/Firefox store.
+
+#### ❤️ Notion Boost is free. Support its development on [Ko-fi](https://ko-fi.com/gorvgoyl).
 
 <!-- #### ✨ Follow [@NotionBoost](https://twitter.com/intent/follow?user_id=1312809481240154112) on Twitter for many amazing Notion tips & tricks. -->
 
