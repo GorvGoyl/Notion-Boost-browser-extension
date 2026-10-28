@@ -27,9 +27,13 @@ const sidebarPage = (title: string) =>
     page.locator('.notion-sidebar a[role="treeitem"]').filter({ hasText: title }).first();
 
 async function expectButtonScrollsBackToTop() {
-    // the button shows after scrolling down a screen
-    await page.locator(scrollerSel).evaluate((el) => el.scrollTo(0, el.clientHeight * 2));
-    await expect(button()).toBeVisible();
+    // the button shows after scrolling down a screen. Notion scrolls a page it has just opened back to the top
+    // once it has loaded, so scroll again until the page stays scrolled down.
+    await expect(async () => {
+        await page.locator(scrollerSel).evaluate((el) => el.scrollTo(0, el.clientHeight * 2));
+        await page.waitForTimeout(1000);
+        await expect(button()).toBeVisible({ timeout: 100 });
+    }).toPass({ timeout: 15_000 });
 
     await button().click();
 
