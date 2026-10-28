@@ -14,6 +14,8 @@ let ticking = false;
 let isBtnVisible = false;
 let scrollBtn: HTMLElement | undefined;
 let docElement: HTMLElement | undefined;
+// an SVG, not a character: fonts on Linux lack the ⭡ the button used to show, which came out as an empty box
+const arrowIcon = `<svg viewBox="0 0 16 16" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M3.5 7.5 8 3l4.5 4.5"/></svg>`;
 
 export function scrollTopBtn(isEnabled: boolean) {
   try {
@@ -64,7 +66,7 @@ function addScrollTopBtn() {
   if (scrollBtn) return;
 
   // add btn div to HTML
-  const btnHTML = `<div class="scroll-top-btn" title="Scroll back to top" role="button" tabindex="0">⭡</div>`;
+  const btnHTML = `<div class="scroll-top-btn" title="Scroll back to top" role="button" tabindex="0">${arrowIcon}</div>`;
   const btnEl = toElement(btnHTML);
   getElement(notionFrameCls).after(btnEl);
   console.log('inserted scroll btn div');

@@ -100,6 +100,13 @@ describe('scroll to top button', () => {
         await waitFor(() => expect(isButtonShown()).toBe(true));
     });
 
+    it('shows its arrow as an icon, not as a character that a font may lack', async () => {
+        await turnOn();
+
+        expect(button()!.querySelector('svg')).not.toBeNull();
+        expect(button()!.textContent).toBe('');
+    });
+
     it('is added once when turned on twice', async () => {
         await turnOn();
         scrollTopBtn(true);
