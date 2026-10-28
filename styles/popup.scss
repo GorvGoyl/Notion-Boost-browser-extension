@@ -1,6 +1,7 @@
 @use 'button' as *;
 
 $color-gray: #37352f;
+$color-red: #eb5757;
 *,
 *:focus {
     outline: 0;
@@ -134,6 +135,44 @@ $line: 1px solid rgba($color-gray, 0.1);
 }
 .wrapper {
     flex-grow: 1;
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        .title {
+            margin-bottom: 0;
+        }
+    }
+
+    .donate {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 28px;
+        padding: 0 12px;
+        border: 1px solid rgba($color-gray, 0.16);
+        border-radius: 999px;
+        color: $color-gray;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+        transition:
+            background 120ms ease-in,
+            border-color 120ms ease-in;
+        svg {
+            color: $color-red;
+            transition: transform 120ms ease-in;
+        }
+        &:hover {
+            background: rgba($color-red, 0.07);
+            border-color: rgba($color-red, 0.4);
+            svg {
+                transform: scale(1.15);
+            }
+        }
+    }
 
     .footer {
         display: flex;
