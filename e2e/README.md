@@ -12,7 +12,8 @@ There are two kinds of tests:
 
 - `e2e/outline.spec.ts` uses a public Notion page, so it needs no login. Set `NOTION_PUBLIC_PAGE_URL` to use another page.
 - `e2e/workspace.spec.ts` uses a long page in a Notion **test account**: it checks the outline on a page where
-  Notion renders only some of the blocks, edits headings (and undoes the edits), checks wide tables and navigation.
+  Notion renders only some of the blocks, edits headings (and undoes the edits), checks wide tables and navigation,
+  and that hovering a link to a sub-page doesn't switch the outline to it (skipped if the page has no sub-page).
   It's skipped until a login is saved:
 
   ```bash

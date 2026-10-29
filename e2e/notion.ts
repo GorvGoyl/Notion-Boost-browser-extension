@@ -26,8 +26,9 @@ export function renderedHeading(page: Page, text: string): Locator {
 // this is what the outline should list, including headings Notion hasn't rendered.
 export function headingsFromPageData(page: Page): Promise<string[]> {
     return page.evaluate(async () => {
+        // a hovered block's drag handle is a copy of the block, also outside the page content
         const titleBlock = [...document.querySelectorAll('.notion-frame .notion-page-block[data-block-id]')].find(
-            (el) => !el.closest('.notion-page-content'),
+            (el) => !el.closest('.notion-page-content, .notion-selectable-drag-handle'),
         );
         const pageId = titleBlock?.getAttribute('data-block-id');
         const blocks: Record<string, any> = {};

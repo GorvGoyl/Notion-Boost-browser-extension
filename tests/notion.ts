@@ -105,6 +105,18 @@ export function renderNotionPage(pageId: string, renderedBlocks: Block[], { isPu
 export const pageContent = () => document.querySelector('.notion-frame .notion-page-content')!;
 export const renderedBlock = (id: string) => document.querySelector(`[data-block-id="${id}"]`)!;
 
+// Hovering a block shows its drag handle, which Notion renders as a copy of the block (same id and classes) in
+// the page scroller, ahead of the page's title block.
+export function hoverBlock(id: string, dragHandleCls = 'notion-selectable-drag-handle') {
+    const block = pageContent().querySelector(`[data-block-id="${id}"]`)!;
+    document.querySelector('.notion-frame .notion-scroller.vertical')!.insertAdjacentHTML(
+        'afterbegin',
+        `<div><div class="notion-selectable-hover-menu-item"><div>
+            <div data-block-id="${id}" class="${block.className} ${dragHandleCls}"><div role="button"></div></div>
+        </div></div></div>`,
+    );
+}
+
 // text and indentation of each outline entry, e.g. "h1 Introduction"
 export const outlineEntries = () =>
     [...document.querySelectorAll('.nb-outline .block')].map(

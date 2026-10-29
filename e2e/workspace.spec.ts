@@ -53,6 +53,21 @@ test.describe('outline on a long workspace page', () => {
         });
     });
 
+    test('stays on the open page while a link to a sub-page is hovered', async () => {
+        await scrollPageTo(page, 'top');
+        const subPageLink = page.locator(`${pageContentSel} .notion-page-block`).first();
+        test.skip(!(await subPageLink.count()), 'the test page has no sub-page');
+
+        await subPageLink.hover();
+        // the outline checks for page changes every 500 ms
+        for (let i = 0; i < 8; i++) {
+            await page.waitForTimeout(250);
+            expect(await outlineEntries(page)).toEqual(headings);
+        }
+        await expectOutlineShown(page);
+        await page.mouse.move(0, 0);
+    });
+
     test('jumps to a heading far down the page', async () => {
         await scrollPageTo(page, 'top');
         const target = headings[headings.length - 5];

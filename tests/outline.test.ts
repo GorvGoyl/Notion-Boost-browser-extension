@@ -3,6 +3,7 @@ import {
     type Block,
     blockHtml,
     heading,
+    hoverBlock,
     isOutlineShown,
     mockPageDataApi,
     outlineEntries,
@@ -30,6 +31,8 @@ const allEntries = sections
 
 // Notion only renders the blocks around the viewport; sections 10 and 11 here
 const renderedSections = sections.slice(40, 48);
+
+const otherPage = [heading('other-a', 1, 'Other page heading'), paragraph('other-p')];
 
 let fetchMock: ReturnType<typeof vi.fn>;
 let displayOutline: (isShow: boolean) => void;
@@ -59,6 +62,7 @@ afterEach(() => {
     vi.unstubAllGlobals();
     vi.restoreAllMocks();
     document.body.innerHTML = '';
+    history.replaceState(null, '', '/');
 });
 
 describe('outline', () => {
@@ -186,7 +190,6 @@ describe('outline', () => {
     });
 
     it('follows navigation to another page', async () => {
-        const otherPage = [heading('other-a', 1, 'Other page heading'), paragraph('other-p')];
         await startOutline({
             [pageId]: pageData(pageId, sections),
             'page-2': pageData('page-2', otherPage),
@@ -200,6 +203,48 @@ describe('outline', () => {
         expect(document.querySelector('.nb-outline')!.nextElementSibling).toBe(
             document.querySelector('.notion-scroller.vertical'),
         );
+    });
+
+    it('stays on the open page while a link to another page is hovered', async () => {
+        // a sub-page block in the rendered part of the page
+        const blocks = [
+            ...sections.slice(0, 44),
+            { id: 'page-2', type: 'page', text: 'Other page' },
+            ...sections.slice(44),
+        ];
+        renderNotionPage(pageId, blocks.slice(40, 49));
+        await startOutline({ [pageId]: pageData(pageId, blocks), 'page-2': pageData('page-2', otherPage) });
+        await waitFor(() => expect(outlineEntries()).toHaveLength(60));
+
+        hoverBlock('page-2');
+        // the outline checks for page changes every 500 ms
+        await sleep(1200);
+
+        expect(outlineEntries()).toEqual(allEntries);
+        expect(isOutlineShown()).toBe(true);
+        expect(pageDataLoads()).toBe(1);
+    });
+
+    it('stays on the page named in the url when a copy of another page block is outside the page content', async () => {
+        // ids the way Notion writes them, so that the url names the page
+        const openId = '403e4645-cb5a-803b-a115-f26c32357ac4';
+        const subPageId = '408e4645-cb5a-80cc-9d1e-fcdd2ad4b233';
+        history.replaceState(null, '', `/Outline-test-${openId.replace(/-/g, '')}`);
+        const blocks = [
+            ...sections.slice(0, 44),
+            { id: subPageId, type: 'page', text: 'Other page' },
+            ...sections.slice(44),
+        ];
+        renderNotionPage(openId, blocks.slice(40, 49));
+        await startOutline({ [openId]: pageData(openId, blocks), [subPageId]: pageData(subPageId, otherPage) });
+        await waitFor(() => expect(outlineEntries()).toHaveLength(60));
+
+        // a drag handle that isn't marked the way the outline expects
+        hoverBlock(subPageId, 'renamed-drag-handle');
+        await sleep(1200);
+
+        expect(outlineEntries()).toEqual(allEntries);
+        expect(pageDataLoads()).toBe(1);
     });
 });
 
