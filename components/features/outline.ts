@@ -105,14 +105,17 @@ function removeOutline() {
     console.log('removed outline feature');
 }
 
-// id of the page that is open: its title block sits above the page content
+// id of the page that is open: from the URL, or else from its title block above the page content.
+// Hovering a block shows its drag handle, a copy of the block that's also outside the page content,
+// so for a link to another page the title block lookup would find that page instead.
 function getPageId(): string {
-    const titleBlock = [...document.querySelectorAll('.notion-frame .notion-page-block[data-block-id]')].find(
-        (el) => !el.closest('.notion-page-content'),
-    );
-    if (titleBlock) return titleBlock.getAttribute('data-block-id') ?? '';
+    const idFromPath = pageIdFromPath(location.pathname);
+    if (idFromPath) return idFromPath;
 
-    return pageIdFromPath(location.pathname);
+    const titleBlock = [...document.querySelectorAll('.notion-frame .notion-page-block[data-block-id]')].find(
+        (el) => !el.closest('.notion-page-content, .notion-selectable-hover-menu-item'),
+    );
+    return titleBlock?.getAttribute('data-block-id') ?? '';
 }
 
 // PAGE DATA

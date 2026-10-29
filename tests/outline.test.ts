@@ -47,6 +47,8 @@ async function startOutline(pages: Record<string, Record<string, unknown>>, chun
 const pageDataLoads = () => fetchMock.mock.calls.filter(([, init]) => JSON.parse(init.body).chunkNumber === 0).length;
 
 const waitFor = (assertion: () => void) => vi.waitFor(assertion, { timeout: 4000, interval: 50 });
+// happy-dom's way to change location without navigating
+const setUrl = (url: string) => (window as unknown as { happyDOM: { setURL(url: string): void } }).happyDOM.setURL(url);
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 beforeEach(() => {
@@ -200,6 +202,48 @@ describe('outline', () => {
         expect(document.querySelector('.nb-outline')!.nextElementSibling).toBe(
             document.querySelector('.notion-scroller.vertical'),
         );
+    });
+
+    // hovering a block shows its drag handle: a copy of the block in the page scroller, outside the page content
+    const hoverDragHandle = (blockId: string) => {
+        document
+            .querySelector('.notion-scroller.vertical')!
+            .insertAdjacentHTML(
+                'afterbegin',
+                `<div class="notion-selectable-hover-menu-item"><div><div><div class="notion-selectable notion-page-block notion-selectable-drag-handle" data-block-id="${blockId}"></div></div></div></div>`,
+            );
+    };
+    const hoveredPageId = '66666666-7777-8888-9999-000000000000';
+    const hoveredPage = { [hoveredPageId]: pageData(hoveredPageId, [heading('hovered-a', 1, 'Hovered page')]) };
+    const loadedPageIds = () => fetchMock.mock.calls.map(([, init]) => JSON.parse(init.body).pageId);
+
+    it('stays on the open page while a link to another page is hovered', async () => {
+        await startOutline({ [pageId]: pageData(pageId, sections), ...hoveredPage });
+        await waitFor(() => expect(outlineEntries()).toEqual(allEntries));
+
+        hoverDragHandle(hoveredPageId);
+        await sleep(1200);
+
+        expect(outlineEntries()).toEqual(allEntries);
+        expect(loadedPageIds()).not.toContain(hoveredPageId);
+    });
+
+    it('takes the page id from the URL when there is one', async () => {
+        const openPageId = '11111111-2222-3333-4444-555555555555';
+        setUrl(`https://www.notion.so/Test-page-${openPageId.replace(/-/g, '')}`);
+        try {
+            renderNotionPage(openPageId, renderedSections);
+            await startOutline({ [openPageId]: pageData(openPageId, sections), ...hoveredPage });
+            await waitFor(() => expect(outlineEntries()).toEqual(allEntries));
+
+            hoverDragHandle(hoveredPageId);
+            await sleep(1200);
+
+            expect(outlineEntries()).toEqual(allEntries);
+            expect(loadedPageIds()).not.toContain(hoveredPageId);
+        } finally {
+            setUrl('about:blank');
+        }
     });
 });
 
